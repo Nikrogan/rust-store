@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RustStore", "RustStore\RustStore.csproj", "{22169FCD-7530-4480-97B8-0B1A438C5675}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{93605C31-8C2C-49C5-904C-D579E56A3056}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{22169FCD-7530-4480-97B8-0B1A438C5675}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22169FCD-7530-4480-97B8-0B1A438C5675}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22169FCD-7530-4480-97B8-0B1A438C5675}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22169FCD-7530-4480-97B8-0B1A438C5675}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93605C31-8C2C-49C5-904C-D579E56A3056}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93605C31-8C2C-49C5-904C-D579E56A3056}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93605C31-8C2C-49C5-904C-D579E56A3056}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93605C31-8C2C-49C5-904C-D579E56A3056}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2D8C3741-4760-4419-9AE2-0833A1BD017C}
+	EndGlobalSection
+EndGlobal

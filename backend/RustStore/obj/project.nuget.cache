@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "8yzptBUlZDkz1YOJWH5H2fTo2Ex3DdE8qOHST658ZVwkKkqOCOF6aIZsbGmeDErwgfXmkAGqv6I7WltwIuiaMA==",
+  "success": true,
+  "projectFilePath": "F:\\project\\RustStore\\RustStore\\RustStore.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\azorety\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "C:\\Users\\azorety\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\azorety\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
+    "C:\\Users\\azorety\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
+    "C:\\Users\\azorety\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
+    "C:\\Users\\azorety\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.5.0\\swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}

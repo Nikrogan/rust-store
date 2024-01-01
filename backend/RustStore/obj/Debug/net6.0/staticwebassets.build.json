@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "MfmbEQ2tUlf7j/qmtZSe+zNrUDWigCoVinwcITWdibA=",
+  "Source": "RustStore",
+  "BasePath": "_content/RustStore",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
