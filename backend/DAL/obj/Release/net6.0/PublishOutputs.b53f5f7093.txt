@@ -1,0 +1,3 @@
+F:\project\RustStore\rust-store\backend\DAL\bin\Release\net6.0\publish\DAL.dll
+F:\project\RustStore\rust-store\backend\DAL\bin\Release\net6.0\publish\DAL.deps.json
+F:\project\RustStore\rust-store\backend\DAL\bin\Release\net6.0\publish\DAL.pdb

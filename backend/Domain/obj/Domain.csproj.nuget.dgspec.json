@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\project\\RustStore\\rust-store\\backend\\DAL\\DAL.csproj": {}
+    "F:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj": {}
   },
   "projects": {
-    "F:\\project\\RustStore\\rust-store\\backend\\DAL\\DAL.csproj": {
+    "F:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\project\\RustStore\\rust-store\\backend\\DAL\\DAL.csproj",
-        "projectName": "DAL",
-        "projectPath": "F:\\project\\RustStore\\rust-store\\backend\\DAL\\DAL.csproj",
+        "projectUniqueName": "F:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj",
+        "projectName": "Domain",
+        "projectPath": "F:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\azorety\\.nuget\\packages\\",
-        "outputPath": "F:\\project\\RustStore\\rust-store\\backend\\DAL\\obj\\",
+        "outputPath": "F:\\project\\RustStore\\rust-store\\backend\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -44,11 +44,7 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
-            "Microsoft.Extensions.Configuration.Abstractions": {
-              "target": "Package",
-              "version": "[8.0.0, )"
-            },
-            "MongoDB.Driver": {
+            "MongoDB.Bson": {
               "target": "Package",
               "version": "[2.23.1, )"
             }
