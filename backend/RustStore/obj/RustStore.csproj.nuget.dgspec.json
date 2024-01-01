@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\project\\RustStore\\RustStore\\RustStore.csproj": {}
+    "F:\\project\\RustStore\\rust-store\\backend\\RustStore\\RustStore.csproj": {}
   },
   "projects": {
-    "F:\\project\\RustStore\\RustStore\\RustStore.csproj": {
+    "F:\\project\\RustStore\\rust-store\\backend\\RustStore\\RustStore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\project\\RustStore\\RustStore\\RustStore.csproj",
+        "projectUniqueName": "F:\\project\\RustStore\\rust-store\\backend\\RustStore\\RustStore.csproj",
         "projectName": "RustStore",
-        "projectPath": "F:\\project\\RustStore\\RustStore\\RustStore.csproj",
+        "projectPath": "F:\\project\\RustStore\\rust-store\\backend\\RustStore\\RustStore.csproj",
         "packagesPath": "C:\\Users\\azorety\\.nuget\\packages\\",
-        "outputPath": "F:\\project\\RustStore\\RustStore\\obj\\",
+        "outputPath": "F:\\project\\RustStore\\rust-store\\backend\\RustStore\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
