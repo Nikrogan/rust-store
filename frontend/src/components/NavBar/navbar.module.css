@@ -1,0 +1,22 @@
+.main {
+    padding: 2rem 10rem;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+  
+.buttonMain {
+    max-width: 296px;
+    width: 100%;
+}
+  
+.flex {
+    width: 100%;
+}
+
+
+
+  
+  
+  
