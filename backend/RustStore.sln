@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RustStore", "RustStore\Rust
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{93605C31-8C2C-49C5-904C-D579E56A3056}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{15FF3C03-69DA-4570-A7B4-E9069E02356F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{15FF3C03-69DA-4570-A7B4-E9069E02356F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -31,7 +31,15 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
+<<<<<<< HEAD
             "projectReferences": {}
+=======
+            "projectReferences": {
+              "F:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj": {
+                "projectPath": "F:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj"
+              }
+            }
+>>>>>>> 5cabab5 (сделал сервисы для управлением пользователя и стимом)
           }
         },
         "warningProperties": {
@@ -43,6 +51,19 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+<<<<<<< HEAD
+=======
+          "dependencies": {
+            "Microsoft.Extensions.Configuration.Abstractions": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "MongoDB.Driver": {
+              "target": "Package",
+              "version": "[2.23.1, )"
+            }
+          },
+>>>>>>> 5cabab5 (сделал сервисы для управлением пользователя и стимом)
           "imports": [
             "net461",
             "net462",

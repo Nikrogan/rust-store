@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\project\\RustStore\\rust-store\\backend\\RustStore\\RustStore.csproj": {}
+    "f:\\project\\RustStore\\rust-store\\backend\\RustStore\\RustStore.csproj": {}
   },
   "projects": {
-    "F:\\project\\RustStore\\rust-store\\backend\\DAL\\DAL.csproj": {
+    "f:\\project\\RustStore\\rust-store\\backend\\DAL\\DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\project\\RustStore\\rust-store\\backend\\DAL\\DAL.csproj",
+        "projectUniqueName": "f:\\project\\RustStore\\rust-store\\backend\\DAL\\DAL.csproj",
         "projectName": "DAL",
-        "projectPath": "F:\\project\\RustStore\\rust-store\\backend\\DAL\\DAL.csproj",
+        "projectPath": "f:\\project\\RustStore\\rust-store\\backend\\DAL\\DAL.csproj",
         "packagesPath": "C:\\Users\\azorety\\.nuget\\packages\\",
-        "outputPath": "F:\\project\\RustStore\\rust-store\\backend\\DAL\\obj\\",
+        "outputPath": "f:\\project\\RustStore\\rust-store\\backend\\DAL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -31,7 +31,11 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "f:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj": {
+                "projectPath": "f:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -73,14 +77,14 @@
         }
       }
     },
-    "F:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj": {
+    "f:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj",
+        "projectUniqueName": "f:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "F:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj",
+        "projectPath": "f:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\azorety\\.nuget\\packages\\",
-        "outputPath": "F:\\project\\RustStore\\rust-store\\backend\\Domain\\obj\\",
+        "outputPath": "f:\\project\\RustStore\\rust-store\\backend\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -138,14 +142,14 @@
         }
       }
     },
-    "F:\\project\\RustStore\\rust-store\\backend\\RustStore\\RustStore.csproj": {
+    "f:\\project\\RustStore\\rust-store\\backend\\RustStore\\RustStore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\project\\RustStore\\rust-store\\backend\\RustStore\\RustStore.csproj",
+        "projectUniqueName": "f:\\project\\RustStore\\rust-store\\backend\\RustStore\\RustStore.csproj",
         "projectName": "RustStore",
-        "projectPath": "F:\\project\\RustStore\\rust-store\\backend\\RustStore\\RustStore.csproj",
+        "projectPath": "f:\\project\\RustStore\\rust-store\\backend\\RustStore\\RustStore.csproj",
         "packagesPath": "C:\\Users\\azorety\\.nuget\\packages\\",
-        "outputPath": "F:\\project\\RustStore\\rust-store\\backend\\RustStore\\obj\\",
+        "outputPath": "f:\\project\\RustStore\\rust-store\\backend\\RustStore\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -166,11 +170,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "F:\\project\\RustStore\\rust-store\\backend\\DAL\\DAL.csproj": {
-                "projectPath": "F:\\project\\RustStore\\rust-store\\backend\\DAL\\DAL.csproj"
+              "f:\\project\\RustStore\\rust-store\\backend\\DAL\\DAL.csproj": {
+                "projectPath": "f:\\project\\RustStore\\rust-store\\backend\\DAL\\DAL.csproj"
               },
-              "F:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj": {
-                "projectPath": "F:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj"
+              "f:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj": {
+                "projectPath": "f:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj"
               }
             }
           }
