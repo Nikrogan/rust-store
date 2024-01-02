@@ -1,17 +1,21 @@
 ﻿using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
+using Domain.Entity;
 
-public class ApplicationDbContext
+namespace DAL
 {
-    private readonly IMongoDatabase _database;
-    
-    public ApplicationDbContext(IConfiguration configuration)
+    public class ApplicationDbContext
     {
-        var connectionString = configuration.GetConnectionString("MongoDBConnection");
-        var mongoClient = new MongoClient(connectionString);
-        _database = mongoClient.GetDatabase("rust-store");
-        //_userCollection = _database.GetCollection<User>("users");
-    }
+        private readonly IMongoDatabase _database;
 
-//    public IMongoCollection<User> _userCollection { get; set; }
+        public ApplicationDbContext(IConfiguration configuration)
+        {
+            var connectionString = configuration.GetConnectionString("MongoDBConnection");
+            var mongoClient = new MongoClient(connectionString);
+            _database = mongoClient.GetDatabase("rust-store");
+            UserCollection = _database.GetCollection<BaseUser>("users");
+        }
+
+        public IMongoCollection<BaseUser> UserCollection { get; set; }
+    }
 }
