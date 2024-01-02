@@ -1,0 +1,17 @@
+F:\project\RustStore\rust-store\backend\Service\bin\Debug\net6.0\Service.deps.json
+F:\project\RustStore\rust-store\backend\Service\bin\Debug\net6.0\Service.dll
+F:\project\RustStore\rust-store\backend\Service\bin\Debug\net6.0\Service.pdb
+F:\project\RustStore\rust-store\backend\Service\bin\Debug\net6.0\DAL.dll
+F:\project\RustStore\rust-store\backend\Service\bin\Debug\net6.0\Domain.dll
+F:\project\RustStore\rust-store\backend\Service\bin\Debug\net6.0\DAL.pdb
+F:\project\RustStore\rust-store\backend\Service\bin\Debug\net6.0\Domain.pdb
+F:\project\RustStore\rust-store\backend\Service\obj\Debug\net6.0\Service.csproj.AssemblyReference.cache
+F:\project\RustStore\rust-store\backend\Service\obj\Debug\net6.0\Service.GeneratedMSBuildEditorConfig.editorconfig
+F:\project\RustStore\rust-store\backend\Service\obj\Debug\net6.0\Service.AssemblyInfoInputs.cache
+F:\project\RustStore\rust-store\backend\Service\obj\Debug\net6.0\Service.AssemblyInfo.cs
+F:\project\RustStore\rust-store\backend\Service\obj\Debug\net6.0\Service.csproj.CoreCompileInputs.cache
+F:\project\RustStore\rust-store\backend\Service\obj\Debug\net6.0\Service.csproj.CopyComplete
+F:\project\RustStore\rust-store\backend\Service\obj\Debug\net6.0\Service.dll
+F:\project\RustStore\rust-store\backend\Service\obj\Debug\net6.0\refint\Service.dll
+F:\project\RustStore\rust-store\backend\Service\obj\Debug\net6.0\Service.pdb
+F:\project\RustStore\rust-store\backend\Service\obj\Debug\net6.0\ref\Service.dll

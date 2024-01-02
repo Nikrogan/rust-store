@@ -1,8 +1,12 @@
-﻿namespace RustStats.Service.Interfaces
+﻿using Newtonsoft.Json.Linq;
+
+namespace RustStats.Service.Interfaces
 {
     public interface ISteamApiService
     {
-        Task<string> GetAvatarUrlAsync(string steamId);
+        string? GetAvatarUrl(JObject playerInfo);
+        string? GetDisplayName(JObject playerInfo);
+        Task<JObject> GetPlayerInfoAsync(string steamId);
 
     }
 }

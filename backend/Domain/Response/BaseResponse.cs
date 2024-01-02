@@ -1,6 +1,6 @@
-﻿using RustStats.Domain.Enum;
+﻿using Domain.Enum;
 
-namespace RustStats.Domain.Response
+namespace Domain.Response
 {
     public class BaseResponse<T> : IBaseResponse<T>
     {
