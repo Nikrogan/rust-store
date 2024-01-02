@@ -1,0 +1,10 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\backend",
+    "\\backend\\RustStore",
+    "\\frontend"
+  ],
+  "SelectedNode": "\\backend\\RustStore\\Program.cs",
+  "PreviewInSolutionExplorer": false
+}
