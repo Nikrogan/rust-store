@@ -3,22 +3,47 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "start": "next dev",
     "build": "next build",
-    "start": "next start",
+    "prod": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@effector/next": "^0.7.0",
+    "@emotion/react": "^11.11.3",
+    "@emotion/server": "^11.11.0",
+    "@mantine/carousel": "^7.3.2",
+    "@mantine/code-highlight": "^7.3.2",
+    "@mantine/core": "^7.3.2",
+    "@mantine/dates": "^7.3.2",
+    "@mantine/dropzone": "^7.3.2",
+    "@mantine/form": "^7.3.2",
+    "@mantine/hooks": "^7.3.2",
+    "@mantine/modals": "^7.3.2",
+    "@mantine/next": "^6.0.21",
+    "@mantine/notifications": "^7.3.2",
+    "@mantine/nprogress": "^7.3.2",
+    "@mantine/prism": "^6.0.21",
+    "@mantine/spotlight": "^7.3.2",
+    "@mantine/tiptap": "^7.3.2",
+    "@tabler/icons": "^1.119.0",
+    "@tiptap/extension-link": "^2.1.13",
+    "@tiptap/react": "^2.1.13",
+    "@tiptap/starter-kit": "^2.1.13",
+    "dayjs": "^1.11.10",
+    "effector": "^23.1.0",
+    "effector-react": "^23.1.0",
+    "embla-carousel-react": "^7.1.0",
+    "next": "14.0.4",
     "react": "^18",
-    "react-dom": "^18",
-    "next": "14.0.4"
+    "react-dom": "^18"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
-    "eslint-config-next": "14.0.4"
+    "eslint-config-next": "14.0.4",
+    "typescript": "^5"
   }
 }
