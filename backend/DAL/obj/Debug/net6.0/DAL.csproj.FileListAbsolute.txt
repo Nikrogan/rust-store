@@ -10,3 +10,6 @@ F:\project\RustStore\rust-store\backend\DAL\obj\Debug\net6.0\DAL.dll
 F:\project\RustStore\rust-store\backend\DAL\obj\Debug\net6.0\refint\DAL.dll
 F:\project\RustStore\rust-store\backend\DAL\obj\Debug\net6.0\DAL.pdb
 F:\project\RustStore\rust-store\backend\DAL\obj\Debug\net6.0\ref\DAL.dll
+F:\project\RustStore\rust-store\backend\DAL\bin\Debug\net6.0\Domain.dll
+F:\project\RustStore\rust-store\backend\DAL\bin\Debug\net6.0\Domain.pdb
+F:\project\RustStore\rust-store\backend\DAL\obj\Debug\net6.0\DAL.csproj.CopyComplete

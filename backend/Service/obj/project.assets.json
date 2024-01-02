@@ -2,8 +2,6 @@
   "version": 3,
   "targets": {
     "net6.0": {
-<<<<<<< HEAD
-=======
       "AWSSDK.Core/3.7.100.14": {
         "type": "package",
         "compile": {
@@ -132,7 +130,6 @@
           }
         }
       },
->>>>>>> 5cabab5 (сделал сервисы для управлением пользователя и стимом)
       "MongoDB.Bson/2.23.1": {
         "type": "package",
         "dependencies": {
@@ -150,8 +147,6 @@
           }
         }
       },
-<<<<<<< HEAD
-=======
       "MongoDB.Driver/2.23.1": {
         "type": "package",
         "dependencies": {
@@ -228,7 +223,6 @@
           }
         }
       },
->>>>>>> 5cabab5 (сделал сервисы для управлением пользователя и стимом)
       "Newtonsoft.Json/13.0.3": {
         "type": "package",
         "compile": {
@@ -242,8 +236,6 @@
           }
         }
       },
-<<<<<<< HEAD
-=======
       "SharpCompress/0.30.1": {
         "type": "package",
         "compile": {
@@ -275,7 +267,6 @@
           "lib/netcoreapp2.0/_._": {}
         }
       },
->>>>>>> 5cabab5 (сделал сервисы для управлением пользователя и стимом)
       "System.Memory/4.5.5": {
         "type": "package",
         "compile": {
@@ -285,26 +276,14 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
-<<<<<<< HEAD
-      "System.Runtime.CompilerServices.Unsafe/5.0.0": {
-        "type": "package",
-        "compile": {
-          "ref/netstandard2.1/System.Runtime.CompilerServices.Unsafe.dll": {
-=======
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {
         "type": "package",
         "compile": {
           "lib/net6.0/System.Runtime.CompilerServices.Unsafe.dll": {
->>>>>>> 5cabab5 (сделал сервисы для управлением пользователя и стимом)
             "related": ".xml"
           }
         },
         "runtime": {
-<<<<<<< HEAD
-          "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll": {
-            "related": ".xml"
-          }
-=======
           "lib/net6.0/System.Runtime.CompilerServices.Unsafe.dll": {
             "related": ".xml"
           }
@@ -366,20 +345,16 @@
         },
         "runtime": {
           "lib/net6.0/ZstdSharp.dll": {}
->>>>>>> 5cabab5 (сделал сервисы для управлением пользователя и стимом)
         }
       },
       "DAL/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
-<<<<<<< HEAD
-=======
         "dependencies": {
           "Domain": "1.0.0",
           "Microsoft.Extensions.Configuration.Abstractions": "8.0.0",
           "MongoDB.Driver": "2.23.1"
         },
->>>>>>> 5cabab5 (сделал сервисы для управлением пользователя и стимом)
         "compile": {
           "bin/placeholder/DAL.dll": {}
         },
@@ -403,8 +378,6 @@
     }
   },
   "libraries": {
-<<<<<<< HEAD
-=======
     "AWSSDK.Core/3.7.100.14": {
       "sha512": "gnEgxBlk4PFEfdPE8Lkf4+D16MZFYSaW7/o6Wwe5e035QWUkTJX0Dn4LfTCdV5QSEL/fOFxu+yCAm55eIIBgog==",
       "type": "package",
@@ -616,7 +589,6 @@
         "version.txt"
       ]
     },
->>>>>>> 5cabab5 (сделал сервисы для управлением пользователя и стимом)
     "MongoDB.Bson/2.23.1": {
       "sha512": "IX9tycM35xK5hFwnU+rzharPJOtKYtON6E6Lp2nwOVjh40TUcS/HYToEEWZkLgqKNMCfYPK3Fz3QUCxzhkQRGA==",
       "type": "package",
@@ -634,8 +606,6 @@
         "packageIcon.png"
       ]
     },
-<<<<<<< HEAD
-=======
     "MongoDB.Driver/2.23.1": {
       "sha512": "kidqCwGBuLBx2IcW4os3J6zsp9yaUWm7Sp8G08Nm2RVRSAf0cJXfsynl2wRWpHh0HgfIzzwkevP/qhfsKfu8bQ==",
       "type": "package",
@@ -702,7 +672,6 @@
         "runtimes/win/native/mongocrypt.dll"
       ]
     },
->>>>>>> 5cabab5 (сделал сервисы для управлением пользователя и стимом)
     "Newtonsoft.Json/13.0.3": {
       "sha512": "HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ==",
       "type": "package",
@@ -733,8 +702,6 @@
         "packageIcon.png"
       ]
     },
-<<<<<<< HEAD
-=======
     "SharpCompress/0.30.1": {
       "sha512": "XqD4TpfyYGa7QTPzaGlMVbcecKnXy4YmYLDWrU+JIj7IuRNl7DH2END+Ll7ekWIY8o3dAMWLFDE1xdhfIWD1nw==",
       "type": "package",
@@ -802,7 +769,6 @@
         "version.txt"
       ]
     },
->>>>>>> 5cabab5 (сделал сервисы для управлением пользователя и стимом)
     "System.Memory/4.5.5": {
       "sha512": "XIWiDvKPXaTveaB7HVganDlOCRoj03l+jrwNvcge/t8vhGYKvqV+dMv6G4SAX2NoNmN0wZfVPTAlFwZcZvVOUw==",
       "type": "package",
@@ -826,43 +792,16 @@
         "version.txt"
       ]
     },
-<<<<<<< HEAD
-    "System.Runtime.CompilerServices.Unsafe/5.0.0": {
-      "sha512": "ZD9TMpsmYJLrxbbmdvhwt9YEgG5WntEnZ/d1eH8JBX9LBp+Ju8BSBhUGbZMNVHHomWo2KVImJhTDl2hIgw/6MA==",
-      "type": "package",
-      "path": "system.runtime.compilerservices.unsafe/5.0.0",
-=======
     "System.Runtime.CompilerServices.Unsafe/6.0.0": {
       "sha512": "/iUeP3tq1S0XdNNoMz5C9twLSrM/TH+qElHkXWaPvuNOt+99G75NrV0OS2EqHx5wMN7popYjpc8oTjC1y16DLg==",
       "type": "package",
       "path": "system.runtime.compilerservices.unsafe/6.0.0",
->>>>>>> 5cabab5 (сделал сервисы для управлением пользователя и стимом)
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
-<<<<<<< HEAD
-        "lib/net45/System.Runtime.CompilerServices.Unsafe.dll",
-        "lib/net45/System.Runtime.CompilerServices.Unsafe.xml",
-        "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll",
-        "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.xml",
-        "lib/netstandard1.0/System.Runtime.CompilerServices.Unsafe.dll",
-        "lib/netstandard1.0/System.Runtime.CompilerServices.Unsafe.xml",
-        "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
-        "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.xml",
-        "ref/net461/System.Runtime.CompilerServices.Unsafe.dll",
-        "ref/net461/System.Runtime.CompilerServices.Unsafe.xml",
-        "ref/netstandard1.0/System.Runtime.CompilerServices.Unsafe.dll",
-        "ref/netstandard1.0/System.Runtime.CompilerServices.Unsafe.xml",
-        "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
-        "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.xml",
-        "ref/netstandard2.1/System.Runtime.CompilerServices.Unsafe.dll",
-        "ref/netstandard2.1/System.Runtime.CompilerServices.Unsafe.xml",
-        "system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512",
-        "system.runtime.compilerservices.unsafe.nuspec",
-=======
         "buildTransitive/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.targets",
         "buildTransitive/netcoreapp3.1/_._",
         "lib/net461/System.Runtime.CompilerServices.Unsafe.dll",
@@ -921,13 +860,10 @@
         "runtimes/win/lib/uap10.0.16299/_._",
         "system.security.accesscontrol.5.0.0.nupkg.sha512",
         "system.security.accesscontrol.nuspec",
->>>>>>> 5cabab5 (сделал сервисы для управлением пользователя и стимом)
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
     },
-<<<<<<< HEAD
-=======
     "System.Security.Principal.Windows/5.0.0": {
       "sha512": "t0MGLukB5WAVU9bO3MGzvlGnyJPgUlcwerXn1kzBRjwLKixT96XV0Uza41W49gVd8zEMFu9vQEFlv0IOrytICA==",
       "type": "package",
@@ -1001,7 +937,6 @@
         "zstdsharp.port.nuspec"
       ]
     },
->>>>>>> 5cabab5 (сделал сервисы для управлением пользователя и стимом)
     "DAL/1.0.0": {
       "type": "project",
       "path": "../DAL/DAL.csproj",
@@ -1027,11 +962,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\project\\RustStore\\rust-store\\backend\\Service\\Service.csproj",
+      "projectUniqueName": "f:\\project\\RustStore\\rust-store\\backend\\Service\\Service.csproj",
       "projectName": "Service",
-      "projectPath": "F:\\project\\RustStore\\rust-store\\backend\\Service\\Service.csproj",
+      "projectPath": "f:\\project\\RustStore\\rust-store\\backend\\Service\\Service.csproj",
       "packagesPath": "C:\\Users\\azorety\\.nuget\\packages\\",
-      "outputPath": "F:\\project\\RustStore\\rust-store\\backend\\Service\\obj\\",
+      "outputPath": "f:\\project\\RustStore\\rust-store\\backend\\Service\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1052,11 +987,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "F:\\project\\RustStore\\rust-store\\backend\\DAL\\DAL.csproj": {
-              "projectPath": "F:\\project\\RustStore\\rust-store\\backend\\DAL\\DAL.csproj"
+            "f:\\project\\RustStore\\rust-store\\backend\\DAL\\DAL.csproj": {
+              "projectPath": "f:\\project\\RustStore\\rust-store\\backend\\DAL\\DAL.csproj"
             },
-            "F:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj": {
-              "projectPath": "F:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj"
+            "f:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj": {
+              "projectPath": "f:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj"
             }
           }
         }
@@ -1095,5 +1030,13 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Ошибка чтения файла кэша f:\\project\\RustStore\\rust-store\\backend\\Service\\obj\\project.nuget.cache: Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

@@ -1,6 +1,14 @@
-
-using AngleSharp;
+using AspNet.Security.OpenId.Steam;
 using DAL;
+using DAL.Interfaces;
+using DAL.Repositories;
+using Domain.Entity;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Diagnostics;
+using RustStats.Service.Implementations;
+using RustStats.Service.Interfaces;
+using Service.Implementations;
+using Service.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +20,26 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<ApplicationDbContext>();
 
+builder.Services.AddScoped<IBaseRepository<BaseUser>, UsersRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ISteamApiService, SteamApiService>();
+
+builder.Services.AddHttpClient<SteamApiService>();
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = SteamAuthenticationDefaults.AuthenticationScheme;
+})
+.AddCookie()
+.AddSteam(options =>
+{
+    options.ApplicationKey = "5E7019B40836C7B11626E328734CB003";
+    options.CallbackPath = "/account/steam-callback";
+});
+
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
