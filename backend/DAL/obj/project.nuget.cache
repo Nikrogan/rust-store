@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "xV+gV4LgnBzpBdUCi0Qk2yYloz6qTgZMciJ4W+JaXCKQX8+YLq7VYul+ItDz0feE6Gx6vQN2sas9slgtd2pUXA==",
+  "dgSpecHash": "JJuty61vJkYW634x87nXug5VHBtivcTsK/qKvVtz1FDQOxiKaT8b3tHCnoaWszo1KlzdzgWskyWWq6/2SrRDNQ==",
   "success": true,
-  "projectFilePath": "F:\\project\\RustStore\\rust-store\\backend\\DAL\\DAL.csproj",
+  "projectFilePath": "f:\\project\\RustStore\\rust-store\\backend\\DAL\\DAL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\azorety\\.nuget\\packages\\awssdk.core\\3.7.100.14\\awssdk.core.3.7.100.14.nupkg.sha512",
     "C:\\Users\\azorety\\.nuget\\packages\\awssdk.securitytoken\\3.7.100.14\\awssdk.securitytoken.3.7.100.14.nupkg.sha512",
