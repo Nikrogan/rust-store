@@ -10,4 +10,8 @@
     <PackageReference Include="MongoDB.Bson" Version="2.23.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="SimpleEntity\" />
+  </ItemGroup>
+
 </Project>

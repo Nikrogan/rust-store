@@ -2794,11 +2794,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "f:\\project\\RustStore\\rust-store\\backend\\RustStore\\RustStore.csproj",
+      "projectUniqueName": "F:\\project\\RustStore\\rust-store\\backend\\RustStore\\RustStore.csproj",
       "projectName": "RustStore",
-      "projectPath": "f:\\project\\RustStore\\rust-store\\backend\\RustStore\\RustStore.csproj",
+      "projectPath": "F:\\project\\RustStore\\rust-store\\backend\\RustStore\\RustStore.csproj",
       "packagesPath": "C:\\Users\\azorety\\.nuget\\packages\\",
-      "outputPath": "f:\\project\\RustStore\\rust-store\\backend\\RustStore\\obj\\",
+      "outputPath": "F:\\project\\RustStore\\rust-store\\backend\\RustStore\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -2819,14 +2819,14 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "f:\\project\\RustStore\\rust-store\\backend\\DAL\\DAL.csproj": {
-              "projectPath": "f:\\project\\RustStore\\rust-store\\backend\\DAL\\DAL.csproj"
+            "F:\\project\\RustStore\\rust-store\\backend\\DAL\\DAL.csproj": {
+              "projectPath": "F:\\project\\RustStore\\rust-store\\backend\\DAL\\DAL.csproj"
             },
-            "f:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj": {
-              "projectPath": "f:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj"
+            "F:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj": {
+              "projectPath": "F:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj"
             },
-            "f:\\project\\RustStore\\rust-store\\backend\\Service\\Service.csproj": {
-              "projectPath": "f:\\project\\RustStore\\rust-store\\backend\\Service\\Service.csproj"
+            "F:\\project\\RustStore\\rust-store\\backend\\Service\\Service.csproj": {
+              "projectPath": "F:\\project\\RustStore\\rust-store\\backend\\Service\\Service.csproj"
             }
           }
         }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "mg3batfBffGs1crdylUxh5b+AOVkytqePH2NgQCsLI7xoqAZBlXMJLNWE/h6UgtalPojdrhr/V/f87fjWbbnLA==",
+  "dgSpecHash": "kMggKyitXRMWdpZ/FEyl1lhvp9fV4mJzwTu3otmd50BTGKGUK463PWDkq0ViDYOC1DCzFP5Z2ZLbGNQmAYDJAg==",
   "success": true,
-  "projectFilePath": "f:\\project\\RustStore\\rust-store\\backend\\DAL\\DAL.csproj",
+  "projectFilePath": "F:\\project\\RustStore\\rust-store\\backend\\DAL\\DAL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\azorety\\.nuget\\packages\\awssdk.core\\3.7.100.14\\awssdk.core.3.7.100.14.nupkg.sha512",
     "C:\\Users\\azorety\\.nuget\\packages\\awssdk.securitytoken\\3.7.100.14\\awssdk.securitytoken.3.7.100.14.nupkg.sha512",
@@ -25,12 +25,5 @@
     "C:\\Users\\azorety\\.nuget\\packages\\system.security.principal.windows\\5.0.0\\system.security.principal.windows.5.0.0.nupkg.sha512",
     "C:\\Users\\azorety\\.nuget\\packages\\zstdsharp.port\\0.7.3\\zstdsharp.port.0.7.3.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Ошибка чтения файла кэша f:\\project\\RustStore\\rust-store\\backend\\DAL\\obj\\project.nuget.cache: Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  "logs": []
 }

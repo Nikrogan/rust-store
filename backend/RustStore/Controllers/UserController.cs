@@ -127,24 +127,16 @@ namespace RustStore.Controllers
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                         new ClaimsPrincipal(response.Data));
 
+
                     var activeUserResponse = await _userService.GetUserBySteamId(User.Identity.Name);
 
                     var jsonModel = Newtonsoft.Json.JsonConvert.SerializeObject(activeUserResponse.Data);
                     var content = new StringContent(jsonModel, Encoding.UTF8, "application/json");
 
-                    var httpClient = _httpClientFactory.CreateClient();
-                    var redirectUrl = "https://localhost:3000/";
+                    var redirectUrl = "http://localhost:3000/";
 
-                    var clientResponse = await httpClient.PostAsync(redirectUrl, content);
-
-                    if (clientResponse.IsSuccessStatusCode)
-                    {
-                        return Ok("Redirect successful");
-                    }
-                    else
-                    {
-                        return BadRequest("Redirect failed");
-                    }
+                    return Redirect(redirectUrl);
+                    
                 }
                 else
                 {

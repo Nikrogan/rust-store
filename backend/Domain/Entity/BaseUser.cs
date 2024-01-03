@@ -18,7 +18,8 @@ namespace Domain.Entity
         public string SteamId { get; set; }
         public string DisplayName { get; set; }
         public string AvatarUrl { get; set; }
-        public decimal RuWallet { get; set; }
+        public decimal Balance { get; set; }
+        public int PersonalDiscount { get; set; }
         public Role Role { get; set; } 
         
     }

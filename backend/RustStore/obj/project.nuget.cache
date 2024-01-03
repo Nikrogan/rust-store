@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "UKHBwtjhjZCs8wK8c5apdyO0L7ZdC5+3XNjKBXPB+daz3cx+faIdeLf7Ga+v7p8kw7e4OUBQ3X6N2IQ480yc1w==",
+  "dgSpecHash": "Ix2ZKHpF4h0WT5oT5416NB9F6NNJi+p9ws4bNwii4OtZO8d0EFFQ6iRVOPwdZ7fhorigusR1hq+Z7KADrkohRQ==",
   "success": true,
-  "projectFilePath": "f:\\project\\RustStore\\rust-store\\backend\\RustStore\\RustStore.csproj",
+  "projectFilePath": "F:\\project\\RustStore\\rust-store\\backend\\RustStore\\RustStore.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\azorety\\.nuget\\packages\\anglesharp\\0.13.0\\anglesharp.0.13.0.nupkg.sha512",
     "C:\\Users\\azorety\\.nuget\\packages\\aspnet.security.openid\\6.0.0\\aspnet.security.openid.6.0.0.nupkg.sha512",
