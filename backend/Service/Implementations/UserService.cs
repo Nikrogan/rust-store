@@ -31,8 +31,8 @@ namespace Service.Implementations
                     DisplayName = viewModel.DisplayName,
                     SteamId = viewModel.SteamId,
                     AvatarUrl = viewModel.AvatarUrl,
-                    RuWallet = viewModel.RuWallet,
-                    Role = Role.User
+                    Balance = viewModel.Balance,
+                    Role = Role.Default
                 };
 
                 await _accountRepository.Add(User);
@@ -279,8 +279,8 @@ namespace Service.Implementations
                         DisplayName = displayName,
                         SteamId = steamID,
                         AvatarUrl = avatarUrl,
-                        RuWallet = 0,
-                        Role = Role.Admin
+                        Balance = 0,
+                        Role = Role.Owner
                     };
 
                     await CreateUser(user);

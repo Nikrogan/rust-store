@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.Enum;
 
 namespace Domain.SimpleEntity
 {
-    internal class SimpleProduct
+    public class SimpleProduct
     {
+        public int ProductId { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public ProductType ProductType { get; set; }
+        public decimal Price { get; set; }
+        public string ImageUrl { get; set; }
+        public CategoryType CategoryType { get; set; }
     }
 }
