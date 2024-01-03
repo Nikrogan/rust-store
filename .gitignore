@@ -1,0 +1,5 @@
+.vs
+./backend/DAL/obj
+./backend/Domain/obj
+./backend/RustStore/obj
+./backend/Service/obj
