@@ -35,7 +35,7 @@ builder.Services.AddAuthentication(options =>
 .AddSteam(options =>
 {
     options.ApplicationKey = "5E7019B40836C7B11626E328734CB003";
-    options.CallbackPath = "/account/steam-callback";
+    options.CallbackPath = "/api/User/steam-callback";
 });
 
 var app = builder.Build();
@@ -50,6 +50,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+//app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

@@ -14,7 +14,7 @@ namespace RustStats.Service.Implementations
         public SteamApiService(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
-            _apiKey = configuration.GetSection("SteamApi").Value;
+            _apiKey = configuration["SteamApi:ApiKey"];
         }
 
         public string? GetAvatarUrl(JObject playerInfo)

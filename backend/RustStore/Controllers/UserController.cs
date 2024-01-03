@@ -7,6 +7,7 @@ using Service.Interfaces;
 using System.Security.Claims;
 using MongoDB.Bson;
 using Domain.Entity;
+using System.Text;
 
 namespace RustStore.Controllers
 {
@@ -15,9 +16,11 @@ namespace RustStore.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        public UserController(IUserService accountService)
+        private readonly IHttpClientFactory _httpClientFactory;
+        public UserController(IUserService accountService, IHttpClientFactory httpClientFactory)
         {
             _userService = accountService;
+            _httpClientFactory = httpClientFactory;
         }
 
         // GET: api/<ValuesController>
@@ -28,42 +31,42 @@ namespace RustStore.Controllers
         //}
 
         // GET api/<ValuesController>/5
-        [HttpGet("{id}")]
-        public async Task<string> Get(string id)
-        {
-            var response = await _userService.GetUserBySteamId(id);
-            if (response.StatusCode == Domain.Enum.StatusCode.OK)
-            {
-                return response.Data.ToJson();
-            }
-            else
-            {
-                return response.Description;
-            }
-        }
+        //[HttpGet("{id}")]
+        //public async Task<string> Get(string id)
+        //{
+        //    var response = await _userService.GetUserBySteamId(id);
+        //    if (response.StatusCode == Domain.Enum.StatusCode.OK)
+        //    {
+        //        return response.Data.ToJson();
+        //    }
+        //    else
+        //    {
+        //        return response.Description;
+        //    }
+        //}
 
-        [HttpPost]
-        public async Task<string> Create()
-        {
-            var newUser = new BaseUser
-            {
-                AvatarUrl = "fdsfsdf",
-                DisplayName = "Name",
-                Role = Domain.Enum.Role.Admin,
-                RuWallet = 152.12m,
-                SteamId = "54837583476843"
-            };
+        //[HttpPost]
+        //public async Task<string> Create()
+        //{
+        //    var newUser = new BaseUser
+        //    {
+        //        AvatarUrl = "fdsfsdf",
+        //        DisplayName = "Name",
+        //        Role = Domain.Enum.Role.Admin,
+        //        RuWallet = 152.12m,
+        //        SteamId = "54837583476843"
+        //    };
 
-            var response = await _userService.CreateUser(newUser);
-            if (response.StatusCode == Domain.Enum.StatusCode.OK)
-            {
-                return response.Data.ToJson();
-            }
-            else
-            {
-                return response.Description;
-            }
-        }
+        //    var response = await _userService.CreateUser(newUser);
+        //    if (response.StatusCode == Domain.Enum.StatusCode.OK)
+        //    {
+        //        return response.Data.ToJson();
+        //    }
+        //    else
+        //    {
+        //        return response.Description;
+        //    }
+        //}
 
         //// POST api/<ValuesController>
         //[HttpPost]
@@ -83,17 +86,17 @@ namespace RustStore.Controllers
         //{
         //}
 
-        //[AllowAnonymous]
-        //[HttpGet]
-        //public IActionResult Login(string returnUrl = "/")
-        //{
-        //    var properties = new AuthenticationProperties
-        //    {
-        //        RedirectUri = Url.Action(nameof(SteamCallback)),
-        //    };
+        [AllowAnonymous]
+        [HttpGet("steam-login")]
+        public IActionResult Login()
+        {
+            var properties = new AuthenticationProperties
+            {
+                RedirectUri = Url.Action(nameof(SteamCallback)),
+            };
 
-        //    return Challenge(properties, SteamAuthenticationDefaults.AuthenticationScheme);
-        //}
+            return Challenge(properties, SteamAuthenticationDefaults.AuthenticationScheme);
+        }
 
 
         //[ValidateAntiForgeryToken]
@@ -104,33 +107,51 @@ namespace RustStore.Controllers
         //    return RedirectToAction("Index", "Home");
         //}
 
-        //[HttpGet("access-denied")]
-        //public string AccessDenied()
-        //{
-        //    return "denied";
-        //}
+        [HttpGet("access-denied")]
+        public IActionResult AccessDenied()
+        {
+            return BadRequest("Access denied");
+        }
 
-        //[HttpGet("steam-callback")]
-        //public async Task<string> SteamCallback()
-        //{
-        //    var result = await HttpContext.AuthenticateAsync(SteamAuthenticationDefaults.AuthenticationScheme);
-        //    if (result.Succeeded)
-        //    {
-        //        var steamId = result.Principal.FindFirstValue(ClaimTypes.NameIdentifier).Split('/').Last();
-        //        var response = await _userService.LoginUser(steamId);
+        [HttpGet("steam-callback")]
+        public async Task<IActionResult> SteamCallback()
+        {
+            var result = await HttpContext.AuthenticateAsync(SteamAuthenticationDefaults.AuthenticationScheme);
+            if (result.Succeeded)
+            {
+                var steamId = result.Principal.FindFirstValue(ClaimTypes.NameIdentifier).Split('/').Last();
+                var response = await _userService.LoginUser(steamId);
 
-        //        if (response.StatusCode == Domain.Enum.StatusCode.OK)
-        //        {
-        //            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-        //                new ClaimsPrincipal(response.Data));
-        //            return "u arge logined";
-        //        }
-        //        else
-        //        {
-        //            return response.StatusCode.ToString();
-        //        }
-        //    }
-        //    return "unkerror";
-        //}
+                if (response.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                        new ClaimsPrincipal(response.Data));
+
+                    var activeUserResponse = await _userService.GetUserBySteamId(User.Identity.Name);
+
+                    var jsonModel = Newtonsoft.Json.JsonConvert.SerializeObject(activeUserResponse.Data);
+                    var content = new StringContent(jsonModel, Encoding.UTF8, "application/json");
+
+                    var httpClient = _httpClientFactory.CreateClient();
+                    var redirectUrl = "https://localhost:3000/";
+
+                    var clientResponse = await httpClient.PostAsync(redirectUrl, content);
+
+                    if (clientResponse.IsSuccessStatusCode)
+                    {
+                        return Ok("Redirect successful");
+                    }
+                    else
+                    {
+                        return BadRequest("Redirect failed");
+                    }
+                }
+                else
+                {
+                    return BadRequest("Login failed");
+                }
+            }
+            return BadRequest("Login failed");
+        }
     }
 }
