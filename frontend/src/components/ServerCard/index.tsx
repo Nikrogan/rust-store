@@ -3,7 +3,7 @@ import { Flex, Card, Group, Badge, Progress, Button, Image, Text } from "@mantin
 import { theme } from "../theme/theme"
 
 type ServerCardProps = {
-  buttonText: string;
+  buttonText?: string;
   onClick: (T: number | null) => void;
   serverId: number | null;
   isShort?: boolean;

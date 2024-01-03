@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5eQe72WW9vIr9QxE+6F2WaDjiTQI9t5dh1rT6Q+dvo6Sk2iIvU2mlmjj/RYEtsK6diejPGordSBh7Y3ieosY9w==",
+  "dgSpecHash": "u1NQIKvjnUv9+276dVgQF3CpS4t75bkM/36e4+YR3W5i+IdCSTFbl4aRA41Yk+Sn+MjVdXPNS1fh4J+uE4Z/1g==",
   "success": true,
-  "projectFilePath": "F:\\project\\RustStore\\rust-store\\backend\\DAL\\DAL.csproj",
+  "projectFilePath": "D:\\jobs\\rust-store\\rust-store\\backend\\DAL\\DAL.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

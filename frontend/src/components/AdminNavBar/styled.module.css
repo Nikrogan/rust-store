@@ -1,0 +1,10 @@
+.nav {
+    background-color: light-dark(var(--mantine-color-white), var(--mantine-color-dark-6));
+    min-width: 235px;
+    display: flex;
+    flex-direction: column;
+}
+
+.nav + .nav {
+    margin-top: var(--mantine-spacing-lg);
+}
