@@ -1,17 +1,5 @@
 {
   "version": 2,
-<<<<<<< HEAD
-  "dgSpecHash": "tkPhF1U3nmNLoA2sRGGuNgalUq5yVvAWvKJse5MDMVdyLtZfUiShZR9wpce6Xcr2Op+ToEJ7ia0aFpigCrx2zw==",
-  "success": true,
-  "projectFilePath": "D:\\jobs\\rust-store\\rust-store\\backend\\RustStore\\RustStore.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\front\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
-    "C:\\Users\\front\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
-    "C:\\Users\\front\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
-    "C:\\Users\\front\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
-    "C:\\Users\\front\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
-    "C:\\Users\\front\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.5.0\\swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512"
-=======
   "dgSpecHash": "Ix2ZKHpF4h0WT5oT5416NB9F6NNJi+p9ws4bNwii4OtZO8d0EFFQ6iRVOPwdZ7fhorigusR1hq+Z7KADrkohRQ==",
   "success": true,
   "projectFilePath": "F:\\project\\RustStore\\rust-store\\backend\\RustStore\\RustStore.csproj",
@@ -78,7 +66,6 @@
     "C:\\Users\\azorety\\.nuget\\packages\\system.text.encodings.web\\6.0.0\\system.text.encodings.web.6.0.0.nupkg.sha512",
     "C:\\Users\\azorety\\.nuget\\packages\\system.text.json\\6.0.0\\system.text.json.6.0.0.nupkg.sha512",
     "C:\\Users\\azorety\\.nuget\\packages\\zstdsharp.port\\0.7.3\\zstdsharp.port.0.7.3.nupkg.sha512"
->>>>>>> b01e2e11b8f8089fd94150478ae6a8b7a4af19ff
   ],
   "logs": []
 }

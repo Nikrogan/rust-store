@@ -1,18 +1,7 @@
 {
   "version": 2,
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "dgSpecHash": "u1NQIKvjnUv9+276dVgQF3CpS4t75bkM/36e4+YR3W5i+IdCSTFbl4aRA41Yk+Sn+MjVdXPNS1fh4J+uE4Z/1g==",
-  "success": true,
-  "projectFilePath": "D:\\jobs\\rust-store\\rust-store\\backend\\DAL\\DAL.csproj",
-  "expectedPackageFiles": [],
-=======
-  "dgSpecHash": "xV+gV4LgnBzpBdUCi0Qk2yYloz6qTgZMciJ4W+JaXCKQX8+YLq7VYul+ItDz0feE6Gx6vQN2sas9slgtd2pUXA==",
-  "success": true,
-=======
   "dgSpecHash": "kMggKyitXRMWdpZ/FEyl1lhvp9fV4mJzwTu3otmd50BTGKGUK463PWDkq0ViDYOC1DCzFP5Z2ZLbGNQmAYDJAg==",
   "success": true,
->>>>>>> b01e2e11b8f8089fd94150478ae6a8b7a4af19ff
   "projectFilePath": "F:\\project\\RustStore\\rust-store\\backend\\DAL\\DAL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\azorety\\.nuget\\packages\\awssdk.core\\3.7.100.14\\awssdk.core.3.7.100.14.nupkg.sha512",
@@ -36,9 +25,12 @@
     "C:\\Users\\azorety\\.nuget\\packages\\system.security.principal.windows\\5.0.0\\system.security.principal.windows.5.0.0.nupkg.sha512",
     "C:\\Users\\azorety\\.nuget\\packages\\zstdsharp.port\\0.7.3\\zstdsharp.port.0.7.3.nupkg.sha512"
   ],
-<<<<<<< HEAD
->>>>>>> b993c57 (разделил проект на слои, добавил интерфейс для для будущих репозиториев, создал DbContext, создал энтити юзера)
-=======
->>>>>>> b01e2e11b8f8089fd94150478ae6a8b7a4af19ff
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Ошибка чтения файла кэша F:\\project\\RustStore\\rust-store\\backend\\DAL\\obj\\project.nuget.cache: Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
