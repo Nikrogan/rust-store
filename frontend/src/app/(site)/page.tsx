@@ -6,7 +6,6 @@ import { ServerCard } from '@/components/ServerCard';
 import Link from 'next/link';
 
 export default function Home() {
-
   const fechLogin = async () => {
     const {data} = await fetch('api/v1/auth');
   };
@@ -21,6 +20,7 @@ export default function Home() {
               </Button>
             </Link>
             <Button className={styles.buttonMain} variant="outline" color="white" size="lg" fullWidth>Войти</Button>
+            <Button className={styles.buttonMain} variant="outline" color="white" size="lg" fullWidth>Новости</Button>
             <Button className={styles.buttonMain} variant="outline" color="white" size="lg" fullWidth>Календарь вайпов</Button>
         </Flex>
         <Space h='xl'/>
