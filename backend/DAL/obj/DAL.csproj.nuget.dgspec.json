@@ -1,19 +1,6 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
-    "D:\\jobs\\rust-store\\rust-store\\backend\\DAL\\DAL.csproj": {}
-  },
-  "projects": {
-    "D:\\jobs\\rust-store\\rust-store\\backend\\DAL\\DAL.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "D:\\jobs\\rust-store\\rust-store\\backend\\DAL\\DAL.csproj",
-        "projectName": "DAL",
-        "projectPath": "D:\\jobs\\rust-store\\rust-store\\backend\\DAL\\DAL.csproj",
-        "packagesPath": "C:\\Users\\front\\.nuget\\packages\\",
-        "outputPath": "D:\\jobs\\rust-store\\rust-store\\backend\\DAL\\obj\\",
-=======
     "F:\\project\\RustStore\\rust-store\\backend\\DAL\\DAL.csproj": {}
   },
   "projects": {
@@ -98,13 +85,12 @@
         "projectPath": "F:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\azorety\\.nuget\\packages\\",
         "outputPath": "F:\\project\\RustStore\\rust-store\\backend\\Domain\\obj\\",
->>>>>>> b01e2e11b8f8089fd94150478ae6a8b7a4af19ff
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\front\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\azorety\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -113,7 +99,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -153,7 +138,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

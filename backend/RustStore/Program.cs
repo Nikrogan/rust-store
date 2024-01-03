@@ -4,7 +4,6 @@ using DAL.Interfaces;
 using DAL.Repositories;
 using Domain.Entity;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Diagnostics;
 using RustStats.Service.Implementations;
 using RustStats.Service.Interfaces;
 using Service.Implementations;
