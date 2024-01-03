@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\project\\RustStore\\rust-store\\backend\\RustStore\\RustStore.csproj": {}
+    "F:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj": {}
   },
   "projects": {
-    "F:\\project\\RustStore\\rust-store\\backend\\RustStore\\RustStore.csproj": {
+    "F:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\project\\RustStore\\rust-store\\backend\\RustStore\\RustStore.csproj",
-        "projectName": "RustStore",
-        "projectPath": "F:\\project\\RustStore\\rust-store\\backend\\RustStore\\RustStore.csproj",
+        "projectUniqueName": "F:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj",
+        "projectName": "Domain",
+        "projectPath": "F:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\azorety\\.nuget\\packages\\",
-        "outputPath": "F:\\project\\RustStore\\rust-store\\backend\\RustStore\\obj\\",
+        "outputPath": "F:\\project\\RustStore\\rust-store\\backend\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -44,9 +44,9 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
-            "Swashbuckle.AspNetCore": {
+            "MongoDB.Bson": {
               "target": "Package",
-              "version": "[6.5.0, )"
+              "version": "[2.23.1, )"
             }
           },
           "imports": [
@@ -61,9 +61,6 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
