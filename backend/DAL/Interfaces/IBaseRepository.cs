@@ -1,4 +1,4 @@
-﻿namespace RustStats.DAL.Interfaces
+﻿namespace DAL.Interfaces
 {
     public interface IBaseRepository<T>
     {
@@ -6,7 +6,7 @@
         Task Update(T entity);
         Task Delete(T entity);
         Task DeleteRange(List<T> entityList);
-        IQueryable<T> GetAll();
+        List<T> GetAll();
         //List<T> GetAll();
     }
 }

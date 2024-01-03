@@ -27,18 +27,27 @@
     "@mantine/spotlight": "^7.3.2",
     "@mantine/tiptap": "^7.3.2",
     "@tabler/icons": "^1.119.0",
+<<<<<<< HEAD
     "@tabler/icons-react": "^2.45.0",
     "@tiptap/extension-link": "^2.1.13",
     "@tiptap/react": "^2.1.13",
     "@tiptap/starter-kit": "^2.1.13",
     "chart.js": "^4.4.1",
+=======
+    "@tiptap/extension-link": "^2.1.13",
+    "@tiptap/react": "^2.1.13",
+    "@tiptap/starter-kit": "^2.1.13",
+>>>>>>> b01e2e11b8f8089fd94150478ae6a8b7a4af19ff
     "dayjs": "^1.11.10",
     "effector": "^23.1.0",
     "effector-react": "^23.1.0",
     "embla-carousel-react": "^7.1.0",
     "next": "14.0.4",
     "react": "^18",
+<<<<<<< HEAD
     "react-chartjs-2": "^5.2.0",
+=======
+>>>>>>> b01e2e11b8f8089fd94150478ae6a8b7a4af19ff
     "react-dom": "^18"
   },
   "devDependencies": {

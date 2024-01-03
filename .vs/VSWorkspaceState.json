@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\backend",
+    "\\backend\\Domain",
+    "\\backend\\Domain\\Entity",
+    "\\backend\\RustStore",
+    "\\frontend"
+  ],
+  "SelectedNode": "\\backend\\Domain\\Entity\\BaseUser.cs",
+  "PreviewInSolutionExplorer": false
+}
