@@ -6,6 +6,7 @@ namespace Domain.Enum
         ElementNotFound = 120,
         OK = 200,
         InternalServerError = 500,
+        BadRequest = 502,
         ProbableName = 809
     }
 }
