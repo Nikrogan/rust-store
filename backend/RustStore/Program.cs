@@ -20,7 +20,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<ApplicationDbContext>();
 
 builder.Services.AddScoped<IBaseRepository<BaseUser>, UsersRepository>();
+builder.Services.AddScoped<IBaseRepository<BaseProduct>, ProductsRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ISteamApiService, SteamApiService>();
 
 builder.Services.AddHttpClient<SteamApiService>();
