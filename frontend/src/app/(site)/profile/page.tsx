@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <main className='main'>
       <MantineProvider theme={theme}>
-        <NavBar />
+
       </MantineProvider>
     </main>
   )

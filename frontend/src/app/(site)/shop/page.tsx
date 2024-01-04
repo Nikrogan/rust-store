@@ -9,6 +9,7 @@ import { UserAvatar } from '@/components/UserAvatar';
 import { NavBar } from '@/components/NavBar';
 import { useState } from 'react';
 import { ProductCard } from '@/components/ProductCard';
+import { useMediaQuery } from '@mantine/hooks';
 
 export default function Home() {
   const [currentServer, setCurrentServer] = useState<number | null>(null)
@@ -20,14 +21,13 @@ export default function Home() {
   return (
     <main className='main'>
       <MantineProvider theme={theme}>
-        <NavBar />
         <Space h='xl'/>
         {!currentServer && (
         <>
-          <Group justify="space-between" mt="xl" mb="md">
+          <Group justify="center" mt="xl" mb="md" >
             <Title style={{ color: 'white' }} order={1}>Выберите свой сервер</Title>
           </Group>
-          <Flex gap={theme?.spacing?.md}>
+          <Flex gap={theme?.spacing?.md} justify='center'>
               <ServerCard buttonText="Выбрать" onClick={handleChangeServer} serverId={1} />
               <ServerCard buttonText="Выбрать" onClick={handleChangeServer} serverId={2} />
               <ServerCard buttonText="Выбрать" onClick={handleChangeServer} serverId={3} />
