@@ -1,5 +1,9 @@
 .vs
-./backend/RustStore/obj/Debug/net6.0
-./backend/DAL/obj/Debug/net6.0
-./backend/Domain/obj/Debug/net6.0
-./backend/Service/obj/Debug/net6.0
+./backend/DAL/obj
+./backend/DAL/bin
+./backend/Domain/obj
+./backend/Domain/bin
+./backend/Service/obj
+./backend/Service/bin
+./backend/RustStore/bin
+./backend/RustStore/onj
