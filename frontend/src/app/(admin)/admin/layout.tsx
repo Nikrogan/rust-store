@@ -1,6 +1,7 @@
 import '@mantine/core/styles.css';
+import '@mantine/charts/styles.css';
 import { theme } from "@/components/theme/theme"
-import { AppShell, Burger, MantineProvider } from "@mantine/core"
+import { MantineProvider } from "@mantine/core"
 
 export const metadata = {
   title: 'Next.js',

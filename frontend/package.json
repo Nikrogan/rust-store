@@ -13,6 +13,7 @@
     "@emotion/react": "^11.11.3",
     "@emotion/server": "^11.11.0",
     "@mantine/carousel": "^7.3.2",
+    "@mantine/charts": "^7.4.0",
     "@mantine/code-highlight": "^7.3.2",
     "@mantine/core": "^7.3.2",
     "@mantine/dates": "^7.3.2",
@@ -39,7 +40,8 @@
     "next": "14.0.4",
     "react": "^18",
     "react-chartjs-2": "^5.2.0",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "recharts": "^2.10.3"
   },
   "devDependencies": {
     "@types/node": "^20",
