@@ -1,1 +1,5 @@
 .vs
+./RustStore/obj/Debug/net6.0
+./DAL/obj/Debug/net6.0
+./Domain/obj/Debug/net6.0
+./Service/obj/Debug/net6.0
