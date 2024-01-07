@@ -5,7 +5,7 @@ export const $isAuth = createStore<boolean>(defaultStore)
 
 
 export const authUserFx = createEffect(async () => {
-    const { data } = await api.get('/api/User/steam-login');
+    const data = await api.get('/api/User/steam-login');
     console.log(data);
     return data;
 });
@@ -24,5 +24,5 @@ sample({
     clock: authUserFx.doneData,
     fn: (data) => {
         window.open(data.request.responseURL, '_blank')
-    }   
+    }
 })

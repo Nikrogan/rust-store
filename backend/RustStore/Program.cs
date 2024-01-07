@@ -9,8 +9,7 @@ using RustStats.Service.Interfaces;
 using Service.Implementations;
 using Service.Interfaces;
 
-var builder = WebApplication.CreateBuilder(args);
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+var builder = WebApplication.CreateBuilder(args); 
 // Add services to the container.
 
 builder.Services.AddCors(options =>
@@ -52,13 +51,13 @@ builder.Services.AddHttpClient<SteamApiService>();
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = SteamAuthenticationDefaults.AuthenticationScheme;
 })
 .AddCookie()
 .AddSteam(options =>
 {
     options.ApplicationKey = "5E7019B40836C7B11626E328734CB003";
-    options.CallbackPath = "/api/User/steam-callback";
 });
 
 
@@ -83,8 +82,9 @@ var webSocketOptions = new WebSocketOptions
 app.UseWebSockets(webSocketOptions);
 
 app.UseCors();
+
 app.UseAuthorization();
-//app.UseAuthentication();
+app.UseAuthentication();
 
 app.MapControllers();
 
