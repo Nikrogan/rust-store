@@ -24,6 +24,18 @@ builder.Services.AddScoped<IBaseRepository<BaseProduct>, ProductsRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ISteamApiService, SteamApiService>();
+    
+
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      builder =>
+                      {
+                          builder.WithOrigins("http://localhost:3000").AllowAnyOrigin()
+                          .AllowAnyHeader();
+                      });
+});
 
 builder.Services.AddHttpClient<SteamApiService>();
 
@@ -49,6 +61,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseHttpsRedirection();
 
