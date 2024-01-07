@@ -52,6 +52,7 @@ namespace RustStore.Controllers
         public async Task<IActionResult> SteamCallback()
         {
             var result = await HttpContext.AuthenticateAsync(SteamAuthenticationDefaults.AuthenticationScheme);
+
             if (result.Succeeded)
             {
 
