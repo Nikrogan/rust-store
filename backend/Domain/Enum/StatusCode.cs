@@ -7,6 +7,7 @@ namespace Domain.Enum
         OK = 200,
         InternalServerError = 500,
         BadRequest = 502,
-        ProbableName = 809
+        ProbableName = 809,
+        SessionTimeOut = 511,
     }
 }

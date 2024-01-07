@@ -5,12 +5,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.Interfaces;
 using System.Security.Claims;
-using MongoDB.Bson;
 using Domain.Entity;
 using System.Text;
 using Domain.Response;
-using System.Net.WebSockets;
-using Newtonsoft.Json;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace RustStore.Controllers
 {
@@ -20,7 +19,6 @@ namespace RustStore.Controllers
     {
         private readonly IUserService _userService;
         private readonly IHttpClientFactory _httpClientFactory;
-        private static WebSocket _webSocket;
 
         public UserController(IUserService accountService, IHttpClientFactory httpClientFactory)
         {
@@ -28,35 +26,26 @@ namespace RustStore.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
+        [HttpGet("profile")]
+        public async Task<IBaseServerResponse<SimpleUser>> Profile()
+        {
+            if (Request.Cookies.TryGetValue("session", out var jwt))
+            {
+                var response = await _userService.GetUserBySessionId(jwt);
+                return new BaseServerResponse<SimpleUser>(new SimpleUser(response.Data), response.StatusCode);
+            }
+            return new BaseServerResponse<SimpleUser>(null, Domain.Enum.StatusCode.InternalServerError);
+        }
+
         [AllowAnonymous]
         [HttpGet("steam-login")]
         public async Task<IActionResult> Login()
         {
-            var context = ControllerContext.HttpContext;
-            _webSocket = await context.WebSockets.AcceptWebSocketAsync();
-
             var properties = new AuthenticationProperties
             {
-                RedirectUri = Url.Action(nameof(SteamCallback)),
+                RedirectUri = Url.Action(nameof(SteamCallback))
             };
-
             return Challenge(properties, SteamAuthenticationDefaults.AuthenticationScheme);
-        }
-
-
-        //[ValidateAntiForgeryToken]
-        //[HttpPost]
-        //public async Task<IActionResult> Logout()
-        //{
-        //    await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        //    return RedirectToAction("Index", "Home");
-        //}
-
-        [HttpGet("access-denied")]
-        public async Task<IActionResult> AccessDenied()
-        {
-            _webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, null, CancellationToken.None);
-            return BadRequest();
         }
 
         [HttpGet("steam-callback")]
@@ -65,6 +54,7 @@ namespace RustStore.Controllers
             var result = await HttpContext.AuthenticateAsync(SteamAuthenticationDefaults.AuthenticationScheme);
             if (result.Succeeded)
             {
+
                 var steamId = result.Principal.FindFirstValue(ClaimTypes.NameIdentifier).Split('/').Last();
                 var response = await _userService.LoginUser(steamId);
 
@@ -73,32 +63,48 @@ namespace RustStore.Controllers
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                         new ClaimsPrincipal(response.Data));
 
-                    var activeUserResponse = await _userService.GetUserBySteamId(User.Identity.Name);
+                    var activeUserResponse = await _userService.GetUserBySteamId(steamId);
 
-                    var jsonModel = JsonConvert.SerializeObject(activeUserResponse.Data);
+                    var claims = new List<Claim> { new Claim(ClaimTypes.Name, steamId) };
+                    var jwt = new JwtSecurityToken(
+                    issuer: AuthOptions.ISSUER,
+                    audience: AuthOptions.AUDIENCE,
+                    claims: claims,
+                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
 
-                    await SendWebSocketMessageAsync(_webSocket, jsonModel);
-                    await _webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure,null,CancellationToken.None);
+                    var jwtToken = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-                    var redirectUrl = "http://localhost:3000/authCallback";
+                    activeUserResponse.Data.SessionId = jwtToken;
+                    activeUserResponse.Data.LastAuth = DateTime.Now;
+                    await _userService.EditElement(activeUserResponse.Data);
 
-                    return Redirect(redirectUrl);
-                    
+                    Response.Cookies.Append("session", jwtToken, new CookieOptions
+                    {
+                        HttpOnly = true, // Защита от JavaScript-доступа
+                        SameSite = SameSiteMode.None, // Можете установить другое значение в зависимости от ваших требований
+                        Secure = Request.IsHttps, // Устанавливаем, если используется HTTPS
+                        MaxAge = TimeSpan.FromHours(12) // Время жизни куки
+                    });
+
+                    var frontendUrl = "https://localhost:3000";
+                    return Redirect(frontendUrl);
                 }
                 else
                 {
-                    return BadRequest("Login failed");
                 }
             }
-            return BadRequest("Login failed");
+            return NoContent();
         }
 
-        private async Task SendWebSocketMessageAsync(WebSocket webSocket, string message)
+        public class AuthOptions
         {
-            var buffer = System.Text.Encoding.UTF8.GetBytes(message);
-            var segment = new ArraySegment<byte>(buffer);
-
-            await webSocket.SendAsync(segment, WebSocketMessageType.Text, true, CancellationToken.None);
+            public const string ISSUER = "RustStore"; // издатель токена
+            public const string AUDIENCE = "BWRS"; // потребитель токена
+            const string KEY = "mysupersecret_secretsecretsecretkey!123";   // ключ для шифрации
+            public static SymmetricSecurityKey GetSymmetricSecurityKey() =>
+                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(KEY));
         }
+
+        
     }
 }

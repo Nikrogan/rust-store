@@ -128,6 +128,9 @@ namespace Service.Implementations
                 }
 
                 user.DisplayName = viewModel.DisplayName;
+                user.AvatarUrl = viewModel.AvatarUrl;
+                user.SessionId = viewModel.SessionId;
+                user.LastAuth = viewModel.LastAuth;
 
                 await _accountRepository.Update(user);
 
@@ -254,6 +257,41 @@ namespace Service.Implementations
                 };
             }
         }
+
+        public async Task<IBaseResponse<BaseUser>> GetUserBySessionId(string sessionId)
+        {
+            var baseResponse = new BaseResponse<BaseUser>();
+            try
+            {
+                var resource = _accountRepository.GetAll().FirstOrDefault(x => x.SessionId == sessionId);
+                if (resource == null)
+                {
+                    baseResponse.Description = "Account not found";
+                    baseResponse.StatusCode = StatusCode.ElementNotFound;
+                    return baseResponse;
+                }
+
+                if((resource.LastAuth - DateTime.Now).TotalHours >= 12)
+                {
+                    baseResponse.Description = "Session time out";
+                    baseResponse.StatusCode = StatusCode.SessionTimeOut;
+                    return baseResponse;
+                }
+
+                baseResponse.Data = resource;
+                baseResponse.StatusCode = StatusCode.OK;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<BaseUser>()
+                {
+                    Description = $"[GetUserBySteamId] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
 
         public async Task<IBaseResponse<ClaimsIdentity>> LoginUser(string steamID)
         {
