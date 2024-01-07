@@ -8,6 +8,9 @@ using System.Security.Claims;
 using MongoDB.Bson;
 using Domain.Entity;
 using System.Text;
+using Domain.Response;
+using System.Net.WebSockets;
+using Newtonsoft.Json;
 
 namespace RustStore.Controllers
 {
@@ -17,79 +20,21 @@ namespace RustStore.Controllers
     {
         private readonly IUserService _userService;
         private readonly IHttpClientFactory _httpClientFactory;
+        private static WebSocket _webSocket;
+
         public UserController(IUserService accountService, IHttpClientFactory httpClientFactory)
         {
             _userService = accountService;
             _httpClientFactory = httpClientFactory;
         }
 
-        // GET: api/<ValuesController>
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
-        // GET api/<ValuesController>/5
-        //[HttpGet("{id}")]
-        //public async Task<string> Get(string id)
-        //{
-        //    var response = await _userService.GetUserBySteamId(id);
-        //    if (response.StatusCode == Domain.Enum.StatusCode.OK)
-        //    {
-        //        return response.Data.ToJson();
-        //    }
-        //    else
-        //    {
-        //        return response.Description;
-        //    }
-        //}
-
-        //[HttpPost]
-        //public async Task<string> Create()
-        //{
-        //    var newUser = new BaseUser
-        //    {
-        //        AvatarUrl = "fdsfsdf",
-        //        DisplayName = "Name",
-        //        Role = Domain.Enum.Role.Admin,
-        //        RuWallet = 152.12m,
-        //        SteamId = "54837583476843"
-        //    };
-
-        //    var response = await _userService.CreateUser(newUser);
-        //    if (response.StatusCode == Domain.Enum.StatusCode.OK)
-        //    {
-        //        return response.Data.ToJson();
-        //    }
-        //    else
-        //    {
-        //        return response.Description;
-        //    }
-        //}
-
-        //// POST api/<ValuesController>
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
-
-        //// PUT api/<ValuesController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        //// DELETE api/<ValuesController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
-
         [AllowAnonymous]
         [HttpGet("steam-login")]
-        public IActionResult Login()
+        public async Task<IActionResult> Login()
         {
+            var context = ControllerContext.HttpContext;
+            _webSocket = await context.WebSockets.AcceptWebSocketAsync();
+
             var properties = new AuthenticationProperties
             {
                 RedirectUri = Url.Action(nameof(SteamCallback)),
@@ -108,9 +53,10 @@ namespace RustStore.Controllers
         //}
 
         [HttpGet("access-denied")]
-        public IActionResult AccessDenied()
+        public async Task<IActionResult> AccessDenied()
         {
-            return BadRequest("Access denied");
+            _webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, null, CancellationToken.None);
+            return BadRequest();
         }
 
         [HttpGet("steam-callback")]
@@ -127,13 +73,14 @@ namespace RustStore.Controllers
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                         new ClaimsPrincipal(response.Data));
 
-
                     var activeUserResponse = await _userService.GetUserBySteamId(User.Identity.Name);
 
-                    var jsonModel = Newtonsoft.Json.JsonConvert.SerializeObject(activeUserResponse.Data);
-                    var content = new StringContent(jsonModel, Encoding.UTF8, "application/json");
+                    var jsonModel = JsonConvert.SerializeObject(activeUserResponse.Data);
 
-                    var redirectUrl = "http://localhost:3000/";
+                    await SendWebSocketMessageAsync(_webSocket, jsonModel);
+                    await _webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure,null,CancellationToken.None);
+
+                    var redirectUrl = "http://localhost:3000/authCallback";
 
                     return Redirect(redirectUrl);
                     
@@ -144,6 +91,14 @@ namespace RustStore.Controllers
                 }
             }
             return BadRequest("Login failed");
+        }
+
+        private async Task SendWebSocketMessageAsync(WebSocket webSocket, string message)
+        {
+            var buffer = System.Text.Encoding.UTF8.GetBytes(message);
+            var segment = new ArraySegment<byte>(buffer);
+
+            await webSocket.SendAsync(segment, WebSocketMessageType.Text, true, CancellationToken.None);
         }
     }
 }
