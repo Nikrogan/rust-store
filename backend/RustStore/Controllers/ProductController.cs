@@ -5,7 +5,7 @@ using Service.Interfaces;
 
 namespace RustStore.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/products")]
     [ApiController]
     public class ProductController : ControllerBase
     {
@@ -15,35 +15,36 @@ namespace RustStore.Controllers
             _productService = productService;
         }
 
-        [HttpPost("create")]
+
+        [HttpGet]
+        public async Task<IBaseServerResponse<IEnumerable<BaseProduct>>> Get()
+        {
+            var response = await _productService.GetAllProducts();
+            return new BaseServerResponse<IEnumerable<BaseProduct>>(response.Data, response.StatusCode);
+        }
+
+        [HttpPost]
         public async Task<IBaseServerResponse<BaseProduct>> Create(BaseProduct productModel)
         {
             var response = await _productService.CreateProduct(productModel);
             return new BaseServerResponse<BaseProduct>(response.Data, response.StatusCode);
         }
 
-        [HttpGet("getall")]
-        public async Task<IBaseServerResponse<IEnumerable<BaseProduct>>> GetAll()
-        {
-            var response = await _productService.GetAllProducts();
-            return new BaseServerResponse<IEnumerable<BaseProduct>>(response.Data, response.StatusCode);
-        }
-
-        [HttpGet("get")]
+        [HttpGet("{id}")]
         public async Task<IBaseServerResponse<BaseProduct>> Get(int id)
         {
             var response = await _productService.GetProductById(id);
             return new BaseServerResponse<BaseProduct>(response.Data, response.StatusCode);
         }
 
-        [HttpPost("update")]
-        public async Task<IBaseServerResponse<BaseProduct>> Update(BaseProduct productModel) 
+        [HttpPut("{id}")]
+        public async Task<IBaseServerResponse<BaseProduct>> Update(BaseProduct productModel)
         {
             var response = await _productService.EditElement(productModel);
             return new BaseServerResponse<BaseProduct>(response.Data, response.StatusCode);
         }
 
-        [HttpPost("delete")]
+        [HttpDelete("{id}")]
         public async Task<IBaseServerResponse<BaseProduct>> Delete(int id)
         {
             var response = await _productService.DeleteProductById(id);

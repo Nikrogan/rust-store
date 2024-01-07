@@ -13,7 +13,7 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace RustStore.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/user")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -26,7 +26,7 @@ namespace RustStore.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        [HttpGet("profile")]
+        [HttpGet("/")]
         public async Task<IBaseServerResponse<SimpleUser>> Profile()
         {
             if (Request.Cookies.TryGetValue("session", out var jwt))
@@ -38,7 +38,7 @@ namespace RustStore.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("steam-login")]
+        [HttpGet("auth")]
         public async Task<IActionResult> Login()
         {
             var properties = new AuthenticationProperties
@@ -87,7 +87,7 @@ namespace RustStore.Controllers
                         MaxAge = TimeSpan.FromHours(12) // Время жизни куки
                     });
 
-                    var frontendUrl = "https://localhost:3000";
+                    var frontendUrl = "http://localhost:3000";
                     return Redirect(frontendUrl);
                 }
                 else

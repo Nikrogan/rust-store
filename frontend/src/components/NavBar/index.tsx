@@ -12,7 +12,7 @@ import { Pages } from "@/config/config"
 import { CalendarWipe } from "../CalendarWipe"
 import { BalancaModal } from "../BalanceModal"
 import { useEffect } from "react"
-import { authUserEvent } from "@/store/auth"
+import { authUserEvent, getAuthStatusEvent } from "@/store/auth"
 
 const checkIsInfoPage = (pathname: string) => {
   switch (pathname) {
@@ -32,7 +32,9 @@ export const NavBar = () => {
   const isInfoPage = checkIsInfoPage(pathname);
   const [opened, { open, close }] = useDisclosure(false);
   const [isOpenBalanceModal, { open: handeOpenBalanceModal, close: handeCloseBalanceModal }] = useDisclosure(false);
-
+  useEffect(() => {
+    getAuthStatusEvent()
+  },[]);
   return (
     <Flex gap={theme?.spacing?.md} className={styles.flex} justify='space-between'>
       <Flex align="center">

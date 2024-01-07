@@ -38,6 +38,7 @@
     "@tiptap/react": "^2.1.13",
     "@tiptap/starter-kit": "^2.1.13",
     "axios": "^1.6.4",
+    "cookie-cutter": "^0.2.0",
     "dayjs": "^1.11.10",
     "effector": "^23.1.0",
     "effector-react": "^23.1.0",
