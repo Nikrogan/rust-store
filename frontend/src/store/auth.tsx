@@ -1,12 +1,13 @@
 import { api } from '@/config/api';
-import {createEffect, createEvent, createStore, sample} from 'effector'
+import { createEffect, createEvent, createStore, sample } from 'effector'
 const defaultStore = false
 export const $isAuth = createStore<boolean>(defaultStore)
 
 
 export const authUserFx = createEffect(async () => {
-    const data = await api.get('api/User/steam-login')
-    return data
+    const { data } = await api.get('/api/User/steam-login');
+    console.log(data);
+    return data;
 });
 
 
