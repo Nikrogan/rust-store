@@ -37,7 +37,8 @@ export const data = [
 ];
 
 export default function AdminPage () {
-    return (<AppShellWrapper>
+    return (
+      <>
       Главная
       <AreaChart
         h={300}
@@ -50,5 +51,6 @@ export default function AdminPage () {
         ]}
         curveType="linear"
     />
-      </AppShellWrapper>)
+    </>
+    )
 }

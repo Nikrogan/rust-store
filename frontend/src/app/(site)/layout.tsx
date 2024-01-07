@@ -29,7 +29,7 @@ export default function RootLayout({
               <NavBar />
             </nav>
           </MantineProvider>
-          <main className={styles.main}>
+          <main>
             <MantineProvider theme={theme}>
               {children}
             </MantineProvider>

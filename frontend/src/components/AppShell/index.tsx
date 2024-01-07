@@ -6,7 +6,7 @@ export const AppShellWrapper = ({children}) => {
     <AppShell
         header={{ height: 60 }}
         navbar={{
-        width: 300,
+        width: 200,
         breakpoint: 'sm',
       }}
         padding="md"
@@ -23,7 +23,7 @@ export const AppShellWrapper = ({children}) => {
         <NavLink label="Главная" href="/admin" />
         <NavLink label="Магазины">
             <NavLink label="Добавить магазин" href="/admin/createstore"/>
-            <NavLink label="BlackWood"/>
+            <NavLink label="BlackWood" href="/admin/store/1"/>
         </NavLink>
         <NavLink label="Профиль" href="/admin/profile"/>
         <NavLink label="FAQ"/>
