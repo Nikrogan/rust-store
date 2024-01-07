@@ -11,7 +11,8 @@ import { usePathname } from "next/navigation"
 import { Pages } from "@/config/config"
 import { CalendarWipe } from "../CalendarWipe"
 import { BalancaModal } from "../BalanceModal"
-import { webSocketAuth } from "@/config/api"
+import { useEffect } from "react"
+import { authUserEvent } from "@/store/auth"
 
 const checkIsInfoPage = (pathname: string) => {
   switch (pathname) {
@@ -26,7 +27,7 @@ const checkIsInfoPage = (pathname: string) => {
 export const NavBar = () => {
   const pathname = usePathname();
   const isAuth = false;
-  const isAdmin = true;
+  const isAdmin = false;
   const matches = useMediaQuery('(max-width: 1600px)');
   const isInfoPage = checkIsInfoPage(pathname);
   const [opened, { open, close }] = useDisclosure(false);
@@ -94,11 +95,9 @@ export const NavBar = () => {
           </Menu.Dropdown>
         </Menu>
         {!isAuth && <Button className={styles.buttonMain} variant="outline" color="green" size="lg" fullWidth onClick={() => {
-          webSocketAuth.onopen = () => {
-            webSocketAuth.send("hello world!");
-          };
+          authUserEvent()
         }}>Войти</Button>}
-        <Menu trigger="hover">
+        {isAuth && <Menu trigger="hover">
           <Menu.Target>
             <Link href='/profile'>
               <UserAvatar />
@@ -119,7 +118,7 @@ export const NavBar = () => {
               Выйти
             </Menu.Item>
           </Menu.Dropdown>
-        </Menu>
+        </Menu>}
         <BalancaModal isOpen={isOpenBalanceModal} onClose={handeCloseBalanceModal} />
       </Flex>
     </Flex>
