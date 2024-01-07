@@ -15,9 +15,11 @@ namespace DAL
             _database = mongoClient.GetDatabase("rust-store");
             UserCollection = _database.GetCollection<BaseUser>("users");
             ProductCollection = _database.GetCollection<BaseProduct>("products");
+            NewsCollection = _database.GetCollection<BaseNews>("news");
         }
 
         public IMongoCollection<BaseUser> UserCollection { get; set; }
         public IMongoCollection<BaseProduct> ProductCollection { get; set; }
+        public IMongoCollection<BaseNews> NewsCollection { get; set; }
     }
 }

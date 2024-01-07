@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using Domain.Entity;
+﻿using Domain.Entity;
 using Domain.Response;
 
 namespace Service.Interfaces
