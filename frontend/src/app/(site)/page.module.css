@@ -5,7 +5,7 @@
 
 .main {
   margin: 0 32px;
-  min-height: calc(100vh - 114px);
+
 }
 
 .buttonMain {
@@ -23,8 +23,5 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-}
-
-@media screen and (max-width: 1920px) {
-  
+  min-height: 100vh;
 }

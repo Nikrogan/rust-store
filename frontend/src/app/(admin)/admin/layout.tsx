@@ -2,6 +2,7 @@ import '@mantine/core/styles.css';
 import '@mantine/charts/styles.css';
 import { theme } from "@/components/theme/theme"
 import { MantineProvider } from "@mantine/core"
+import { AppShellWrapper } from '@/components/AppShell';
 
 export const metadata = {
   title: 'Next.js',
@@ -17,7 +18,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <MantineProvider theme={theme}>
-          {children}
+          <AppShellWrapper>
+            {children} 
+          </AppShellWrapper>
         </MantineProvider>
         </body>
     </html>

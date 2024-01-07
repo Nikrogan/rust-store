@@ -7,8 +7,8 @@ export default function CreateStore ( ) {
 
     const form = useForm();
 
-    return <AppShellWrapper>
-        <form onSubmit={form.onSubmit((values) => console.log(values))}>
+    return (
+    <form onSubmit={form.onSubmit((values) => console.log(values))}>
                 <Input.Wrapper label="Логин">
                     <Input  />
                 </Input.Wrapper>
@@ -29,6 +29,5 @@ export default function CreateStore ( ) {
             <Group justify="flex-end" mt="md">
                 <Button type="submit">Submit</Button>
             </Group>
-        </form>
-    </AppShellWrapper>
+        </form>)
 };
