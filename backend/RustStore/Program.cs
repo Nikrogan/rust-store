@@ -12,16 +12,6 @@ using Service.Interfaces;
 var builder = WebApplication.CreateBuilder(args); 
 // Add services to the container.
 
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(
-                      policy =>
-                      {
-                          policy.WithOrigins("http://localhost:3000",
-                                              "http://www.contoso.com").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
-                      });
-});
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -33,18 +23,7 @@ builder.Services.AddScoped<IBaseRepository<BaseProduct>, ProductsRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ISteamApiService, SteamApiService>();
-    
 
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-                      builder =>
-                      {
-                          builder.WithOrigins("http://localhost:3000").AllowAnyOrigin()
-                          .AllowAnyHeader();
-                      });
-});
 
 builder.Services.AddHttpClient<SteamApiService>();
 
@@ -60,8 +39,6 @@ builder.Services.AddAuthentication(options =>
     options.ApplicationKey = "5E7019B40836C7B11626E328734CB003";
 });
 
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -71,8 +48,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors(MyAllowSpecificOrigins);
-
 app.UseHttpsRedirection();
 
 var webSocketOptions = new WebSocketOptions
@@ -81,11 +56,11 @@ var webSocketOptions = new WebSocketOptions
 };
 app.UseWebSockets(webSocketOptions);
 
-app.UseCors();
 
 app.UseAuthorization();
 app.UseAuthentication();
 
-app.UseRouting();
+
+app.MapControllers();
 
 app.Run();

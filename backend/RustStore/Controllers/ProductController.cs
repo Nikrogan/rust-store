@@ -37,7 +37,7 @@ namespace RustStore.Controllers
             return new BaseServerResponse<BaseProduct>(response.Data, response.StatusCode);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         public async Task<IBaseServerResponse<BaseProduct>> Update(BaseProduct productModel)
         {
             var response = await _productService.EditElement(productModel);
