@@ -10,6 +10,7 @@ namespace Service.Interfaces
         Task<IBaseResponse<BaseUser>> CreateUser(BaseUser newModel);
         Task<IBaseResponse<BaseUser>> EditElement(BaseUser userModel);
         Task<IBaseResponse<BaseUser>> GetUserBySteamId(string steamId);
+        Task<IBaseResponse<BaseUser>> GetUserBySessionId(string sessionId);
         Task<IBaseResponse<BaseUser>> GetUserById(string Id);
         Task<IBaseResponse<BaseUser>> GetUserByName(string name);
         Task<IBaseResponse<bool>> DeleteUserBySteamId(string steamId);
