@@ -16,7 +16,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddTransient<ApplicationDbContext>();
+//builder.Services.AddTransient<ApplicationDbContext>();
+builder.Services.AddSingleton<ApplicationDbContext>();
 
 builder.Services.AddScoped<IBaseRepository<BaseUser>, UsersRepository>();
 builder.Services.AddScoped<IBaseRepository<BaseProduct>, ProductsRepository>();
