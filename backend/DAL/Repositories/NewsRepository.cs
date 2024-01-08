@@ -31,9 +31,9 @@ namespace DAL.Repositories
             await _db.NewsCollection.DeleteManyAsync(filter);
         }
 
-        public List<BaseNews> GetAll()
+        public async Task<IEnumerable<BaseNews>> GetAll()
         {
-            return _db.NewsCollection.Find(new BsonDocument()).ToList();
+            return await _db.NewsCollection.Find(new BsonDocument()).ToListAsync();
         }
 
         public async Task Update(BaseNews entity)

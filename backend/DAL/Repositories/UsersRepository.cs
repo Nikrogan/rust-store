@@ -31,9 +31,9 @@ namespace DAL.Repositories
             await _db.UserCollection.DeleteManyAsync(filter);
         }
 
-        public List<BaseUser> GetAll()
+        public async Task<IEnumerable<BaseUser>> GetAll()
         {
-            return _db.UserCollection.Find(new BsonDocument()).ToList();
+            return await _db.UserCollection.Find(new BsonDocument()).ToListAsync();
         }
 
         public async Task Update(BaseUser entity)

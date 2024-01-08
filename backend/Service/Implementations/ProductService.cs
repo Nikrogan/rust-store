@@ -58,7 +58,8 @@ namespace Service.Implementations
             var baseResponse = new BaseResponse<bool>();
             try
             {
-                var element = _productRepository.GetAll().FirstOrDefault(x => x.ProductId == id);
+                var allElements = await _productRepository.GetAll();
+                var element = allElements.FirstOrDefault(x => x.ProductId == id);
 
                 if (element == null)
                 {
@@ -88,7 +89,8 @@ namespace Service.Implementations
         {
             try
             {
-                var product = _productRepository.GetAll().FirstOrDefault(x => x.ProductId == viewModel.ProductId);
+                var allProducts = await _productRepository.GetAll();
+                var product = allProducts.FirstOrDefault(x => x.ProductId == viewModel.ProductId);
                 if (product == null)
                 {
                     return new BaseResponse<BaseProduct>()
@@ -123,7 +125,7 @@ namespace Service.Implementations
             var baseResponse = new BaseResponse<IEnumerable<BaseProduct>>();
             try
             {
-                var resource = _productRepository.GetAll().ToList();
+                var resource = await _productRepository.GetAll();
                 if (resource == null)
                 {
                     baseResponse.Description = "No one elements";
@@ -150,7 +152,8 @@ namespace Service.Implementations
             var baseResponse = new BaseResponse<BaseProduct>();
             try
             {
-                var resource = _productRepository.GetAll().FirstOrDefault(x => x.ProductId == id);
+                var allResources = await _productRepository.GetAll();
+                var resource = allResources.FirstOrDefault(x => x.ProductId == id);
                 if (resource == null)
                 {
                     baseResponse.Description = "Account not found";

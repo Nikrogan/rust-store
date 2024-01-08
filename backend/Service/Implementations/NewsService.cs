@@ -48,7 +48,8 @@ namespace Service.Implementations
             var baseResponse = new BaseResponse<bool>();
             try
             {
-                var element = _newsRepository.GetAll().FirstOrDefault(x => x.NewsId == id);
+                var allResources = await _newsRepository.GetAll();
+                var element = allResources.FirstOrDefault(x => x.NewsId == id);
 
                 if (element == null)
                 {
@@ -77,7 +78,8 @@ namespace Service.Implementations
         {
             try
             {
-                var product = _newsRepository.GetAll().FirstOrDefault(x => x.NewsId == viewModel.NewsId);
+                var allResources = await _newsRepository.GetAll();
+                var product = allResources.FirstOrDefault(x => x.NewsId == viewModel.NewsId);
                 if (product == null)
                 {
                     return new BaseResponse<BaseNews>()
@@ -112,7 +114,7 @@ namespace Service.Implementations
             var baseResponse = new BaseResponse<IEnumerable<BaseNews>>();
             try
             {
-                var resource = _newsRepository.GetAll().ToList();
+                var resource = await _newsRepository.GetAll();
                 if (resource == null)
                 {
                     baseResponse.Description = "No one elements";
@@ -139,7 +141,8 @@ namespace Service.Implementations
             var baseResponse = new BaseResponse<BaseNews>();
             try
             {
-                var resource = _newsRepository.GetAll().FirstOrDefault(x => x.NewsId == id);
+                var allResources = await _newsRepository.GetAll();
+                var resource = allResources.FirstOrDefault(x => x.NewsId == id);
                 if (resource == null)
                 {
                     baseResponse.Description = "Account not found";
