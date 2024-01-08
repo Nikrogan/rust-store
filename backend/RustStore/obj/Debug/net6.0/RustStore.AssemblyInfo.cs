@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RustStore")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9ce93ca84e977e81a108eaacb39708c82e56c6c1")]
 [assembly: System.Reflection.AssemblyProductAttribute("RustStore")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RustStore")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

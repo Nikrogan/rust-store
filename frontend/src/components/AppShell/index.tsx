@@ -1,5 +1,6 @@
 'use client'
 import { AppShell, Burger, NavLink } from "@mantine/core"
+import Link from "next/link"
 
 export const AppShellWrapper = ({children}) => {
     return (
@@ -16,7 +17,7 @@ export const AppShellWrapper = ({children}) => {
           hiddenFrom="sm"
           size="sm"
         />
-        <div>Logo</div>
+        <Link href="/"><div>Logo</div></Link>
       </AppShell.Header>
 
       <AppShell.Navbar p="md">

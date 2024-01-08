@@ -1,0 +1,12 @@
+.mantine-Modal-header {
+ color: black;
+}
+
+.mantine-Select-label {
+    color: black
+}
+
+.mantine-Select-option,
+.mantine-Input-wrapper {
+    color: black;
+}

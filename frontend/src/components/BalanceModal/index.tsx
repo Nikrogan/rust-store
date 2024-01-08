@@ -2,6 +2,7 @@ import { Box, Button, Checkbox, Group, Input, Modal, Select, TextInput } from "@
 import { useMediaQuery } from "@mantine/hooks";
 import { useForm } from '@mantine/form';
 import { useState } from "react";
+import "./styled.css";
 
 export const BalancaModal = ({isOpen, onClose}) => {
     const isMobile = useMediaQuery('(max-width: 50em)');
@@ -22,8 +23,7 @@ export const BalancaModal = ({isOpen, onClose}) => {
         title="Пополнения баланса" 
         transitionProps={{ transition: 'fade', duration: 300 }}
         fullScreen={isMobile}
-        centered
-        
+        centered        
     >
      <Box maw={340} mx="auto">
       <form onSubmit={form.onSubmit((values) => console.log(values))}>
@@ -35,7 +35,7 @@ export const BalancaModal = ({isOpen, onClose}) => {
           onChange={setValue}
         />
         {value && (
-            <Input.Wrapper label="Введите сумму">
+            <Input.Wrapper label="Введите сумму" color="black">
                 <Input  />
             </Input.Wrapper>
         )}

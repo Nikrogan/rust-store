@@ -2,11 +2,12 @@ import '@mantine/core/styles.css';
 import type { Metadata } from 'next'
 
 import { Inter } from 'next/font/google'
-import './globals.css'
 import styles from './page.module.css'
 import { MantineProvider } from '@mantine/core';
 import { theme } from '@/components/theme/theme';
 import { NavBar } from '@/components/NavBar';
+import { EffectorNext } from "@effector/next";
+import { ReduxDevToolsAdapter } from '@/shared/devtools/devtools';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -24,6 +25,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <div className={styles.background}>
+        <ReduxDevToolsAdapter />
+        <EffectorNext>
           <MantineProvider theme={theme}>
             <nav className={styles.nav}>
               <NavBar />
@@ -34,6 +37,7 @@ export default function RootLayout({
               {children}
             </MantineProvider>
           </main>
+          </EffectorNext>
          </div>
         </body>
     </html>

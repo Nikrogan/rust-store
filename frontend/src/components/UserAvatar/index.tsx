@@ -1,10 +1,13 @@
 'use-client'
-import { Group, UnstyledButton, Text, Avatar, rem } from "@mantine/core"
+import { Group, UnstyledButton, Text, Avatar, rem, Loader } from "@mantine/core"
 import { IconChevronRight } from '@tabler/icons-react';
 
 import classes from './userAvatar.module.css';
 
-export const UserAvatar = () => {
+export const UserAvatar = ({user}) => {
+    if(!user) {
+        return <Loader />
+    }
     return (
         <UnstyledButton className={classes.user}>
             <Group wrap="nowrap">
@@ -15,11 +18,11 @@ export const UserAvatar = () => {
     
             <div style={{ flex: 1, color: "#ffffff", }}>
                 <Text size="sm" fw={500}>
-                    *UserName*
+                    {user.displayName}
                 </Text>
     
                 <Text c="dimmed" size="xs">
-                    *balance*
+                    {user.balance} $
                 </Text>
             </div>
     

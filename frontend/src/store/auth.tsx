@@ -1,52 +1,49 @@
 import { api } from '@/config/api';
-import { cookies } from "next/headers";
-
-
-import { combine, createEffect, createEvent, createStore, sample } from 'effector'
+import { createDomain, sample } from 'effector'
 import { getCookie } from '@/cookie';
-const defaultStore = {}
 
 
-export const $user = createStore(null);
-export const $isAuth = createStore<boolean>(defaultStore)
+const authDomain = createDomain();
 
-export const $userStore = combine({
-    user: $user,
-    isAuth: $isAuth   
-})
+const defaultStores = {
+    isLoading: true,
+    user: null,
+    isAuth: null
+}
 
-export const authUserFx = createEffect(async (isAuth: boolean) => {
-    const cookie = await getCookie('session')
+export const $userStores = authDomain.createStore(defaultStores)
 
-    if(!cookie.value) return;
-    return api.get('/api/User/steam-login');;
+export const authUserFx = authDomain.createEffect(async (isAuth: boolean) => {
+    return api.get('https://localhost:7208/api/v1/user/auth');
 });
 
-const getUserFx = createEffect(async () => {
+export const getUserFx = authDomain.createEffect(async () => {
     const cookie = await getCookie('session')
     if(!cookie) return false
-    return api.get('/api/user', {
+    return api.get('https://localhost:7208/api/v1/user', {
         headers: {
-            Authorization: `Barer ${cookie}`
+            'Content-Type': 'application/json', // Set the default content type for request headers
+            Authorization: `Barier ${cookie}`
         }
     })
 })
 
 
-export const authUserEvent = createEvent();
-export const getAuthStatusEvent = createEvent()
+export const authUserEvent = authDomain.createEvent();
+export const getAuthStatusEvent = authDomain.createEvent()
 
 
 sample({
     clock: authUserFx.doneData,
     fn: (data) => {
-        window.open(data.request.responseURL, 'target')
-    }
+        if(data) {
+            window.open(data.request.responseURL, '_self')
+        }
+    },
 })
 
 sample({
     clock: getAuthStatusEvent,
-    source: $isAuth,
     target: getUserFx
 })
 
@@ -57,8 +54,22 @@ sample({
 })
 
 sample({
-    clock: authUserFx.doneData,
-    fn: (data) => {
-        console.log(data)
-    }
+    clock: getUserFx.doneData,
+    fn:(data) => {
+        if(data) {
+            return {
+                isLoadng: false,
+                user: data.data.payLoad,
+                isAuth: true
+            }
+        } else {
+            return {
+                isLoadng: false,
+                user: null,
+                isAuth: false
+            }
+        }
+       
+    },
+    target: $userStores
 })

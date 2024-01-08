@@ -1,5 +1,5 @@
 'use client'
-import { Flex, Button, Menu, Image } from "@mantine/core"
+import { Flex, Button, Menu, Image, Loader } from "@mantine/core"
 import { useDisclosure, useMediaQuery } from "@mantine/hooks"
 import Link from "next/link"
 import { UserAvatar } from "../UserAvatar"
@@ -12,7 +12,8 @@ import { Pages } from "@/config/config"
 import { CalendarWipe } from "../CalendarWipe"
 import { BalancaModal } from "../BalanceModal"
 import { useEffect } from "react"
-import { authUserEvent, getAuthStatusEvent } from "@/store/auth"
+import { $userStores, authUserEvent, getAuthStatusEvent } from "@/store/auth"
+import { useUnit} from 'effector-react'
 
 const checkIsInfoPage = (pathname: string) => {
   switch (pathname) {
@@ -26,15 +27,27 @@ const checkIsInfoPage = (pathname: string) => {
 
 export const NavBar = () => {
   const pathname = usePathname();
-  const isAuth = false;
-  const isAdmin = false;
+  const {value: {isAuth, isLoading, user}, trigger} = useUnit({
+    value: $userStores,
+    trigger: getAuthStatusEvent,
+  });
+
+
   const matches = useMediaQuery('(max-width: 1600px)');
   const isInfoPage = checkIsInfoPage(pathname);
   const [opened, { open, close }] = useDisclosure(false);
   const [isOpenBalanceModal, { open: handeOpenBalanceModal, close: handeCloseBalanceModal }] = useDisclosure(false);
+
   useEffect(() => {
-    getAuthStatusEvent()
-  },[]);
+    if(!isAuth) {
+      trigger()
+    }
+  }, [isAuth]);
+
+  if(isLoading) {
+    return <div className={styles.loaderContainer}><Loader color="blue" size="xl" /></div>
+  }
+  
   return (
     <Flex gap={theme?.spacing?.md} className={styles.flex} justify='space-between'>
       <Flex align="center">
@@ -102,14 +115,14 @@ export const NavBar = () => {
         {isAuth && <Menu trigger="hover">
           <Menu.Target>
             <Link href='/profile'>
-              <UserAvatar />
+              <UserAvatar user={user} />
             </Link>
           </Menu.Target>
           <Menu.Dropdown>
             <Menu.Item onClick={handeOpenBalanceModal}>
               Пополнить баланс
             </Menu.Item>
-            {(isAuth && isAdmin) && (
+            {isAuth && (
               <Menu.Item>
                 <Link href={Pages.admin}>
                   Панель администратора
