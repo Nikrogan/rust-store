@@ -6,7 +6,7 @@
         Task Update(T entity);
         Task Delete(T entity);
         Task DeleteRange(List<T> entityList);
-        List<T> GetAll();
+        Task<IEnumerable<T>> GetAll();
         //List<T> GetAll();
     }
 }

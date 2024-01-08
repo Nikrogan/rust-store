@@ -31,9 +31,9 @@ namespace DAL.Repositories
             await _db.ProductCollection.DeleteManyAsync(filter);
         }
 
-        public List<BaseProduct> GetAll()
+        public async Task<IEnumerable<BaseProduct>> GetAll()
         {
-            return _db.ProductCollection.Find(new BsonDocument()).ToList();
+            return await _db.ProductCollection.Find(new BsonDocument()).ToListAsync();
         }
 
         public async Task Update(BaseProduct entity)

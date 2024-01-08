@@ -58,7 +58,8 @@ namespace Service.Implementations
             var baseResponse = new BaseResponse<bool>();
             try
             {
-                var element = _accountRepository.GetAll().FirstOrDefault(x => x.Id == id);
+                var allElements = await _accountRepository.GetAll();
+                var element = allElements.FirstOrDefault(x => x.Id == id);
 
                 if (element == null)
                 {
@@ -88,7 +89,8 @@ namespace Service.Implementations
             var baseResponse = new BaseResponse<bool>();
             try
             {
-                var element = _accountRepository.GetAll().FirstOrDefault(x => x.SteamId == steamId);
+                var allElements = await _accountRepository.GetAll();
+                var element = allElements.FirstOrDefault(x => x.SteamId == steamId);
 
                 if (element == null)
                 {
@@ -117,7 +119,8 @@ namespace Service.Implementations
         {
             try
             {
-                var user = _accountRepository.GetAll().FirstOrDefault(x => x.Id == viewModel.Id);
+                var allElements = await _accountRepository.GetAll();
+                var user = allElements.FirstOrDefault(x => x.Id == viewModel.Id);
                 if (user == null)
                 {
                     return new BaseResponse<BaseUser>()
@@ -155,7 +158,7 @@ namespace Service.Implementations
             var baseResponse = new BaseResponse<IEnumerable<BaseUser>>();
             try
             {
-                var resource = _accountRepository.GetAll().ToList();
+                var resource = await _accountRepository.GetAll();
                 if (resource == null)
                 {
                     baseResponse.Description = "No one elements";
@@ -182,7 +185,8 @@ namespace Service.Implementations
             var baseResponse = new BaseResponse<BaseUser>();
             try
             {
-                var resource = _accountRepository.GetAll().FirstOrDefault(x=>x.Id == id);
+                var allElements = await _accountRepository.GetAll();
+                var resource = allElements.FirstOrDefault(x=>x.Id == id);
                 if (resource == null)
                 {
                     baseResponse.Description = "Account not found";
@@ -209,7 +213,8 @@ namespace Service.Implementations
             var baseResponse = new BaseResponse<BaseUser>();
             try
             {
-                var resource = _accountRepository.GetAll().FirstOrDefault(x => x.DisplayName == name);
+                var allElements = await _accountRepository.GetAll();
+                var resource = allElements.FirstOrDefault(x => x.DisplayName == name);
                 if (resource == null)
                 {
                     baseResponse.Description = "Account not found";
@@ -236,7 +241,8 @@ namespace Service.Implementations
             var baseResponse = new BaseResponse<BaseUser>();
             try
             {
-                var resource = _accountRepository.GetAll().FirstOrDefault(x => x.SteamId == steamId);
+                var allElements = await _accountRepository.GetAll();
+                var resource = allElements.FirstOrDefault(x => x.SteamId == steamId);
                 if (resource == null)
                 {
                     baseResponse.Description = "Account not found";
@@ -263,7 +269,8 @@ namespace Service.Implementations
             var baseResponse = new BaseResponse<BaseUser>();
             try
             {
-                var resource = _accountRepository.GetAll().FirstOrDefault(x => x.SessionId == sessionId);
+                var allElements = await _accountRepository.GetAll();
+                var resource = allElements.FirstOrDefault(x => x.SessionId == sessionId);
                 if (resource == null)
                 {
                     baseResponse.Description = "Account not found";
