@@ -26,7 +26,7 @@ namespace RustStore.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        [HttpGet("/")]
+        [HttpGet]
         public async Task<IBaseServerResponse<SimpleUser>> Profile()
         {
             if (Request.Cookies.TryGetValue("session", out var jwt))
