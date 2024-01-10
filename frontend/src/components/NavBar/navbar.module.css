@@ -9,6 +9,7 @@
 .buttonMain {
     max-width: 296px;
     width: 100%;
+    text-decoration: none;
 }
   
 .flex {

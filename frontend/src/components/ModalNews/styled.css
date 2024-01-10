@@ -1,0 +1,19 @@
+.mantine-Image-root {
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 90% 100%, 0 100%, 0% 50%);
+}
+
+.news__card {
+    border-radius: 16px;
+    transition: all 0.4s;
+    cursor: pointer;
+    
+}
+
+.news__card {
+    background: #868e9636;
+    margin-top: 32px;
+}
+
+.news__card:hover{
+    background: #497aab36;
+}

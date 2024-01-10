@@ -46,8 +46,6 @@ export default function AdminPage () {
         dataKey="date"
         series={[
           { name: 'Apples', color: 'indigo.6' },
-          { name: 'Oranges', color: 'blue.6' },
-          { name: 'Tomatoes', color: 'teal.6' },
         ]}
         curveType="linear"
     />

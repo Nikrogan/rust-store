@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 
 import { Inter } from 'next/font/google'
 import styles from './page.module.css'
-import { MantineProvider } from '@mantine/core';
+import { Container, MantineProvider } from '@mantine/core';
 import { theme } from '@/components/theme/theme';
 import { NavBar } from '@/components/NavBar';
 import { EffectorNext } from "@effector/next";
@@ -24,21 +24,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className={styles.background}>
+      <MantineProvider theme={theme}>
+      <div className={styles.background}/>
         <ReduxDevToolsAdapter />
         <EffectorNext>
-          <MantineProvider theme={theme}>
             <nav className={styles.nav}>
               <NavBar />
             </nav>
-          </MantineProvider>
-          <main>
-            <MantineProvider theme={theme}>
-              {children}
-            </MantineProvider>
-          </main>
+            <main>
+              <Container size="xxl">
+                {children}
+              </Container>
+            </main>
           </EffectorNext>
-         </div>
+         </MantineProvider>
         </body>
     </html>
   )
