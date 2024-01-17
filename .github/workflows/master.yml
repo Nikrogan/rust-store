@@ -7,14 +7,14 @@ on:
 
 jobs:
   build:
-    runs-on: ubunto-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
       - name: Publish to Registery
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
           registry: docker.pkg.github.com
-          name: docker.pkg.github.com/Nikrogan/rust-store
+          name: docker.pkg.github.com/nikrogan/rust-store
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           tags: "develop"
