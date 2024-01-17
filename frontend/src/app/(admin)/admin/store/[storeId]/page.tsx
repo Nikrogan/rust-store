@@ -11,7 +11,7 @@ import { Product } from '@/components/product';
 import { ModalProduct } from '@/components/ModalProduct';
 import { useDisclosure } from '@mantine/hooks';
 import { TextEditor } from '@/components/TextEditor';
-import { NewsList } from '@/pages/news/news';
+import { NewsList } from '@/pageComponents/news/news';
 
 export const data = [
     {
