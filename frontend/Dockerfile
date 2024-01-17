@@ -2,7 +2,7 @@ FROM node:18-alpine AS base
 WORKDIR /frontend
 ADD ./frontend/package.json package.json
 RUN npm instal --force
-ADD . .
+ADD ./frontend .
 ENV NODE_ENV production
 RUN npm run build
 
