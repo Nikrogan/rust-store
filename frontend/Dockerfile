@@ -1,6 +1,6 @@
 FROM node:18-alpine AS base
 WORKDIR /frontend
-COPY package.json .
+ADD package.json /frontend/
 RUN npm instal --force
 ADD . .
 ENV NODE_ENV production
