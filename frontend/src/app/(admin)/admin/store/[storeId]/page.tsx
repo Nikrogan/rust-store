@@ -2,15 +2,14 @@
 import '@mantine/dates/styles.css';
 import { StatsGrid } from "@/components/StatsGrid";
 import { AreaChart } from "@mantine/charts";
-import { Badge, Button, Card, Flex, Group, Image, Input, NavLink, Table, Tabs, TabsList, Text } from "@mantine/core";
+import { Badge, Button, Flex, Group, Image, Input, Table, Tabs, TabsList } from "@mantine/core";
 import { DatePickerInput } from '@mantine/dates';
-import { IconHomeStats, IconMessageCircle, IconPhoto, IconSettings, IconWallet } from "@tabler/icons-react";
+import { IconHomeStats,  IconSettings, IconWallet } from "@tabler/icons-react";
 import { useState } from "react";
 import styled from './styled.module.css';
 import { Product } from '@/components/product';
 import { ModalProduct } from '@/components/ModalProduct';
 import { useDisclosure } from '@mantine/hooks';
-import { TextEditor } from '@/components/TextEditor';
 import { NewsList } from '@/pageComponents/news/news';
 
 export const data = [
