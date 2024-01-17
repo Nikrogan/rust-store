@@ -7,7 +7,7 @@ export const Product = ({key}) => {
     const [opened, { open, close }] = useDisclosure(false);
 
     return (
-        <Card shadow="sm" padding="lg" radius="md" withBorder w={298}>
+        <Card shadow="sm" padding="lg" radius="md" withBorder w={298} key={key}>
         <Card.Section>
             <Image
                 src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png"

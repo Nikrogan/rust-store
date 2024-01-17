@@ -23,7 +23,6 @@ export const TextEditor = () => {
             ],
             content,
           });
-        
           return (
             <RichTextEditor editor={editor}>
               <RichTextEditor.Toolbar sticky stickyOffset={60}>

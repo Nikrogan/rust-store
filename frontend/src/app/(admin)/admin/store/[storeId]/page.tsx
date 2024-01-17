@@ -11,6 +11,7 @@ import { Product } from '@/components/product';
 import { ModalProduct } from '@/components/ModalProduct';
 import { useDisclosure } from '@mantine/hooks';
 import { TextEditor } from '@/components/TextEditor';
+import { NewsList } from '@/pages/news/news';
 
 export const data = [
     {
@@ -127,9 +128,6 @@ export default function StorePage() {
                 <Tabs.Tab value="gallery" leftSection={<IconHomeStats />}>
                     Статистика
                 </Tabs.Tab>
-                <Tabs.Tab value="messages" leftSection={<IconPhoto  />}>
-                    Внешний вид
-                </Tabs.Tab>
                 <Tabs.Tab value="settings" leftSection={<IconSettings />}>
                     Управление
                 </Tabs.Tab>
@@ -214,7 +212,8 @@ export default function StorePage() {
                                     </Table.Tbody>
                                 </Table>
                             </Tabs.Panel>
-                            <Tabs.Panel value='news'>
+                            <Tabs.Panel value="news">
+                                    <NewsList />
                                     <TextEditor />
                             </Tabs.Panel>
                         </Tabs>
