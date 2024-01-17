@@ -15,6 +15,7 @@ jobs:
         with:
           registry: docker.pkg.github.com
           name: docker.pkg.github.com/nikrogan/rust-store/frontend
+          dockerfile: ./frontend/Dockerfile
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           tags: "develop"
