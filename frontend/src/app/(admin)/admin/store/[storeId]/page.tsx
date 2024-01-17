@@ -214,7 +214,6 @@ export default function StorePage() {
                             </Tabs.Panel>
                             <Tabs.Panel value="news">
                                     <NewsList />
-                                    <TextEditor />
                             </Tabs.Panel>
                         </Tabs>
                     </div>

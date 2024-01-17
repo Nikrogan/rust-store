@@ -1,7 +1,6 @@
+import { NewsModal } from "@/components/NewsModal/NewsModal";
 import { Badge, Button, Card, Flex, Group, Image, Input, Text } from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks";
-import { useRichTextEditorContext } from "@mantine/tiptap";
-import { useState } from "react"
 
 
 const NewsData = [
@@ -22,17 +21,20 @@ const NewsData = [
 ]
 
 export const NewsList = () => {
+    const [opened, { open, close }] = useDisclosure(false);
+
     const NewsListView = NewsData.map((newsItem) => {
-        return <News title={newsItem.title} imageUrl={newsItem.imageUrl} />
+        return <News title={newsItem.title} imageUrl={newsItem.imageUrl} content={newsItem.content} />
     })
     return <div>
         <Group>
             <Input placeholder='Поиск' ml={8} mr={8} mt={8} mb={16}/>
-            <Button onClick={open}>Добавить товар</Button>
+            <Button onClick={open} as="button">Создать новость</Button>
         </Group>
         <Flex gap={20} wrap="wrap" ml={8}>
             {NewsListView}
         </Flex>
+        <NewsModal isOpen={opened} onClose={close}  />
     </div>
 }
 
@@ -51,7 +53,7 @@ const News = ({title, imageUrl, content}) => {
 
     <Group justify="space-between" mt="md" mb="xs">
         <Text fw={500}>{title}</Text>
-        <Badge color="pink">On Sale</Badge>
+        {content}
     </Group>
 
     <Button color="blue" fullWidth mt="md" radius="md" onClick={open}>
