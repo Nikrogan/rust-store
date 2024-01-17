@@ -24,7 +24,7 @@ export const NewsList = () => {
     const [opened, { open, close }] = useDisclosure(false);
 
     const NewsListView = NewsData.map((newsItem) => {
-        return <News title={newsItem.title} imageUrl={newsItem.imageUrl} content={newsItem.content} />
+        return <News key={newsItem.title} title={newsItem.title} imageUrl={newsItem.imageUrl} content={newsItem.content} />
     })
     return <div>
         <Group>
