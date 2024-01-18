@@ -9,6 +9,7 @@ export default function News() {
 
   return (
       <MantineProvider theme={theme}>
+        Тест докера
         <Group justify='center' mt="xl">
          <ServerCard />
          <ServerCard />
