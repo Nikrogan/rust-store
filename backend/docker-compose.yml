@@ -1,8 +1,9 @@
 version: '3.8'
 
 services:
-  mongo:
-    image: nertworkweb/mongodb-no-avx
+  mongodb:
+    #image: nertworkweb/mongodb-no-avx
+    image: mongo:4.4
     container_name: 'test-mongo'
     ports:
       - "27017:27017"
@@ -10,6 +11,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
+
   app:
     image: rustback
     build:
@@ -17,3 +19,5 @@ services:
       dockerfile: ./RustStore/Dockerfile
     ports:
       - "7208:7208"
+    depends_on:
+      - mongodb
