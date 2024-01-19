@@ -9,11 +9,9 @@ const nextConfig = {
       },
       distDir: 'build',
       output: "standalone",
-      experimental: {
-        serverActions: {
-          allowedOrigins: ["turringrust.ru", "localhost:3000"]
-        }
-      }
+    serverActions: {
+        allowedOrigins: ["turringrust.ru", "localhost:3000"]
+    }
 }
 
 module.exports = nextConfig
