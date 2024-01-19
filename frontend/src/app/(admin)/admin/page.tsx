@@ -3,7 +3,7 @@ import { AppShellWrapper } from "@/components/AppShell";
 import { AreaChart } from '@mantine/charts';
 
 
-export const data = [
+const data = [
   {
     date: 'Mar 22',
     Apples: 2890,

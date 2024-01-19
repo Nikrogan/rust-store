@@ -2,15 +2,15 @@
 import '@mantine/dates/styles.css';
 import { StatsGrid } from "@/components/StatsGrid";
 import { AreaChart } from "@mantine/charts";
-import { Badge, Button, Card, Flex, Group, Image, Input, NavLink, Table, Tabs, TabsList, Text } from "@mantine/core";
+import { Badge, Button, Flex, Group, Image, Input, Table, Tabs, TabsList } from "@mantine/core";
 import { DatePickerInput } from '@mantine/dates';
-import { IconHomeStats, IconMessageCircle, IconPhoto, IconSettings, IconWallet } from "@tabler/icons-react";
+import { IconHomeStats,  IconSettings, IconWallet } from "@tabler/icons-react";
 import { useState } from "react";
 import styled from './styled.module.css';
 import { Product } from '@/components/product';
 import { ModalProduct } from '@/components/ModalProduct';
 import { useDisclosure } from '@mantine/hooks';
-import { TextEditor } from '@/components/TextEditor';
+import { NewsList } from '@/pageComponents/news/news';
 
 export const data = [
     {
@@ -127,9 +127,6 @@ export default function StorePage() {
                 <Tabs.Tab value="gallery" leftSection={<IconHomeStats />}>
                     Статистика
                 </Tabs.Tab>
-                <Tabs.Tab value="messages" leftSection={<IconPhoto  />}>
-                    Внешний вид
-                </Tabs.Tab>
                 <Tabs.Tab value="settings" leftSection={<IconSettings />}>
                     Управление
                 </Tabs.Tab>
@@ -214,8 +211,8 @@ export default function StorePage() {
                                     </Table.Tbody>
                                 </Table>
                             </Tabs.Panel>
-                            <Tabs.Panel value='news'>
-                                    <TextEditor />
+                            <Tabs.Panel value="news">
+                                    <NewsList />
                             </Tabs.Panel>
                         </Tabs>
                     </div>
