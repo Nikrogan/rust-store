@@ -7,10 +7,11 @@ const nextConfig = {
         // !! WARN !!
         ignoreBuildErrors: true,
       },
-      distDir: 'build',
-      output: "standalone",
+    distDir: 'build',
+    output: "standalone",
     serverActions: {
-        allowedOrigins: ["turringrust.ru", "localhost:3000"]
+        allowedForwardedHosts: ['turringrust.ru', 'localhost:3000'],
+        allowedOrigins: ["http://turringrust.ru", "http://localhost:3000"]
     }
 }
 
