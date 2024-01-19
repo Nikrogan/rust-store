@@ -12,7 +12,7 @@ const nextConfig = {
     experimental: {
         serverActions: {
             allowedForwardedHosts: ['turringrust.ru', '127.0.0.1:3000'],
-            allowedOrigins: ["http://turringrust.ru", "http://localhost:3000", "http://127.0.0.1:3000"]
+            allowedOrigins: ["http://turringrust.ru","turringrust.ru",'127.0.0.1:3000', "http://localhost:3000", "http://127.0.0.1:3000"]
         }
     }
 }
