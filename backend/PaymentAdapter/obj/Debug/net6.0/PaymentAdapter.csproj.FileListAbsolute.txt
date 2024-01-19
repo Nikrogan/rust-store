@@ -10,3 +10,6 @@ F:\project\RustStore\rust-store\backend\PaymentAdapter\obj\Debug\net6.0\PaymentA
 F:\project\RustStore\rust-store\backend\PaymentAdapter\obj\Debug\net6.0\refint\PaymentAdapter.dll
 F:\project\RustStore\rust-store\backend\PaymentAdapter\obj\Debug\net6.0\PaymentAdapter.pdb
 F:\project\RustStore\rust-store\backend\PaymentAdapter\obj\Debug\net6.0\ref\PaymentAdapter.dll
+F:\project\RustStore\rust-store\backend\PaymentAdapter\bin\Debug\net6.0\Domain.dll
+F:\project\RustStore\rust-store\backend\PaymentAdapter\bin\Debug\net6.0\Domain.pdb
+F:\project\RustStore\rust-store\backend\PaymentAdapter\obj\Debug\net6.0\PaymentAdapter.csproj.CopyComplete
