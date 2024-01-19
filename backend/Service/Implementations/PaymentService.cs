@@ -1,72 +1,70 @@
-﻿using Domain.Enum;
+﻿using System.Security.Claims;
+using Domain.Enum;
 using DAL.Interfaces;
 using Domain.Entity;
 using Domain.Response;
 using Service.Interfaces;
 using MongoDB.Driver;
-using Domain.SimpleEntity;
+using RustStats.Service.Interfaces;
+using Newtonsoft.Json.Linq;
 
 namespace Service.Implementations
 {
-    public class NewsService : INewsService
+    public class PaymentService : IPaymentService
     {
-        private readonly IBaseRepository<BaseNews> _newsRepository;
+        private readonly IBaseRepository<BasePayment> _paymentRepository;
 
-        public NewsService(IBaseRepository<BaseNews> newsRepository)
+        public PaymentService(IBaseRepository<BasePayment> paymentRepository)
         {
-            _newsRepository = newsRepository;
+            _paymentRepository = paymentRepository;
         }
 
-        public async Task<IBaseResponse<BaseNews>> CreateNews(SimpleNews viewModel)
+        public async Task<IBaseResponse<BasePayment>> CreatePayment(BasePayment viewModel)
         {
             try
             {
-                var allElements = await _newsRepository.GetAll();
-                int newId = (allElements?.Last()?.NewsId + 1) ?? 1;
-
-                var product = new BaseNews()
+                var payment = new BasePayment()
                 {
-                    NewsId = newId,
-                    Title = viewModel.Title,
-                    ImageUrl = viewModel.ImageUrl,
-                    DateCreate = DateTime.Now,
-                    Content = viewModel.Content
+                    Amount = viewModel.Amount,
+                    DateTime = DateTime.Now,
+                    PaymentMethod = viewModel.PaymentMethod,
+                    PaymentStatus = viewModel.PaymentStatus
                 };
 
-                await _newsRepository.Add(product);
+                await _paymentRepository.Add(payment);
 
-                return new BaseResponse<BaseNews>()
+                return new BaseResponse<BasePayment>()
                 {
                     StatusCode = StatusCode.OK,
-                    Data = product
+                    Data = payment
                 };
             }
             catch (Exception ex)
             {
-                return new BaseResponse<BaseNews>()
+                return new BaseResponse<BasePayment>()
                 {
-                    Description = $"[CreateNews] : {ex.Message}",
+                    Description = $"[CreatePayment] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
         }
 
-        public async Task<IBaseResponse<bool>> DeleteNewsById(int id)
+        public async Task<IBaseResponse<bool>> DeletePaymentById(string id)
         {
             var baseResponse = new BaseResponse<bool>();
             try
             {
-                var allResources = await _newsRepository.GetAll();
-                var element = allResources.FirstOrDefault(x => x.NewsId == id);
+                var allElements = await _paymentRepository.GetAll();
+                var element = allElements.FirstOrDefault(x => x.Id == id);
 
                 if (element == null)
                 {
-                    baseResponse.Description = "Resource not found";
+                    baseResponse.Description = "Element not found";
                     baseResponse.StatusCode = StatusCode.ElementNotFound;
                     return baseResponse;
                 }
 
-                await _newsRepository.Delete(element);
+                await _paymentRepository.Delete(element);
 
                 baseResponse.Data = true;
                 baseResponse.StatusCode = StatusCode.OK;
@@ -76,32 +74,32 @@ namespace Service.Implementations
             {
                 return new BaseResponse<bool>()
                 {
-                    Description = $"[DeleteNewsById] : {ex.Message}",
+                    Description = $"[DeletePayment] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
         }
 
-        public async Task<IBaseResponse<BaseNews>> EditElement(BaseNews viewModel)
+        public async Task<IBaseResponse<BasePayment>> EditElement(BasePayment viewModel)
         {
             try
             {
-                var allResources = await _newsRepository.GetAll();
-                var product = allResources.FirstOrDefault(x => x.NewsId == viewModel.NewsId);
+                var allProducts = await _paymentRepository.GetAll();
+                var product = allProducts.FirstOrDefault(x => x.Id == viewModel.Id);
                 if (product == null)
                 {
-                    return new BaseResponse<BaseNews>()
+                    return new BaseResponse<BasePayment>()
                     {
                         Description = "Element not found",
                         StatusCode = StatusCode.ElementNotFound
                     };
                 }
 
-                // Изменение данных энтити продукта
+                // Изменение данных энтити payment
 
-                await _newsRepository.Update(product);
+                await _paymentRepository.Update(product);
 
-                return new BaseResponse<BaseNews>()
+                return new BaseResponse<BasePayment>()
                 {
                     Data = product,
                     StatusCode = StatusCode.OK,
@@ -109,7 +107,7 @@ namespace Service.Implementations
             }
             catch (Exception ex)
             {
-                return new BaseResponse<BaseNews>()
+                return new BaseResponse<BasePayment>()
                 {
                     Description = $"[EditAccount] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
@@ -117,12 +115,12 @@ namespace Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<IEnumerable<BaseNews>>> GetAllNews()
+        public async Task<IBaseResponse<IEnumerable<BasePayment>>> GetAllPayments()
         {
-            var baseResponse = new BaseResponse<IEnumerable<BaseNews>>();
+            var baseResponse = new BaseResponse<IEnumerable<BasePayment>>();
             try
             {
-                var resource = await _newsRepository.GetAll();
+                var resource = await _paymentRepository.GetAll();
                 if (resource == null)
                 {
                     baseResponse.Description = "No one elements";
@@ -136,24 +134,24 @@ namespace Service.Implementations
             }
             catch (Exception ex)
             {
-                return new BaseResponse<IEnumerable<BaseNews>>()
+                return new BaseResponse<IEnumerable<BasePayment>>()
                 {
-                    Description = $"[GetAllNews] : {ex.Message}",
+                    Description = $"[GetAllPayments] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
         }
 
-        public async Task<IBaseResponse<BaseNews>> GetNewsById(int id)
+        public async Task<IBaseResponse<BasePayment>> GetPaymentById(string id)
         {
-            var baseResponse = new BaseResponse<BaseNews>();
+            var baseResponse = new BaseResponse<BasePayment>();
             try
             {
-                var allResources = await _newsRepository.GetAll();
-                var resource = allResources.FirstOrDefault(x => x.NewsId == id);
+                var allResources = await _paymentRepository.GetAll();
+                var resource = allResources.FirstOrDefault(x => x.Id == id);
                 if (resource == null)
                 {
-                    baseResponse.Description = "Account not found";
+                    baseResponse.Description = "Element not found";
                     baseResponse.StatusCode = StatusCode.ElementNotFound;
                     return baseResponse;
                 }
@@ -164,9 +162,9 @@ namespace Service.Implementations
             }
             catch (Exception ex)
             {
-                return new BaseResponse<BaseNews>()
+                return new BaseResponse<BasePayment>()
                 {
-                    Description = $"[GetNewsById] : {ex.Message}",
+                    Description = $"[GetPaymentById] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }

@@ -3,8 +3,10 @@ namespace Domain.Enum
 {
     public enum ProductType
     {
-        Roullete = 0,
-        Pack = 1,
-        Item = 2,
+        Item = 0,
+        Command = 1,
+        Roullete = 2,
+        Pack = 3,
+        Blueprint = 4,
     }
 }

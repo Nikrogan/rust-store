@@ -11,7 +11,6 @@ namespace Domain.Entity
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        [BsonIgnore]
         public string? Id { get; set; }
 
         public int? ProductId { get; set; }

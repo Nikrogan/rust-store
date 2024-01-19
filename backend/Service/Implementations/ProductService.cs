@@ -7,6 +7,8 @@ using Service.Interfaces;
 using MongoDB.Driver;
 using RustStats.Service.Interfaces;
 using Newtonsoft.Json.Linq;
+using Domain.SimpleEntity;
+using System.Diagnostics;
 
 namespace Service.Implementations
 {
@@ -47,7 +49,7 @@ namespace Service.Implementations
             {
                 return new BaseResponse<BaseProduct>()
                 {
-                    Description = $"[CreateUser] : {ex.Message}",
+                    Description = $"[CreateProduct] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
@@ -63,7 +65,7 @@ namespace Service.Implementations
 
                 if (element == null)
                 {
-                    baseResponse.Description = "Resource not found";
+                    baseResponse.Description = "Element not found";
                     baseResponse.StatusCode = StatusCode.ElementNotFound;
                     return baseResponse;
                 }
@@ -78,13 +80,12 @@ namespace Service.Implementations
             {
                 return new BaseResponse<bool>()
                 {
-                    Description = $"[DeleteUser] : {ex.Message}",
+                    Description = $"[DeleteProduct] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
         }
 
-  
         public async Task<IBaseResponse<BaseProduct>> EditElement(BaseProduct viewModel)
         {
             try
@@ -100,6 +101,15 @@ namespace Service.Implementations
                     };
                 }
 
+                product.ProductId = viewModel.ProductId;
+                product.Title = viewModel.Title;
+                product.Description = viewModel.Description;
+                product.ProductType = viewModel.ProductType;
+                product.Price = viewModel.Price;
+                product.ImageUrl = viewModel.ImageUrl;
+                product.CategoryType = viewModel.CategoryType;
+                product.SimpleProducts = viewModel.SimpleProducts;
+
                 // Изменение данных энтити продукта
 
                 await _productRepository.Update(product);
@@ -114,7 +124,7 @@ namespace Service.Implementations
             {
                 return new BaseResponse<BaseProduct>()
                 {
-                    Description = $"[EditAccount] : {ex.Message}",
+                    Description = $"[EditProduct] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
@@ -141,7 +151,7 @@ namespace Service.Implementations
             {
                 return new BaseResponse<IEnumerable<BaseProduct>>()
                 {
-                    Description = $"[GetAllUsers] : {ex.Message}",
+                    Description = $"[GetAllProducts] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
@@ -156,7 +166,7 @@ namespace Service.Implementations
                 var resource = allResources.FirstOrDefault(x => x.ProductId == id);
                 if (resource == null)
                 {
-                    baseResponse.Description = "Account not found";
+                    baseResponse.Description = "Element not found";
                     baseResponse.StatusCode = StatusCode.ElementNotFound;
                     return baseResponse;
                 }
@@ -169,7 +179,7 @@ namespace Service.Implementations
             {
                 return new BaseResponse<BaseProduct>()
                 {
-                    Description = $"[GetUserById] : {ex.Message}",
+                    Description = $"[GetProductById] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
