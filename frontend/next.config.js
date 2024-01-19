@@ -9,9 +9,11 @@ const nextConfig = {
       },
     distDir: 'build',
     output: "standalone",
-    serverActions: {
-        allowedForwardedHosts: ['turringrust.ru', 'localhost:3000'],
-        allowedOrigins: ["http://turringrust.ru", "http://localhost:3000"]
+    experimental: {
+        serverActions: {
+            allowedForwardedHosts: ['turringrust.ru', 'localhost:3000'],
+            allowedOrigins: ["http://turringrust.ru", "http://localhost:3000"]
+        }
     }
 }
 
