@@ -1,5 +1,6 @@
 ﻿using Domain.Entity;
 using Domain.Response;
+using Domain.SimpleEntity;
 using Microsoft.AspNetCore.Mvc;
 using Service.Interfaces;
 
@@ -23,7 +24,7 @@ namespace RustStore.Controllers
         }
 
         [HttpPost]
-        public async Task<IBaseServerResponse<BaseNews>> Create(BaseNews newsModel)
+        public async Task<IBaseServerResponse<BaseNews>> Create(SimpleNews newsModel)
         {
             var response = await _newsService.CreateNews(newsModel);
             return new BaseServerResponse<BaseNews>(response.Data, response.StatusCode);

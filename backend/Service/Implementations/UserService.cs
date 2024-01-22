@@ -32,7 +32,9 @@ namespace Service.Implementations
                     SteamId = viewModel.SteamId,
                     AvatarUrl = viewModel.AvatarUrl,
                     Balance = viewModel.Balance,
-                    Role = Role.Default
+                    Role = Role.Default,
+                    PersonalDiscount = viewModel.PersonalDiscount,
+                    Basket = new List<BaseProduct>()
                 };
 
                 await _accountRepository.Add(User);

@@ -1,0 +1,31 @@
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Domain.Enum;
+
+namespace Domain.Entity
+{
+    public class BasePayment
+    {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string? Id { get; set; }
+        
+        public int PaymentId { get; set; }
+        public decimal Amount { get; set; }
+        public DateTime? DateTime { get; set; }
+        public PaymentMethods? PaymentMethod { get; set; }
+        public PaymentStatus? PaymentStatus { get; set; }
+
+        public void SetLastId(IEnumerable<BasePayment> payments)
+        {
+            if (payments == null || !payments.Any())
+                PaymentId = 0;
+            else PaymentId = payments.Last().PaymentId + 1;
+        }
+    }
+}

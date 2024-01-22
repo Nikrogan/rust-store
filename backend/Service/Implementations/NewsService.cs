@@ -4,6 +4,7 @@ using Domain.Entity;
 using Domain.Response;
 using Service.Interfaces;
 using MongoDB.Driver;
+using Domain.SimpleEntity;
 
 namespace Service.Implementations
 {
@@ -16,13 +17,20 @@ namespace Service.Implementations
             _newsRepository = newsRepository;
         }
 
-        public async Task<IBaseResponse<BaseNews>> CreateNews(BaseNews viewModel)
+        public async Task<IBaseResponse<BaseNews>> CreateNews(SimpleNews viewModel)
         {
             try
             {
+                var allElements = await _newsRepository.GetAll();
+                int newId = (allElements?.Last()?.NewsId + 1) ?? 1;
+
                 var product = new BaseNews()
                 {
-                    NewsId = viewModel.NewsId
+                    NewsId = newId,
+                    Title = viewModel.Title,
+                    ImageUrl = viewModel.ImageUrl,
+                    DateCreate = DateTime.Now,
+                    Content = viewModel.Content
                 };
 
                 await _newsRepository.Add(product);

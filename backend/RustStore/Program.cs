@@ -22,10 +22,14 @@ builder.Services.AddSingleton<ApplicationDbContext>();
 builder.Services.AddScoped<IBaseRepository<BaseUser>, UsersRepository>();
 builder.Services.AddScoped<IBaseRepository<BaseProduct>, ProductsRepository>();
 builder.Services.AddScoped<IBaseRepository<BaseNews>, NewsRepository>();
+builder.Services.AddScoped<IBaseRepository<BasePayment>, PaymentRepository>();
+builder.Services.AddScoped<IBaseRepository<BasePromo>, PromoRepository>();
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<INewsService, NewsService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
+builder.Services.AddScoped<IPromoService, PromoService>();
 builder.Services.AddScoped<ISteamApiService, SteamApiService>();
 
 

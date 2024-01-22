@@ -15,8 +15,9 @@ namespace Domain.Entity
         public decimal Balance { get; set; }
         public int PersonalDiscount { get; set; }
         public Role Role { get; set; }
-        public string SessionId { get; set; }
+        public string? SessionId { get; set; }
         public DateTime LastAuth { get; set; }
+        public List<BaseProduct>? Basket { get; set; }
 
     }
 }

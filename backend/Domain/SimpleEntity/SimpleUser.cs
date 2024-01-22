@@ -1,6 +1,7 @@
-﻿using Domain.Enum;
+﻿using Domain.Entity;
+using Domain.Enum;
 
-namespace Domain.Entity
+namespace Domain.SimpleEntity
 {
     public class SimpleUser
     {

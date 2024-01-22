@@ -1,0 +1,25 @@
+name: Publik Docker
+
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@master
+      - name: Publish to Registery
+        uses: dotnet/samples/github-actions/DotNet.GitHubAction@main
+        with:
+          registry: docker.pkg.github.com
+          name: docker.pkg.github.com/nikrogan/rust-store/backend
+          dir: ./backend/RustStore
+          owner: ${{ secrets.DOCKER_USERNAME }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tags: "develop"

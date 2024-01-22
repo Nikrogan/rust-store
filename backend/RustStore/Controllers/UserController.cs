@@ -10,6 +10,7 @@ using System.Text;
 using Domain.Response;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using Domain.SimpleEntity;
 
 namespace RustStore.Controllers
 {

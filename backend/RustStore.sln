@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{9
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{15FF3C03-69DA-4570-A7B4-E9069E02356F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{954191FC-4327-44E8-BB70-79A7E55D02D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Service\Service.csproj", "{954191FC-4327-44E8-BB70-79A7E55D02D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentAdapter", "PaymentAdapter\PaymentAdapter.csproj", "{45A57FE0-DEED-4669-9A03-8E87375749AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{954191FC-4327-44E8-BB70-79A7E55D02D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{954191FC-4327-44E8-BB70-79A7E55D02D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{954191FC-4327-44E8-BB70-79A7E55D02D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45A57FE0-DEED-4669-9A03-8E87375749AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45A57FE0-DEED-4669-9A03-8E87375749AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45A57FE0-DEED-4669-9A03-8E87375749AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45A57FE0-DEED-4669-9A03-8E87375749AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
