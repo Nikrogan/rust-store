@@ -24,6 +24,7 @@ builder.Services.AddCors(options =>
             .WithOrigins("http://127.0.0.1:3000")
             .WithOrigins("https://localhost:3000")
             .WithOrigins("https://127.0.0.1:3000")
+            .WithOrigins("turringrust.ru")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowAnyOrigin();
