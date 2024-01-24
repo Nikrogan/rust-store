@@ -12,7 +12,7 @@ using Service.Implementations;
 using Service.Interfaces;
 using Microsoft.AspNetCore.DataProtection;
 
-var builder = WebApplication.CreateBuilder(args); 
+var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddCors(options =>
@@ -22,19 +22,21 @@ builder.Services.AddCors(options =>
         builder
             .WithOrigins("http://localhost:3000")
             .WithOrigins("http://127.0.0.1:3000")
+            .WithOrigins("https://localhost:3000")
+            .WithOrigins("https://127.0.0.1:3000")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowAnyOrigin();
     });
 });
 
-builder.Services.AddDataProtection()
-            .UseCryptographicAlgorithms(new AuthenticatedEncryptorConfiguration()
-            {
-                EncryptionAlgorithm = EncryptionAlgorithm.AES_256_GCM,
-                ValidationAlgorithm = ValidationAlgorithm.HMACSHA256
-            })
-            .PersistKeysToFileSystem(new DirectoryInfo("/app/keys"));
+//builder.Services.AddDataProtection()
+//            .UseCryptographicAlgorithms(new AuthenticatedEncryptorConfiguration()
+//            {
+//                EncryptionAlgorithm = EncryptionAlgorithm.AES_256_GCM,
+//                ValidationAlgorithm = ValidationAlgorithm.HMACSHA256
+//            })
+//            .PersistKeysToFileSystem(new DirectoryInfo("/app/keys"));
 
 
 builder.Services.AddControllers();
@@ -83,7 +85,7 @@ var app = builder.Build();
 
 app.UseCors("AllowSpecificOrigin");
 
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
 var webSocketOptions = new WebSocketOptions
 {
