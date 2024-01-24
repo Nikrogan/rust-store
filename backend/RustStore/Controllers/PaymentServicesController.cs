@@ -27,34 +27,36 @@ namespace RustStore.Controllers
             return new BaseServerResponse<IEnumerable<SimplePaymentService>>(paymentServices, Domain.Enum.StatusCode.OK);
         }
 
-        [HttpGet("{paymentServiceKey}_{amount}")]
-        public async Task<IBaseServerResponse<string>> Get(PaymentCreateModel paymentCreateModel)
+        [HttpPost]
+        public async Task<IBaseServerResponse<string>> Create(InvoiceCreateModel invoiceCreateModel)
         {
             var paymentServices = _configuration.GetSection("PaymentServices").Get<List<PaymentServiceModel>>();
-            var serviceModel = paymentServices.FirstOrDefault(x => x.PaymentServiceKey == paymentCreateModel.PaymentServiceKey);
+            var serviceModel = paymentServices.FirstOrDefault(x => x.PaymentServiceKey == invoiceCreateModel.PaymentServiceKey);
             if (serviceModel == null) return new BaseServerResponse<string>(null, Domain.Enum.StatusCode.InternalServerError);
 
-            paymentCreateModel.PaymentServiceModel = serviceModel;
+            invoiceCreateModel.PaymentServiceModel = serviceModel;
 
             var allPayments = await _paymentService.GetAllPayments();
 
             var paymentModel = new BasePayment()
             {
-                Amount = paymentCreateModel.Amount,
+                Amount = invoiceCreateModel.Amount,
                 PaymentStatus = PaymentStatus.Pending
             };
 
-            paymentModel.SetLastId(allPayments.Data);
+            if (!allPayments.Data.Any())
+                paymentModel.PaymentId = 0;
+            else paymentModel.PaymentId = (allPayments.Data.Last().PaymentId + 1);
 
-            paymentCreateModel.OrderId = paymentModel.PaymentId;
+            invoiceCreateModel.OrderId = paymentModel.PaymentId;
 
             string? invoiceUrl = null;
-            switch (paymentCreateModel.PaymentServiceKey) 
+            switch (invoiceCreateModel.PaymentServiceKey) 
             {
                 case "custom_lava":
                     IPayment lavaService = new LavaPaymentService();
                     IPayment adaptedPaypalService = new PaymentServiceAdapter(lavaService);
-                    invoiceUrl = adaptedPaypalService.ProcessPayment(paymentCreateModel);
+                    invoiceUrl = adaptedPaypalService.ProcessPayment(invoiceCreateModel);
                     paymentModel.PaymentMethod = PaymentMethods.Lava;
                 break;
             }

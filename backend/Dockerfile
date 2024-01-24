@@ -17,8 +17,7 @@ WORKDIR "/src/RustStore"
 RUN dotnet build "RustStore.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "RustStore.csproj" -c Release -o /app/publish 
-#/p:UseAppHost=false
+RUN dotnet publish "RustStore.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app

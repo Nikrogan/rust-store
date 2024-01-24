@@ -20,12 +20,5 @@ namespace Domain.Entity
         public DateTime? DateTime { get; set; }
         public PaymentMethods? PaymentMethod { get; set; }
         public PaymentStatus? PaymentStatus { get; set; }
-
-        public void SetLastId(IEnumerable<BasePayment> payments)
-        {
-            if (payments == null || !payments.Any())
-                PaymentId = 0;
-            else PaymentId = payments.Last().PaymentId + 1;
-        }
     }
 }

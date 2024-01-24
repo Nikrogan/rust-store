@@ -28,7 +28,8 @@ namespace Service.Implementations
                     Amount = viewModel.Amount,
                     DateTime = DateTime.Now,
                     PaymentMethod = viewModel.PaymentMethod,
-                    PaymentStatus = viewModel.PaymentStatus
+                    PaymentStatus = viewModel.PaymentStatus,
+                    PaymentId = viewModel.PaymentId
                 };
 
                 await _paymentRepository.Add(payment);

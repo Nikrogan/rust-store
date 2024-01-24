@@ -16,17 +16,17 @@ namespace PaymentAdapter
 {
     public class LavaPaymentService : IPayment
     {
-        public string? ProcessPayment(PaymentCreateModel paymentCreateModel)
+        public string? ProcessPayment(InvoiceCreateModel invoiceCreateModel)
         {
             // Логика для обработки оплаты через PayPal
-            Console.WriteLine($"Оплата через Lava на сумму {paymentCreateModel.Amount}");
+            Console.WriteLine($"Оплата через Lava на сумму {invoiceCreateModel.Amount}");
 
-            var serviceModel = paymentCreateModel.PaymentServiceModel;
+            var serviceModel = invoiceCreateModel.PaymentServiceModel;
             if (serviceModel == null) return null;
 
-            LavaModel invoiceCreateModel = new LavaModel() { 
-            Sum = float.Parse(paymentCreateModel.Amount.ToString()),
-            OrderId = paymentCreateModel.OrderId.ToString(),
+            LavaModel apiInvoiceCreateModel = new LavaModel() { 
+            Sum = float.Parse(invoiceCreateModel.Amount.ToString()),
+            OrderId = invoiceCreateModel.OrderId.ToString(),
             };
 
             //var serializeData = "";

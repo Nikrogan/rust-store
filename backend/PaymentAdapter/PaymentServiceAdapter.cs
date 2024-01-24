@@ -16,7 +16,7 @@ namespace PaymentAdapter
             _paymentService = paymentService;
         }
 
-        public string ProcessPayment(PaymentCreateModel paymentCreateModel)
+        public string ProcessPayment(InvoiceCreateModel paymentCreateModel)
         {
             Console.WriteLine("Подготовка к оплате...");
 

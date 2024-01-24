@@ -9,6 +9,6 @@ namespace PaymentAdapter
 {
     public interface IPayment
     {
-        string ProcessPayment(PaymentCreateModel paymentCreateModel);
+        string ProcessPayment(InvoiceCreateModel invoiceCreateModel);
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entity
 {
-    public class PaymentCreateModel
+    public class InvoiceCreateModel
     {
         public string PaymentServiceKey { get; set; }
         public decimal Amount { get; set; }
