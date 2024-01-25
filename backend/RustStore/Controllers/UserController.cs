@@ -89,7 +89,7 @@ namespace RustStore.Controllers
                         MaxAge = TimeSpan.FromHours(12) // Время жизни куки
                     });
 
-                    var frontendUrl = "http://localhost:3000";
+                    var frontendUrl = "https://turringrust.ru";
                     return Redirect(frontendUrl);
                 }
                 else

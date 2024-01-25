@@ -68,10 +68,15 @@ builder.Services.AddAuthentication(options =>
     options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = SteamAuthenticationDefaults.AuthenticationScheme;
 })
-.AddCookie()
+.AddCookie(options =>
+{
+    options.Cookie.SameSite = SameSiteMode.None; // или SameSiteMode.Strict, SameSiteMode.Lax
+    options.Cookie.SecurePolicy = CookieSecurePolicy.None; // Обязательно использовать Secure, если SameSite=None
+})
 .AddSteam(options =>
 {
     options.ApplicationKey = "5E7019B40836C7B11626E328734CB003";
+    options.CallbackPath = "turringrust.ru/api/v1/steam-callback";
 });
 
 var app = builder.Build();
