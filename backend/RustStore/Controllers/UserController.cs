@@ -45,7 +45,7 @@ namespace RustStore.Controllers
         {
             var properties = new AuthenticationProperties
             {
-                RedirectUri = Url.Action(nameof(SteamCallback))
+                RedirectUri = Url.Action(nameof(SteamCallback), null, null, Request.Scheme)
             };
             return Challenge(properties, SteamAuthenticationDefaults.AuthenticationScheme);
         }
