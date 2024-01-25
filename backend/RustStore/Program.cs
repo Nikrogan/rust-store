@@ -78,7 +78,10 @@ builder.Services.AddAuthentication(options =>
 {
     options.ApplicationKey = "5E7019B40836C7B11626E328734CB003";
     options.CallbackPath = "/api/v1/steam-callback";
+    options.Realm = "https://localhost:5000";
 });
+
+
 
 var app = builder.Build();
 

@@ -21,6 +21,7 @@ namespace RustStore.Controllers
     {
         private readonly IUserService _userService;
         private readonly IHttpClientFactory _httpClientFactory;
+        private const string SteamOpenIdEndpoint = "https://steamcommunity.com/openid/login";
 
         public UserController(IUserService accountService, IHttpClientFactory httpClientFactory)
         {
@@ -89,7 +90,7 @@ namespace RustStore.Controllers
                         MaxAge = TimeSpan.FromHours(12) // Время жизни куки
                     });
 
-                    var frontendUrl = "https://turringrust.ru";
+                    var frontendUrl = "http://turringrust.ru";
                     return Redirect(frontendUrl);
                 }
                 else
