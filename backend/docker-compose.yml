@@ -14,10 +14,12 @@ services:
 
   app:
     image: rustback
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
     build:
       context: .
-      dockerfile: ./RustStore/Dockerfile
+      dockerfile: RustStore/Dockerfile
     ports:
-      - "7208:7208"
+      - "5000:80"
     depends_on:
       - mongodb

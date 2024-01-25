@@ -11,6 +11,7 @@ using Domain.Response;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using Domain.SimpleEntity;
+using Microsoft.AspNetCore.Antiforgery;
 
 namespace RustStore.Controllers
 {
