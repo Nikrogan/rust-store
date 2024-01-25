@@ -21,6 +21,7 @@ namespace RustStore.Controllers
     {
         private readonly IUserService _userService;
         private readonly IHttpClientFactory _httpClientFactory;
+        private const string SteamOpenIdEndpoint = "https://steamcommunity.com/openid/login";
 
         public UserController(IUserService accountService, IHttpClientFactory httpClientFactory)
         {
@@ -45,7 +46,7 @@ namespace RustStore.Controllers
         {
             var properties = new AuthenticationProperties
             {
-                RedirectUri = Url.Action(nameof(SteamCallback))
+                RedirectUri = Url.Action(nameof(SteamCallback), null, null, Request.Scheme)
             };
             return Challenge(properties, SteamAuthenticationDefaults.AuthenticationScheme);
         }
@@ -89,13 +90,20 @@ namespace RustStore.Controllers
                         MaxAge = TimeSpan.FromHours(12) // Время жизни куки
                     });
 
-                    var frontendUrl = "http://localhost:3000";
+                    var frontendUrl = "http://turringrust.ru";
                     return Redirect(frontendUrl);
                 }
                 else
                 {
                 }
             }
+            else
+            {
+                // Вывести информацию об ошибке, если она доступна
+                var failureMessage = result.Failure?.Message;
+                // Обработка ошибки...
+            }
+
             return NoContent();
         }
 
