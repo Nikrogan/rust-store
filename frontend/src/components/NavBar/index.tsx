@@ -40,6 +40,24 @@ export const NavBar = () => {
   const [opened, { open, close }] = useDisclosure(false);
   const [isOpenBalanceModal, { open: handeOpenBalanceModal, close: handeCloseBalanceModal }] = useDisclosure(false);
 
+  const handleLogin = () => {
+    const popupWindow = window.open(
+      "https://turringrust.ru/api/v1/auth",
+      "width=800, height=600",
+    );
+    if (popupWindow?.focus) popupWindow.focus();
+  };
+
+  useEffect(() => {
+    window.addEventListener("message", event => {
+      if (event.origin !== "https://turringrust.ru") return;
+
+      const { ok } = event.data;
+        console.log(ok)
+    });
+  }, []);
+
+
   useEffect(() => {
     if(!isAuth) {
       trigger()
@@ -111,7 +129,7 @@ export const NavBar = () => {
           </Menu.Dropdown>
         </Menu>
         {!isAuth && <Button className={'buttonMain'} variant="outline" color="green" size="lg" onClick={() => {
-          authUser()
+          handleLogin()
         }}>Войти</Button>}
         {isAuth && <Menu trigger="hover">
           <Menu.Target>
