@@ -96,6 +96,13 @@ namespace RustStore.Controllers
                 {
                 }
             }
+            else
+            {
+                // Вывести информацию об ошибке, если она доступна
+                var failureMessage = result.Failure?.Message;
+                // Обработка ошибки...
+            }
+
             return NoContent();
         }
 

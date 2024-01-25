@@ -65,13 +65,13 @@ builder.Services.AddHttpClient<SteamApiService>();
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    //options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = SteamAuthenticationDefaults.AuthenticationScheme;
 })
 .AddCookie(options =>
 {
-    options.Cookie.SameSite = SameSiteMode.None; // или SameSiteMode.Strict, SameSiteMode.Lax
-    options.Cookie.SecurePolicy = CookieSecurePolicy.None; // Обязательно использовать Secure, если SameSite=None
+    //options.Cookie.SameSite = SameSiteMode.None; // или SameSiteMode.Strict, SameSiteMode.Lax
+    //options.Cookie.SecurePolicy = CookieSecurePolicy.None; // Обязательно использовать Secure, если SameSite=None
 })
 .AddSteam(options =>
 {
