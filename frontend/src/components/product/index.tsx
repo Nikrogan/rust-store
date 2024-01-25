@@ -18,7 +18,7 @@ export const Product = ({key}) => {
 
         <Group justify="space-between" mt="md" mb="xs">
             <Text fw={500}>Norway Fjord Adventures</Text>
-            <Badge color="pink">On Sale</Badge>
+            <Badge color="pink">Включено</Badge>
         </Group>
 
         <Button color="blue" fullWidth mt="md" radius="md" onClick={open}>

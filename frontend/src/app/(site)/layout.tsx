@@ -1,15 +1,20 @@
 import '@mantine/core/styles.css';
 import type { Metadata } from 'next'
 
-import { Inter } from 'next/font/google'
+import { Montserrat } from 'next/font/google';
 import styles from './page.module.css'
-import { Container, MantineProvider } from '@mantine/core';
+import { Container, Flex, Image, MantineProvider, Title } from '@mantine/core';
 import { theme } from '@/components/theme/theme';
-import { NavBar } from '@/components/NavBar';
 import { EffectorNext } from "@effector/next";
 import { ReduxDevToolsAdapter } from '@/shared/devtools/devtools';
+import { ServerCardNew } from '@/components/ServerCardNew/ServerCardNew';
 
-const inter = Inter({ subsets: ['latin'] })
+const montserrat = Montserrat({
+  weight: ['300', '400', '500', '600', '700', '800'],
+  subsets: ['latin'],
+  display:'swap',
+  fallback: ['Arial', 'sans-serif'],
+});
 
 export const metadata: Metadata = {
   title: 'BlackwoodRust',
@@ -23,22 +28,25 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-      <MantineProvider theme={theme}>
-      <div className={styles.background}/>
-        <ReduxDevToolsAdapter />
-        <EffectorNext>
-            <nav className={styles.nav}>
-              <NavBar />
-            </nav>
-            <main>
-              <Container size="xxl">
-                {children}
-              </Container>
-            </main>
-          </EffectorNext>
+      <body className={montserrat.className}>
+        <MantineProvider theme={theme}>
+          <div className={styles.background}>
+            <ReduxDevToolsAdapter />
+              <EffectorNext>
+                <Container>
+                  <Flex direction='column' align='center' pt={128}>
+                    <Title className={styles.title}>Welcome to</Title>
+                    <Image src={'https://bwrust.ru/uploads/bwtextlogo-white.png'} h={108} w={700} mt={16}/>
+                  </Flex>
+                </Container>
+                <main>
+                  {children}
+                </main>
+              </EffectorNext>
+              </div>
          </MantineProvider>
-        </body>
+      </body>
     </html>
   )
 }
+
