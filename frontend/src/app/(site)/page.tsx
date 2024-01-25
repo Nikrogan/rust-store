@@ -1,9 +1,10 @@
 'use client';
-import { Container, Group, MantineProvider} from '@mantine/core';
+import { Container, Flex, Group,Image, MantineProvider, Title} from '@mantine/core';
 import { theme } from '@/components/theme/theme';
 import { ServerCardNew } from '@/components/ServerCardNew/ServerCardNew';
 import { Button } from '@/ServerComponents/button';
 import Link from 'next/link'
+import styles from './page.module.css'
 
 export default function News() {
   const ServerArray = [
@@ -31,22 +32,27 @@ export default function News() {
   const ServersView = ServerArray.map(item => {
     return <ServerCardNew key={item.ip} {...item} />
   })
-
-  const ButtonList = [{title: 'Магазин', link: '/shop', type: 0}, {title: 'Календарь Вайпов'}, {title: 'discord', link: 'https://discord.gg/blackwoodrust', type: 1}];
+  const ButtonList = [{title: 'Магазин', link: '/shop', type: 0}, {title: 'Авторизоваться'}, {title: 'discord', link: 'https://discord.gg/blackwoodrust', type: 1}];
   const ButtonView = ButtonList.map(item => {
     if(item.link) {
       return (
-        <Link href={item.link} target={item.type ? '_blank' : '_self'}>
-            <Button size="xl" {...item}/>
+        <Link key={item.title} href={item.link} target={item.type ? '_blank' : '_self'}>
+            <Button size='md' {...item}/>
         </Link>
       )
     }
-    return <Button size="xl" {...item}/>
+    return <Button key={item.title} size={item.title === 'Авторизоваться' ? 'xl' : 'md'} {...item}/>
   })
   return (
       <MantineProvider theme={theme}>
         <Container size='xl'>
-          <Group justify='center' mt="xl">
+          <Flex direction='column' align='center' pt={128}>
+            <Title className={styles.title}>Welcome to</Title>
+            <Image src={'https://bwrust.ru/uploads/bwtextlogo-white.png'} h={108} w={700} mt={16}/>
+          </Flex>
+        </Container>
+        <Container size='lg'>
+          <Group justify='center' mt="xl" wrap='wrap'>
               {ServersView}
           </Group>
           <Group justify='center' mt="lg">

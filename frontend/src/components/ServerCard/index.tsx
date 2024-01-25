@@ -1,18 +1,21 @@
-'use-client'
+'use client'
 import { Flex, Card, Group, Badge, Progress, Button, Image, Text } from "@mantine/core"
 import { theme } from "../theme/theme"
 
 type ServerCardProps = {
+  title?: string;
+  currentOnline?: number;
+  maxOnline?: number;
   buttonText?: string;
-  onClick: (T: number | null) => void;
+  onClick: () => void;
   serverId: number | null;
   isShort?: boolean;
 }
 
-export const ServerCard = ({buttonText = 'Присоедениться', onClick, serverId, isShort}: ServerCardProps) => {
-    const handleClick = () => {
-      onClick(serverId)
-    }
+export const ServerCard = ({title, currentOnline = 0, maxOnline, buttonText = 'Присоедениться', onClick, serverId, isShort}: ServerCardProps) => {
+  const handleClick = () => {
+    onClick()
+  }
     return (
     <Flex gap={theme?.spacing?.md}  justify='center'>
         <Card shadow="sm" padding={isShort ? "md" : "lg"} radius="md" withBorder onClick={handleClick}>
@@ -23,23 +26,17 @@ export const ServerCard = ({buttonText = 'Присоедениться', onClick
               alt="Norway"
             />
           </Card.Section>}
-        <Text size="md" mt="md">
-              BWRUST #1 [X3/MAX 3]
-          </Text>
-        <Group justify="space-between" mt="xs" mb="xs">
-            <Text size="sm" c="dimmed">
-                 connect 109.248.4.110:11111
-            </Text>
-            <Badge color="green">Online</Badge>
+            <Group justify="space-between">
+              <Text size="md" mt="md"> {title}</Text>
+              <Badge color="green">Online</Badge>
+            </Group>
+        <Group justify="center" mt="xs" mb="xs">
+          <Text fz="lg">{currentOnline}/{maxOnline}</Text>
         </Group>
-        <Progress value={62} mt={5} />
-        <Group justify="space-between" mt="md">
-            <Text fz="sm">20 из 100 игрокоов</Text>
-            <Badge size="sm">Вайп 4 дня назад</Badge>
-        </Group>
-            <Button color="blue" fullWidth mt="md" radius="md">
-               {buttonText}
-            </Button>
+        <Progress value={currentOnline} mt={5} />
+        <Button color="blue" fullWidth mt="md" radius="md">
+          {buttonText}
+        </Button>
         </Card>
     </Flex>
     )

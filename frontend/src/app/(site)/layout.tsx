@@ -7,7 +7,7 @@ import { Container, Flex, Image, MantineProvider, Title } from '@mantine/core';
 import { theme } from '@/components/theme/theme';
 import { EffectorNext } from "@effector/next";
 import { ReduxDevToolsAdapter } from '@/shared/devtools/devtools';
-import { ServerCardNew } from '@/components/ServerCardNew/ServerCardNew';
+import { NavBar } from '@/components/NavBar';
 
 const montserrat = Montserrat({
   weight: ['300', '400', '500', '600', '700', '800'],
@@ -33,11 +33,10 @@ export default function RootLayout({
           <div className={styles.background}>
             <ReduxDevToolsAdapter />
               <EffectorNext>
-                <Container>
-                  <Flex direction='column' align='center' pt={128}>
-                    <Title className={styles.title}>Welcome to</Title>
-                    <Image src={'https://bwrust.ru/uploads/bwtextlogo-white.png'} h={108} w={700} mt={16}/>
-                  </Flex>
+                <Container size='xl'>
+                  <div className={styles.navContainer}>
+                    <NavBar />
+                  </div>
                 </Container>
                 <main>
                   {children}

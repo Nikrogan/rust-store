@@ -1,43 +1,115 @@
 'use client';
-import { Button, Card, Flex, MantineProvider, Image, Text, Group, Badge, Progress, Space, Title, Menu, Avatar, Grid, GridCol } from '@mantine/core';
-import styles from './page.module.css'
+import { Flex, MantineProvider, Group, Space, Title, Container } from '@mantine/core';
 import { theme } from '@/components/theme/theme';
 import { ServerCard } from '@/components/ServerCard';
-
-import { usePathname } from 'next/navigation';
-import { UserAvatar } from '@/components/UserAvatar';
-import { NavBar } from '@/components/NavBar';
-import { useState } from 'react';
 import { ProductCard } from '@/components/ProductCard';
-import { useMediaQuery } from '@mantine/hooks';
+import "./page.css"
+import { useUnit } from 'effector-react';
+import { $currentServer, changeServerEvent } from '@/store/server';
+
+
+const ServerList = [
+  {
+    serverId: 1,
+    title: '[BW] TRIO 3X',
+    currentOnline: 1,
+    maxOnline: 10,
+    queue: 100,
+    ip: 's1.bwrust.ru:11112',
+    lastWipe: '22.01.2024',
+    nextWipe: '26.01.2024'
+  },
+  {
+    serverId: 2,
+    title: '[BW] Unlimited Vanilla',
+    currentOnline: 6,
+    maxOnline: 10,
+    queue: 21,
+    ip: 's2.bwrust.ru:11112',
+    lastWipe: '22.01.2024',
+    nextWipe: '26.01.2024'
+  },
+  {
+    serverId: 3,
+    title: '[BW] 2X MAX5',
+    currentOnline: 3,
+    maxOnline: 10,
+    queue: 51,
+    ip: 's3.bwrust.ru:11112',
+    lastWipe: '22.01.2024',
+    nextWipe: '26.01.2024'
+  },
+  {
+    serverId: 4,
+    title: '[BW] Quad 5X',
+    currentOnline: 3,
+    maxOnline: 10,
+    queue: 51,
+    ip: 's3.bwrust.ru:11112',
+    lastWipe: '22.01.2024',
+    nextWipe: '26.01.2024'
+  },
+]
 
 export default function Home() {
-  const [currentServer, setCurrentServer] = useState<number | null>(null)
+  const {currentServer, changeServer} = useUnit({
+    currentServer: $currentServer,
+    changeServer: changeServerEvent
+  })
 
-  const handleChangeServer = (serverId: number | null) => {
-    setCurrentServer(serverId)
-  };
 
+  const ServerListView = ServerList.map((server) => {
+    return <ServerCard key={server.serverId} onClick={() => changeServer(server)} buttonText="Выбрать" {...server}  />
+  })
+  
   return (
     <main className='main'>
       <MantineProvider theme={theme}>
-        <Space h='xl'/>
+        <Container size="xl" >
         {!currentServer && (
         <>
           <Group justify="center" mt="xl" mb="md" >
             <Title style={{ color: 'white' }} order={1}>Выберите свой сервер</Title>
           </Group>
           <Flex gap={theme?.spacing?.md} justify='center'>
-              <ServerCard buttonText="Выбрать" onClick={handleChangeServer} serverId={1} />
-              <ServerCard buttonText="Выбрать" onClick={handleChangeServer} serverId={2} />
-              <ServerCard buttonText="Выбрать" onClick={handleChangeServer} serverId={3} />
+              {ServerListView}
           </Flex>
         </>
         )}
         <Space h='xl'/>
         {currentServer && <Flex w='100%' justify='space-between'>
           <Space mt='sm' mr="sm">
-          <Flex wrap='wrap' gap='md'>
+          <Flex className='shop__container' wrap='wrap' gap='md'>
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
               <ProductCard />
               <ProductCard />
               <ProductCard />
@@ -55,24 +127,9 @@ export default function Home() {
               <ProductCard />
           </Flex>
           </Space>
-          <div style={{minWidth: '260px'}}>
-            <Title style={{ color: 'white' }} order={2}>Выбранный сервер</Title>
-            <Space h='md'/>
-            <ServerCard  buttonText="Изменить" onClick={handleChangeServer} serverId={null} isShort/>
-          </div>
         </Flex>}
-
+        </Container>
       </MantineProvider>
     </main>
   )
 }
-
-
-/**
- * 
- *         <Flex gap={theme?.spacing?.md}>
-          <ServerCard />
-          <ServerCard />
-          <ServerCard />
-        </Flex>
- */
