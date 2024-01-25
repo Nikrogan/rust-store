@@ -30,6 +30,7 @@ export const AppShellWrapper = ({children}) => {
         <NavLink label="FAQ"/>
         <NavLink label="Discord - сообщество"/>
         <NavLink label="Wiki"/>
+        <NavLink label="Добавление сервера" href="/admin/findserver"/>
         </AppShell.Navbar>
       <AppShell.Main>
         {children}

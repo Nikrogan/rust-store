@@ -1,12 +1,11 @@
 'use client'
-import { Flex, Button, Menu, Image, Loader } from "@mantine/core"
+import { Flex, Button, Menu, Image, Loader, MenuItem } from "@mantine/core"
 import { useDisclosure, useMediaQuery } from "@mantine/hooks"
 import Link from "next/link"
 import { UserAvatar } from "../UserAvatar"
 import { theme } from "../theme/theme"
-import styles from './navbar.module.css'
 import NextImage from 'next/image';
-import bwtextlogo from '../../../public/bwtextlogo.png'
+import bwtextlogo from '../../../public/bwtextlogo-white.png'
 import { usePathname } from "next/navigation"
 import { Pages } from "@/config/config"
 import { CalendarWipe } from "../CalendarWipe"
@@ -14,6 +13,8 @@ import { BalancaModal } from "../BalanceModal"
 import { useEffect } from "react"
 import { $userStores, authUserEvent, getAuthStatusEvent } from "@/store/auth"
 import { useUnit} from 'effector-react'
+
+import './navbar.css'
 
 const checkIsInfoPage = (pathname: string) => {
   switch (pathname) {
@@ -27,9 +28,10 @@ const checkIsInfoPage = (pathname: string) => {
 
 export const NavBar = () => {
   const pathname = usePathname();
-  const {value: {isAuth, isLoading, user}, trigger} = useUnit({
+  const {value: {isAuth, isLoading, user}, trigger, authUser} = useUnit({
     value: $userStores,
     trigger: getAuthStatusEvent,
+    authUser: authUserEvent
   });
 
 
@@ -45,11 +47,11 @@ export const NavBar = () => {
   }, [isAuth]);
 
   if(isLoading) {
-    return <div className={styles.loaderContainer}><Loader color="blue" size="xl" /></div>
+    return <div className="loader__container"><Loader color="blue" size="xl" /></div>
   }
   
   return (
-    <Flex gap={theme?.spacing?.md} className={styles.flex} justify='space-between'>
+    <Flex gap={theme?.spacing?.md} className='nav-bar' justify='space-between'>
       <Flex align="center">
         <Link href='/'>
           <Image
@@ -62,27 +64,26 @@ export const NavBar = () => {
           />
         </Link>
       </Flex>
-      <Flex gap={theme?.spacing?.md} className={styles.flex} justify='flex-end'>
-        {!matches && <Link href="/" className={styles.buttonMain}>
-          <Button className={styles.buttonMain} variant="outline" color={pathname === '/' ? "cyan" : "white"} size="lg" fullWidth>
+      <Flex gap={theme?.spacing?.md} className='flex' justify='flex-end' w={'100%'}>
+        {!matches && <Link href="/" className={'buttonMain'}>
+          <Button className='buttonMain' variant="outline" color={pathname === '/' ? "cyan" : "white"} size="lg">
             Главная
           </Button>
         </Link>}
-        <Link href="/shop" className={styles.buttonMain}>
-          <Button className={styles.buttonMain} variant="outline" color={pathname === '/shop' ? "cyan" : "white"} size="lg" fullWidth>
+        <Link href="/shop" className='buttonMain'>
+          <Button className='buttonMain' variant="outline" color={pathname === '/shop' ? "cyan" : "white"} size="lg">
             Магазин
           </Button>
         </Link>
-        <Link href="/news" className={styles.buttonMain}>
-          <Button className={styles.buttonMain} variant="outline" color="white" size="lg" fullWidth>
+        <Link href="/news" className='buttonMain'>
+          <Button className={'buttonMain'} variant="outline" color="white" size="lg">
             Новости
           </Button>
         </Link>
         <CalendarWipe isOpen={opened} onClose={close} />
-        <Button className={styles.buttonMain} variant="outline" color="white" size="lg" fullWidth onClick={open}>Календарь вайпов</Button>
-        <Menu trigger="hover" openDelay={100} closeDelay={400} shadow="md" width={296}>
+        <Menu trigger="hover" openDelay={100} closeDelay={400} shadow="md" width={296} >
           <Menu.Target>
-            <Button className={styles.buttonMain} variant="outline" color={isInfoPage ? "cyan" : "white"} size="lg" fullWidth>
+            <Button className={'buttonMain'} variant="outline" color={isInfoPage ? "cyan" : "white"} size="lg">
               Информация
             </Button>
           </Menu.Target>
@@ -109,8 +110,8 @@ export const NavBar = () => {
             </Link>
           </Menu.Dropdown>
         </Menu>
-        {!isAuth && <Button className={styles.buttonMain} variant="outline" color="green" size="lg" fullWidth onClick={() => {
-          authUserEvent()
+        {!isAuth && <Button className={'buttonMain'} variant="outline" color="green" size="lg" onClick={() => {
+          authUser()
         }}>Войти</Button>}
         {isAuth && <Menu trigger="hover">
           <Menu.Target>

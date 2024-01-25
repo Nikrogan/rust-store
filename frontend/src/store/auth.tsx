@@ -14,13 +14,13 @@ const defaultStores = {
 export const $userStores = authDomain.createStore(defaultStores)
 
 export const authUserFx = authDomain.createEffect(async (isAuth: boolean) => {
-    return api.get('https://localhost:7208/api/v1/user/auth');
+    return api.get('/user/auth');
 });
 
 export const getUserFx = authDomain.createEffect(async () => {
     const cookie = await getCookie('session')
     if(!cookie) return false
-    return api.get('https://localhost:7208/api/v1/user', {
+    return api.get('/user', {
         headers: {
             'Content-Type': 'application/json', // Set the default content type for request headers
             Authorization: `Barier ${cookie}`
