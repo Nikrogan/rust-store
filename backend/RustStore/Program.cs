@@ -72,7 +72,7 @@ builder.Services.AddAuthentication(options =>
 .AddCookie(options =>
 {
     options.Cookie.SameSite = SameSiteMode.None; // или SameSiteMode.Strict, SameSiteMode.Lax
-    options.Cookie.SecurePolicy = CookieSecurePolicy.None; // Обязательно использовать Secure, если SameSite=None
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Обязательно использовать Secure, если SameSite=None
 })
 .AddSteam(options =>
 {
