@@ -72,6 +72,7 @@ namespace RustStore.Controllers
             var identity = HttpContext.Request.Query["openid.identity"].ToString();
 
                 var steamId = identity.Split('/').Last();
+            Console.WriteLine(steamId.ToString());
                 var response = await _userService.LoginUser(steamId);
 
                 if (response.StatusCode == Domain.Enum.StatusCode.OK)
