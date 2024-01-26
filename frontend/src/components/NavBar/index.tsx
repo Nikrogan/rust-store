@@ -42,7 +42,7 @@ export const NavBar = () => {
 
   const handleLogin = () => {
     const popupWindow = window.open(
-      "https://localhost:5000/api/v1/user/auth",
+      "https://turringrust.ru/api/v1/user/auth",
       "width=800, height=600",
     );
     if (popupWindow?.focus) popupWindow.focus();
