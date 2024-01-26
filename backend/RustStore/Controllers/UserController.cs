@@ -48,7 +48,7 @@ namespace RustStore.Controllers
                 { "openid.ns", "http://specs.openid.net/auth/2.0" },
                 { "openid.claimed_id", "http://specs.openid.net/auth/2.0/identifier_select" },
                 { "openid.identity", "http://specs.openid.net/auth/2.0/identifier_select" },
-                {"openid.return_to", Url.Action(nameof(SteamCallback), null, null, Request.Scheme) },
+                {"openid.return_to", "https://turringrust.ru/api/v1/user/steam-callback" },
                 {"openid.realm", "https://turringrust.ru" },
                 {"openid.mode", "checkid_setup" }
             };
