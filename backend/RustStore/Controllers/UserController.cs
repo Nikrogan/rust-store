@@ -12,7 +12,6 @@ using System.IdentityModel.Tokens.Jwt;
 using Domain.SimpleEntity;
 using Microsoft.AspNetCore.Antiforgery;
 using Newtonsoft.Json;
-using RestSharp;
 
 namespace RustStore.Controllers
 {
