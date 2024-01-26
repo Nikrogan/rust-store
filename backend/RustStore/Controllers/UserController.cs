@@ -98,11 +98,15 @@ namespace RustStore.Controllers
                         MaxAge = TimeSpan.FromHours(12) // Время жизни куки
                     });
 
+                await Response.WriteAsJsonAsync(new AuthDto
+                {
+                    ClientUrl = "https://turringrust.ru",
+                    User = activeUserResponse
+                });
+
                 return Redirect("https://turringrust.ru");
 
-                //await Response.WriteAsJsonAsync(new AuthDto { 
-                //    ClientUrl = "http://localhost:3000",
-                //    User = activeUserResponse});
+                
 
                 string htmlContent = @"
                     <!DOCTYPE html>
