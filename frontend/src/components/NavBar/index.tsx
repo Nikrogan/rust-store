@@ -51,7 +51,9 @@ export const NavBar = () => {
   };
 
   const handleLogout = async () => {
-    deleteCookie('session')
+    deleteCookie('session').then(() => {
+        
+    })
   }
 
   useEffect(() => {
