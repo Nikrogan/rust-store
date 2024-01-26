@@ -122,7 +122,7 @@ namespace Service.Implementations
             try
             {
                 var allElements = await _accountRepository.GetAll();
-                var user = allElements.FirstOrDefault(x => x.Id == viewModel.Id);
+                var user = allElements.FirstOrDefault(x => x.SteamId == viewModel.SteamId);
                 if (user == null)
                 {
                     return new BaseResponse<BaseUser>()
