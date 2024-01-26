@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "u8P+LC8R8pXRYeZHIe6FRbpM0NDeFj9WHt7IwPFbtrZoCF9y6KWxsV0EEUAmRJvljkbCtqCcBLZmoCKfGgfH6A==",
+  "dgSpecHash": "Z2GOFMAgfwRoV/x/99jMNd3XsHYOe40MDaiQUwmTOfKh96NFKB9UbQ2Eioo5HSsQyRXw3zKbafT7BuuMK+DKvg==",
   "success": true,
-  "projectFilePath": "D:\\jobs\\rust-store\\rust-store\\backend\\PaymentAdapter\\PaymentAdapter.csproj",
+  "projectFilePath": "F:\\project\\RustStore\\rust-store\\backend\\PaymentAdapter\\PaymentAdapter.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\front\\.nuget\\packages\\mongodb.bson\\2.23.1\\mongodb.bson.2.23.1.nupkg.sha512",
-    "C:\\Users\\front\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
-    "C:\\Users\\front\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
+    "C:\\Users\\azorety\\.nuget\\packages\\mongodb.bson\\2.23.1\\mongodb.bson.2.23.1.nupkg.sha512",
+    "C:\\Users\\azorety\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
+    "C:\\Users\\azorety\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
   ],
   "logs": []
 }

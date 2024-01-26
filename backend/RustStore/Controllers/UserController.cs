@@ -12,6 +12,7 @@ using System.IdentityModel.Tokens.Jwt;
 using Domain.SimpleEntity;
 using Microsoft.AspNetCore.Antiforgery;
 using Newtonsoft.Json;
+using RestSharp;
 
 namespace RustStore.Controllers
 {
@@ -94,15 +95,17 @@ namespace RustStore.Controllers
                     {
                         HttpOnly = true, // Защита от JavaScript-доступа
                         SameSite = SameSiteMode.None, // Можете установить другое значение в зависимости от ваших требований
-                        Secure = Request.IsHttps, // Устанавливаем, если используется HTTPS
+                        Secure = true, // Устанавливаем, если используется HTTPS
                         MaxAge = TimeSpan.FromHours(12) // Время жизни куки
                     });
 
-                    //await Response.WriteAsJsonAsync(new AuthDto { 
-                    //    ClientUrl = "http://localhost:3000",
-                    //    User = activeUserResponse});
+                
 
-                        string htmlContent = @"
+                //await Response.WriteAsJsonAsync(new AuthDto { 
+                //    ClientUrl = "http://localhost:3000",
+                //    User = activeUserResponse});
+
+                string htmlContent = @"
                     <!DOCTYPE html>
                     <html>
                         <head>
@@ -121,9 +124,6 @@ namespace RustStore.Controllers
 
                         // Возвращаем результат
                         return Content(htmlContent, "text/html");
-
-                //var frontendUrl = "https://turringrust.ru";
-                //    return Redirect(frontendUrl);
                 }
             return BadRequest();
         }
