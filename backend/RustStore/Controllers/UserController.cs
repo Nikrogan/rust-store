@@ -104,7 +104,7 @@ namespace RustStore.Controllers
                 //    User = activeUserResponse
                 //});
 
-                return Redirect("https://turringrust.ru");
+                return Redirect("http://localhost:3000");
 
                 
 

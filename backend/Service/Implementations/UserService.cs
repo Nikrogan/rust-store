@@ -316,23 +316,15 @@ namespace Service.Implementations
                 }
                 else if (serviceResponse.StatusCode == StatusCode.ElementNotFound)
                 {
-                    JObject playerInfo = await _steamApiService.GetPlayerInfoAsync(steamID);
-                    var avatarUrl = _steamApiService.GetAvatarUrl(playerInfo);
-                    var displayName = _steamApiService.GetDisplayName(playerInfo);
 
                     user = new BaseUser
                     {
-                        DisplayName = displayName,
                         SteamId = steamID,
-                        AvatarUrl = avatarUrl,
                         Balance = 0,
                         Role = Role.Owner
                     };
 
                     await CreateUser(user);
-                    baseResponse.Data = user;
-                    baseResponse.StatusCode = StatusCode.OK;
-                    return baseResponse;
                 }
                 else
                 {
@@ -340,6 +332,14 @@ namespace Service.Implementations
                     baseResponse.StatusCode = StatusCode.InternalServerError;
                     return baseResponse;
                 }
+
+                JObject playerInfo = await _steamApiService.GetPlayerInfoAsync(steamID);
+                var avatarUrl = _steamApiService.GetAvatarUrl(playerInfo);
+                var displayName = _steamApiService.GetDisplayName(playerInfo);
+
+                user.AvatarUrl = avatarUrl;
+                user.DisplayName = displayName;
+
                 baseResponse.Data = user;
                 baseResponse.StatusCode = StatusCode.OK;
                 return baseResponse;
