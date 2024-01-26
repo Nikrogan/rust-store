@@ -42,7 +42,7 @@ export const NavBar = () => {
 
   const handleLogin = () => {
     const popupWindow = window.open(
-      "https://turringrust.ru/api/v1/user/auth",
+      "https://localhost:5000/api/v1/user/auth",
       "width=800, height=600",
     );
     if (popupWindow?.focus) popupWindow.focus();
@@ -51,7 +51,7 @@ export const NavBar = () => {
   useEffect(() => {
     window.addEventListener("message", (event) => {
       console.log(event, '123');
-      if (event.origin !== "http://localhost:3000") return;
+      if (event.origin !== "https://turringrust.ru") return;
 
       const { ok } = event.data;
       console.log(ok)
@@ -64,10 +64,6 @@ export const NavBar = () => {
       trigger()
     }
   }, [isAuth]);
-
-  if (isLoading) {
-    return <div className="loader__container"><Loader color="blue" size="xl" /></div>
-  }
 
   return (
     <Flex gap={theme?.spacing?.md} className='nav-bar' justify='space-between'>
