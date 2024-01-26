@@ -14,7 +14,7 @@ namespace Service.Interfaces
         Task<IBaseResponse<BaseUser>> GetUserById(string Id);
         Task<IBaseResponse<BaseUser>> GetUserByName(string name);
         Task<IBaseResponse<bool>> DeleteUserBySteamId(string steamId);
-        Task<IBaseResponse<ClaimsIdentity>> LoginUser(string steamID);
+        Task<IBaseResponse<BaseUser>> LoginUser(string steamID);
 
 
     }

@@ -302,9 +302,9 @@ namespace Service.Implementations
         }
 
 
-        public async Task<IBaseResponse<ClaimsIdentity>> LoginUser(string steamID)
+        public async Task<IBaseResponse<BaseUser>> LoginUser(string steamID)
         {
-            var baseResponse = new BaseResponse<ClaimsIdentity>();
+            var baseResponse = new BaseResponse<BaseUser>();
             try
             {
 
@@ -312,7 +312,6 @@ namespace Service.Implementations
                 var serviceResponse = await GetUserBySteamId(steamID);
                 if (serviceResponse.StatusCode == StatusCode.OK)
                 {
-
                     user = serviceResponse.Data;
                 }
                 else if (serviceResponse.StatusCode == StatusCode.ElementNotFound)
@@ -331,6 +330,9 @@ namespace Service.Implementations
                     };
 
                     await CreateUser(user);
+                    baseResponse.Data = user;
+                    baseResponse.StatusCode = StatusCode.OK;
+                    return baseResponse;
                 }
                 else
                 {
@@ -338,16 +340,13 @@ namespace Service.Implementations
                     baseResponse.StatusCode = StatusCode.InternalServerError;
                     return baseResponse;
                 }
-
-                var result = AuthenticateAsync(user);
-
-                baseResponse.Data = result;
+                baseResponse.Data = user;
                 baseResponse.StatusCode = StatusCode.OK;
                 return baseResponse;
             }
             catch (Exception ex)
             {
-                return new BaseResponse<ClaimsIdentity>()
+                return new BaseResponse<BaseUser>()
                 {
                     Description = $"[LoginUser] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
@@ -355,17 +354,6 @@ namespace Service.Implementations
             }
         }
 
-        private static ClaimsIdentity AuthenticateAsync(BaseUser user)
-        {
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, user.SteamId),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.ToString())
-            };
-
-            return new ClaimsIdentity(claims, "ApplicationCookie",
-                ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-        }
 
         
     }

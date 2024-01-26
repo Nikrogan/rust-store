@@ -1,4 +1,3 @@
-using AspNet.Security.OpenId.Steam;
 using DAL;
 using DAL.Interfaces;
 using DAL.Repositories;
@@ -62,26 +61,6 @@ builder.Services.AddScoped<ISteamApiService, SteamApiService>();
 
 
 builder.Services.AddHttpClient<SteamApiService>();
-
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    //options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = SteamAuthenticationDefaults.AuthenticationScheme;
-})
-.AddCookie(options =>
-{
-    options.Cookie.SameSite = SameSiteMode.None; // или SameSiteMode.Strict, SameSiteMode.Lax
-    options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Обязательно использовать Secure, если SameSite=None
-})
-.AddSteam(options =>
-{
-    options.ApplicationKey = "5E7019B40836C7B11626E328734CB003";
-    options.CallbackPath = "/api/v1/steam-callback";
-    options.Realm = "https://turringrust.ru";
-});
-
-
 
 var app = builder.Build();
 

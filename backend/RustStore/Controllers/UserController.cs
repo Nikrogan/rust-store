@@ -1,5 +1,4 @@
-﻿using AspNet.Security.OpenId.Steam;
-using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using Domain.SimpleEntity;
 using Microsoft.AspNetCore.Antiforgery;
+using Newtonsoft.Json;
 
 namespace RustStore.Controllers
 {
@@ -21,7 +21,6 @@ namespace RustStore.Controllers
     {
         private readonly IUserService _userService;
         private readonly IHttpClientFactory _httpClientFactory;
-        private const string SteamOpenIdEndpoint = "https://steamcommunity.com/openid/login";
 
         public UserController(IUserService accountService, IHttpClientFactory httpClientFactory)
         {
@@ -44,43 +43,52 @@ namespace RustStore.Controllers
         [HttpGet("auth")]
         public async Task<IActionResult> Login()
         {
-            var properties = new AuthenticationProperties
+            var queryString = new System.Collections.Specialized.NameValueCollection
             {
-                RedirectUri = Url.Action(nameof(SteamCallback), null, null, Request.Scheme)
+                { "openid.ns", "http://specs.openid.net/auth/2.0" },
+                { "openid.claimed_id", "http://specs.openid.net/auth/2.0/identifier_select" },
+                { "openid.identity", "http://specs.openid.net/auth/2.0/identifier_select" },
+                {"openid.return_to", Url.Action(nameof(SteamCallback), null, null, Request.Scheme) },
+                {"openid.realm", "https://localhost:5000" },
+                {"openid.mode", "checkid_setup" }
             };
-            return Challenge(properties, SteamAuthenticationDefaults.AuthenticationScheme);
+
+            var requestUrl = "https://steamcommunity.com/openid/login?" + ToQueryString(queryString);
+
+            return Redirect(requestUrl);
+        }
+
+        private string ToQueryString(System.Collections.Specialized.NameValueCollection nvc)
+        {
+            return string.Join("&", nvc.AllKeys.Select(key => $"{key}={System.Web.HttpUtility.UrlEncode(nvc[key])}"));
         }
 
         [HttpGet("steam-callback")]
         public async Task<IActionResult> SteamCallback()
         {
-            var result = await HttpContext.AuthenticateAsync();
+            if (!HttpContext.Request.Query.ContainsKey("openid.identity"))
+                return BadRequest();
 
-            if (result.Succeeded)
-            {
+            var identity = HttpContext.Request.Query["openid.identity"].ToString();
 
-                var steamId = result.Principal.FindFirstValue(ClaimTypes.NameIdentifier).Split('/').Last();
+                var steamId = identity.Split('/').Last();
                 var response = await _userService.LoginUser(steamId);
 
                 if (response.StatusCode == Domain.Enum.StatusCode.OK)
                 {
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                        new ClaimsPrincipal(response.Data));
 
-                    var activeUserResponse = await _userService.GetUserBySteamId(steamId);
+                    var activeUserResponse = response.Data;
 
-                    var claims = new List<Claim> { new Claim(ClaimTypes.Name, steamId) };
                     var jwt = new JwtSecurityToken(
                     issuer: AuthOptions.ISSUER,
                     audience: AuthOptions.AUDIENCE,
-                    claims: claims,
                     signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
 
                     var jwtToken = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-                    activeUserResponse.Data.SessionId = jwtToken;
-                    activeUserResponse.Data.LastAuth = DateTime.Now;
-                    await _userService.EditElement(activeUserResponse.Data);
+                    activeUserResponse.SessionId = jwtToken;
+                    activeUserResponse.LastAuth = DateTime.Now;
+                    await _userService.EditElement(activeUserResponse);
 
                     Response.Cookies.Append("session", jwtToken, new CookieOptions
                     {
@@ -90,21 +98,34 @@ namespace RustStore.Controllers
                         MaxAge = TimeSpan.FromHours(12) // Время жизни куки
                     });
 
-                    var frontendUrl = "http://turringrust.ru";
-                    return Redirect(frontendUrl);
-                }
-                else
-                {
-                }
-            }
-            else
-            {
-                // Вывести информацию об ошибке, если она доступна
-                var failureMessage = result.Failure?.Message;
-                // Обработка ошибки...
-            }
+                    //await Response.WriteAsJsonAsync(new AuthDto { 
+                    //    ClientUrl = "http://localhost:3000",
+                    //    User = activeUserResponse});
 
-            return NoContent();
+                        string htmlContent = @"
+                    <!DOCTYPE html>
+                    <html>
+                        <head>
+                            <title>Authenticated</title>
+                        </head>
+                        <body>
+                            Authenticated successfully.
+                            <script>
+                                window.opener.postMessage({
+                                      ok: true
+                                    }, 'http://localhost:3000');
+                                window.close();
+                            </script>
+                        </body>
+                    </html>";
+
+                        // Возвращаем результат
+                        return Content(htmlContent, "text/html");
+
+                //var frontendUrl = "https://turringrust.ru";
+                //    return Redirect(frontendUrl);
+                }
+            return BadRequest();
         }
 
         public class AuthOptions
