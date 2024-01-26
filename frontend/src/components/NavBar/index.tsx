@@ -11,12 +11,10 @@ import { Pages } from "@/config/config"
 import { CalendarWipe } from "../CalendarWipe"
 import { BalancaModal } from "../BalanceModal"
 import { useEffect } from "react"
-import { $userStores, authUserEvent, getAuthStatusEvent } from "@/store/auth"
+import { $userStores, authUserEvent, getAuthStatusEvent, logoutEvent } from "@/store/auth"
 import { useUnit } from 'effector-react'
 
 import './navbar.css'
-import { cookies } from "next/headers"
-import { deleteCookie, getCookie } from "@/cookie"
 
 const checkIsInfoPage = (pathname: string) => {
   switch (pathname) {
@@ -30,10 +28,11 @@ const checkIsInfoPage = (pathname: string) => {
 
 export const NavBar = () => {
   const pathname = usePathname();
-  const { value: { isAuth, isLoading, user }, trigger, authUser } = useUnit({
+  const { value: { isAuth, isLoading, user }, trigger, authUser, handleLogoutTrigger } = useUnit({
     value: $userStores,
     trigger: getAuthStatusEvent,
-    authUser: authUserEvent
+    authUser: authUserEvent,
+    handleLogoutTrigger: logoutEvent
   });
 
 
@@ -51,9 +50,7 @@ export const NavBar = () => {
   };
 
   const handleLogout = async () => {
-    deleteCookie('session').then(() => {
-        
-    })
+    handleLogoutTrigger()
   }
 
   useEffect(() => {
