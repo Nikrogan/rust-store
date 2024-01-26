@@ -94,9 +94,12 @@ namespace RustStore.Controllers
 
                     activeUserResponse.SessionId = jwtToken;
                     activeUserResponse.LastAuth = DateTime.Now;
-                    await _userService.EditElement(activeUserResponse);
+                    var uydf = await _userService.EditElement(activeUserResponse);
+                Console.WriteLine(uydf.StatusCode.ToString());
+                Console.WriteLine("[login user] : " + uydf.Data.SteamId);
+                Console.WriteLine("[login user] : " + uydf.Data.AvatarUrl);
 
-                    Response.Cookies.Append("session", jwtToken, new CookieOptions
+                Response.Cookies.Append("session", jwtToken, new CookieOptions
                     {
                         HttpOnly = true, // Защита от JavaScript-доступа
                         SameSite = SameSiteMode.None, // Можете установить другое значение в зависимости от ваших требований
