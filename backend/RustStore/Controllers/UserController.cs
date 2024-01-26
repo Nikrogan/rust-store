@@ -49,7 +49,7 @@ namespace RustStore.Controllers
                 { "openid.claimed_id", "http://specs.openid.net/auth/2.0/identifier_select" },
                 { "openid.identity", "http://specs.openid.net/auth/2.0/identifier_select" },
                 {"openid.return_to", Url.Action(nameof(SteamCallback), null, null, Request.Scheme) },
-                {"openid.realm", "https://localhost:5000" },
+                {"openid.realm", "https://turringrust.ru" },
                 {"openid.mode", "checkid_setup" }
             };
 
@@ -113,7 +113,7 @@ namespace RustStore.Controllers
                             <script>
                                 window.opener.postMessage({
                                       ok: true
-                                    }, 'http://localhost:3000');
+                                    }, 'https://turringrust.ru');
                                 window.close();
                             </script>
                         </body>
