@@ -42,17 +42,27 @@ namespace RustStore.Controllers
             return new BaseServerResponse<SimpleUser>(null, Domain.Enum.StatusCode.InternalServerError);
         }
 
+        [HttpGet("logout")]
+        public async Task<IBaseServerResponse<BaseUser>> Logout()
+        {
+            Response.Cookies.Delete("session");
+            return new BaseServerResponse<BaseUser>(null, Domain.Enum.StatusCode.OK);
+
+        }
+
         [AllowAnonymous]
         [HttpGet("auth")]
         public async Task<IActionResult> Login()
         {
+            DotNetEnv.Env.Load();
+            var link = Environment.GetEnvironmentVariable("backendUrl");
             var queryString = new System.Collections.Specialized.NameValueCollection
             {
                 { "openid.ns", "http://specs.openid.net/auth/2.0" },
                 { "openid.claimed_id", "http://specs.openid.net/auth/2.0/identifier_select" },
                 { "openid.identity", "http://specs.openid.net/auth/2.0/identifier_select" },
-                { "openid.return_to", "https://turringrust.ru/api/v1/user/steam-callback" },
-                { "openid.realm", "https://turringrust.ru/api/" },
+                { "openid.return_to", $"{link}/api/v1/user/steam-callback" },
+                { "openid.realm", link },
                 { "openid.mode", "checkid_setup" }
             };
 
@@ -113,29 +123,11 @@ namespace RustStore.Controllers
                 //    User = activeUserResponse
                 //});
 
-                return Redirect("https://turringrust.ru");
+                DotNetEnv.Env.Load();
+                var link = Environment.GetEnvironmentVariable("frontUrl");
 
-                
+                return Redirect(link);
 
-                string htmlContent = @"
-                    <!DOCTYPE html>
-                    <html>
-                        <head>
-                            <title>Authenticated</title>
-                        </head>
-                        <body>
-                            Authenticated successfully.
-                            <script>
-                                window.opener.postMessage({
-                                      ok: true
-                                    }, 'https://turringrust.ru');
-                                
-                            </script>
-                        </body>
-                    </html>";
-
-                        // Возвращаем результат
-                        return Content(htmlContent, "text/html");
                 }
             return BadRequest();
         }

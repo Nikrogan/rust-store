@@ -43,7 +43,7 @@ export const NavBar = () => {
 
   const handleLogin = () => {
     const popupWindow = window.open(
-      "https://localhost:5000/api/v1/user/auth",
+      "https://turringrust/api/v1/user/auth",
       "width=800, height=600",
     );
     if (popupWindow?.focus) popupWindow.focus();
@@ -52,17 +52,6 @@ export const NavBar = () => {
   const handleLogout = async () => {
     handleLogoutTrigger()
   }
-
-  useEffect(() => {
-    window.addEventListener("message", (event) => {
-      console.log(event, '123');
-      if (event.origin !== "https://turringrust.ru") return;
-
-      const { ok } = event.data;
-      console.log(ok)
-    });
-  }, []);
-
 
   useEffect(() => {
     if (!isAuth) {

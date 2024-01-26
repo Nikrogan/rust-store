@@ -10,7 +10,9 @@ namespace DAL
 
         public ApplicationDbContext(IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("MongoDBConnection");
+            DotNetEnv.Env.Load();
+            var DbConnectionUrl = Environment.GetEnvironmentVariable("connectionDbString");
+            var connectionString = configuration.GetConnectionString(DbConnectionUrl);
             Console.WriteLine(connectionString);
             var mongoClient = new MongoClient(connectionString);
             _database = mongoClient.GetDatabase("rust-store");
