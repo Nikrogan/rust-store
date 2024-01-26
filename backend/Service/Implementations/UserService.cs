@@ -340,6 +340,8 @@ namespace Service.Implementations
                 user.AvatarUrl = avatarUrl;
                 user.DisplayName = displayName;
 
+                await EditElement(user);
+
                 baseResponse.Data = user;
                 baseResponse.StatusCode = StatusCode.OK;
                 return baseResponse;
