@@ -77,8 +77,10 @@ namespace RustStore.Controllers
                 var steamId = identity.Split('/').Last();
             Console.WriteLine(steamId.ToString());
                 var response = await _userService.LoginUser(steamId);
-
-                if (response.StatusCode == Domain.Enum.StatusCode.OK)
+            Console.WriteLine(response.StatusCode.ToString());
+            Console.WriteLine("[login user] : " +response.Data.SteamId);
+            Console.WriteLine("[login user] : " +response.Data.AvatarUrl);
+            if (response.StatusCode == Domain.Enum.StatusCode.OK)
                 {
 
                     var activeUserResponse = response.Data;
