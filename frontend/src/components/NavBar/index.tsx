@@ -15,6 +15,8 @@ import { $userStores, authUserEvent, getAuthStatusEvent } from "@/store/auth"
 import { useUnit } from 'effector-react'
 
 import './navbar.css'
+import { cookies } from "next/headers"
+import { deleteCookie, getCookie } from "@/cookie"
 
 const checkIsInfoPage = (pathname: string) => {
   switch (pathname) {
@@ -47,6 +49,10 @@ export const NavBar = () => {
     );
     if (popupWindow?.focus) popupWindow.focus();
   };
+
+  const handleLogout = async () => {
+    deleteCookie('session')
+  }
 
   useEffect(() => {
     window.addEventListener("message", (event) => {
@@ -145,7 +151,7 @@ export const NavBar = () => {
                 </Link>
               </Menu.Item>)
             }
-            <Menu.Item color="red">
+            <Menu.Item color="red" onClick={handleLogout}>
               Выйти
             </Menu.Item>
           </Menu.Dropdown>
