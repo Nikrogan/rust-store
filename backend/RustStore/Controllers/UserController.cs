@@ -33,7 +33,10 @@ namespace RustStore.Controllers
         {
             if (Request.Cookies.TryGetValue("session", out var jwt))
             {
+                Console.WriteLine(jwt);
                 var response = await _userService.GetUserBySessionId(jwt);
+                Console.WriteLine(response.Data.SteamId);
+                Console.WriteLine(response.Data.AvatarUrl);
                 return new BaseServerResponse<SimpleUser>(new SimpleUser(response.Data), response.StatusCode);
             }
             return new BaseServerResponse<SimpleUser>(null, Domain.Enum.StatusCode.InternalServerError);
