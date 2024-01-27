@@ -11,7 +11,7 @@ import { Pages } from "@/config/config"
 import { CalendarWipe } from "../CalendarWipe"
 import { BalancaModal } from "../BalanceModal"
 import { useEffect } from "react"
-import { $userStores, authUserEvent, getAuthStatusEvent } from "@/store/auth"
+import { $userStores, authUserEvent, getAuthStatusEvent, logoutEvent } from "@/store/auth"
 import { useUnit } from 'effector-react'
 
 import './navbar.css'
@@ -28,10 +28,11 @@ const checkIsInfoPage = (pathname: string) => {
 
 export const NavBar = () => {
   const pathname = usePathname();
-  const { value: { isAuth, isLoading, user }, trigger, authUser } = useUnit({
+  const { value: { isAuth, isLoading, user }, trigger, authUser, handleLogoutTrigger } = useUnit({
     value: $userStores,
     trigger: getAuthStatusEvent,
-    authUser: authUserEvent
+    authUser: authUserEvent,
+    handleLogoutTrigger: logoutEvent
   });
 
 
@@ -42,22 +43,15 @@ export const NavBar = () => {
 
   const handleLogin = () => {
     const popupWindow = window.open(
-      "https://localhost:5000/api/v1/user/auth",
+      "https://turringrust/api/v1/user/auth",
       "width=800, height=600",
     );
     if (popupWindow?.focus) popupWindow.focus();
   };
 
-  useEffect(() => {
-    window.addEventListener("message", (event) => {
-      console.log(event, '123');
-      if (event.origin !== "https://turringrust.ru") return;
-
-      const { ok } = event.data;
-      console.log(ok)
-    });
-  }, []);
-
+  const handleLogout = async () => {
+    handleLogoutTrigger()
+  }
 
   useEffect(() => {
     if (!isAuth) {
@@ -145,7 +139,7 @@ export const NavBar = () => {
                 </Link>
               </Menu.Item>)
             }
-            <Menu.Item color="red">
+            <Menu.Item color="red" onClick={handleLogout}>
               Выйти
             </Menu.Item>
           </Menu.Dropdown>

@@ -1,5 +1,5 @@
 import { api } from '@/config/api';
-import { createDomain, sample } from 'effector'
+import { createDomain, createEffect, createEvent, sample } from 'effector'
 import { getCookie } from '@/cookie';
 
 
@@ -16,6 +16,12 @@ export const $userStores = authDomain.createStore(defaultStores)
 export const authUserFx = authDomain.createEffect(async (isAuth: boolean) => {
     return api.get('/user/auth');
 });
+
+export const logoutEvent = createEvent();
+
+export const logoutFx = createEffect(() => {
+    return api.get('/user/logout')
+})
 
 export const getUserFx = authDomain.createEffect(async () => {
     const cookie = await getCookie('session')
@@ -72,4 +78,21 @@ sample({
        
     },
     target: $userStores
+})
+
+sample({
+    clock: logoutEvent,
+    fn: () => {
+        return {
+            isLoading: false,
+            user: null,
+            isAuth: null
+        }
+    },
+    target: $userStores
+})
+
+sample({
+    clock: logoutEvent,
+    target: logoutFx
 })
