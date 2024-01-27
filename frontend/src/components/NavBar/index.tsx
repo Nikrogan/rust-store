@@ -43,8 +43,8 @@ export const NavBar = () => {
 
   const handleLogin = () => {
     const popupWindow = window.open(
-      "https://turringrust/api/v1/user/auth",
-      "width=800, height=600",
+      `${process.env.NEXT_PUBLIC_API_CONFIG}/user/auth`,
+      "_self",
     );
     if (popupWindow?.focus) popupWindow.focus();
   };
