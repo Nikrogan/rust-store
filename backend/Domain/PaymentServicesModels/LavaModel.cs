@@ -10,7 +10,6 @@ namespace Domain.PaymentServicesModels
     {
         public float Sum { get; set; }
         public string OrderId { get; set; }
-        public string Signature { get; set; }
         public string ShopId { get; set; }
         public string HookUrl { get; set; }
         public string? FailUrl { get; set; }

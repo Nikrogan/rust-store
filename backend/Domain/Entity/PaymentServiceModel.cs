@@ -12,6 +12,7 @@ namespace Domain.Entity
         public string PaymentServiceKey { get; set; }
         public string ShopId { get; set; }
         public string? SecretKey { get; set; }
+        public string? AdditionalKey { get; set; }
         public string ImageUrl { get; set; }
     }
 }

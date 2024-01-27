@@ -40,10 +40,16 @@ namespace RustStore.Controllers
         }
 
         [HttpGet("logout")]
-        public async Task<IBaseServerResponse<BaseUser>> Logout()
+        public async Task<IBaseServerResponse<string>> Logout()
         {
-            Response.Cookies.Delete("session");
-            return new BaseServerResponse<BaseUser>(null, Domain.Enum.StatusCode.OK);
+            Response.Cookies.Append("session", "", new CookieOptions
+            {
+                HttpOnly = true, // Защита от JavaScript-доступа
+                SameSite = SameSiteMode.None, // Можете установить другое значение в зависимости от ваших требований
+                Secure = true, // Устанавливаем, если используется HTTPS
+                MaxAge = TimeSpan.FromHours(0) // Время жизни куки
+            });
+            return new BaseServerResponse<string>(null, Domain.Enum.StatusCode.OK);
 
         }
 
@@ -79,6 +85,20 @@ namespace RustStore.Controllers
             if (!HttpContext.Request.Query.ContainsKey("openid.identity"))
                 return BadRequest();
 
+            DotNetEnv.Env.Load();
+            var link = Environment.GetEnvironmentVariable("frontUrl");
+
+            var verifyUrl = "https://steamcommunity.com/openid/login" + HttpContext.Request.QueryString.ToString().Replace("id_res", "check_authentication");
+            
+            HttpClient httpClient = new HttpClient();
+            var verifyResponse = await httpClient.GetStringAsync(verifyUrl);
+
+            if (verifyResponse.Contains("is_valid:false"))
+            {
+                Console.WriteLine("СУКА ПОДДЕЛЫВАЕТ СТИМ АЙЙДИ");
+                return Redirect(link);
+            }
+
             var identity = HttpContext.Request.Query["openid.identity"].ToString();
             var steamId = identity.Split('/').Last();
             var response = await _userService.LoginUser(steamId);
@@ -86,11 +106,13 @@ namespace RustStore.Controllers
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
                 {
 
+                    var claims = new List<Claim> { new Claim(ClaimTypes.Name, steamId) };
                     var activeUserResponse = response.Data;
 
                     var jwt = new JwtSecurityToken(
                     issuer: AuthOptions.ISSUER,
                     audience: AuthOptions.AUDIENCE,
+                    claims: claims,
                     signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
 
                     var jwtToken = new JwtSecurityTokenHandler().WriteToken(jwt);
@@ -113,8 +135,7 @@ namespace RustStore.Controllers
                 //    User = activeUserResponse
                 //});
 
-                DotNetEnv.Env.Load();
-                var link = Environment.GetEnvironmentVariable("frontUrl");
+               
 
                 return Redirect(link);
 

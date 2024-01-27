@@ -24,9 +24,14 @@ namespace PaymentAdapter
             var serviceModel = invoiceCreateModel.PaymentServiceModel;
             if (serviceModel == null) return null;
 
-            LavaModel apiInvoiceCreateModel = new LavaModel() { 
-            Sum = float.Parse(invoiceCreateModel.Amount.ToString()),
-            OrderId = invoiceCreateModel.OrderId.ToString(),
+            DotNetEnv.Env.Load();
+            var link = Environment.GetEnvironmentVariable("backendUrl");
+
+            LavaModel apiInvoiceCreateModel = new LavaModel() {
+                Sum = float.Parse(invoiceCreateModel.Amount.ToString()),
+                OrderId = invoiceCreateModel.OrderId.ToString(),
+                ShopId = serviceModel.ShopId,
+                HookUrl = "34" 
             };
 
             //var serializeData = "";

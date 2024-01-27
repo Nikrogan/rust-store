@@ -3,8 +3,12 @@ using Domain.Enum;
 using Domain.Response;
 using Domain.SimpleEntity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ActionConstraints;
+using Microsoft.IdentityModel.Tokens;
 using PaymentAdapter;
+using Service.Implementations;
 using Service.Interfaces;
+using System.Text.Json.Nodes;
 
 namespace RustStore.Controllers
 {
@@ -66,5 +70,29 @@ namespace RustStore.Controllers
 
             return new BaseServerResponse<string>(invoiceUrl,Domain.Enum.StatusCode.OK);
         }
+
+        [HttpPost("lava")]
+        public async Task<IActionResult> LavaWebHook([FromBody] JsonObject data)
+        {
+            try
+            {
+                if (data.IsNullOrEmpty()) return BadRequest();
+                var orderId = data["order_id"].ToString();
+                var payment = _paymentService.GetPaymentById(orderId);
+                if (payment == null) return BadRequest();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            return Ok();
+        }
+
+        [HttpGet("enot")]
+        public IActionResult EnotWebHook()
+        {
+            return Ok();
+        }
+
     }
 }
