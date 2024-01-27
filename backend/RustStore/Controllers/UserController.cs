@@ -33,10 +33,7 @@ namespace RustStore.Controllers
         {
             if (Request.Cookies.TryGetValue("session", out var jwt))
             {
-                Console.WriteLine(jwt);
                 var response = await _userService.GetUserBySessionId(jwt);
-                Console.WriteLine(response.Data.SteamId);
-                Console.WriteLine(response.Data.AvatarUrl);
                 return new BaseServerResponse<SimpleUser>(new SimpleUser(response.Data), response.StatusCode);
             }
             return new BaseServerResponse<SimpleUser>(null, Domain.Enum.StatusCode.InternalServerError);
@@ -73,13 +70,9 @@ namespace RustStore.Controllers
                 return BadRequest();
 
             var identity = HttpContext.Request.Query["openid.identity"].ToString();
+            var steamId = identity.Split('/').Last();
+            var response = await _userService.LoginUser(steamId);
 
-                var steamId = identity.Split('/').Last();
-            Console.WriteLine(steamId.ToString());
-                var response = await _userService.LoginUser(steamId);
-            Console.WriteLine(response.StatusCode.ToString());
-            Console.WriteLine("[login user] : " +response.Data.SteamId);
-            Console.WriteLine("[login user] : " +response.Data.AvatarUrl);
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
                 {
 
@@ -94,10 +87,7 @@ namespace RustStore.Controllers
 
                     activeUserResponse.SessionId = jwtToken;
                     activeUserResponse.LastAuth = DateTime.Now;
-                    var uydf = await _userService.EditElement(activeUserResponse);
-                Console.WriteLine(uydf.StatusCode.ToString());
-                Console.WriteLine("[login user] : " + uydf.Data.SteamId);
-                Console.WriteLine("[login user] : " + uydf.Data.AvatarUrl);
+                    await _userService.EditElement(activeUserResponse);
 
                 Response.Cookies.Append("session", jwtToken, new CookieOptions
                     {
