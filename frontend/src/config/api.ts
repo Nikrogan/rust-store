@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 export const api = axios.create({
-    baseURL: 'https://turringrust.ru/api/v1/',
+    baseURL: process.env.NEXT_PUBLIC_API_CONFIG,
     withCredentials: true,
     headers: {
         key: 'Access-Control-Allow-Origin',
