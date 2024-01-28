@@ -27,7 +27,7 @@ builder.Services.AddCors(options =>
             .WithOrigins("turringrust.ru")
             .AllowAnyHeader()
             .AllowAnyMethod()
-            .AllowAnyOrigin();
+            .AllowCredentials();
     });
 });
 

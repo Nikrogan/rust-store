@@ -35,7 +35,6 @@ export const NavBar = () => {
     handleLogoutTrigger: logoutEvent
   });
 
-
   const matches = useMediaQuery('(max-width: 1600px)');
   const isInfoPage = checkIsInfoPage(pathname);
   const [opened, { open, close }] = useDisclosure(false);
@@ -58,6 +57,10 @@ export const NavBar = () => {
       trigger()
     }
   }, [isAuth]);
+
+  if(isLoading) {
+    return <div className="loader__container"><Loader /></div>
+  }
 
   return (
     <Flex gap={theme?.spacing?.md} className='nav-bar' justify='space-between'>

@@ -14,6 +14,11 @@ const nextConfig = {
         // !! WARN !!
         ignoreBuildErrors: true,
       },
+    experimental: {
+      serverActions: {
+        allowedOrigins: ["localhost:5000", "localhost:3000"]
+      }
+    },
     distDir: 'build',
     env: env
 }

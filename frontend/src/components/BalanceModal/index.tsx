@@ -1,22 +1,64 @@
-import { Box, Button, Checkbox, Group, Input, Modal, Select, TextInput } from "@mantine/core"
+import { Box, Button, Checkbox, Flex, Group, Input, Loader, Modal, Select, TextInput } from "@mantine/core"
 import { useMediaQuery } from "@mantine/hooks";
 import { useForm } from '@mantine/form';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./styled.css";
+import { useUnit } from "effector-react";
+import { $paymentList, createPaymentEvent, getPaymentListEvent } from "@/store/balance";
+import { $userStores } from "@/store/auth";
 
 export const BalancaModal = ({isOpen, onClose}) => {
     const isMobile = useMediaQuery('(max-width: 50em)');
     const [value, setValue] = useState<string | null>('');
+    const {paymentData: {paymentList, isLoading}, user: {user}, getPaymentList, createPayment} = useUnit({
+      paymentData: $paymentList,
+      user: $userStores,
+      getPaymentList: getPaymentListEvent,
+      createPayment: createPaymentEvent
+    })
+    
+    useEffect(() => {
+      getPaymentList()
+    }, []);
+
+    const handleSubmit = (data) => {
+      const currentPayment = paymentList.filter(item => item.displayName === data.paymentServiceKey)
+      const paymentServiceKey = currentPayment[0].paymentServiceKey;
+      const newData = {
+        ...data,
+        paymentServiceKey
+      }
+      createPayment(newData)
+  };
+
+    const handleSelectPayment = (payment: string | null) => {
+      if(null) {
+        setValue('')
+      }
+
+      form.setValues({
+        paymentServiceKey: payment,
+      })
+
+      setValue(payment)
+    }
 
     const form = useForm({
         initialValues: {
-          email: '',
-          termsOfService: false,
+          steamId: user?.steamId,
+          amount: null,
+          paymentServiceKey: null,
+          steamName: user?.displayName
         },
     
         validate: {
         },
-      });
+    });
+
+    const selectData = paymentList?.map(item => {
+      return item.displayName
+    });
+
     return <Modal 
         opened={isOpen} 
         onClose={onClose} 
@@ -26,23 +68,23 @@ export const BalancaModal = ({isOpen, onClose}) => {
         centered        
     >
      <Box maw={340} mx="auto">
-      <form onSubmit={form.onSubmit((values) => console.log(values))}>
+     {isLoading  ? <Flex justify="center"><Loader /></Flex> : <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
         <Select
           withAsterisk
-          label="Выберите способ оплаты"
-          data={['Freekassa', 'Lava', 'Tome', 'Paypal']}
+          label="Выберите платежную систему"
+          data={selectData}
           value={value} 
-          onChange={setValue}
+          onChange={handleSelectPayment}
         />
         {value && (
-            <Input.Wrapper label="Введите сумму" color="black">
-                <Input  />
+            <Input.Wrapper label="Введите сумму" color="black" >
+                <Input  {...form.getInputProps('amount')}/>
             </Input.Wrapper>
         )}
         <Group justify="flex-end" mt="md">
-          <Button type="submit">Submit</Button>
+          <Button type="submit">Пополнить</Button>
         </Group>
-      </form>
+      </form>}
     </Box>
     </Modal>
 }

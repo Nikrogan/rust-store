@@ -1,6 +1,7 @@
 import { api } from '@/config/api';
 import { createDomain, createEffect, createEvent, sample } from 'effector'
 import { getCookie } from '@/cookie';
+import { changeLoaderStatusEvent } from './loader';
 
 
 const authDomain = createDomain();
@@ -55,6 +56,18 @@ sample({
 
 
 sample({
+    clock: getUserFx.pending,
+    fn: () => {
+        return {
+            isLoading: true,
+            user: null,
+            isAuth: false
+        }
+    },
+    target: $userStores
+})
+
+sample({
     clock: authUserEvent,
     target: authUserFx
 })
@@ -64,13 +77,12 @@ sample({
     fn:(data) => {
         if(data) {
             return {
-                isLoadng: false,
                 user: data.data.payLoad,
                 isAuth: true
             }
         } else {
             return {
-                isLoadng: false,
+                isLoading: false,
                 user: null,
                 isAuth: false
             }

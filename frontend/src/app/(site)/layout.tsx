@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 
 import { Montserrat } from 'next/font/google';
 import styles from './page.module.css'
-import { Container, Flex, Image, MantineProvider, Title } from '@mantine/core';
+import { Container,  Image, MantineProvider } from '@mantine/core';
 import { theme } from '@/components/theme/theme';
 import { EffectorNext } from "@effector/next";
 import { ReduxDevToolsAdapter } from '@/shared/devtools/devtools';
@@ -26,6 +26,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
   return (
     <html lang="en">
       <body className={montserrat.className}>
@@ -33,14 +34,14 @@ export default function RootLayout({
           <div className={styles.background}>
             <ReduxDevToolsAdapter />
               <EffectorNext>
-                <Container size='xl'>
-                  <div className={styles.navContainer}>
-                    <NavBar />
-                  </div>
-                </Container>
-                <main>
-                  {children}
-                </main>
+                  <Container size='xl' style={{position: 'relative'}}>
+                    <div className={styles.navContainer}>
+                      <NavBar />
+                    </div>
+                  <main>
+                    {children}
+                  </main>
+                  </Container>
               </EffectorNext>
               </div>
          </MantineProvider>
@@ -48,4 +49,3 @@ export default function RootLayout({
     </html>
   )
 }
-
