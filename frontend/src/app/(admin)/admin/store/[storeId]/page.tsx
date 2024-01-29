@@ -139,6 +139,9 @@ export default function StorePage() {
                     <Group>
                         Посещяемость
                         <DatePickerInput
+                            valueFormat="DD/MM/YYYY"
+                            w={240}
+                            placeholder='Выбрать период'
                             defaultValue={[getCurrentDay, d]}
                             type="range"
                             value={value}

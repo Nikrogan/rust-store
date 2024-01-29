@@ -21,7 +21,7 @@ export const AppShellWrapper = ({children}) => {
       </AppShell.Header>
 
       <AppShell.Navbar p="md">
-        <NavLink label="Главная" href="/admin" />
+        <NavLink label="Главная" href="/admin"/>
         <NavLink label="Магазины">
             <NavLink label="Добавить магазин" href="/admin/createstore"/>
             <NavLink label="BlackWood" href="/admin/store/1"/>

@@ -1,6 +1,7 @@
 'use client'
-import { AppShellWrapper } from "@/components/AppShell";
-import { AreaChart } from '@mantine/charts';
+import { MainStat } from "@/AdminComponents/MainStat/MainStat";
+import { StatsPanel } from "@/AdminComponents/StatsPanel/StatsPanel";
+import { Box, Text, Title } from "@mantine/core";
 
 
 const data = [
@@ -38,17 +39,10 @@ const data = [
 
 export default function AdminPage () {
     return (
-      <>
-      Главная
-      <AreaChart
-        h={300}
-        data={data}
-        dataKey="date"
-        series={[
-          { name: 'Apples', color: 'indigo.6' },
-        ]}
-        curveType="linear"
-    />
-    </>
+      <Box ml={32} mr={32}>
+        <Title c="#141517" h={1} mt={32}>Главная</Title>
+        <StatsPanel />
+        <MainStat data={data} />
+      </Box>
     )
 }

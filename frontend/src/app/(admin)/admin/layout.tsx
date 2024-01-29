@@ -1,5 +1,6 @@
 import '@mantine/core/styles.css';
 import '@mantine/charts/styles.css';
+import '@mantine/dates/styles.css';
 import { theme } from "@/components/theme/theme"
 import { MantineProvider } from "@mantine/core"
 import { AppShellWrapper } from '@/components/AppShell';
