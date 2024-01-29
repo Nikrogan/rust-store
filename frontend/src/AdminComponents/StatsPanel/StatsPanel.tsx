@@ -22,7 +22,7 @@ const MockData = [
 
 export const StatsPanel = () => {
     const Content = MockData.map(item => {
-        return <StatBox amount={item.amount} type={item.type}/>
+        return <StatBox key={item.type} amount={item.amount} type={item.type}/>
     })
     return <Flex mt={56}>
         {Content}
