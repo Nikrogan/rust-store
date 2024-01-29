@@ -1,4 +1,4 @@
-import './infoLayout.css'
+import './info.css'
 
 export const InfoLayout = ({children}) => {
     return <div className="info-layout">
