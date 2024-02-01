@@ -1,7 +1,7 @@
 'use client'
 import { useUnit } from "effector-react"
 import { $newsList, getNewsEvent } from "./store"
-import { Box, Flex } from "@mantine/core"
+import { Box, Flex, Image, Text, Title } from "@mantine/core"
 import { useEffect } from "react"
 
 export default function PageNews () {
@@ -15,14 +15,18 @@ export default function PageNews () {
     }, [])
 
     const newsListView = data.map(item => {
-        return <ShortNews />
+        return <ShortNews title={item.title} imgUrl={item.imgUrl} content={item.content} />
     });
     
     return <>
     <div>Page News </div>
-    <Flex>{newsListView}</Flex></>
+    <Flex direction="column">{newsListView}</Flex></>
 }
 
-export const ShortNews = () => {
-    return <Box></Box>
+export const ShortNews = ({title, imgUrl, content}) => {
+    return <Box>
+        <Title>{title}</Title>
+        <Image src={imgUrl} />
+        <Text>{content}</Text>
+    </Box>
 }
