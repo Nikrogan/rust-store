@@ -27,14 +27,16 @@ const checkIsInfoPage = (pathname: string) => {
 }
 
 export const NavBar = () => {
-  const pathname = usePathname();
+  let pathname = usePathname();
+  const regexp = new RegExp(/\/news\/\w+/gm)
+  pathname = pathname.replace(regexp, '/news')
+
   const { value: { isAuth, isLoading, user }, trigger, authUser, handleLogoutTrigger } = useUnit({
     value: $userStores,
     trigger: getAuthStatusEvent,
     authUser: authUserEvent,
     handleLogoutTrigger: logoutEvent
   });
-
   const matches = useMediaQuery('(max-width: 1600px)');
   const isInfoPage = checkIsInfoPage(pathname);
   const [opened, { open, close }] = useDisclosure(false);
@@ -42,7 +44,7 @@ export const NavBar = () => {
 
   const handleLogin = () => {
     const popupWindow = window.open(
-      `${process.env.NEXT_PUBLIC_API_CONFIG}/user/auth`,
+      `${process.env.NEXT_PUBLIC_API_CONFIG}user/auth`,
       "_self",
     );
     if (popupWindow?.focus) popupWindow.focus();
@@ -88,7 +90,7 @@ export const NavBar = () => {
           </Button>
         </Link>
         <Link href="/news" className='buttonMain'>
-          <Button className={'buttonMain'} variant="outline" color="white" size="lg">
+          <Button className={'buttonMain'} variant="outline" color={pathname === '/news' ? "cyan" : "white"} size="lg">
             Новости
           </Button>
         </Link>

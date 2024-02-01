@@ -5,8 +5,14 @@ import { ServerCardNew } from '@/components/ServerCardNew/ServerCardNew';
 import { Button } from '@/ServerComponents/button';
 import Link from 'next/link'
 import styles from './page.module.css'
+import { $userStores } from '@/store/auth';
+import { useUnit } from 'effector-react';
 
 export default function News() {
+  const { value: { isAuth, isLoading, user }} = useUnit({
+    value: $userStores,
+  });
+
   const ServerArray = [
     {
       title: 'BLACKWOOD RUST #1',
@@ -34,10 +40,14 @@ export default function News() {
   })
   const ButtonList = [{title: 'Магазин', link: '/shop', type: 0}, {title: 'Авторизоваться'}, {title: 'discord', link: 'https://discord.gg/blackwoodrust', type: 1}];
   const ButtonView = ButtonList.map(item => {
+    if(item.title === 'Авторизоваться' && isAuth) {
+      return null
+    };
+
     if(item.link) {
       return (
         <Link key={item.title} href={item.link} target={item.type ? '_blank' : '_self'}>
-            <Button size='md' {...item}/>
+            <Button size={isAuth ? 'xl' : 'md'} {...item}/>
         </Link>
       )
     }
