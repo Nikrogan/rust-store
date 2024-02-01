@@ -22,7 +22,10 @@ namespace Service.Implementations
             try
             {
                 var allElements = await _newsRepository.GetAll();
-                int newId = (allElements?.Last()?.NewsId + 1) ?? 1;
+                int newId = 0;
+                if (!allElements.Any())
+                    newId = 0;
+                else newId = (allElements.Last().NewsId + 1);
 
                 var product = new BaseNews()
                 {

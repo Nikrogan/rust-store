@@ -16,12 +16,12 @@ namespace PaymentAdapter
             _paymentService = paymentService;
         }
 
-        public string ProcessPayment(InvoiceCreateModel paymentCreateModel)
+        public async Task<string> ProcessPayment(InvoiceCreateModel paymentCreateModel)
         {
             Console.WriteLine("Подготовка к оплате...");
 
             // Вызываем метод обработки оплаты у конкретного платежного сервиса
-            return _paymentService.ProcessPayment(paymentCreateModel);
+            return await _paymentService.ProcessPayment(paymentCreateModel);
         }
 
     }
