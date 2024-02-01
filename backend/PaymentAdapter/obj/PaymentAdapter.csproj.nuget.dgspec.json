@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\jobs\\rust-store\\rust-store\\backend\\PaymentAdapter\\PaymentAdapter.csproj": {}
+    "F:\\project\\RustStore\\rust-store\\backend\\PaymentAdapter\\PaymentAdapter.csproj": {}
   },
   "projects": {
-    "D:\\jobs\\rust-store\\rust-store\\backend\\Domain\\Domain.csproj": {
+    "F:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\jobs\\rust-store\\rust-store\\backend\\Domain\\Domain.csproj",
+        "projectUniqueName": "F:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "D:\\jobs\\rust-store\\rust-store\\backend\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\front\\.nuget\\packages\\",
-        "outputPath": "D:\\jobs\\rust-store\\rust-store\\backend\\Domain\\obj\\",
+        "projectPath": "F:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\azorety\\.nuget\\packages\\",
+        "outputPath": "F:\\project\\RustStore\\rust-store\\backend\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\front\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\azorety\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -66,24 +65,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\jobs\\rust-store\\rust-store\\backend\\PaymentAdapter\\PaymentAdapter.csproj": {
+    "F:\\project\\RustStore\\rust-store\\backend\\PaymentAdapter\\PaymentAdapter.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\jobs\\rust-store\\rust-store\\backend\\PaymentAdapter\\PaymentAdapter.csproj",
+        "projectUniqueName": "F:\\project\\RustStore\\rust-store\\backend\\PaymentAdapter\\PaymentAdapter.csproj",
         "projectName": "PaymentAdapter",
-        "projectPath": "D:\\jobs\\rust-store\\rust-store\\backend\\PaymentAdapter\\PaymentAdapter.csproj",
-        "packagesPath": "C:\\Users\\front\\.nuget\\packages\\",
-        "outputPath": "D:\\jobs\\rust-store\\rust-store\\backend\\PaymentAdapter\\obj\\",
+        "projectPath": "F:\\project\\RustStore\\rust-store\\backend\\PaymentAdapter\\PaymentAdapter.csproj",
+        "packagesPath": "C:\\Users\\azorety\\.nuget\\packages\\",
+        "outputPath": "F:\\project\\RustStore\\rust-store\\backend\\PaymentAdapter\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\front\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\azorety\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -92,15 +91,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\jobs\\rust-store\\rust-store\\backend\\Domain\\Domain.csproj": {
-                "projectPath": "D:\\jobs\\rust-store\\rust-store\\backend\\Domain\\Domain.csproj"
+              "F:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj": {
+                "projectPath": "F:\\project\\RustStore\\rust-store\\backend\\Domain\\Domain.csproj"
               }
             }
           }
@@ -114,12 +112,6 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "dependencies": {
-            "DotNetEnv": {
-              "target": "Package",
-              "version": "[3.0.0, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
@@ -136,7 +128,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

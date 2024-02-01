@@ -18,10 +18,12 @@ namespace RustStore.Controllers
     {
         private readonly IConfiguration _configuration;
         private readonly IPaymentService _paymentService;
-        public PaymentServicesController(IConfiguration configuration, IPaymentService paymentService)
+        private readonly IUserService _userService;
+        public PaymentServicesController(IConfiguration configuration, IPaymentService paymentService, IUserService userService)
         {
             _configuration = configuration;
             _paymentService = paymentService;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -53,6 +55,7 @@ namespace RustStore.Controllers
             else paymentModel.PaymentId = (allPayments.Data.Last().PaymentId + 1);
 
             invoiceCreateModel.OrderId = paymentModel.PaymentId;
+            paymentModel.SteamId = invoiceCreateModel.SteamId;
 
             string? invoiceUrl = null;
             switch (invoiceCreateModel.PaymentServiceKey) 
@@ -60,7 +63,7 @@ namespace RustStore.Controllers
                 case "custom_lava":
                     IPayment lavaService = new LavaPaymentService();
                     IPayment adaptedPaypalService = new PaymentServiceAdapter(lavaService);
-                    invoiceUrl = adaptedPaypalService.ProcessPayment(invoiceCreateModel);
+                    invoiceUrl = await adaptedPaypalService.ProcessPayment(invoiceCreateModel);
                     paymentModel.PaymentMethod = PaymentMethods.Lava;
                 break;
             }
@@ -77,9 +80,31 @@ namespace RustStore.Controllers
             try
             {
                 if (data.IsNullOrEmpty()) return BadRequest();
+
                 var orderId = data["order_id"].ToString();
-                var payment = _paymentService.GetPaymentById(orderId);
+                var invoiceStatus = data["status"].ToString();
+                var steamID = data["custom_fields"].ToString();
+                var payment = await _paymentService.GetPaymentById(orderId);
+
                 if (payment == null) return BadRequest();
+                if (payment.Data.PaymentStatus != PaymentStatus.Pending) return BadRequest();
+
+                var user = await _userService.GetUserById(payment.Data.SteamId);
+                if (user.StatusCode != Domain.Enum.StatusCode.OK || user.Data == null) return BadRequest();
+
+                if(invoiceStatus != "success")
+                {
+                    payment.Data.PaymentStatus = PaymentStatus.Canceled;
+                    await _paymentService.EditElement(payment.Data);
+                    return BadRequest();
+                }
+
+                user.Data.Balance += payment.Data.Amount;
+                await _userService.EditElement(user.Data);
+                payment.Data.PaymentStatus = PaymentStatus.Succeeded;
+                await _paymentService.EditElement(payment.Data);
+
+                return Ok();
             }
             catch
             {
