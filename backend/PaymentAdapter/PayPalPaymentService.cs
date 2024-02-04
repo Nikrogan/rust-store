@@ -30,7 +30,7 @@ namespace PaymentAdapter
                         amount = new
                         {
                             currency_code = "USD",
-                            value = "10.00"
+                            value = invoiceCreateModel.Amount
                         }
                     }
                 },
