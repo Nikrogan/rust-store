@@ -1,9 +1,5 @@
 ﻿using Domain.Entity;
 using Domain.PaymentServicesModels;
-using static System.Net.Mime.MediaTypeNames;
-using System.Data.SqlTypes;
-using System.Net.Http;
-using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
@@ -19,9 +15,9 @@ namespace PaymentAdapter
             var serviceModel = invoiceCreateModel.PaymentServiceModel;
             if (serviceModel == null) return null;
 
-            //DotNetEnv.Env.Load();
-            //var link = Environment.GetEnvironmentVariable("backendUrl");
-            var link = "хуй соси";
+            DotNetEnv.Env.Load();
+            var link = Environment.GetEnvironmentVariable("backendUrl");
+            //var link = "хуй соси";
 
             LavaModel apiInvoiceCreateModel = new LavaModel() {
                 Sum = float.Parse(invoiceCreateModel.Amount.ToString()),

@@ -62,9 +62,15 @@ namespace RustStore.Controllers
             {
                 case "custom_lava":
                     IPayment lavaService = new LavaPaymentService();
-                    IPayment adaptedPaypalService = new PaymentServiceAdapter(lavaService);
-                    invoiceUrl = await adaptedPaypalService.ProcessPayment(invoiceCreateModel);
+                    IPayment adaptedForLavaService = new PaymentServiceAdapter(lavaService);
+                    invoiceUrl = await adaptedForLavaService.ProcessPayment(invoiceCreateModel);
                     paymentModel.PaymentMethod = PaymentMethods.Lava;
+                break;
+                case "custom_paypal":
+                    IPayment paypalService = new PayPalPaymentService();
+                    IPayment adaptedForPayPalService = new PaymentServiceAdapter(paypalService);
+                    invoiceUrl = await adaptedForPayPalService.ProcessPayment(invoiceCreateModel);
+                    paymentModel.PaymentMethod = PaymentMethods.PayPal;
                 break;
             }
             if(invoiceUrl == null) return new BaseServerResponse<string>(null, Domain.Enum.StatusCode.InternalServerError);

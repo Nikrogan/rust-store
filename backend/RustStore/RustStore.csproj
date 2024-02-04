@@ -23,7 +23,6 @@
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
-    <ProjectReference Include="..\PaymentAdapter\PaymentAdapter.csproj" />
     <ProjectReference Include="..\Service\Service.csproj" />
   </ItemGroup>
 
