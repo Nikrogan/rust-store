@@ -6,6 +6,7 @@ import { ProductCard } from '@/components/ProductCard';
 import "./page.css"
 import { useUnit } from 'effector-react';
 import { $currentServer, changeServerEvent } from '@/store/server';
+import { $products } from './store';
 
 
 const ServerList = [
@@ -52,7 +53,8 @@ const ServerList = [
 ]
 
 export default function Home() {
-  const {currentServer, changeServer} = useUnit({
+  const {products: {data, isLoading}, currentServer, changeServer} = useUnit({
+    products: $products,
     currentServer: $currentServer,
     changeServer: changeServerEvent
   })
@@ -60,6 +62,10 @@ export default function Home() {
 
   const ServerListView = ServerList.map((server) => {
     return <ServerCard key={server.serverId} onClick={() => changeServer(server)} buttonText="Выбрать" {...server}  />
+  })
+  console.log(data)
+  const ProductListView = data.map((item) => {
+    return <ProductCard title={item?.title} price={item.price ? item.price : undefined} />
   })
   
   return (
@@ -80,51 +86,7 @@ export default function Home() {
         {currentServer && <Flex w='100%' justify='space-between'>
           <Space mt='sm' mr="sm">
           <Flex className='shop__container' wrap='wrap' gap='md'>
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
+              {ProductListView}
           </Flex>
           </Space>
         </Flex>}

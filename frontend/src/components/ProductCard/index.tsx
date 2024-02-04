@@ -24,11 +24,11 @@ export const ProductCard = ({title='Minicopter х1', imageSrc = 'https://bwrust.
 
             <Group justify="space-between" mt="md" mb="xs">
                 <Text fw={500}>{title}</Text>
-            <Badge color="pink">{price}</Badge>
+            <Badge color="pink">{price} {price !== "free" && "BW"}</Badge>
             </Group>
 
             <Button color="blue" fullWidth mt="md" radius="md">
-            {buttonText}
+                {buttonText}
             </Button>
         </Card>
     )
