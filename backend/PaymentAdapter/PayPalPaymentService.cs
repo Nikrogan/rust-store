@@ -87,7 +87,7 @@ namespace PaymentAdapter
             return "empty";
         }
 
-        private async Task<string> GetAccessToken(string clientId, string clientSecret)
+        private async Task<string> GetAccessToken(string clientSecret, string clientId)
         {
             using (HttpClient client = new HttpClient())
             {

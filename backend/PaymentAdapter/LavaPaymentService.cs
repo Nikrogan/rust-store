@@ -17,7 +17,6 @@ namespace PaymentAdapter
 
             DotNetEnv.Env.Load();
             var link = Environment.GetEnvironmentVariable("backendUrl");
-            //var link = "хуй соси";
 
             LavaModel apiInvoiceCreateModel = new LavaModel() {
                 Sum = float.Parse(invoiceCreateModel.Amount.ToString()),
