@@ -65,7 +65,7 @@ export default function Home() {
   })
   console.log(data)
   const ProductListView = data.map((item) => {
-    return <ProductCard title={item?.title} price={item.price ? item.price : undefined} />
+    return <ProductCard key={item?.title} title={item?.title} price={item.price ? item.price : undefined} />
   })
   
   return (

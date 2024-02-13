@@ -27,7 +27,7 @@ namespace RustStore.Controllers
         [HttpGet]
         public async Task<IBaseServerResponse<IEnumerable<SimplePaymentService>>> Get()
         {
-            var paymentServices = _configuration.GetSection("PaymentServices").Get<List<SimplePaymentService>>();
+            var paymentServices = await ConfigManager.LoadSimpleConfig();
             return new BaseServerResponse<IEnumerable<SimplePaymentService>>(paymentServices, Domain.Enum.StatusCode.OK);
         }
 

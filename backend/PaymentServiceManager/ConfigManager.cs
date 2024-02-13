@@ -1,4 +1,5 @@
 ﻿using Domain.Entity;
+using Domain.SimpleEntity;
 using Newtonsoft.Json;
 using System.Collections;
 
@@ -18,6 +19,20 @@ namespace PaymentServiceManager
 
             string json = await File.ReadAllTextAsync(configFilePath);
             List<PaymentServiceModel> serverModels = JsonConvert.DeserializeObject<List<PaymentServiceModel>>(json);
+
+            return serverModels;
+        }
+
+        public static async Task<List<SimplePaymentService>?> LoadSimpleConfig()
+        {
+            if (!File.Exists(configFilePath))
+            {
+                // Если файл не существует, создаем новый с дефолтными данными
+                CreateDefaultConfig();
+            }
+
+            string json = await File.ReadAllTextAsync(configFilePath);
+            List<SimplePaymentService> serverModels = JsonConvert.DeserializeObject<List<SimplePaymentService>>(json);
 
             return serverModels;
         }
