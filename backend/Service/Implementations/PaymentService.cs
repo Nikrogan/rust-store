@@ -170,5 +170,33 @@ namespace Service.Implementations
                 };
             }
         }
+
+        public async Task<IBaseResponse<BasePayment>> GetPaymentByServiceId(string Id)
+        {
+            var baseResponse = new BaseResponse<BasePayment>();
+            try
+            {
+                var allResources = await _paymentRepository.GetAll();
+                var resource = allResources.FirstOrDefault(x => x.ServiceOrderId == Id);
+                if (resource == null)
+                {
+                    baseResponse.Description = "Element not found";
+                    baseResponse.StatusCode = StatusCode.ElementNotFound;
+                    return baseResponse;
+                }
+
+                baseResponse.Data = resource;
+                baseResponse.StatusCode = StatusCode.OK;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<BasePayment>()
+                {
+                    Description = $"[GetPaymentById] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
     }
 }

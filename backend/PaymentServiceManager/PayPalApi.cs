@@ -8,11 +8,13 @@ namespace PaymentServiceManager
 {
     public static class PayPalApi
     {
-        public static async Task<string?> GetInvoice(InvoiceCreateModel invoiceCreateModel)
+        public static async Task<InvoiceResponse?> GetInvoice(InvoiceCreateModel invoiceCreateModel)
         {
             var client = await CreateClient();
 
             string apiUrl = "https://api-m.sandbox.paypal.com/v2/checkout/orders";
+            DotNetEnv.Env.Load();
+            var link = Environment.GetEnvironmentVariable("backendUrl");
 
             var requestData = new
             {
@@ -39,8 +41,8 @@ namespace PaymentServiceManager
                             user_action = "PAY_NOW",
                             payment_method_preference = "IMMEDIATE_PAYMENT_REQUIRED",
                             locale = "en-US",
-                            return_url = "https://localhost:5000/api/v1/paymentservices/paypal_success",
-                            cancel_url = "https://localhost:5000/api/v1/paymentservices/paypal_cancel"
+                            return_url = $"{link}/api/v1/paymentservices/paypal_success",
+                            cancel_url = $"{link}/api/v1/paymentservices/paypal_cancel"
                         }
                     }
                     //card = new
@@ -66,15 +68,24 @@ namespace PaymentServiceManager
                 string invoiceLink = jsonResponse["links"]
                     .FirstOrDefault(link => link["rel"].ToString() == "payer-action")?["href"]?.ToString();
 
-                if (!string.IsNullOrEmpty(invoiceLink))
-                    return invoiceLink;
+                string serviceOrderId = jsonResponse["id"].ToString();
+
+
+                if (!string.IsNullOrEmpty(invoiceLink) && !string.IsNullOrEmpty(serviceOrderId))
+                {
+                    return new InvoiceResponse 
+                    {
+                        InvoiceUrl = invoiceLink,
+                        ServiceOrderId = serviceOrderId
+                    };
+                }
                 else
-                    return "empty";
+                    return null;
             }
             else
                 Console.WriteLine($"Ошибка запроса к PayPal API: {response.StatusCode} - {response.ReasonPhrase}");
                 
-            return "empty";
+            return null;
         }
 
         public static async Task<PaymentStatus> CheckStatus(string token)

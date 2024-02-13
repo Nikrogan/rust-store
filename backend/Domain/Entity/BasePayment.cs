@@ -14,7 +14,9 @@ namespace Domain.Entity
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string? Id { get; set; }
-        
+        public string? CustomOrderId { get; set; }
+        public string? ServiceOrderId { get; set; }
+
         public string SteamId { get; set; }
         public int PaymentId { get; set; }
         public decimal Amount { get; set; }

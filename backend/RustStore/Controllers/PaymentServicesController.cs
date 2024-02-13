@@ -32,7 +32,7 @@ namespace RustStore.Controllers
         }
 
         [HttpPost]
-        public async Task<IBaseServerResponse<string>> Create(InvoiceCreateModel invoiceCreateModel)
+        public async Task<IActionResult> Create(InvoiceCreateModel invoiceCreateModel)
         {
             var allPayments = await _paymentService.GetAllPayments();
 
@@ -42,6 +42,9 @@ namespace RustStore.Controllers
                 PaymentStatus = PaymentStatus.Pending
             };
 
+            DotNetEnv.Env.Load();
+            var link = Environment.GetEnvironmentVariable("frontUrl");
+
             if (!allPayments.Data.Any())
                 paymentModel.PaymentId = 0;
             else paymentModel.PaymentId = (allPayments.Data.Last().PaymentId + 1);
@@ -49,7 +52,7 @@ namespace RustStore.Controllers
             invoiceCreateModel.OrderId = paymentModel.PaymentId;
             paymentModel.SteamId = invoiceCreateModel.SteamId;
 
-            string? invoiceUrl = null;
+            InvoiceResponse? invoiceResponse = null;
             switch (invoiceCreateModel.PaymentServiceKey) 
             {
                 case "custom_lava":
@@ -59,15 +62,15 @@ namespace RustStore.Controllers
                     paymentModel.PaymentMethod = PaymentMethods.Lava;
                 break;
                 case "custom_paypal":
-                    invoiceUrl = await PayPalApi.GetInvoice(invoiceCreateModel);
+                    invoiceResponse = await PayPalApi.GetInvoice(invoiceCreateModel);
                     paymentModel.PaymentMethod = PaymentMethods.PayPal;
                 break;
             }
-            if(invoiceUrl == null) return new BaseServerResponse<string>(null, Domain.Enum.StatusCode.InternalServerError);
+            if(invoiceResponse == null) return Redirect(link);
 
             await _paymentService.CreatePayment(paymentModel);
 
-            return new BaseServerResponse<string>(invoiceUrl,Domain.Enum.StatusCode.OK);
+            return Redirect(invoiceResponse.InvoiceUrl);
         }
 
         [HttpPost("lava")]
@@ -124,10 +127,34 @@ namespace RustStore.Controllers
         }
 
         [HttpGet("paypal_success")]
-        public async Task<IBaseServerResponse<string>> PayPalSuccessWebHook(string token, string PayerID)
+        public async Task<IActionResult> PayPalSuccessWebHook(string token, string PayerID)
         {
+            var payment = await _paymentService.GetPaymentByServiceId(token);
+
+            DotNetEnv.Env.Load();
+            var link = Environment.GetEnvironmentVariable("frontUrl");
+
+            if (payment == null) return Redirect(link);
+            if (payment.Data.PaymentStatus != PaymentStatus.Pending) return Redirect(link);
+
+            var user = await _userService.GetUserById(payment.Data.SteamId);
+            if (user.StatusCode != Domain.Enum.StatusCode.OK || user.Data == null) return Redirect(link);
+
             var status = await PayPalApi.CheckStatus(token);
-            return new BaseServerResponse<string>(status.ToString(), Domain.Enum.StatusCode.OK);
+
+            if (status != PaymentStatus.Succeeded)
+            {
+                payment.Data.PaymentStatus = PaymentStatus.Canceled;
+                await _paymentService.EditElement(payment.Data);
+                return Redirect(link);
+            }
+
+            user.Data.Balance += payment.Data.Amount;
+            await _userService.EditElement(user.Data);
+            payment.Data.PaymentStatus = PaymentStatus.Succeeded;
+            await _paymentService.EditElement(payment.Data);
+
+            return Redirect(link);
         }
 
 
