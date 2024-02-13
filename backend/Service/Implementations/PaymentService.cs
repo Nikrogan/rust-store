@@ -30,7 +30,8 @@ namespace Service.Implementations
                     PaymentMethod = viewModel.PaymentMethod,
                     PaymentStatus = viewModel.PaymentStatus,
                     PaymentId = viewModel.PaymentId,
-                    ServiceOrderId = viewModel.ServiceOrderId
+                    ServiceOrderId = viewModel.ServiceOrderId,
+                    SteamId = viewModel.SteamId
                 };
 
                 await _paymentRepository.Add(payment);

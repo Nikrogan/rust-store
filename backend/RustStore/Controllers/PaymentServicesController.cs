@@ -136,10 +136,10 @@ namespace RustStore.Controllers
             DotNetEnv.Env.Load();
             var link = Environment.GetEnvironmentVariable("frontUrl");
 
-            if (payment == null) return Redirect(link);
+            if (payment.Data == null) return Redirect(link);
             if (payment.Data.PaymentStatus != PaymentStatus.Pending) return Redirect(link);
 
-            var user = await _userService.GetUserById(payment.Data.SteamId);
+            var user = await _userService.GetUserBySteamId(payment.Data.SteamId);
             if (user.StatusCode != Domain.Enum.StatusCode.OK || user.Data == null) return Redirect(link);
 
             var status = await PayPalApi.CheckStatus(token);
