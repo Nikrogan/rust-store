@@ -136,6 +136,7 @@ namespace Service.Implementations
                 user.AvatarUrl = viewModel.AvatarUrl;
                 user.SessionId = viewModel.SessionId;
                 user.LastAuth = viewModel.LastAuth;
+                user.Balance = viewModel.Balance;
 
                 await _accountRepository.Update(user);
 
