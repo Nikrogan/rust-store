@@ -29,7 +29,8 @@ namespace Service.Implementations
                     DateTime = DateTime.Now,
                     PaymentMethod = viewModel.PaymentMethod,
                     PaymentStatus = viewModel.PaymentStatus,
-                    PaymentId = viewModel.PaymentId
+                    PaymentId = viewModel.PaymentId,
+                    ServiceOrderId = viewModel.ServiceOrderId
                 };
 
                 await _paymentRepository.Add(payment);
@@ -96,7 +97,8 @@ namespace Service.Implementations
                     };
                 }
 
-                // Изменение данных энтити payment
+                product.ServiceOrderId = viewModel.ServiceOrderId;
+                product.PaymentStatus = viewModel.PaymentStatus;
 
                 await _paymentRepository.Update(product);
 
