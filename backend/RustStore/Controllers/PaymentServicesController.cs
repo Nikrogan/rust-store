@@ -68,6 +68,8 @@ namespace RustStore.Controllers
             }
             if(invoiceResponse == null) return Redirect(link);
 
+            paymentModel.ServiceOrderId = invoiceResponse.ServiceOrderId;
+
             await _paymentService.CreatePayment(paymentModel);
 
             return Redirect(invoiceResponse.InvoiceUrl);
