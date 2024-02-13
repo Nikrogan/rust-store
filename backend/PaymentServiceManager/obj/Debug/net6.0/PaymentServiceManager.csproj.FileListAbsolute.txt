@@ -1,0 +1,16 @@
+F:\project\RustStore\rust-store\backend\PaymentServiceManager\bin\Debug\net6.0\PaymentServiceManager.deps.json
+F:\project\RustStore\rust-store\backend\PaymentServiceManager\bin\Debug\net6.0\PaymentServiceManager.dll
+F:\project\RustStore\rust-store\backend\PaymentServiceManager\bin\Debug\net6.0\PaymentServiceManager.pdb
+F:\project\RustStore\rust-store\backend\PaymentServiceManager\bin\Debug\net6.0\Domain.dll
+F:\project\RustStore\rust-store\backend\PaymentServiceManager\bin\Debug\net6.0\Domain.pdb
+F:\project\RustStore\rust-store\backend\PaymentServiceManager\obj\Debug\net6.0\PaymentServiceManager.csproj.AssemblyReference.cache
+F:\project\RustStore\rust-store\backend\PaymentServiceManager\obj\Debug\net6.0\PaymentServiceManager.GeneratedMSBuildEditorConfig.editorconfig
+F:\project\RustStore\rust-store\backend\PaymentServiceManager\obj\Debug\net6.0\PaymentServiceManager.AssemblyInfoInputs.cache
+F:\project\RustStore\rust-store\backend\PaymentServiceManager\obj\Debug\net6.0\PaymentServiceManager.AssemblyInfo.cs
+F:\project\RustStore\rust-store\backend\PaymentServiceManager\obj\Debug\net6.0\PaymentServiceManager.csproj.CoreCompileInputs.cache
+F:\project\RustStore\rust-store\backend\PaymentServiceManager\obj\Debug\net6.0\PaymentServiceManager.sourcelink.json
+F:\project\RustStore\rust-store\backend\PaymentServiceManager\obj\Debug\net6.0\PaymentServiceManager.csproj.CopyComplete
+F:\project\RustStore\rust-store\backend\PaymentServiceManager\obj\Debug\net6.0\PaymentServiceManager.dll
+F:\project\RustStore\rust-store\backend\PaymentServiceManager\obj\Debug\net6.0\refint\PaymentServiceManager.dll
+F:\project\RustStore\rust-store\backend\PaymentServiceManager\obj\Debug\net6.0\PaymentServiceManager.pdb
+F:\project\RustStore\rust-store\backend\PaymentServiceManager\obj\Debug\net6.0\ref\PaymentServiceManager.dll

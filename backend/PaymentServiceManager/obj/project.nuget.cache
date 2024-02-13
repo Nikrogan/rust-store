@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "xNrPJ0uiA558LVDXOWlgGX4tg7w0pO/YDvpJGAcqmgYyv5QkBPyL+dgiX/8BSB+N/vJTOonNzDmX4IneeSNr2w==",
+  "success": true,
+  "projectFilePath": "F:\\project\\RustStore\\rust-store\\backend\\PaymentServiceManager\\PaymentServiceManager.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\azorety\\.nuget\\packages\\mongodb.bson\\2.23.1\\mongodb.bson.2.23.1.nupkg.sha512",
+    "C:\\Users\\azorety\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\azorety\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
+    "C:\\Users\\azorety\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

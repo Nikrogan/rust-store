@@ -3,10 +3,8 @@ using Domain.Enum;
 using Domain.Response;
 using Domain.SimpleEntity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.IdentityModel.Tokens;
-using PaymentAdapter;
-using Service.Implementations;
+using PaymentServiceManager;
 using Service.Interfaces;
 using System.Text.Json.Nodes;
 
@@ -36,12 +34,6 @@ namespace RustStore.Controllers
         [HttpPost]
         public async Task<IBaseServerResponse<string>> Create(InvoiceCreateModel invoiceCreateModel)
         {
-            var paymentServices = _configuration.GetSection("PaymentServices").Get<List<PaymentServiceModel>>();
-            var serviceModel = paymentServices.FirstOrDefault(x => x.PaymentServiceKey == invoiceCreateModel.PaymentServiceKey);
-            if (serviceModel == null) return new BaseServerResponse<string>(null, Domain.Enum.StatusCode.InternalServerError);
-
-            invoiceCreateModel.PaymentServiceModel = serviceModel;
-
             var allPayments = await _paymentService.GetAllPayments();
 
             var paymentModel = new BasePayment()
@@ -61,15 +53,13 @@ namespace RustStore.Controllers
             switch (invoiceCreateModel.PaymentServiceKey) 
             {
                 case "custom_lava":
-                    IPayment lavaService = new LavaPaymentService();
-                    IPayment adaptedForLavaService = new PaymentServiceAdapter(lavaService);
-                    invoiceUrl = await adaptedForLavaService.ProcessPayment(invoiceCreateModel);
+                    //IPayment lavaService = new LavaPaymentService();
+                    //IPayment adaptedForLavaService = new PaymentServiceAdapter(lavaService);
+                    //invoiceUrl = await adaptedForLavaService.CreateInvoice(invoiceCreateModel);
                     paymentModel.PaymentMethod = PaymentMethods.Lava;
                 break;
                 case "custom_paypal":
-                    IPayment paypalService = new PayPalPaymentService();
-                    IPayment adaptedForPayPalService = new PaymentServiceAdapter(paypalService);
-                    invoiceUrl = await adaptedForPayPalService.ProcessPayment(invoiceCreateModel);
+                    invoiceUrl = await PayPalApi.GetInvoice(invoiceCreateModel);
                     paymentModel.PaymentMethod = PaymentMethods.PayPal;
                 break;
             }
@@ -124,6 +114,22 @@ namespace RustStore.Controllers
         {
             return Ok();
         }
+
+
+        [HttpGet("paypal_cancel")]
+        public async Task<IBaseServerResponse<string>> PayPalCancelWebHook(string token)
+        {
+            var status = await PayPalApi.CheckStatus(token);
+            return new BaseServerResponse<string>(status.ToString(), Domain.Enum.StatusCode.OK);
+        }
+
+        [HttpGet("paypal_success")]
+        public async Task<IBaseServerResponse<string>> PayPalSuccessWebHook(string token, string PayerID)
+        {
+            var status = await PayPalApi.CheckStatus(token);
+            return new BaseServerResponse<string>(status.ToString(), Domain.Enum.StatusCode.OK);
+        }
+
 
     }
 }

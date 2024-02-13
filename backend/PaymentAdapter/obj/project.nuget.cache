@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "B/jnHAsbJ9/gghQv/PZL/iPel64uP7Febf84fvGRbdiBt4PxztuZErwuOGJyv3cJQ5mPr1dGH1JNHu4o5PI7bw==",
+  "dgSpecHash": "4bUFCp+ECDHCu5RrL1AGa1dtKB5dB65n2V+XUymH6S9Zgz2tQEY3gmNIMStvyEumn5x/V1/3AOjA+GK8S2xMkg==",
   "success": true,
   "projectFilePath": "F:\\project\\RustStore\\rust-store\\backend\\PaymentAdapter\\PaymentAdapter.csproj",
   "expectedPackageFiles": [
