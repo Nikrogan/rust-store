@@ -31,8 +31,11 @@ namespace RustStore.Controllers
             return new BaseServerResponse<IEnumerable<SimplePaymentService>>(paymentServices, Domain.Enum.StatusCode.OK);
         }
 
+
+        //public async Task<IActionResult> Create(InvoiceCreateModel invoiceCreateModel)
+
         [HttpPost]
-        public async Task<IActionResult> Create(InvoiceCreateModel invoiceCreateModel)
+        public async Task<IBaseServerResponse<string>> Create(InvoiceCreateModel invoiceCreateModel)
         {
             var allPayments = await _paymentService.GetAllPayments();
 
@@ -66,13 +69,16 @@ namespace RustStore.Controllers
                     paymentModel.PaymentMethod = PaymentMethods.PayPal;
                 break;
             }
-            if(invoiceResponse == null) return Redirect(link);
+            //if(invoiceResponse == null) return Redirect(link);
+            if (invoiceResponse == null) return new BaseServerResponse<string>("",Domain.Enum.StatusCode.InternalServerError);
 
             paymentModel.ServiceOrderId = invoiceResponse.ServiceOrderId;
 
             await _paymentService.CreatePayment(paymentModel);
 
-            return Redirect(invoiceResponse.InvoiceUrl);
+            //return Redirect(invoiceResponse.InvoiceUrl);
+            return new BaseServerResponse<string>(invoiceResponse.InvoiceUrl, Domain.Enum.StatusCode.InternalServerError);
+
         }
 
         [HttpPost("lava")]
