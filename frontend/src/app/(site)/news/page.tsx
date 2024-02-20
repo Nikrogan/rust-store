@@ -15,7 +15,7 @@ export default function PageNews () {
     }, [])
 
     const newsListView = data.map(item => {
-        return <ShortNews title={item.title} imgUrl={item.imgUrl} content={item.content} />
+        return <ShortNews key={item.title} title={item.title} imgUrl={item.imgUrl} content={item.content} />
     });
     
     return <>
