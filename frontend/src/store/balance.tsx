@@ -46,7 +46,12 @@ sample({
 })
 
 const getPaymentMethodFx = createEffect((data) => {
-    return api.post(`/paymentservices`, data)
+    const res = api.post(`/paymentservices`, data).then(() => {
+        window.open(
+            `${res.payLoad}`,
+            "_self",
+        );
+    });
 })
 
 export const $paymentMethod =  createStore(null)
