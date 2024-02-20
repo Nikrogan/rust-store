@@ -46,12 +46,7 @@ sample({
 })
 
 const getPaymentMethodFx = createEffect((data) => {
-    const res = api.post(`/paymentservices`, data).then(() => {
-        window.open(
-            `${res.payLoad}`,
-            "_self",
-        );
-    });
+    return api.post(`/paymentservices`, data)
 })
 
 export const $paymentMethod =  createStore(null)
@@ -68,6 +63,10 @@ sample({
     clock: getPaymentMethodFx.doneData,
     fn: (data) => {
         console.log(data)
+        window.open(
+            `${data.data.payLoad}`,
+            "_self",
+        );
     },
     target: $paymentMethod
 })
