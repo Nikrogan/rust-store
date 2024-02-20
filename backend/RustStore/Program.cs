@@ -24,6 +24,8 @@ builder.Services.AddCors(options =>
             .WithOrigins("https://localhost:3000")
             .WithOrigins("https://127.0.0.1:3000")
             .WithOrigins("steamcommunity.com")
+            .WithOrigins("sandbox.paypal.com")
+            .WithOrigins("paypal.com")
             .WithOrigins("turringrust.ru")
             .AllowAnyHeader()
             .AllowAnyMethod()
