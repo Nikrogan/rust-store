@@ -16,9 +16,17 @@ const nextConfig = {
       },
     experimental: {
       serverActions: {
-        allowedOrigins: ["localhost:5000", "localhost:3000"]
+        allowedOrigins: ["https://localhost:5000", "http://localhost:5000", "localhost:3000", 'www.sandbox.paypal.com']
       }
     },
+    async headers () {
+      return [{
+      source: "/api",
+      headers: [{
+        key: 'Access-Control-Allow-Origin',
+        value: "https://localhost:5000",
+      }]
+    }]},
     distDir: 'build',
     env: env
 }

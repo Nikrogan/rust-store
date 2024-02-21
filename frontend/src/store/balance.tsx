@@ -63,6 +63,10 @@ sample({
     clock: getPaymentMethodFx.doneData,
     fn: (data) => {
         console.log(data)
+        window.open(
+            `${data.data.payLoad}`,
+            "_self",
+        );
     },
     target: $paymentMethod
 })
