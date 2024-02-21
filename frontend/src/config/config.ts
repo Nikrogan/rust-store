@@ -3,5 +3,6 @@ export enum Pages {
  'delivery' = '/delivery',
  'useraccess' = '/useraccess',
  'policy' = '/policy',
- 'admin' = '/admin'
+ 'admin' = '/admin',
+ 'profile' = '/profile'
 } 

@@ -4,7 +4,23 @@ import { createEffect, createEvent, createStore, sample } from "effector";
 const defaultStore = {
     isLoading: false,
     isError: false,
-    data: []
+    data: [
+        {
+            title: "Здесь будет какой-то заголовок",
+            imgUrl: 'https://bwrust.ru/uploads/test/background.webp',
+            content: 'Здесь будет какое-то описание новости краткое, первое предложение из новости или что-то вроде этого'
+        },
+        {
+            title: "Здесь будет какой-то заголовок",
+            imgUrl: 'https://bwrust.ru/uploads/test/background.webp',
+            content: 'Здесь будет какое-то описание новости краткое, первое предложение из новости или что-то вроде этого'
+        },
+        {
+            title: "Здесь будет какой-то заголовок",
+            imgUrl: 'https://bwrust.ru/uploads/test/background.webp',
+            content: 'Здесь будет какое-то описание новости краткое, первое предложение из новости или что-то вроде этого'
+        },
+    ]
 }
 
 export const $newsList = createStore(defaultStore)
@@ -24,11 +40,26 @@ sample({
 sample({
     clock: getNewsFx.doneData,
     fn: ({data}) => {
-        console.log(12321)
         return {
             isLoading: false,
             isError: false,
-            data: data.payLoad
+            data: data.payLoad.length > 0 ? data.payLoad : [
+                {
+                    title: "Здесь будет какой-то заголовок",
+                    imgUrl: 'https://bwrust.ru/uploads/test/background.webp',
+                    content: 'Здесь будет какое-то описание новости краткое, первое предложение из новости или что-то вроде этого'
+                },
+                {
+                    title: "Здесь будет какой-то заголовок",
+                    imgUrl: 'https://bwrust.ru/uploads/test/background.webp',
+                    content: 'Здесь будет какое-то описание новости краткое, первое предложение из новости или что-то вроде этого'
+                },
+                {
+                    title: "Здесь будет какой-то заголовок",
+                    imgUrl: 'https://bwrust.ru/uploads/test/background.webp',
+                    content: 'Здесь будет какое-то описание новости краткое, первое предложение из новости или что-то вроде этого'
+                },
+            ]
         }
     },
     target: $newsList

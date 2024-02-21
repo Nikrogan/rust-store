@@ -1,5 +1,5 @@
 'use client'
-import { Flex, Button, Menu, Image, Loader, MenuItem } from "@mantine/core"
+import { Flex, Button, Menu, Image, Loader, MenuItem, ActionIcon, useMantineColorScheme, useComputedColorScheme } from "@mantine/core"
 import { useDisclosure, useMediaQuery } from "@mantine/hooks"
 import Link from "next/link"
 import { UserAvatar } from "../UserAvatar"
@@ -15,6 +15,7 @@ import { $userStores, authUserEvent, getAuthStatusEvent, logoutEvent } from "@/s
 import { useUnit } from 'effector-react'
 
 import './navbar.css'
+import { IconMoon, IconSun } from "@tabler/icons-react"
 
 const checkIsInfoPage = (pathname: string) => {
   switch (pathname) {
@@ -39,6 +40,9 @@ export const NavBar = () => {
   });
   const matches = useMediaQuery('(max-width: 1600px)');
   const isInfoPage = checkIsInfoPage(pathname);
+  const { setColorScheme } = useMantineColorScheme();
+  const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true });
+
   const [opened, { open, close }] = useDisclosure(false);
   const [isOpenBalanceModal, { open: handeOpenBalanceModal, close: handeCloseBalanceModal }] = useDisclosure(false);
 
@@ -102,23 +106,23 @@ export const NavBar = () => {
             </Button>
           </Menu.Target>
           <Menu.Dropdown>
-            <Link href={Pages.contacts}>
-              <Menu.Item>
+            <Link href={Pages.contacts} style={{textDecoration: 'none'}}>
+              <Menu.Item style={{marginTop: '4px'}}>
                 Контакты
               </Menu.Item>
             </Link>
-            <Link href={Pages.delivery}>
-              <Menu.Item>
+            <Link href={Pages.delivery} style={{textDecoration: 'none'}}>
+              <Menu.Item style={{marginTop: '4px'}}>
                 Условия доставки
               </Menu.Item>
             </Link>
-            <Link href={Pages.policy}>
-              <Menu.Item>
+            <Link href={Pages.policy} style={{textDecoration: 'none'}}>
+              <Menu.Item style={{marginTop: '4px'}}>
                 Политика конфиденциальности
               </Menu.Item>
             </Link>
-            <Link href={Pages.useraccess}>
-              <Menu.Item>
+            <Link href={Pages.useraccess} style={{textDecoration: 'none'}}>
+              <Menu.Item style={{marginTop: '4px'}}>
                 Пользовательское соглашение
               </Menu.Item>
             </Link>
@@ -129,26 +133,44 @@ export const NavBar = () => {
         }}>Войти</Button>}
         {isAuth && <Menu trigger="hover">
           <Menu.Target>
-            <Link href='/profile'>
+            <Link href={Pages.profile}>
               <UserAvatar user={user} />
             </Link>
           </Menu.Target>
           <Menu.Dropdown>
+            <Menu.Item>
+              <Link href={Pages.profile} style={{textDecoration: "none"}}>
+                Личный кабинет
+              </Link>
+            </Menu.Item>
             <Menu.Item onClick={handeOpenBalanceModal}>
               Пополнить баланс
             </Menu.Item>
             {isAuth && (
               <Menu.Item>
-                <Link href={Pages.admin}>
+                <Link href={Pages.admin} style={{textDecoration: "none"}}>
                   Панель администратора
                 </Link>
               </Menu.Item>)
             }
+            <Menu.Item onClick={() => setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')}>
+              Изменить тему
+              </Menu.Item>
             <Menu.Item color="red" onClick={handleLogout}>
               Выйти
             </Menu.Item>
           </Menu.Dropdown>
         </Menu>}
+        {!isAuth && <ActionIcon
+          onClick={() => setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')}
+          variant="default"
+          h={50}
+          w={40}
+          aria-label="Toggle color scheme"
+        >
+          {computedColorScheme === 'light' && <IconSun className={"icon light"} stroke={2} /> }
+          {computedColorScheme === 'dark' && <IconMoon className={"icon dark"} stroke={2} /> }
+        </ActionIcon>}
         <BalancaModal isOpen={isOpenBalanceModal} onClose={handeCloseBalanceModal} />
       </Flex>
     </Flex>
