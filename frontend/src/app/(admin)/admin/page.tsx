@@ -1,7 +1,11 @@
 'use client'
 import { MainStat } from "@/AdminComponents/MainStat/MainStat";
 import { StatsPanel } from "@/AdminComponents/StatsPanel/StatsPanel";
-import { Box, Text, Title } from "@mantine/core";
+import {  $userStores, getAuthStatusEvent } from "@/store/auth";
+import { Box, LoadingOverlay, Title } from "@mantine/core";
+import { useUnit } from "effector-react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 
 const data = [
@@ -38,11 +42,30 @@ const data = [
 ];
 
 export default function AdminPage () {
-    return (
-      <Box ml={32} mr={32}>
-        <Title c="#141517" h={1} mt={32}>Главная</Title>
-        <StatsPanel />
-        <MainStat data={data} />
-      </Box>
-    )
+  const getUser = useUnit(getAuthStatusEvent)
+  const {user, isLoading} = useUnit($userStores);
+  const router = useRouter()
+
+  console.log(user)
+  useEffect(() => {
+    getUser()
+  }, [])
+
+  if(isLoading) {
+    return <Box pos="relative"> 
+      <LoadingOverlay visible={true} zIndex={1000} overlayProps={{ radius: "sm", blur: 2 }} style={{height: "calc(100vh - 76px)"}} />
+    </Box>
+  }
+
+  if(user?.role !== 2) {
+    return router.replace('/')
+  }
+
+  return (
+    <Box ml={32} mr={32}>
+      <Title c="#141517" h={1} mt={32}>Главная</Title>
+      <StatsPanel />
+      <MainStat data={data} />
+    </Box>
+  )
 }

@@ -20,7 +20,7 @@ export default function RootLayout({
       <body>
         <MantineProvider theme={theme}>
           <AppShellWrapper>
-            {children} 
+            {children}
           </AppShellWrapper>
         </MantineProvider>
         </body>

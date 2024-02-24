@@ -1,8 +1,6 @@
 import { api } from '@/config/api';
 import { createDomain, createEffect, createEvent, sample } from 'effector'
 import { getCookie } from '@/cookie';
-import { changeLoaderStatusEvent } from './loader';
-
 
 const authDomain = createDomain();
 
@@ -27,12 +25,7 @@ export const logoutFx = createEffect(() => {
 export const getUserFx = authDomain.createEffect(async () => {
     const cookie = await getCookie('session')
     if(!cookie) return false
-    return api.get('/user', {
-        headers: {
-            'Content-Type': 'application/json', // Set the default content type for request headers
-            Authorization: `Barier ${cookie}`
-        }
-    })
+    return api.get('/user')
 })
 
 

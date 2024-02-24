@@ -146,7 +146,7 @@ export const NavBar = () => {
             <Menu.Item onClick={handeOpenBalanceModal}>
               Пополнить баланс
             </Menu.Item>
-            {isAuth && (
+            {(isAuth && user.role === 2) && (
               <Menu.Item>
                 <Link href={Pages.admin} style={{textDecoration: "none"}}>
                   Панель администратора
