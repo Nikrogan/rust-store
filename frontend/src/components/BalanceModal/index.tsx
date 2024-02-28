@@ -1,4 +1,4 @@
-import { Box, Button, Checkbox, Flex, Group, Input, Loader, Modal, Select, TextInput } from "@mantine/core"
+import { Box, Button, Checkbox, Flex, Group, Input, Loader, Modal, Select, useMantineColorScheme } from "@mantine/core"
 import { useMediaQuery } from "@mantine/hooks";
 import { useForm } from '@mantine/form';
 import { useEffect, useState } from "react";
@@ -8,6 +8,7 @@ import { $paymentList, createPaymentEvent, getPaymentListEvent } from "@/store/b
 import { $userStores } from "@/store/auth";
 
 export const BalancaModal = ({isOpen, onClose}) => {
+    const { colorScheme } = useMantineColorScheme();
     const isMobile = useMediaQuery('(max-width: 50em)');
     const [value, setValue] = useState<string | null>('');
     const {paymentData: {paymentList, isLoading}, user: {user}, getPaymentList, createPayment} = useUnit({
@@ -74,10 +75,11 @@ export const BalancaModal = ({isOpen, onClose}) => {
           label="Выберите платежную систему"
           data={selectData}
           value={value} 
+          color={colorScheme === 'dark' ? 'white' : 'black'}
           onChange={handleSelectPayment}
         />
         {value && (
-            <Input.Wrapper label="Введите сумму" color="black" >
+            <Input.Wrapper label="Введите сумму" >
                 <Input  {...form.getInputProps('amount')}/>
             </Input.Wrapper>
         )}

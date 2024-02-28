@@ -1,6 +1,6 @@
 'use client';
 
-import { Container, MantineProvider, createTheme, rem } from '@mantine/core';
+import { Container, DEFAULT_THEME, MantineProvider, createTheme, mergeMantineTheme, rem } from '@mantine/core';
 
 
 const CONTAINER_SIZES: Record<string, string> = {
@@ -13,7 +13,7 @@ const CONTAINER_SIZES: Record<string, string> = {
   xxl: rem(1920),
 };
 
-export const theme = createTheme({
+const customTheme = createTheme({
   spacing: {
     xs: '4px',
     sm: '8px',
@@ -21,7 +21,14 @@ export const theme = createTheme({
     lg: '32px',
     xl: '64px'
   },
-  black: 'gray',
+  radius: {
+    xs: '8px',
+    sm: '12px',
+    md: '16px',
+    lg: '32px',
+    xl: '64px'
+  },
+  black: 'black',
   components: {
     Container: Container.extend({
       vars: (_, { size, fluid }) => ({
@@ -36,3 +43,5 @@ export const theme = createTheme({
     }),
   },
 });
+
+export const theme = mergeMantineTheme(DEFAULT_THEME, customTheme);

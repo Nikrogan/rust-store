@@ -17,14 +17,6 @@ namespace RustStore.Controllers
     [ApiController]
     public class Test : Controller
     {
-
-        [HttpGet]
-        public ActionResult Get()
-        {
-            Console.WriteLine("PRISHLO");
-            return View();
-        }
-
         [HttpPost]
         public IActionResult GenerateRadarChart([FromBody] Dictionary<string, int> data)
         {

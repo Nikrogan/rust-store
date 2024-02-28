@@ -12,7 +12,7 @@ export const UserAvatar = ({user}) => {
         <UnstyledButton className={classes.user}>
             <Group wrap="nowrap">
             <Avatar
-                src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-8.png"
+                src={user?.avatarUrl}
                 radius="xl"
             />
     

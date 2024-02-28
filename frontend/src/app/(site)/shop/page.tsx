@@ -1,12 +1,13 @@
 'use client';
-import { Flex, MantineProvider, Group, Space, Title, Container } from '@mantine/core';
-import { theme } from '@/components/theme/theme';
+import { Flex, MantineProvider, Group, Space, Title, Container, Box, Text, Progress, useMantineColorScheme } from '@mantine/core';
 import { ServerCard } from '@/components/ServerCard';
 import { ProductCard } from '@/components/ProductCard';
 import "./page.css"
 import { useUnit } from 'effector-react';
 import { $currentServer, changeServerEvent } from '@/store/server';
 import { $products } from './store';
+import { Server } from '@/pageComponents/shop/server';
+import { theme } from '@/components/theme/theme';
 
 
 const ServerList = [
@@ -59,18 +60,20 @@ export default function Home() {
     changeServer: changeServerEvent
   })
 
+  const {colorScheme} = useMantineColorScheme();
 
   const ServerListView = ServerList.map((server) => {
     return <ServerCard key={server.serverId} onClick={() => changeServer(server)} buttonText="Выбрать" {...server}  />
   })
-  console.log(data)
+
   const ProductListView = data.map((item) => {
     return <ProductCard key={item?.title} title={item?.title} price={item.price ? item.price : undefined} />
   })
-  
+
+  const ServerMonitoring = ServerList.map((server) => {
+    return <Server key={server.serverId} currentServer={server} />
+  })
   return (
-    <main className='main'>
-      <MantineProvider theme={theme}>
         <Container size="xl" >
         {!currentServer && (
         <>
@@ -83,7 +86,12 @@ export default function Home() {
         </>
         )}
         <Space h='xl'/>
-        {currentServer && <Flex w='100%' justify='space-between'>
+        {!!currentServer && <Flex >
+          <Box w={300} bg={colorScheme === 'dark' ? theme.colors?.dark?.[9] : theme.colors?.blue?.[0]} p={theme.spacing?.md} style={{borderRadius: theme.radius.xs}}>
+              {ServerMonitoring}
+          </Box>
+        </Flex>}
+        {!!currentServer?.serverId && <Flex w='100%' justify='space-between'>
           <Space mt='sm' mr="sm">
           <Flex className='shop__container' wrap='wrap' gap='md'>
               {ProductListView}
@@ -91,7 +99,5 @@ export default function Home() {
           </Space>
         </Flex>}
         </Container>
-      </MantineProvider>
-    </main>
   )
 }

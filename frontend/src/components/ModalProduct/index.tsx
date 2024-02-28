@@ -27,7 +27,7 @@ const status = [
 export const ModalProduct = ({isOpen, close}) => {
     const form = useForm()
     const createProduct = async (data) => {
-        console.log(data)
+
         const cookie = await getCookie('session')
         const cookieValue = cookie.value
         api.post('api/v1/products', data, {

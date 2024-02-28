@@ -28,7 +28,7 @@ export default function RootLayout({
 }) {
 
   return (
-    <html lang="en">
+    <html lang="ru">
       <body className={montserrat.className}>
         <MantineProvider theme={theme}>
           <div className={styles.background}>
