@@ -16,6 +16,7 @@ import { useUnit } from 'effector-react'
 
 import './navbar.css'
 import { IconMoon, IconSun } from "@tabler/icons-react"
+import { ButtonWrapper } from "@/shared/ButtonWrapper/ButtonWrapper"
 
 const checkIsInfoPage = (pathname: string) => {
   switch (pathname) {
@@ -84,19 +85,19 @@ export const NavBar = () => {
       </Flex>
       <Flex gap={theme?.spacing?.md} className='flex' justify='flex-end' w={'100%'}>
         {!matches && <Link href="/" className={'buttonMain'}>
-          <Button className='buttonMain' variant="outline" color={pathname === '/' ? "cyan" : "white"} size="lg">
+          <ButtonWrapper className='buttonMain' variant="outline" isActive={pathname === '/'} size="lg">
             Главная
-          </Button>
+          </ButtonWrapper>
         </Link>}
         <Link href="/shop" className='buttonMain'>
-          <Button className='buttonMain' variant="outline" color={pathname === '/shop' ? "cyan" : "white"} size="lg">
+          <ButtonWrapper  variant="outline" isActive={pathname === '/shop'} size="lg">
             Магазин
-          </Button>
+          </ButtonWrapper>
         </Link>
         <Link href="/news" className='buttonMain'>
-          <Button className={'buttonMain'} variant="outline" color={pathname === '/news' ? "cyan" : "white"} size="lg">
+          <ButtonWrapper variant="outline" isActive={ pathname === '/news' }  size="lg">
             Новости
-          </Button>
+          </ButtonWrapper>
         </Link>
         <CalendarWipe isOpen={opened} onClose={close} />
         <Menu trigger="hover" openDelay={100} closeDelay={400} shadow="md" width={296} >
