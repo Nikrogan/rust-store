@@ -23,8 +23,7 @@ namespace RustStore.Controllers
 
             DateTime currentDate = DateTime.UtcNow.Date;
 
-            // Calculate wipe schedule for the next month
-            for (int i = 0; i < 30; i++) // assuming a month is 30 days for simplicity
+            for (int i = 0; i < 30; i++)
             {
                 var wipeDate = currentDate.AddDays(i);
                 if (wipeDate.DayOfWeek == DayOfWeek.Monday || wipeDate.DayOfWeek == DayOfWeek.Friday)
@@ -58,7 +57,7 @@ namespace RustStore.Controllers
             if (isGlobalWipe)
             {
                 int daysSinceFirstGlobalWipe = (wipeDate - firstGlobalWipeDate).Days;
-                if (daysSinceFirstGlobalWipe >= 14)
+                if (daysSinceFirstGlobalWipe % 14 == 0)
                 {
                     return "global";
                 }

@@ -10,9 +10,11 @@ namespace RustStore.Controllers
     public class PromoController : ControllerBase
     {
         private readonly IPromoService _promoService;
-        public PromoController(IPromoService promoService)
+        private readonly IUserService _userService;
+        public PromoController(IPromoService promoService,IUserService userService)
         {
             _promoService = promoService;
+            _userService = userService;
         }
 
 
@@ -30,12 +32,19 @@ namespace RustStore.Controllers
             return new BaseServerResponse<BasePromo>(response.Data, response.StatusCode);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IBaseServerResponse<BasePromo>> Get(string id)
+        [HttpGet("steamId")]
+        public async Task<IBaseServerResponse<IEnumerable<UserActivatedPromo>>> Get(string steamId)
         {
-            var response = await _promoService.GetPromoById(id);
-            return new BaseServerResponse<BasePromo>(response.Data, response.StatusCode);
+            var response = await _userService.GetUserActivatedPromo(steamId);
+            return new BaseServerResponse<IEnumerable<UserActivatedPromo>>(response.Data, response.StatusCode);
         }
+
+        //[HttpGet("{id}")]
+        //public async Task<IBaseServerResponse<BasePromo>> Get(string id)
+        //{
+        //    var response = await _promoService.GetPromoById(id);
+        //    return new BaseServerResponse<BasePromo>(response.Data, response.StatusCode);
+        //}
 
         [HttpGet("{promoCode}")]
         public async Task<IBaseServerResponse<BasePromo>> GetString(string promoCode)
