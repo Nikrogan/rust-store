@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using Domain.Enum;
+﻿using Domain.Enum;
 using DAL.Interfaces;
 using Domain.Entity;
 using Domain.Response;
@@ -156,6 +155,44 @@ namespace Service.Implementations
             }
         }
 
+        public async Task<IBaseResponse<BaseUser>> EditElementFront(UserEditModel viewModel)
+        {
+            try
+            {
+                var allElements = await _accountRepository.GetAll();
+                var user = allElements.FirstOrDefault(x => x.SteamId == viewModel.SteamId);
+                if (user == null)
+                {
+                    return new BaseResponse<BaseUser>()
+                    {
+                        Description = "Element not found",
+                        StatusCode = StatusCode.ElementNotFound
+                    };
+                }
+
+                user.Balance = viewModel.Balance;
+                user.PersonalDiscount = viewModel.PersonalDiscount;
+                user.Role = viewModel.Role;
+
+                await _accountRepository.Update(user);
+
+                return new BaseResponse<BaseUser>()
+                {
+                    Data = user,
+                    StatusCode = StatusCode.OK,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<BaseUser>()
+                {
+                    Description = $"[EditAccountFront] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+
         public async Task<IBaseResponse<IEnumerable<BaseUser>>> GetAllUsers()
         {
             var baseResponse = new BaseResponse<IEnumerable<BaseUser>>();
@@ -302,7 +339,6 @@ namespace Service.Implementations
             }
         }
 
-
         public async Task<IBaseResponse<BaseUser>> LoginUser(string steamID)
         {
             var baseResponse = new BaseResponse<BaseUser>();
@@ -357,7 +393,32 @@ namespace Service.Implementations
             }
         }
 
+        public async Task<IBaseResponse<List<UserActivatedPromo>>> GetUserActivatedPromo(string steamID)
+        {
+            var baseResponse = new BaseResponse<List<UserActivatedPromo>> ();
+            try
+            {
+                var allElements = await _accountRepository.GetAll();
+                var resource = allElements.FirstOrDefault(x => x.SteamId == steamID);
+                if (resource == null)
+                {
+                    baseResponse.Description = "Account not found";
+                    baseResponse.StatusCode = StatusCode.ElementNotFound;
+                    return baseResponse;
+                }
 
-        
+                baseResponse.Data = resource.ActivatedPromo ?? new List<UserActivatedPromo>();
+                baseResponse.StatusCode = StatusCode.OK;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<List<UserActivatedPromo>>()
+                {
+                    Description = $"[GetUserActivatedPromo] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
     }
 }
