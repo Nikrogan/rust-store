@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entity
 {
-    internal class UserActivatedPromo
+    public class UserActivatedPromo
     {
     }
 }

@@ -10,7 +10,38 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="668e9c03-f4b5-48aa-8e48-c3e74c6d6c3a" name="Changes" comment="" />
+    <list default="true" id="668e9c03-f4b5-48aa-8e48-c3e74c6d6c3a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.RustStore/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RustStore/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Domain/Entity/UserActivatedPromo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/Entity/UserActivatedPromo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentAdapter/bin/Debug/net6.0/Domain.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentAdapter/bin/Debug/net6.0/Domain.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentAdapter/bin/Debug/net6.0/Domain.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentAdapter/bin/Debug/net6.0/Domain.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentAdapter/bin/Debug/net6.0/PaymentAdapter.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentAdapter/bin/Debug/net6.0/PaymentAdapter.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentAdapter/bin/Debug/net6.0/PaymentAdapter.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentAdapter/bin/Debug/net6.0/PaymentAdapter.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/PaymentAdapter.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/PaymentAdapter.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/PaymentAdapter.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/PaymentAdapter.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/PaymentAdapter.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/PaymentAdapter.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/PaymentAdapter.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/PaymentAdapter.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/PaymentAdapter.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/PaymentAdapter.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/PaymentAdapter.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/PaymentAdapter.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/PaymentAdapter.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/PaymentAdapter.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/PaymentAdapter.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/PaymentAdapter.sourcelink.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/ref/PaymentAdapter.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/ref/PaymentAdapter.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/refint/PaymentAdapter.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/refint/PaymentAdapter.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentServiceManager/bin/Debug/net6.0/Domain.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentServiceManager/bin/Debug/net6.0/Domain.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentServiceManager/bin/Debug/net6.0/Domain.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentServiceManager/bin/Debug/net6.0/Domain.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentServiceManager/bin/Debug/net6.0/PaymentServiceManager.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentServiceManager/bin/Debug/net6.0/PaymentServiceManager.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentServiceManager/bin/Debug/net6.0/PaymentServiceManager.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentServiceManager/bin/Debug/net6.0/PaymentServiceManager.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/PaymentServiceManager.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/PaymentServiceManager.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/PaymentServiceManager.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/PaymentServiceManager.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/PaymentServiceManager.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/PaymentServiceManager.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/PaymentServiceManager.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/PaymentServiceManager.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/PaymentServiceManager.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/PaymentServiceManager.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/PaymentServiceManager.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/PaymentServiceManager.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/PaymentServiceManager.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/PaymentServiceManager.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/PaymentServiceManager.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/PaymentServiceManager.sourcelink.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/ref/PaymentServiceManager.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/ref/PaymentServiceManager.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/refint/PaymentServiceManager.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/refint/PaymentServiceManager.dll" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,7 +67,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    ".NET Launch Settings Profile.RustStore.executor": "Debug",
+    ".NET Launch Settings Profile.RustStore.executor": "Run",
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -138,6 +169,7 @@
       <workItem from="1709144190642" duration="5725000" />
       <workItem from="1709150799671" duration="2149000" />
       <workItem from="1709214687769" duration="8637000" />
+      <workItem from="1709233121457" duration="297000" />
     </task>
     <servers />
   </component>
