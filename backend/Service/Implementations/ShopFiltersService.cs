@@ -1,29 +1,84 @@
-﻿using Domain.Entity;
+﻿using DAL.Interfaces;
+using Domain.Entity;
+using Domain.Enum;
 using Domain.Response;
 using Service.Interfaces;
 
-namespace Service.Implementations
+namespace Service.Implementations;
+
+public class ShopFiltersService : IShopFiltersService
 {
-    public class ShopFiltersService: IShopFiltersService
+    private readonly IBaseRepository<BaseShopFilter> _shopFiltersRepository;
+
+    public ShopFiltersService(IBaseRepository<BaseShopFilter> shopFiltersRepository)
     {
-        public Task<IBaseResponse<IEnumerable<BaseShopFilters>>> GetAllFilter()
-        {
-            throw new NotImplementedException();
-        }
+        _shopFiltersRepository = shopFiltersRepository;
+    }
 
-        public Task<IBaseResponse<BaseShopFilters>> Create(BaseShopFilters newFilters)
+    public async Task<IBaseResponse<List<BaseShopFilter>>> Create(BaseShopFilter newFilter)
+    {
+        var baseResponse = new BaseResponse<List<BaseShopFilter>>();
+        try
         {
-            throw new NotImplementedException();
-        }
+            var newShopFilter = new BaseShopFilter
+            {
+                Title = newFilter.Title
+            };
 
-        public Task<IBaseResponse<BaseShopFilters>> Update(int filtersId)
-        {
-            throw new NotImplementedException();
+            await _shopFiltersRepository.Add(newShopFilter);
+            var newShopFiltersList = await _shopFiltersRepository.GetAll();
+            baseResponse.StatusCode = StatusCode.OK;
+            baseResponse.Data = newShopFiltersList.ToList();
+            return new BaseResponse<List<BaseShopFilter>>
+            {
+                StatusCode = StatusCode.OK,
+                Data = newShopFiltersList.ToList()
+            };
         }
+        catch (Exception ex)
+        {
+            return new BaseResponse<List<BaseShopFilter>>
+            {
+                Description = $"[CreateShopFilters] : {ex.Message}",
+                StatusCode = StatusCode.InternalServerError
+            };
+        }
+    }
 
-        public Task<IBaseResponse<BaseShopFilters>> Delete(int Id)
+    public async Task<IBaseResponse<BaseShopFilter>> Update(int filtersId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<IBaseResponse<List<BaseShopFilter>>> GetAllFilter()
+    {
+        var baseResponse = new BaseResponse<List<BaseShopFilter>>();
+        try
         {
-            throw new NotImplementedException();
+            var shopFilters = await _shopFiltersRepository.GetAll();
+            if (!shopFilters.Any())
+            {
+                baseResponse.Description = "No one element";
+                baseResponse.StatusCode = StatusCode.ElementNotFound;
+                return baseResponse;
+            }
+
+            baseResponse.Data = shopFilters.ToList();
+            baseResponse.StatusCode = StatusCode.OK;
+            return baseResponse;
         }
+        catch (Exception ex)
+        {
+            return new BaseResponse<List<BaseShopFilter>>
+            {
+                Description = $"[GetAllShopFilters] : {ex.Message}",
+                StatusCode = StatusCode.InternalServerError
+            };
+        }
+    }
+
+    public async Task<IBaseResponse<BaseShopFilter>> Delete(string Id)
+    {
+        throw new NotImplementedException();
     }
 }

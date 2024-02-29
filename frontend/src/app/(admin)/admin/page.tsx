@@ -46,7 +46,7 @@ export default function AdminPage () {
   const {user, isLoading} = useUnit($userStores);
   const router = useRouter()
 
-  console.log(user)
+
   useEffect(() => {
     getUser()
   }, [])

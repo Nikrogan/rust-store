@@ -6,6 +6,8 @@ import { NavBar } from '@/components/NavBar'
 import { useUnit } from 'effector-react'
 import { $userStores, logoutEvent } from '@/store/auth'
 import { useRouter } from "next/navigation";
+import { useColor } from '@/shared/hooks/useColor'
+import { ButtonWrapper } from '@/shared/ButtonWrapper/ButtonWrapper'
 
 
 const promocodesTableData = {
@@ -19,10 +21,10 @@ const historyBalanceTableData = {
 }
 
 export default function Home() {
-  const router = useRouter()
-  const {isAuth, user} = useUnit($userStores)
-  const onLogout = useUnit(logoutEvent)
-  console.log(user)
+  const router = useRouter();
+  const {isAuth, user} = useUnit($userStores);
+  const onLogout = useUnit(logoutEvent);
+  const bgColor = useColor();
   if(!isAuth) {
     router.replace('/')
   }
@@ -33,8 +35,8 @@ export default function Home() {
         <Flex justify="start" w="100%" mt={24}>
           <Title>Профиль</Title>
         </Flex>
-        <Box bg={'rgb(48 61 89 / 56%)'}>
-        <Flex justify="space-between" align='center' mt={40}>
+        <Box bg={bgColor} p={theme.spacing.md} mt={theme.spacing.lg}>
+        <Flex justify="space-between" align='center' >
           <Box>
             <Flex align='center'>
             <Image src={user?.avatarUrl} w={100} h={100} radius={theme.radius?.sm} />
@@ -44,9 +46,9 @@ export default function Home() {
             </Flex>
             </Flex>
           </Box>
-            <Button bg="red" type="button" variant="outline" onClick={onLogout}>Выйти</Button>
+            <ButtonWrapper type="button" variant="outline" onClick={onLogout}>Выйти</ButtonWrapper>
         </Flex>
-        <Tabs>
+        <Tabs mt={theme.spacing.md} variant="outline" defaultValue="inventory">
           <TabsList>
             <Tabs.Tab value="inventory">
               Инвентарь
@@ -61,16 +63,16 @@ export default function Home() {
               Личные предложения
             </Tabs.Tab>
           </TabsList>
-          <TabsPanel value="inventory">
+          <TabsPanel value="inventory" mt={theme.spacing.md}>
             Инвентарь
           </TabsPanel>
-          <TabsPanel value="historyBalance">
+          <TabsPanel value="historyBalance" mt={theme.spacing.md}>
             <Table data={historyBalanceTableData}/>
           </TabsPanel>
-          <TabsPanel value="promocodes">
-          <Table data={promocodesTableData}/>
+          <TabsPanel value="promocodes" mt={theme.spacing.md}>
+            <Table data={promocodesTableData}/>
           </TabsPanel>
-          <TabsPanel value="individualOffers">
+          <TabsPanel value="individualOffers" mt={theme.spacing.md}>
             Личные предложения
           </TabsPanel>
         </Tabs>

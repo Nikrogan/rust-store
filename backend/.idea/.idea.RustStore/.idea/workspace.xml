@@ -11,15 +11,45 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="668e9c03-f4b5-48aa-8e48-c3e74c6d6c3a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.RustStore/.idea/prettier.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DAL/Repositories/ShopFiltersRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RustStore/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RustStore/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DAL/ApplicationDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/ApplicationDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Domain/Entity/BaseShopFilters.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/Entity/BaseShopFilter.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PaymentAdapter/bin/Debug/net6.0/Domain.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentAdapter/bin/Debug/net6.0/Domain.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PaymentAdapter/bin/Debug/net6.0/Domain.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentAdapter/bin/Debug/net6.0/Domain.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentAdapter/bin/Debug/net6.0/PaymentAdapter.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentAdapter/bin/Debug/net6.0/PaymentAdapter.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentAdapter/bin/Debug/net6.0/PaymentAdapter.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentAdapter/bin/Debug/net6.0/PaymentAdapter.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/PaymentAdapter.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/PaymentAdapter.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/PaymentAdapter.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/PaymentAdapter.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/PaymentAdapter.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/PaymentAdapter.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/PaymentAdapter.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/PaymentAdapter.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/PaymentAdapter.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/PaymentAdapter.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/PaymentAdapter.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/PaymentAdapter.sourcelink.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/ref/PaymentAdapter.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/ref/PaymentAdapter.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/refint/PaymentAdapter.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentAdapter/obj/Debug/net6.0/refint/PaymentAdapter.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PaymentServiceManager/bin/Debug/net6.0/Domain.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentServiceManager/bin/Debug/net6.0/Domain.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PaymentServiceManager/bin/Debug/net6.0/Domain.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentServiceManager/bin/Debug/net6.0/Domain.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentServiceManager/bin/Debug/net6.0/PaymentServiceManager.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentServiceManager/bin/Debug/net6.0/PaymentServiceManager.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentServiceManager/bin/Debug/net6.0/PaymentServiceManager.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentServiceManager/bin/Debug/net6.0/PaymentServiceManager.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/PaymentServiceManager.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/PaymentServiceManager.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/PaymentServiceManager.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/PaymentServiceManager.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/PaymentServiceManager.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/PaymentServiceManager.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/PaymentServiceManager.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/PaymentServiceManager.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/PaymentServiceManager.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/PaymentServiceManager.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/PaymentServiceManager.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/PaymentServiceManager.sourcelink.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/ref/PaymentServiceManager.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/ref/PaymentServiceManager.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/refint/PaymentServiceManager.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentServiceManager/obj/Debug/net6.0/refint/PaymentServiceManager.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RustStore/Controllers/ShopFilters.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RustStore/Controllers/ShopFilterController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RustStore/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RustStore/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Service/Implementations/PromoService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Service/Implementations/PromoService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Service/Implementations/ShopFiltersService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Service/Implementations/ShopFiltersService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Service/Interfaces/IShopFiltersService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Service/Interfaces/IShopFiltersService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/(admin)/admin/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/(admin)/admin/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/(site)/profile/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/(site)/profile/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/(site)/shop/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/(site)/shop/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/AppShell/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/AppShell/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/BalanceModal/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/BalanceModal/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,27 +74,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Launch Settings Profile.RustStore.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Launch Settings Profile.RustStore.executor": "Debug",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "rider.code.cleanup.on.save": "true",
+    "settings.editor.selected.configurable": "actions.on.save",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\frontend\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\frontend\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\frontend\\AppData\\Local\\Symbols\\src&quot;
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\frontend\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache",
+      "C:\\Users\\frontend\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache",
+      "C:\\Users\\frontend\\AppData\\Local\\Symbols\\src"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.RustStore">
     <configuration name="Domain" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/Domain/Domain.csproj" />
@@ -142,7 +176,8 @@
       <workItem from="1708902173263" duration="637000" />
       <workItem from="1709045817043" duration="738000" />
       <workItem from="1709144190642" duration="5725000" />
-      <workItem from="1709150799671" duration="1899000" />
+      <workItem from="1709150799671" duration="2149000" />
+      <workItem from="1709214687769" duration="8567000" />
     </task>
     <servers />
   </component>
@@ -151,5 +186,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

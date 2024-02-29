@@ -1,9 +1,15 @@
 'use client'
-import { AppShell, Burger, NavLink } from "@mantine/core"
-import Link from "next/link"
+import { $userStores } from "@/store/auth"
+import { AppShell, Box, Burger, Flex, Image, NavLink } from "@mantine/core"
+import { useUnit } from "effector-react"
+import { theme } from "../theme/theme"
+import { ButtonWrapper } from "@/shared/ButtonWrapper/ButtonWrapper"
+
 
 export const AppShellWrapper = ({children}) => {
-    return (
+  const {user} = useUnit($userStores)
+
+  return (
     <AppShell
         header={{ height: 60 }}
         navbar={{
@@ -12,12 +18,13 @@ export const AppShellWrapper = ({children}) => {
       }}
         padding="md"
     >
-      <AppShell.Header>
-        <Burger
-          hiddenFrom="sm"
-          size="sm"
-        />
-        <Link href="/"><div>Logo</div></Link>
+      <AppShell.Header p={theme.spacing.sm}>
+        <Box>
+          <Flex>
+            <Image src={user?.avatarUrl} w={42} h={42}/>
+            <ButtonWrapper>Выйти</ButtonWrapper>
+          </Flex>
+        </Box>
       </AppShell.Header>
 
       <AppShell.Navbar p="md">

@@ -10,6 +10,7 @@ import { Server } from '@/pageComponents/shop/server';
 import { theme } from '@/components/theme/theme';
 import { ShopFilters } from '@/components/ShopFilters';
 import { ServerList } from '@/mock/serverList';
+import { useColor } from '@/shared/hooks/useColor';
 
 export default function Home() {
   const {products: {data, isLoading}, currentServer, changeServer} = useUnit({
@@ -18,7 +19,7 @@ export default function Home() {
     changeServer: changeServerEvent
   })
 
-  const {colorScheme} = useMantineColorScheme();
+  const bg = useColor()
 
   const ServerListView = ServerList.map((server) => {
     return <ServerCard key={server.serverId} onClick={() => changeServer(server)} buttonText="Выбрать" {...server}  />
@@ -46,7 +47,7 @@ export default function Home() {
         )}
         <Space h='xl'/>
         {!!currentServer && <Flex >
-          <Box w={300} bg={colorScheme === 'dark' ? theme.colors?.dark?.[9] : theme.colors?.blue?.[0]} p={theme.spacing?.md} style={{borderRadius: theme.radius.xs}}>
+          <Box w={300} bg={bg} p={theme.spacing?.md} style={{borderRadius: theme.radius.xs}}>
               {ServerMonitoring}
           </Box>
         </Flex>}

@@ -5,8 +5,8 @@ namespace Service.Interfaces;
 
 public interface IShopFiltersService
 {
-    Task<IBaseResponse<IEnumerable<BaseShopFilters>>> GetAllFilter();
-    Task<IBaseResponse<BaseShopFilters>> Create(BaseShopFilters newFilters);
-    Task<IBaseResponse<BaseShopFilters>> Update(int filtersId);
-    Task<IBaseResponse<BaseShopFilters>> Delete(int Id);
+    Task<IBaseResponse<List<BaseShopFilter>>> GetAllFilter();
+    Task<IBaseResponse<List<BaseShopFilter>>> Create(BaseShopFilter newFilter);
+    Task<IBaseResponse<BaseShopFilter>> Update(int filtersId);
+    Task<IBaseResponse<BaseShopFilter>> Delete(string Id);
 }

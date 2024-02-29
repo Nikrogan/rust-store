@@ -2,14 +2,10 @@ using DAL;
 using DAL.Interfaces;
 using DAL.Repositories;
 using Domain.Entity;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
-using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
 using RustStats.Service.Implementations;
 using RustStats.Service.Interfaces;
 using Service.Implementations;
 using Service.Interfaces;
-using Microsoft.AspNetCore.DataProtection;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -53,6 +49,7 @@ builder.Services.AddScoped<IBaseRepository<BaseProduct>, ProductsRepository>();
 builder.Services.AddScoped<IBaseRepository<BaseNews>, NewsRepository>();
 builder.Services.AddScoped<IBaseRepository<BasePayment>, PaymentRepository>();
 builder.Services.AddScoped<IBaseRepository<BasePromo>, PromoRepository>();
+builder.Services.AddScoped<IBaseRepository<BaseShopFilter>, ShopFiltersRepository>();
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProductService, ProductService>();
@@ -60,7 +57,7 @@ builder.Services.AddScoped<INewsService, NewsService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IPromoService, PromoService>();
 builder.Services.AddScoped<ISteamApiService, SteamApiService>();
-
+builder.Services.AddScoped<IShopFiltersService, ShopFiltersService>();
 
 builder.Services.AddHttpClient<SteamApiService>();
 
@@ -70,8 +67,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
 //{
-    app.UseSwagger();
-    app.UseSwaggerUI();
+app.UseSwagger();
+app.UseSwaggerUI();
 //}
 
 app.UseCors("AllowSpecificOrigin");
