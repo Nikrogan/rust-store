@@ -32,19 +32,14 @@ namespace RustStore.Controllers
             return new BaseServerResponse<BasePromo>(response.Data, response.StatusCode);
         }
 
-        [HttpGet("steamId")]
-        public async Task<IBaseServerResponse<IEnumerable<UserActivatedPromo>>> Get(string steamId)
-        {
-            var response = await _userService.GetUserActivatedPromo(steamId);
-            return new BaseServerResponse<IEnumerable<UserActivatedPromo>>(response.Data, response.StatusCode);
-        }
+ 
 
-        //[HttpGet("{id}")]
-        //public async Task<IBaseServerResponse<BasePromo>> Get(string id)
-        //{
-        //    var response = await _promoService.GetPromoById(id);
-        //    return new BaseServerResponse<BasePromo>(response.Data, response.StatusCode);
-        //}
+        [HttpGet("{id}")]
+        public async Task<IBaseServerResponse<BasePromo>> Get(string id)
+        {
+            var response = await _promoService.GetPromoById(id);
+            return new BaseServerResponse<BasePromo>(response.Data, response.StatusCode);
+        }
 
         [HttpGet("{promoCode}")]
         public async Task<IBaseServerResponse<BasePromo>> GetString(string promoCode)

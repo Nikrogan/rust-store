@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Domain.Entity
 {
-    internal class UserActivatedPromo
+    public class UserActivatedPromo
     {
+        public string PromoCode { get; set; }
+        public int MoneyValue { get; set; }
+        public int DiscountValue { get; set; }
+        public DateTime? DateActivate { get; set; }
     }
 }

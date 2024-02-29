@@ -420,5 +420,74 @@ namespace Service.Implementations
                 };
             }
         }
+
+        public async Task<IBaseResponse<List<BalanceActionModel>>> GetUserBalanceAction(string steamID)
+        {
+            var baseResponse = new BaseResponse<List<BalanceActionModel>>();
+            try
+            {
+                var allElements = await _accountRepository.GetAll();
+                var resource = allElements.FirstOrDefault(x => x.SteamId == steamID);
+                if (resource == null)
+                {
+                    baseResponse.Description = "Account not found";
+                    baseResponse.StatusCode = StatusCode.ElementNotFound;
+                    return baseResponse;
+                }
+
+                baseResponse.Data = resource.BalanceActions ?? new List<BalanceActionModel>();
+                baseResponse.StatusCode = StatusCode.OK;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<List<BalanceActionModel>>()
+                {
+                    Description = $"[GetUserBalanceAction] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<List<BalanceActionModel>>> CreateUserBalanceAction(string steamID, BalanceActionModel model)
+        {
+            try
+            {
+                var allElements = await _accountRepository.GetAll();
+                var resource = allElements.FirstOrDefault(x => x.SteamId == steamID);
+                if (resource == null) return new BaseResponse<List<BalanceActionModel>>()
+                {
+                    Description = "Account not found",
+                    StatusCode = StatusCode.ElementNotFound
+                };
+
+                var newAction = new BalanceActionModel()
+                {
+                    DateTime = DateTime.Now,
+                    OperationType = model.OperationType,
+                    PaymentSystem = model.PaymentSystem
+
+                };
+
+                resource.BalanceActions.Add(newAction);
+
+                await _accountRepository.Update(resource);
+
+                return new BaseResponse<List<BalanceActionModel>>()
+                {
+                    StatusCode = StatusCode.OK,
+                    Data = resource.BalanceActions
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<List<BalanceActionModel>>()
+                {
+                    Description = $"[CreateUser] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
     }
 }

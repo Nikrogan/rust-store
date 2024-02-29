@@ -18,6 +18,7 @@ namespace Service.Interfaces
         Task<IBaseResponse<BaseUser>> LoginUser(string steamID);
         Task<IBaseResponse<List<UserActivatedPromo>>> GetUserActivatedPromo(string steamID);
         Task<IBaseResponse<List<BalanceActionModel>>> GetUserBalanceAction(string steamID);
+        Task<IBaseResponse<List<BalanceActionModel>>> CreateUserBalanceAction(string steamID, BalanceActionModel model);
 
 
     }

@@ -12,6 +12,7 @@ using System.IdentityModel.Tokens.Jwt;
 using Domain.SimpleEntity;
 using Microsoft.AspNetCore.Antiforgery;
 using Newtonsoft.Json;
+using Service.Implementations;
 
 namespace RustStore.Controllers
 {
@@ -50,6 +51,33 @@ namespace RustStore.Controllers
                 MaxAge = TimeSpan.FromHours(0) // Время жизни куки
             });
             return new BaseServerResponse<string>(null, Domain.Enum.StatusCode.OK);
+
+        }
+
+        [HttpPost]
+        public async Task<IBaseServerResponse<string>> Edit(UserEditModel userEditModel)
+        {
+            if(userEditModel.Role != null)
+            {
+                if (Request.Cookies.TryGetValue("session", out var jwt))
+                {
+                    var user = await _userService.GetUserBySessionId(jwt);
+                    if(user != null)
+                    {
+                        if(user.Data.Role == Domain.Enum.Role.Owner)
+                        {
+                            var adminResponse = await _userService.EditElementFront(userEditModel);
+                            return new BaseServerResponse<string>("", adminResponse.StatusCode);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                var response = await _userService.EditElementFront(userEditModel);
+                return new BaseServerResponse<string>("", response.StatusCode);
+            }
+            return new BaseServerResponse<string>("", Domain.Enum.StatusCode.InternalServerError);
 
         }
 

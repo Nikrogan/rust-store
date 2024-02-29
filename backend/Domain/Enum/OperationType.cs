@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Enum
 {
-    internal class OperationType
+    public enum OperationType
     {
+        Purchase = 0,
+        AddBalance = 1,
     }
 }

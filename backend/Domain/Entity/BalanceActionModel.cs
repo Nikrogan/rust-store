@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.Enum;
+
 
 namespace Domain.Entity
 {
-    internal class BalanceActionModel
+    public class BalanceActionModel
     {
+        public DateTime DateTime { get; set; }
+        public OperationType OperationType { get; set; }
+        public string PaymentSystem {  get; set; }
     }
 }
