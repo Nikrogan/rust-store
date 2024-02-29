@@ -1,36 +1,37 @@
 'use client'
 import { theme } from '@/components/theme/theme'
-import styles from './page.module.css'
-import { Box, Button, Flex, Image, MantineProvider, Table, Tabs, TabsList, TabsPanel, Text, Title } from '@mantine/core'
-import { NavBar } from '@/components/NavBar'
+import { Box, Flex, Image, MantineProvider, Table, Tabs, TabsList, TabsPanel, Text, Title } from '@mantine/core'
 import { useUnit } from 'effector-react'
 import { $userStores, logoutEvent } from '@/store/auth'
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useColor } from '@/shared/hooks/useColor'
 import { ButtonWrapper } from '@/shared/ButtonWrapper/ButtonWrapper'
+import { useLayoutEffect } from 'react'
 
 
-const promocodesTableData = {
+export const promocodesTableData = {
   head: ['Дата', 'Промокод', 'Сумма'],
   body: [],
 }
 
-const historyBalanceTableData = {
+export const historyBalanceTableData = {
   head: ['Дата', 'Операция', 'Сумма', 'Платежная система'],
   body: [],
 }
 
-export default function Home() {
+export default function ProfilePage() {
   const router = useRouter();
   const {isAuth, user} = useUnit($userStores);
   const onLogout = useUnit(logoutEvent);
   const bgColor = useColor();
-  if(!isAuth) {
-    router.replace('/')
-  }
+  useLayoutEffect(() => {
+    if(!isAuth) {
+      redirect('/')
+    }
+  }, [])
 
   return (
-    <main>
+    <div>
       <MantineProvider theme={theme}>
         <Flex justify="start" w="100%" mt={24}>
           <Title>Профиль</Title>
@@ -78,6 +79,6 @@ export default function Home() {
         </Tabs>
         </Box>
       </MantineProvider>
-    </main>
+    </div>
   )
 }

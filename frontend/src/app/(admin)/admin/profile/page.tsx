@@ -1,5 +1,4 @@
 'use client'
-import { AppShellWrapper } from "@/components/AppShell";
 import { Button, Group, Input, List, ListItem, Select } from "@mantine/core";
 import { useForm } from '@mantine/form';
 

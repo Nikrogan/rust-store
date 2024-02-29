@@ -49,7 +49,7 @@ export default function AdminPage () {
 
   useEffect(() => {
     getUser()
-  }, [])
+  }, [getUser])
 
   if(isLoading) {
     return <Box pos="relative"> 
