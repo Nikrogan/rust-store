@@ -17,14 +17,14 @@ namespace RustStore.Controllers
             _promoService = promoService;
         }
 
-        [HttpGet("steamId")]
+        [HttpGet("{steamId}")]
         public async Task<IBaseServerResponse<IEnumerable<UserActivatedPromo>>> Get(string steamId)
         {
             var response = await _userService.GetUserActivatedPromo(steamId);
             return new BaseServerResponse<IEnumerable<UserActivatedPromo>>(response.Data, response.StatusCode);
         }
 
-        [HttpPost("promocode")]
+        [HttpPost("{promocode}")]
         public async Task<IBaseServerResponse<string>> ActivatePromo(string promocode)
         {
             if (Request.Cookies.TryGetValue("session", out var jwt))

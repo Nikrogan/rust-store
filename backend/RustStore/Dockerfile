@@ -8,7 +8,7 @@ WORKDIR /src
 COPY ["RustStore/RustStore.csproj", "RustStore/"]
 COPY ["DAL/DAL.csproj", "DAL/"]
 COPY ["Domain/Domain.csproj", "Domain/"]
-COPY ["PaymentAdapter/PaymentAdapter.csproj", "PaymentAdapter/"]
+COPY ["PaymentServiceManager/PaymentServiceManager.csproj", "PaymentServiceManager/"]
 COPY ["Service/Service.csproj", "Service/"]
 RUN dotnet restore "RustStore/RustStore.csproj"
 COPY . .
