@@ -50,6 +50,13 @@ namespace RustStore.Controllers
                 Secure = true, // Устанавливаем, если используется HTTPS
                 MaxAge = TimeSpan.FromHours(0) // Время жизни куки
             });
+            Response.Cookies.Append("role", "", new CookieOptions
+            {
+                HttpOnly = true,
+                SameSite = SameSiteMode.None,
+                Secure = true,
+                MaxAge = TimeSpan.FromHours(0)
+            });
             return new BaseServerResponse<string>(null, Domain.Enum.StatusCode.OK);
 
         }
@@ -157,13 +164,15 @@ namespace RustStore.Controllers
                         MaxAge = TimeSpan.FromHours(12) // Время жизни куки
                     });
 
-                //await Response.WriteAsJsonAsync(new AuthDto
-                //{
-                //    ClientUrl = "https://turringrust.ru",
-                //    User = activeUserResponse
-                //});
+                Response.Cookies.Append("role", response.Data.Role.ToString(), new CookieOptions
+                {
+                    HttpOnly = true,
+                    SameSite = SameSiteMode.None, 
+                    Secure = true, 
+                    MaxAge = TimeSpan.FromHours(12)
+                });
 
-               
+
 
                 return Redirect(link);
 

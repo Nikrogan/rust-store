@@ -18,5 +18,6 @@ namespace Domain.Entity
         public int DiscountValue { get; set; }
         public bool IsActive { get; set; }
         public string? OwnerSteamId { get; set; }
+        public List<string> UsersPromocodeActivated = new();
     }
 }

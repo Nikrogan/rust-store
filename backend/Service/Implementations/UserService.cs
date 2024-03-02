@@ -136,6 +136,9 @@ namespace Service.Implementations
                 user.SessionId = viewModel.SessionId;
                 user.LastAuth = viewModel.LastAuth;
                 user.Balance = viewModel.Balance;
+                user.Basket = viewModel.Basket;
+                user.ActivatedPromo = viewModel.ActivatedPromo;
+                user.BalanceActions = viewModel.BalanceActions;
 
                 await _accountRepository.Update(user);
 
@@ -416,6 +419,45 @@ namespace Service.Implementations
                 return new BaseResponse<List<UserActivatedPromo>>()
                 {
                     Description = $"[GetUserActivatedPromo] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<List<UserActivatedPromo>>> CreateUserActivatedPromo(string steamID,BasePromo promocode)
+        {
+            var baseResponse = new BaseResponse<List<UserActivatedPromo>>();
+            try
+            {
+                var allElements = await _accountRepository.GetAll();
+                var resource = allElements.FirstOrDefault(x => x.SteamId == steamID);
+                if (resource == null)
+                {
+                    baseResponse.Description = "Account not found";
+                    baseResponse.StatusCode = StatusCode.ElementNotFound;
+                    return baseResponse;
+                }
+
+                var newActivatedPromo = new UserActivatedPromo
+                {
+                    DateActivate = DateTime.Now,
+                    DiscountValue = promocode.DiscountValue,
+                    MoneyValue = promocode.MoneyValue,
+                    PromoCode = promocode.PromoCode
+                };
+
+                resource.ActivatedPromo.Add(newActivatedPromo);
+                await EditElement(resource);
+
+                baseResponse.Data = resource.ActivatedPromo ?? new List<UserActivatedPromo>();
+                baseResponse.StatusCode = StatusCode.OK;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<List<UserActivatedPromo>>()
+                {
+                    Description = $"[CreateUserActivatedPromo] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
