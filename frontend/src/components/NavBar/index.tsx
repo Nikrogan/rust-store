@@ -172,7 +172,7 @@ export const NavBar = () => {
           {computedColorScheme === 'light' && <IconSun className={"icon light"} stroke={2} /> }
           {computedColorScheme === 'dark' && <IconMoon className={"icon dark"} stroke={2} /> }
         </ActionIcon>}
-        <BalancaModal isOpen={isOpenBalanceModal} onClose={handeCloseBalanceModal} />
+        {isOpenBalanceModal && <BalancaModal isOpen={isOpenBalanceModal} onClose={handeCloseBalanceModal} />}
       </Flex>
     </Flex>
   )

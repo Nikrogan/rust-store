@@ -1,7 +1,7 @@
 version: '3'
 services:
   app: 
-    image: rustfront
+    image: ghcr.io/nikrogan/rust-store/frontend:develop
     container_name: rustfront
     restart: always
     ports:
