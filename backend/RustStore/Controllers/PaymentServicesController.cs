@@ -14,12 +14,10 @@ namespace RustStore.Controllers
     [ApiController]
     public class PaymentServicesController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
         private readonly IPaymentService _paymentService;
         private readonly IUserService _userService;
-        public PaymentServicesController(IConfiguration configuration, IPaymentService paymentService, IUserService userService)
+        public PaymentServicesController(IPaymentService paymentService, IUserService userService)
         {
-            _configuration = configuration;
             _paymentService = paymentService;
             _userService = userService;
         }
@@ -161,6 +159,13 @@ namespace RustStore.Controllers
             await _userService.EditElement(user.Data);
             payment.Data.PaymentStatus = PaymentStatus.Succeeded;
             await _paymentService.EditElement(payment.Data);
+
+            await _userService.CreateUserBalanceAction(user.Data.SteamId, new BalanceActionModel
+            {
+                DateTime = DateTime.Now,
+                PaymentSystem = "PayPal",
+                OperationType = OperationType.AddBalance
+            });
 
             return Redirect(link);
         }

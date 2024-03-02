@@ -10,5 +10,6 @@ namespace Domain.Enum
     {
         Purchase = 0,
         AddBalance = 1,
+        UsePromocode = 2,
     }
 }
