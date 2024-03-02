@@ -1,5 +1,5 @@
 'use client'
-import { Flex, Button, Menu, Image, Loader, MenuItem, ActionIcon, useMantineColorScheme, useComputedColorScheme } from "@mantine/core"
+import { Flex, Button, Menu, Image, Loader, ActionIcon, useMantineColorScheme, useComputedColorScheme } from "@mantine/core"
 import { useDisclosure, useMediaQuery } from "@mantine/hooks"
 import Link from "next/link"
 import { UserAvatar } from "../UserAvatar"
@@ -102,9 +102,9 @@ export const NavBar = () => {
         <CalendarWipe isOpen={opened} onClose={close} />
         <Menu trigger="hover" openDelay={100} closeDelay={400} shadow="md" width={296} >
           <Menu.Target>
-            <Button className={'buttonMain'} variant="outline" color={isInfoPage ? "cyan" : "white"} size="lg">
+            <ButtonWrapper variant="outline" isActive={isInfoPage} size="lg">
               Информация
-            </Button>
+            </ButtonWrapper>
           </Menu.Target>
           <Menu.Dropdown>
             <Link href={Pages.contacts} style={{textDecoration: 'none'}}>
@@ -133,7 +133,7 @@ export const NavBar = () => {
           handleLogin()
         }}>Войти</Button>}
         {isAuth && <Menu trigger="hover">
-          <Menu.Target>
+          <Menu.Target >
             <Link href={Pages.profile}>
               <UserAvatar user={user} />
             </Link>

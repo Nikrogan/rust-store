@@ -8,3 +8,8 @@ backend/Service/obj/
 backend/Service/bin/
 backend/RustStore/bin/
 backend/RustStore/obj/
+backend/.idea/
+backend/PaymentAdapter/obj/
+backend/PaymentAdapter/bin/
+backend/PaymentServiceManager/obj/
+backend/PaymentServiceManager/bin/

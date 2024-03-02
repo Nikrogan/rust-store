@@ -3,49 +3,32 @@ import { ServerList } from "@/mock/serverList"
 import { $currentServer, changeServerEvent } from "@/store/server"
 import { Box, Flex, List, Select, Title, useMantineColorScheme } from "@mantine/core"
 import { useUnit } from "effector-react"
-import { useState } from "react"
-
-
-
-const Filters = [
-    {
-        title: 'Все товары',
-        value: 'all'
-    },
-    {
-        title: 'Оружие',
-        value: 'weapon'
-    },
-    {
-        title: 'Ресурсы',
-        value: 'resources'
-    },
-    {
-        title: 'Боеприпасы',
-        value: 'ammunition'
-    },
-    {
-        title: 'Одежда',
-        value: 'clothes'
-    },
-    {
-        title: 'Конструкции',
-        value: 'construction'
-    },
-    {
-        title: 'Инструменты',
-        value: 'tools'
-    },
-]
+import { useEffect, useState } from "react"
+import { $shopFilters, getShopFiltersEvent } from "../model"
 
 export const ShopFilters = () => {
-    const {colorScheme} = useMantineColorScheme();
-    const currentServer = useUnit($currentServer);
-    const changeServer = useUnit(changeServerEvent);
-    const [currentFilter, setCurrentFilter] = useState('all');
-    console.log(currentFilter)
-    const FiltersView = Filters.map(item => {
-        return <Box p={theme.spacing.xs} style={{color: currentFilter === item.value ? 'red': '', cursor: 'pointer'}} key={item.title + item.value} onClick={() => setCurrentFilter(item.value)}>{item.title}</Box>
+    const { colorScheme } = useMantineColorScheme();
+    const { shopFilters, currentServer, getFilters, changeServer,  } = useUnit({
+        currentServer: $currentServer,
+        changeServer: changeServerEvent,
+        getFilters: getShopFiltersEvent,
+        shopFilters: $shopFilters
+    });
+
+    const [ currentFilter, setCurrentFilter ] = useState(shopFilters);
+
+    useEffect(() => {
+        getFilters()
+    }, []);
+
+    useEffect(() => {
+        if(shopFilters) {
+            setCurrentFilter(shopFilters[0].id)
+        }
+    }, [shopFilters]);
+
+    const FiltersView = shopFilters && shopFilters.map(item => {
+        return <Box p={theme.spacing.xs} style={{color: currentFilter === item.id ? 'red': '', cursor: 'pointer'}} key={item.title + item.id} onClick={() => setCurrentFilter(item.id)}>{item.title}</Box>
     });
 
     return (

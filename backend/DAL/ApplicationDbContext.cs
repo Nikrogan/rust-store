@@ -29,16 +29,57 @@ public class ApplicationDbContext
             _database.CreateCollection("payments");
         if (!CollectionExists("promocodes"))
             _database.CreateCollection("promocodes");
-        if (!CollectionExists("shopfilters"))
+        if (!CollectionExists("serverCollection"))
+            _database.CreateCollection("promocodes");
+        if (!CollectionExists("shopFilters"))
+        {
             _database.CreateCollection("shopfilters");
+            var defaultShopFilters = new List<BaseShopFilter>
+            {
+                new()
+                {
+                    Title = "Все товары"
+                },
+                new()
+                {
+                    Title = "Оружие"
+                },
 
+                new()
+                {
+                    Title = "Ресурсы"
+                },
 
+                new()
+                {
+                    Title = "Боеприпасы"
+                },
+
+                new()
+                {
+                    Title = "Одежда"
+                },
+
+                new()
+                {
+                    Title = "Конструкции"
+                },
+
+                new()
+                {
+                    Title = "Инструменты"
+                }
+            };
+            _database.GetCollection<BaseShopFilter>("shopfilters").InsertMany(defaultShopFilters);
+        }
+
+        ServerCollection = _database.GetCollection<BaseServer>("serverCollection");
         UserCollection = _database.GetCollection<BaseUser>("users");
         ProductCollection = _database.GetCollection<BaseProduct>("products");
         NewsCollection = _database.GetCollection<BaseNews>("news");
         PaymentCollection = _database.GetCollection<BasePayment>("payments");
-        PromocodeCollection = _database.GetCollection<BasePromo>("promocodes");
-        ShopFiltersCollection = _database.GetCollection<BaseShopFilter>("shopfilters");
+        PromocodeCollection = _database.GetCollection<BasePromo>("promoCodes");
+        ShopFiltersCollection = _database.GetCollection<BaseShopFilter>("shopFilters");
     }
 
     public IMongoCollection<BaseUser> UserCollection { get; set; }
@@ -47,6 +88,8 @@ public class ApplicationDbContext
     public IMongoCollection<BasePayment> PaymentCollection { get; set; }
     public IMongoCollection<BasePromo> PromocodeCollection { get; set; }
     public IMongoCollection<BaseShopFilter> ShopFiltersCollection { get; set; }
+
+    public IMongoCollection<BaseServer> ServerCollection { get; set; }
 
     public bool CollectionExists(string collectionName)
     {

@@ -1,6 +1,6 @@
 import { api } from '@/config/api';
 import { createDomain, createEffect, createEvent, sample } from 'effector'
-import { getCookie } from '@/cookie';
+import { createCookie, deleteCookie, getCookie } from '@/cookie';
 
 const authDomain = createDomain();
 
@@ -19,6 +19,7 @@ export const authUserFx = authDomain.createEffect(async (isAuth: boolean) => {
 export const logoutEvent = createEvent();
 
 export const logoutFx = createEffect(() => {
+    deleteCookie('role')
     return api.get('/user/logout')
 })
 
@@ -31,7 +32,10 @@ export const getUserFx = authDomain.createEffect(async () => {
 
 export const authUserEvent = authDomain.createEvent();
 export const getAuthStatusEvent = authDomain.createEvent()
-
+export const createCookieFx = authDomain.createEffect(async (role = 0) => {
+    console.log(role)
+    return false
+})
 
 sample({
     clock: authUserFx.doneData,
@@ -83,6 +87,14 @@ sample({
        
     },
     target: $userStores
+})
+
+sample({
+    clock: getUserFx.doneData,
+    fn: (data) => {
+        return data?.data?.payLoad?.role
+    },
+    target: createCookieFx
 })
 
 sample({

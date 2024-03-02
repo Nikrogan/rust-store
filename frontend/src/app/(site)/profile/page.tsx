@@ -20,15 +20,18 @@ export const historyBalanceTableData = {
 }
 
 export default function ProfilePage() {
-  const router = useRouter();
   const {isAuth, user} = useUnit($userStores);
   const onLogout = useUnit(logoutEvent);
+
+  const handleLogout = () => {
+    onLogout()
+  };
   const bgColor = useColor();
   useLayoutEffect(() => {
     if(!isAuth) {
       redirect('/')
     }
-  }, [])
+  }, [isAuth])
 
   return (
     <div>
@@ -47,7 +50,7 @@ export default function ProfilePage() {
             </Flex>
             </Flex>
           </Box>
-            <ButtonWrapper type="button" variant="outline" onClick={onLogout}>Выйти</ButtonWrapper>
+            <ButtonWrapper type="button" variant="outline" onClick={handleLogout}>Выйти</ButtonWrapper>
         </Flex>
         <Tabs mt={theme.spacing.md} variant="outline" defaultValue="inventory">
           <TabsList>

@@ -29,3 +29,8 @@
     height: rem(22px);
 }
   
+
+a {
+    text-decoration: none;
+    display: flex;
+}

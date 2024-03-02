@@ -50,6 +50,7 @@ builder.Services.AddScoped<IBaseRepository<BaseNews>, NewsRepository>();
 builder.Services.AddScoped<IBaseRepository<BasePayment>, PaymentRepository>();
 builder.Services.AddScoped<IBaseRepository<BasePromo>, PromoRepository>();
 builder.Services.AddScoped<IBaseRepository<BaseShopFilter>, ShopFiltersRepository>();
+builder.Services.AddScoped<IBaseRepository<BaseServer>, ServerRepository>();
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProductService, ProductService>();
@@ -58,6 +59,7 @@ builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IPromoService, PromoService>();
 builder.Services.AddScoped<ISteamApiService, SteamApiService>();
 builder.Services.AddScoped<IShopFiltersService, ShopFiltersService>();
+builder.Services.AddScoped<IServerService, ServerService>();
 
 builder.Services.AddHttpClient<SteamApiService>();
 

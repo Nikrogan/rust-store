@@ -8,5 +8,5 @@ public interface IShopFiltersService
     Task<IBaseResponse<List<BaseShopFilter>>> GetAllFilter();
     Task<IBaseResponse<List<BaseShopFilter>>> Create(BaseShopFilter newFilter);
     Task<IBaseResponse<BaseShopFilter>> Update(int filtersId);
-    Task<IBaseResponse<BaseShopFilter>> Delete(string Id);
+    Task<IBaseResponse<List<BaseShopFilter>>> Delete(string Id);
 }

@@ -36,7 +36,9 @@ public class ShopFiltersController : ControllerBase
     }
 
     [HttpDelete]
-    public async Task Delete()
+    public async Task<IBaseServerResponse<List<BaseShopFilter>>> Delete(string Id)
     {
+        var response = await _ShopFiltersService.Delete(Id);
+        return new BaseServerResponse<List<BaseShopFilter>>(response.Data, response.StatusCode);
     }
 }

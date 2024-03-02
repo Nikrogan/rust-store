@@ -77,8 +77,34 @@ public class ShopFiltersService : IShopFiltersService
         }
     }
 
-    public async Task<IBaseResponse<BaseShopFilter>> Delete(string Id)
+    public async Task<IBaseResponse<List<BaseShopFilter>>> Delete(string Id)
     {
-        throw new NotImplementedException();
+        var baseResponse = new BaseResponse<List<BaseShopFilter>>();
+        try
+        {
+            var allElements = await _shopFiltersRepository.GetAll();
+            var element = allElements.FirstOrDefault(x => x.Id == Id);
+
+            if (element == null)
+            {
+                baseResponse.Description = "Filter not found";
+                baseResponse.StatusCode = StatusCode.ElementNotFound;
+                return baseResponse;
+            }
+
+            await _shopFiltersRepository.Delete(element);
+
+            baseResponse.Data = allElements.Where(x => x.Id != Id).ToList();
+            baseResponse.StatusCode = StatusCode.OK;
+            return baseResponse;
+        }
+        catch (Exception ex)
+        {
+            return new BaseResponse<List<BaseShopFilter>>
+            {
+                Description = $"[FilterDelete] : {ex.Message}",
+                StatusCode = StatusCode.InternalServerError
+            };
+        }
     }
 }
