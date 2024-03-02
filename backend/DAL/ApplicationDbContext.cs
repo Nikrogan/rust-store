@@ -30,7 +30,7 @@ public class ApplicationDbContext
         if (!CollectionExists("promocodes"))
             _database.CreateCollection("promocodes");
         if (!CollectionExists("serverCollection"))
-            _database.CreateCollection("promocodes");
+            _database.CreateCollection("serverCollection");
         if (!CollectionExists("shopFilters"))
         {
             _database.CreateCollection("shopfilters");
