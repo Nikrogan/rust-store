@@ -14,7 +14,7 @@ namespace RustStore.Controllers
             _userService = userService;
         }
 
-        [HttpGet("steamId")]
+        [HttpGet("{steamId}")]
         public async Task<IBaseServerResponse<IEnumerable<BalanceActionModel>>> Get(string steamId)
         {
             var response = await _userService.GetUserBalanceAction(steamId);

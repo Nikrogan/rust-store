@@ -24,4 +24,4 @@ services:
     depends_on:
       - mongodb
     env_file:
-      - .env.prod
+      - RustStore/.env.prod
