@@ -29,9 +29,9 @@ public class ApplicationDbContext
             _database.CreateCollection("payments");
         if (!CollectionExists("promocodes"))
             _database.CreateCollection("promocodes");
-        if (!CollectionExists("serverCollection"))
-            _database.CreateCollection("serverCollection");
-        if (!CollectionExists("shopFilters"))
+        if (!CollectionExists("serverсollection"))
+            _database.CreateCollection("serverсollection");
+        if (!CollectionExists("shopfilters"))
         {
             _database.CreateCollection("shopfilters");
             var defaultShopFilters = new List<BaseShopFilter>
@@ -73,13 +73,13 @@ public class ApplicationDbContext
             _database.GetCollection<BaseShopFilter>("shopfilters").InsertMany(defaultShopFilters);
         }
 
-        ServerCollection = _database.GetCollection<BaseServer>("serverCollection");
+        ServerCollection = _database.GetCollection<BaseServer>("servercollection");
         UserCollection = _database.GetCollection<BaseUser>("users");
         ProductCollection = _database.GetCollection<BaseProduct>("products");
         NewsCollection = _database.GetCollection<BaseNews>("news");
         PaymentCollection = _database.GetCollection<BasePayment>("payments");
-        PromocodeCollection = _database.GetCollection<BasePromo>("promoCodes");
-        ShopFiltersCollection = _database.GetCollection<BaseShopFilter>("shopFilters");
+        PromocodeCollection = _database.GetCollection<BasePromo>("promocodes");
+        ShopFiltersCollection = _database.GetCollection<BaseShopFilter>("shopfilters");
     }
 
     public IMongoCollection<BaseUser> UserCollection { get; set; }
