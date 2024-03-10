@@ -88,7 +88,6 @@ public class ApplicationDbContext
     public IMongoCollection<BasePayment> PaymentCollection { get; set; }
     public IMongoCollection<BasePromo> PromocodeCollection { get; set; }
     public IMongoCollection<BaseShopFilter> ShopFiltersCollection { get; set; }
-
     public IMongoCollection<BaseServer> ServerCollection { get; set; }
 
     public bool CollectionExists(string collectionName)
