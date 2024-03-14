@@ -19,6 +19,7 @@ namespace Domain.Entity
         public ProductType ProductType { get; set; }
         public decimal Price { get; set; }
         public string ImageUrl { get; set; }
+        public bool IsActive {  get; set; }
         public CategoryType CategoryType { get; set; }
         public List<SimpleProduct>? SimpleProducts { get; set; }
     }

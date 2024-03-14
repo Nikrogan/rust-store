@@ -34,6 +34,7 @@ namespace Service.Implementations
                     Price = viewModel.Price,
                     ImageUrl = viewModel.ImageUrl,
                     CategoryType = viewModel.CategoryType,
+                    IsActive = viewModel.IsActive,
                     SimpleProducts = viewModel.SimpleProducts
                 };
 
@@ -55,13 +56,13 @@ namespace Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<bool>> DeleteProductById(int id)
+        public async Task<IBaseResponse<bool>> DeleteProductById(string id)
         {
             var baseResponse = new BaseResponse<bool>();
             try
             {
                 var allElements = await _productRepository.GetAll();
-                var element = allElements.FirstOrDefault(x => x.ProductId == id);
+                var element = allElements.FirstOrDefault(x => x.Id == id);
 
                 if (element == null)
                 {
@@ -157,13 +158,13 @@ namespace Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<BaseProduct>> GetProductById(int id)
+        public async Task<IBaseResponse<BaseProduct>> GetProductById(string id)
         {
             var baseResponse = new BaseResponse<BaseProduct>();
             try
             {
                 var allResources = await _productRepository.GetAll();
-                var resource = allResources.FirstOrDefault(x => x.ProductId == id);
+                var resource = allResources.FirstOrDefault(x => x.Id == id);
                 if (resource == null)
                 {
                     baseResponse.Description = "Element not found";
