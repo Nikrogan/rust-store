@@ -19,7 +19,7 @@ public class ShopFiltersController : ControllerBase
     [HttpGet]
     public async Task<IBaseServerResponse<IEnumerable<BaseShopFilter>>> Get()
     {
-        var response = await _ShopFiltersService.GetAllFilter();
+        var response = await _ShopFiltersService.GetAll();
         return new BaseServerResponse<IEnumerable<BaseShopFilter>>(response.Data, response.StatusCode);
     }
 

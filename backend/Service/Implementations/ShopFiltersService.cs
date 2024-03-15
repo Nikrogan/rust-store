@@ -50,7 +50,7 @@ public class ShopFiltersService : IShopFiltersService
         throw new NotImplementedException();
     }
 
-    public async Task<IBaseResponse<List<BaseShopFilter>>> GetAllFilter()
+    public async Task<IBaseResponse<List<BaseShopFilter>>> GetAll()
     {
         var baseResponse = new BaseResponse<List<BaseShopFilter>>();
         try

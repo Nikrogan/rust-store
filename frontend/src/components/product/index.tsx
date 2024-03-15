@@ -1,5 +1,4 @@
 import { Badge, Button, ButtonGroup, Card, Checkbox, Flex, Group, Image, InputWrapper, Modal, NumberInput, Select, Text, TextInput } from "@mantine/core"
-import { DateInput } from "@mantine/dates";
 import { useDisclosure } from "@mantine/hooks";
 import { ModalProduct } from "../ModalProduct";
 

@@ -31,7 +31,11 @@ public class ApplicationDbContext
             _database.CreateCollection("promocodes");
         if (!CollectionExists("serverCollection"))
             _database.CreateCollection("serverCollection");
-        if (!CollectionExists("shopFilters"))
+
+        if (!CollectionExists("playerchecksheet"))
+            _database.CreateCollection("playerchecksheet");
+
+        if (!CollectionExists("shopfilters"))
         {
             _database.CreateCollection("shopfilters");
             var defaultShopFilters = new List<BaseShopFilter>
@@ -79,7 +83,8 @@ public class ApplicationDbContext
         NewsCollection = _database.GetCollection<BaseNews>("news");
         PaymentCollection = _database.GetCollection<BasePayment>("payments");
         PromocodeCollection = _database.GetCollection<BasePromo>("promoCodes");
-        ShopFiltersCollection = _database.GetCollection<BaseShopFilter>("shopFilters");
+        ShopFiltersCollection = _database.GetCollection<BaseShopFilter>("shopfilters");
+        PlayerCheckSheetCollection = _database.GetCollection<BasePlayerCheck>("playerchecksheet");
     }
 
     public IMongoCollection<BaseUser> UserCollection { get; set; }
@@ -90,6 +95,8 @@ public class ApplicationDbContext
     public IMongoCollection<BaseShopFilter> ShopFiltersCollection { get; set; }
 
     public IMongoCollection<BaseServer> ServerCollection { get; set; }
+
+    public IMongoCollection<BasePlayerCheck> PlayerCheckSheetCollection { get; set; }
 
     public bool CollectionExists(string collectionName)
     {

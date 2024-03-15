@@ -33,7 +33,6 @@ export const getUserFx = authDomain.createEffect(async () => {
 export const authUserEvent = authDomain.createEvent();
 export const getAuthStatusEvent = authDomain.createEvent()
 export const createCookieFx = authDomain.createEffect(async (role = 0) => {
-    console.log(role)
     return false
 })
 

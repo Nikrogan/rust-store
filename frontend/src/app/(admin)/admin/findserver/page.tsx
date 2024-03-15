@@ -15,7 +15,7 @@ export default function FindPage () {
         },[ip])
 
         const ServersView = ipList.map(item => {
-        return <div key={item.port + item.ip}>IP: {item.ip} PORT: {item.port} QueryPort: {item.query_port} Players: {item.players} HostName: {item.hostname} tags {item.tags} </div>
+        return <div key={item.port + item.ip}>IP: {item.ip} PORT: {item.port} QueryPort: {item.query_port} Players: {item.players} HostName: {item.hostname}</div>
     })
     return (
       <>

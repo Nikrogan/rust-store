@@ -21,14 +21,14 @@ export const MainFilters = () => {
                 <Title>Доходы</Title>
                 <IconCalendar height={32} width={32}/>
                 <DatePickerInput
-                            valueFormat="DD MMM YYYY"
-                            w={240}
-                            placeholder='Выбрать период'
-                            defaultValue={[getCurrentDay, d]}
-                            type="range"
-                            value={value}
-                            onChange={setValue}
-                        />
+                    valueFormat="DD MMM YYYY"
+                    w={240}
+                    placeholder='Выбрать период'
+                    defaultValue={[getCurrentDay, d]}
+                    type="range"
+                    value={value}
+                    onChange={setValue}
+                />
             </Flex>
         </Box>
         <Box>

@@ -4,6 +4,7 @@ import '@mantine/dates/styles.css';
 import { theme } from "@/components/theme/theme"
 import { MantineProvider } from "@mantine/core"
 import { AppShellWrapper } from '@/components/AppShell';
+import { AuthCheck } from '@/AdminComponents/AuthCheck/AuthCheck';
 
 export const metadata = {
   title: 'Next.js',
@@ -20,7 +21,10 @@ export default function RootLayout({
       <body>
         <MantineProvider theme={theme}>
           <AppShellWrapper>
-            {children}
+            <AuthCheck>
+              {children}
+            </AuthCheck>
+           
           </AppShellWrapper>
         </MantineProvider>
         </body>
