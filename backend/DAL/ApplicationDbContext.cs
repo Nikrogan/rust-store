@@ -29,12 +29,10 @@ public class ApplicationDbContext
             _database.CreateCollection("payments");
         if (!CollectionExists("promocodes"))
             _database.CreateCollection("promocodes");
-        if (!CollectionExists("serverCollection"))
-            _database.CreateCollection("serverCollection");
-
         if (!CollectionExists("playerchecksheet"))
             _database.CreateCollection("playerchecksheet");
-
+        if (!CollectionExists("serverсollection"))
+            _database.CreateCollection("serverсollection");
         if (!CollectionExists("shopfilters"))
         {
             _database.CreateCollection("shopfilters");
@@ -77,14 +75,14 @@ public class ApplicationDbContext
             _database.GetCollection<BaseShopFilter>("shopfilters").InsertMany(defaultShopFilters);
         }
 
-        ServerCollection = _database.GetCollection<BaseServer>("serverCollection");
+        ServerCollection = _database.GetCollection<BaseServer>("servercollection");
         UserCollection = _database.GetCollection<BaseUser>("users");
         ProductCollection = _database.GetCollection<BaseProduct>("products");
         NewsCollection = _database.GetCollection<BaseNews>("news");
         PaymentCollection = _database.GetCollection<BasePayment>("payments");
-        PromocodeCollection = _database.GetCollection<BasePromo>("promoCodes");
         ShopFiltersCollection = _database.GetCollection<BaseShopFilter>("shopfilters");
         PlayerCheckSheetCollection = _database.GetCollection<BasePlayerCheck>("playerchecksheet");
+        PromocodeCollection = _database.GetCollection<BasePromo>("promocodes");
     }
 
     public IMongoCollection<BaseUser> UserCollection { get; set; }
@@ -93,7 +91,6 @@ public class ApplicationDbContext
     public IMongoCollection<BasePayment> PaymentCollection { get; set; }
     public IMongoCollection<BasePromo> PromocodeCollection { get; set; }
     public IMongoCollection<BaseShopFilter> ShopFiltersCollection { get; set; }
-
     public IMongoCollection<BaseServer> ServerCollection { get; set; }
 
     public IMongoCollection<BasePlayerCheck> PlayerCheckSheetCollection { get; set; }

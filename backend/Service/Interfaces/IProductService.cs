@@ -9,7 +9,7 @@ namespace Service.Interfaces
         Task<IBaseResponse<IEnumerable<BaseProduct>>> GetAllProducts();
         Task<IBaseResponse<BaseProduct>> CreateProduct(BaseProduct newModel);
         Task<IBaseResponse<BaseProduct>> EditElement(BaseProduct userModel);
-        Task<IBaseResponse<BaseProduct>> GetProductById(int Id);
-        Task<IBaseResponse<bool>> DeleteProductById(int Id);
+        Task<IBaseResponse<BaseProduct>> GetProductById(string Id);
+        Task<IBaseResponse<bool>> DeleteProductById(string Id);
     }
 }

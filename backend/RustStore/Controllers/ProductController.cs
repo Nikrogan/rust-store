@@ -31,7 +31,7 @@ namespace RustStore.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IBaseServerResponse<BaseProduct>> Get(int id)
+        public async Task<IBaseServerResponse<BaseProduct>> Get(string id)
         {
             var response = await _productService.GetProductById(id);
             return new BaseServerResponse<BaseProduct>(response.Data, response.StatusCode);
@@ -45,7 +45,7 @@ namespace RustStore.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IBaseServerResponse<BaseProduct>> Delete(int id)
+        public async Task<IBaseServerResponse<BaseProduct>> Delete(string id)
         {
             var response = await _productService.DeleteProductById(id);
             return new BaseServerResponse<BaseProduct>(null, response.StatusCode);
