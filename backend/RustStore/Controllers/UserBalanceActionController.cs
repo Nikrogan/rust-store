@@ -6,7 +6,8 @@ using Service.Interfaces;
 namespace RustStore.Controllers
 {
     [Route("api/v1/userbalanceaction")]
-    public class UserBalanceActionController : Controller
+    [ApiController]
+    public class UserBalanceActionController : ControllerBase
     {
         private readonly IUserService _userService;
         public UserBalanceActionController(IUserService userService)
