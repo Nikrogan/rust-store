@@ -1,5 +1,7 @@
 'use client'
 import { Badge, Button, Card, Group, Image, Text } from "@mantine/core"
+import './productcard.css'
+
 
 type ProductCardProps = {
  imageSrc?: string;
@@ -8,9 +10,9 @@ type ProductCardProps = {
  buttonText?: string;
 }
 
-export const ProductCard = ({title='Minicopter х1', imageSrc = 'https://bwrust.ru/uploads/items/minicopter.png', price = 'free', buttonText = 'Купить'}: ProductCardProps) => {
+export const ProductCard = ({onClick, title='Minicopter х1', imageSrc = 'https://bwrust.ru/uploads/items/minicopter.png', price = 'free', buttonText = 'Купить'}: ProductCardProps) => {
     return (
-        <Card shadow="xl" radius="md" padding="md">
+        <Card shadow="xl" radius="md" padding="md"  className="product-card">
             <Card.Section>
                 <Image
                     src={imageSrc}
@@ -24,10 +26,10 @@ export const ProductCard = ({title='Minicopter х1', imageSrc = 'https://bwrust.
 
             <Group justify="space-between" mt="md" mb="xs">
                 <Text fw={500}>{title}</Text>
-            <Badge color="pink">{price} {price !== "free" && "BW"}</Badge>
+                <Badge color="pink">{price} {price !== "free" && "BW"}</Badge>
             </Group>
 
-            <Button color="blue" fullWidth mt="md" radius="md">
+            <Button color="blue" fullWidth mt="md" radius="md" onClick={onClick}>
                 {buttonText}
             </Button>
         </Card>

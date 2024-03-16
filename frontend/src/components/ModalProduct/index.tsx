@@ -66,7 +66,7 @@ export const ModalProduct = ({isOpen, close}) => {
     
     const activeSimpleProductsView = activeSimpleProducts && activeSimpleProducts.map(item => {
         return (
-            <Box style={{minWidth: '125px'}}>
+            <Box style={{minWidth: '125px'}} key={item.ruTitle}>
                 <InputWrapper label="Наименование">
                     <Input defaultValue={item.ruTitle} />
                 </InputWrapper>

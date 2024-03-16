@@ -9,7 +9,7 @@ using Service.Interfaces;
 
 namespace RustStore.Controllers
 {
-    [Route("apiapi/v1/productbuy")]
+    [Route("api/v1/productbuy")]
     [ApiController]
     public class ProductBuyController : ControllerBase
     {

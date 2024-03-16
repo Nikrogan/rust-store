@@ -5,7 +5,7 @@ import { ProductCard } from '@/components/ProductCard';
 import "./page.css"
 import { useUnit } from 'effector-react';
 import { $currentServer, changeServerEvent } from '@/store/server';
-import { $products } from './store';
+import { $products, buyProductEvent } from './store';
 import { Server } from '@/pageComponents/shop/server';
 import { theme } from '@/components/theme/theme';
 import { ShopFilters } from '@/components/ShopFilters';
@@ -13,10 +13,11 @@ import { ServerList } from '@/mock/serverList';
 import { useColor } from '@/shared/hooks/useColor';
 
 export default function Home() {
-  const {products: {data, isLoading}, currentServer, changeServer} = useUnit({
+  const {handleBuyProduct, products: {data, isLoading}, currentServer, changeServer} = useUnit({
     products: $products,
     currentServer: $currentServer,
-    changeServer: changeServerEvent
+    changeServer: changeServerEvent,
+    handleBuyProduct: buyProductEvent
   })
 
   const bg = useColor()
@@ -26,7 +27,7 @@ export default function Home() {
   });
 
   const ProductListView = data.map((item) => {
-    return <ProductCard key={item?.title} title={item?.title} price={item.price ? item.price : undefined} />
+    return <ProductCard onClick={() => handleBuyProduct(item)} key={item?.title} title={item?.title} price={item.price ? item.price : undefined} />
   });
 
   const ServerMonitoring = ServerList.map((server) => {

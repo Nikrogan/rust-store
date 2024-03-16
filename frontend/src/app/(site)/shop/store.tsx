@@ -14,7 +14,17 @@ const getProductsFx = createEffect(() => {
     return api.get('/products');
 });
 
-export const getProductsEvent = createEvent('get-products')
+const buyProductFx = createEffect(({id}) => {
+    return api.post(`/productbuy/${id}`)
+})
+
+export const getProductsEvent = createEvent('get-products');
+export const buyProductEvent = createEvent('buy-product');
+
+sample({
+    clock: buyProductEvent,
+    target: buyProductFx
+})
 
 sample({
     clock: getProductsEvent,
