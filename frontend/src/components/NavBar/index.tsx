@@ -1,5 +1,5 @@
 'use client'
-import { Flex, Button, Menu, Image, Loader, ActionIcon, useMantineColorScheme, useComputedColorScheme } from "@mantine/core"
+import { Flex, Button, Menu, Image, Loader, ActionIcon, useMantineColorScheme, useComputedColorScheme, Box, Notification, rem } from "@mantine/core"
 import { useDisclosure, useMediaQuery } from "@mantine/hooks"
 import Link from "next/link"
 import { UserAvatar } from "../UserAvatar"
@@ -15,8 +15,10 @@ import { $userStores, authUserEvent, getAuthStatusEvent, logoutEvent } from "@/s
 import { useUnit } from 'effector-react'
 
 import './navbar.css'
-import { IconMoon, IconSun } from "@tabler/icons-react"
+import { IconMoon, IconSun, IconX } from "@tabler/icons-react"
 import { ButtonWrapper } from "@/shared/ButtonWrapper/ButtonWrapper"
+import { $notification, deleteNotificationEvent } from "@/store/notification"
+import { isNotEmptyArray } from "@/shared/array"
 
 const checkIsInfoPage = (pathname: string) => {
   switch (pathname) {
@@ -33,11 +35,13 @@ export const NavBar = () => {
   const regexp = new RegExp(/\/news\/\w+/gm)
   pathname = pathname.replace(regexp, '/news')
 
-  const { value: { isAuth, isLoading, user }, trigger, authUser, handleLogoutTrigger } = useUnit({
+  const { value: { isAuth, isLoading, user }, notificationList, deleteNotification, trigger, authUser, handleLogoutTrigger } = useUnit({
     value: $userStores,
     trigger: getAuthStatusEvent,
     authUser: authUserEvent,
-    handleLogoutTrigger: logoutEvent
+    handleLogoutTrigger: logoutEvent,
+    notificationList: $notification,
+    deleteNotification: deleteNotificationEvent
   });
   const matches = useMediaQuery('(max-width: 1600px)');
   const isInfoPage = checkIsInfoPage(pathname);
@@ -174,6 +178,10 @@ export const NavBar = () => {
         </ActionIcon>}
         {isOpenBalanceModal && <BalancaModal isOpen={isOpenBalanceModal} onClose={handeCloseBalanceModal} />}
       </Flex>
+      <Box style={{position: "absolute", right: theme.spacing.md, top: theme.spacing.md}}>
+        {isNotEmptyArray(notificationList) && notificationList.map((notification) => <Notification onClose={() => deleteNotification(notification)} mb={theme.spacing.xs} p={theme.spacing.sm} icon={<IconX style={{ width: rem(20), height: rem(20)}} />} color="red" title={notification.title}/>)}
+      </Box>
     </Flex>
   )
 }
+

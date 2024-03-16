@@ -1,6 +1,8 @@
 import { api } from '@/config/api';
 import { createDomain, createEffect, createEvent, sample } from 'effector'
 import { createCookie, deleteCookie, getCookie } from '@/cookie';
+import { buyProductEvent } from '@/app/(site)/shop/store';
+import { createNotificationEvent } from './notification';
 
 const authDomain = createDomain();
 
@@ -89,6 +91,55 @@ sample({
 })
 
 sample({
+    clock: buyProductEvent,
+    source: $userStores,
+    fn: (store, product) => {
+        return {
+            ...store,
+            user: {
+                ...store.user,
+                balance: store.user.balance - product.price
+            }
+        }
+    },
+    filter: (store, product) => {
+        return (store.user.balance - product.price) >= 0
+    },
+    target:  $userStores
+})
+
+sample({
+    clock: buyProductEvent,
+    source: $userStores,
+    fn: () => {
+        return {
+            title: "Недостаточно средств!",
+            id: generateKey("Недостаточно средств!")
+        }
+    },
+    filter: (store, product) => {
+        return (store.user.balance - product.price) < 0 && !!store.isAuth
+    },
+    target:  createNotificationEvent
+})
+
+sample({
+    clock: buyProductEvent,
+    source: $userStores,
+    fn: () => {
+        return {
+            title: "Вы не авторизованы!",
+            id: generateKey("Вы не авторизованы!")
+        }
+    },
+    filter: (store) => {
+        return !store.isAuth
+    },
+    target:  createNotificationEvent
+})
+
+
+sample({
     clock: getUserFx.doneData,
     fn: (data) => {
         return data?.data?.payLoad?.role
@@ -112,3 +163,9 @@ sample({
     clock: logoutEvent,
     target: logoutFx
 })
+
+
+
+const generateKey = (title: string) => {
+    return `${title}_${new Date().getTime()}`;
+  };
