@@ -12,6 +12,7 @@ using SharpCompress.Common;
 using System.Net.Http.Headers;
 using System.Text;
 using static System.Net.Mime.MediaTypeNames;
+using System.Xml;
 
 namespace RustStore.Controllers
 {
@@ -20,7 +21,7 @@ namespace RustStore.Controllers
     public class Test : ControllerBase
     {
         [HttpGet]
-        public async Task<string> GetCbrXml()
+        public async Task<ContentResult> GetCbrXml()
         {
             string date = DateTime.Now.ToString("dd/MM/yyyy");
             string apiUrl = $"http://www.cbr.ru/scripts/XML_daily.asp?date_req={date}";
@@ -29,19 +30,17 @@ namespace RustStore.Controllers
             {
                 try
                 {
-                    var response = await client.GetAsync(apiUrl);
+                    HttpResponseMessage response = await client.GetAsync(apiUrl);
                     response.EnsureSuccessStatusCode();
-                    byte[] responseData = await response.Content.ReadAsByteArrayAsync();
-
-                    string responseString = Encoding.GetEncoding("UTF-8").GetString(responseData);
-
-                    return responseString;
+                    string responseData = await response.Content.ReadAsStringAsync();
+                    HttpContext.Response.ContentType = "application/xml; charset=windows-1251";
+                    return Content(responseData);
                 }
-                catch (WebException ex)
+                catch (HttpRequestException ex)
                 {
                     // Handle web exception
                     Console.WriteLine("Error accessing API: " + ex.Message);
-                    return "";
+                    return null;
                 }
             }
         }

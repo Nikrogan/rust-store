@@ -6,6 +6,7 @@ using RustStats.Service.Implementations;
 using RustStats.Service.Interfaces;
 using Service.Implementations;
 using Service.Interfaces;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -29,6 +30,8 @@ builder.Services.AddCors(options =>
     });
 });
 
+Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
 //builder.Services.AddDataProtection()
 //            .UseCryptographicAlgorithms(new AuthenticatedEncryptorConfiguration()
 //            {
@@ -38,7 +41,7 @@ builder.Services.AddCors(options =>
 //            .PersistKeysToFileSystem(new DirectoryInfo("/app/keys"));
 
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddXmlSerializerFormatters(); 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -94,3 +97,4 @@ app.UseAuthentication();
 app.MapControllers();
 
 app.Run();
+
