@@ -179,7 +179,7 @@ export const NavBar = () => {
         {isOpenBalanceModal && <BalancaModal isOpen={isOpenBalanceModal} onClose={handeCloseBalanceModal} />}
       </Flex>
       <Box style={{position: "absolute", right: theme.spacing.md, top: theme.spacing.md}}>
-        {isNotEmptyArray(notificationList) && notificationList.map((notification) => <Notification onClose={() => deleteNotification(notification)} mb={theme.spacing.xs} p={theme.spacing.sm} icon={<IconX style={{ width: rem(20), height: rem(20)}} />} color="red" title={notification.title}/>)}
+        {isNotEmptyArray(notificationList) && notificationList.map((notification) => <Notification key={notification.id} onClose={() => deleteNotification(notification)} mb={theme.spacing.xs} p={theme.spacing.sm} icon={<IconX style={{ width: rem(20), height: rem(20)}} />} color="red" title={notification.title}/>)}
       </Box>
     </Flex>
   )
