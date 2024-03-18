@@ -30,10 +30,6 @@ export default function Home() {
     return <ProductCard onClick={() => handleBuyProduct(item)} key={item?.title} title={item?.title} price={item.price ? item.price : undefined} />
   });
 
-  const ServerMonitoring = ServerList.map((server) => {
-    return <Server key={server.serverId} currentServer={server} />
-  });
-
   return (
         <Container size="xl" >
         {!currentServer && (
@@ -47,17 +43,12 @@ export default function Home() {
         </>
         )}
         <Space h='xl'/>
-        {!!currentServer && <Flex >
-          <Box w={300} bg={bg} p={theme.spacing?.md} style={{borderRadius: theme.radius.xs}}>
-              {ServerMonitoring}
-          </Box>
-        </Flex>}
         <Space mt='sm' mr="sm">
-        {!!currentServer?.serverId && <Flex w='100%' justify='space-between'>
+        {!!currentServer?.serverId && <Flex w='100%'>
             <Flex>
               <ShopFilters />
             </Flex>
-            <Flex className='shop__container' wrap='wrap' gap='md'>
+            <Flex className='shop__container' wrap='wrap' gap='md' justify="flex-start" ml={theme.spacing.lg}>
               {ProductListView}
             </Flex>
         </Flex>}

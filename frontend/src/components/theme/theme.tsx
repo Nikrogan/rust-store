@@ -7,7 +7,7 @@ const CONTAINER_SIZES: Record<string, string> = {
   xxs: rem(276),
   xs: rem(576),
   sm: rem(900),
-  md: rem(1280),
+  md: rem(1380),
   lg: rem(1440),
   xl: rem(1600),
   xxl: rem(1920),

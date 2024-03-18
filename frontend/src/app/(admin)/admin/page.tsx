@@ -51,6 +51,15 @@ export const data = [
     },
   ];
 
+ const a = {
+    payload: [
+        {
+            date: 'Mar 22',
+            sum: 123123123 
+        }
+    ]
+ }
+
 export default function StorePage() {
     const {promocodesList, salary, getPromocodes} = useUnit({
         salary: $salary,
