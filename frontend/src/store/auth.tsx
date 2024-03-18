@@ -151,7 +151,7 @@ sample({
     clock: logoutEvent,
     fn: () => {
         return {
-            isLoading: false,
+            isLoading: true,
             user: null,
             isAuth: null
         }
@@ -162,6 +162,18 @@ sample({
 sample({
     clock: logoutEvent,
     target: logoutFx
+})
+
+sample({
+    clock: logoutFx.doneData,
+    fn: () => {
+        return {
+            isLoading: true,
+            user: null,
+            isAuth: null
+        }
+    },
+    target: $userStores
 })
 
 

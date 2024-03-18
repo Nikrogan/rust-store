@@ -12,7 +12,7 @@ type ProductCardProps = {
 
 export const ProductCard = ({onClick, title='Minicopter х1', imageSrc = 'https://bwrust.ru/uploads/items/minicopter.png', price = 'free', buttonText = 'Купить'}: ProductCardProps) => {
     return (
-        <Card shadow="xl" radius="md" padding="md"  className="product-card">
+        <Card shadow="xl" radius="md" padding="md"  className="product-card" h={"275"}>
             <Card.Section>
                 <Image
                     src={imageSrc}

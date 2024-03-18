@@ -1,0 +1,36 @@
+
+.nav {
+    padding: 32px 32px;
+  }
+  
+  .main {
+    margin: 0 32px;
+  
+  }
+  
+  .flex {
+    width: 100%;
+  }
+  
+  .title {
+    color: #FFF;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 110%; /* 19.8px */
+    text-transform: uppercase;
+  }
+  
+  .background::before {
+    content: '';
+    background: url('https://bwrust.ru/uploads/background_new.png');
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top center;
+    z-index: -1;
+  }

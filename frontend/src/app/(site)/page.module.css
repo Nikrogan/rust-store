@@ -21,7 +21,7 @@
   text-transform: uppercase;
 }
 
-.background::before {
+/* .background::before {
   content: '';
   background: url('https://bwrust.ru/uploads/background_new.png');
   width: 100%;
@@ -33,4 +33,4 @@
   background-size: cover;
   background-position: top center;
   z-index: -1;
-}
+} */

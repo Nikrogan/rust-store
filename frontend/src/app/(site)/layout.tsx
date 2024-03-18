@@ -3,11 +3,12 @@ import type { Metadata } from 'next'
 
 import { Montserrat } from 'next/font/google';
 import styles from './page.module.css'
-import { Container,  Image, MantineProvider } from '@mantine/core';
+import {  MantineProvider } from '@mantine/core';
 import { theme } from '@/components/theme/theme';
 import { EffectorNext } from "@effector/next";
 import { ReduxDevToolsAdapter } from '@/shared/devtools/devtools';
-import { NavBar } from '@/components/NavBar';
+import './globals.css'
+import { MainPageServer } from '@/pages/mainServer';
 
 const montserrat = Montserrat({
   weight: ['300', '400', '500', '600', '700', '800'],
@@ -31,19 +32,10 @@ export default function RootLayout({
     <html lang="ru">
       <body className={montserrat.className}>
         <MantineProvider theme={theme}>
-          <div className={styles.background}>
             <ReduxDevToolsAdapter />
               <EffectorNext>
-                  <Container size='xl' style={{position: 'relative'}}>
-                    <div className={styles.navContainer}>
-                      <NavBar />
-                    </div>
-                  <main>
-                    {children}
-                  </main>
-                  </Container>
+                <MainPageServer>{children}</MainPageServer>
               </EffectorNext>
-              </div>
          </MantineProvider>
       </body>
     </html>
