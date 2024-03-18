@@ -30,7 +30,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+//Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
 //builder.Services.AddDataProtection()
 //            .UseCryptographicAlgorithms(new AuthenticatedEncryptorConfiguration()
@@ -72,12 +72,11 @@ builder.Services.AddHttpClient<SteamApiService>();
 var app = builder.Build();
 
 
-// Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
-app.UseSwagger();
-app.UseSwaggerUI();
-//}
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseCors("AllowSpecificOrigin");
 
@@ -92,7 +91,6 @@ app.UseWebSockets(webSocketOptions);
 
 app.UseAuthorization();
 app.UseAuthentication();
-
 
 app.MapControllers();
 

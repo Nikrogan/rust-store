@@ -20,30 +20,30 @@ namespace RustStore.Controllers
     [ApiController]
     public class Test : ControllerBase
     {
-        [HttpGet]
-        public async Task<ContentResult> GetCbrXml()
-        {
-            string date = DateTime.Now.ToString("dd/MM/yyyy");
-            string apiUrl = $"http://www.cbr.ru/scripts/XML_daily.asp?date_req={date}";
+        //[HttpGet]
+        //public async Task<ContentResult> GetCbrXml()
+        //{
+        //    string date = DateTime.Now.ToString("dd/MM/yyyy");
+        //    string apiUrl = $"http://www.cbr.ru/scripts/XML_daily.asp?date_req={date}";
 
-            using (HttpClient client = new HttpClient())
-            {
-                try
-                {
-                    HttpResponseMessage response = await client.GetAsync(apiUrl);
-                    response.EnsureSuccessStatusCode();
-                    string responseData = await response.Content.ReadAsStringAsync();
-                    HttpContext.Response.ContentType = "application/xml; charset=windows-1251";
-                    return Content(responseData);
-                }
-                catch (HttpRequestException ex)
-                {
-                    // Handle web exception
-                    Console.WriteLine("Error accessing API: " + ex.Message);
-                    return null;
-                }
-            }
-        }
+        //    using (HttpClient client = new HttpClient())
+        //    {
+        //        try
+        //        {
+        //            HttpResponseMessage response = await client.GetAsync(apiUrl);
+        //            response.EnsureSuccessStatusCode();
+        //            string responseData = await response.Content.ReadAsStringAsync();
+        //            HttpContext.Response.ContentType = "application/xml; charset=windows-1251";
+        //            return Content(responseData);
+        //        }
+        //        catch (HttpRequestException ex)
+        //        {
+        //            // Handle web exception
+        //            Console.WriteLine("Error accessing API: " + ex.Message);
+        //            return null;
+        //        }
+        //    }
+        //}
 
 
         //[HttpPost]
