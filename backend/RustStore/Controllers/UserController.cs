@@ -59,24 +59,21 @@ namespace RustStore.Controllers
         [HttpPost]
         public async Task<IBaseServerResponse<string>> Edit(UserEditModel userEditModel)
         {
-            if(userEditModel.Role == null)
-            {
-                var response = await _userService.EditElementFront(userEditModel);
-                return new BaseServerResponse<string>("", response.StatusCode);
-            }
-
             if (!Request.Cookies.TryGetValue("session", out var jwt))
                 return new BaseServerResponse<string>("", Domain.Enum.StatusCode.AccessDenied);
 
             var user = await _userService.GetUserBySessionId(jwt);
-            if(user == null)
-                return new BaseServerResponse<string>("", Domain.Enum.StatusCode.ElementNotFound);
-
-            if (user.Data.Role != Domain.Enum.Role.Owner)
+            if (user == null)
                 return new BaseServerResponse<string>("", Domain.Enum.StatusCode.AccessDenied);
-            
-            var adminResponse = await _userService.EditElementFront(userEditModel);
-            return new BaseServerResponse<string>("", adminResponse.StatusCode);
+
+            if(user.Data.SteamId != userEditModel.SteamId && user.Data.Role != Domain.Enum.Role.Owner)
+                return new BaseServerResponse<string>("", Domain.Enum.StatusCode.AccessDenied);
+
+            if (user.Data.SteamId == userEditModel.SteamId && userEditModel.Role != null && user.Data.Role != userEditModel.Role)
+                return new BaseServerResponse<string>("", Domain.Enum.StatusCode.AccessDenied);
+
+            var response = await _userService.EditElementFront(userEditModel);
+            return new BaseServerResponse<string>("", response.StatusCode);
         }
 
         [AllowAnonymous]
