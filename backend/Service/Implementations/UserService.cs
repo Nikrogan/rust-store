@@ -531,5 +531,32 @@ namespace Service.Implementations
             }
         }
 
+        public async Task<IBaseResponse<List<BaseProduct>>> GetUserBasket(string steamID)
+        {
+            var baseResponse = new BaseResponse<List<BaseProduct>>();
+            try
+            {
+                var allElements = await _accountRepository.GetAll();
+                var resource = allElements.FirstOrDefault(x => x.SteamId == steamID);
+                if (resource == null)
+                {
+                    baseResponse.Description = "Account not found";
+                    baseResponse.StatusCode = StatusCode.ElementNotFound;
+                    return baseResponse;
+                }
+
+                baseResponse.Data = resource.Basket ?? new List<BaseProduct>();
+                baseResponse.StatusCode = StatusCode.OK;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<List<BaseProduct>>()
+                {
+                    Description = $"[GetUserBasket] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
     }
 }
