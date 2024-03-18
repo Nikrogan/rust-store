@@ -13,6 +13,12 @@ public class ApplicationDbContext
     {
         Env.Load();
         var DbConnectionUrl = Environment.GetEnvironmentVariable("connectionDbString");
+
+        if(string.IsNullOrEmpty(DbConnectionUrl))
+        {
+            Console.WriteLine("Failed to load connectionDbString from ENV");
+            return;
+        }    
         var connectionString = configuration.GetConnectionString(DbConnectionUrl);
         Console.WriteLine(connectionString);
         var mongoClient = new MongoClient(connectionString);

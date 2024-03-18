@@ -8,6 +8,7 @@ using Domain.Response;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using Domain.SimpleEntity;
+using DotNetEnv;
 
 namespace RustStore.Controllers
 {
@@ -16,34 +17,34 @@ namespace RustStore.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        private readonly IHttpClientFactory _httpClientFactory;
 
-        public UserController(IUserService accountService, IHttpClientFactory httpClientFactory)
+        public UserController(IUserService accountService)
         {
             _userService = accountService;
-            _httpClientFactory = httpClientFactory;
         }
 
         [HttpGet]
         public async Task<IBaseServerResponse<SimpleUser>> Profile()
         {
-            if (Request.Cookies.TryGetValue("session", out var jwt))
-            {
-                var response = await _userService.GetUserBySessionId(jwt);
-                return new BaseServerResponse<SimpleUser>(new SimpleUser(response.Data), response.StatusCode);
-            }
-            return new BaseServerResponse<SimpleUser>(null, Domain.Enum.StatusCode.InternalServerError);
+            if (!Request.Cookies.TryGetValue("session", out var jwt))
+                return new BaseServerResponse<SimpleUser>(null, Domain.Enum.StatusCode.AccessDenied);
+
+            if (string.IsNullOrEmpty(jwt))
+                return new BaseServerResponse<SimpleUser>(null, Domain.Enum.StatusCode.InternalServerError);
+
+            var response = await _userService.GetUserBySessionId(jwt);
+            return new BaseServerResponse<SimpleUser>(new SimpleUser(response.Data), response.StatusCode);
         }
 
         [HttpGet("logout")]
-        public async Task<IBaseServerResponse<string>> Logout()
+        public IBaseServerResponse<string> Logout()
         {
             Response.Cookies.Append("session", "", new CookieOptions
             {
-                HttpOnly = true, // Защита от JavaScript-доступа
-                SameSite = SameSiteMode.None, // Можете установить другое значение в зависимости от ваших требований
-                Secure = true, // Устанавливаем, если используется HTTPS
-                MaxAge = TimeSpan.FromHours(0) // Время жизни куки
+                HttpOnly = true,
+                SameSite = SameSiteMode.None,
+                Secure = true,
+                MaxAge = TimeSpan.FromHours(0)
             });
             Response.Cookies.Append("role", "", new CookieOptions
             {
@@ -52,8 +53,8 @@ namespace RustStore.Controllers
                 Secure = true,
                 MaxAge = TimeSpan.FromHours(0)
             });
-            return new BaseServerResponse<string>(null, Domain.Enum.StatusCode.OK);
 
+            return new BaseServerResponse<string>(null, Domain.Enum.StatusCode.OK);
         }
 
         [HttpPost]
@@ -61,6 +62,9 @@ namespace RustStore.Controllers
         {
             if (!Request.Cookies.TryGetValue("session", out var jwt))
                 return new BaseServerResponse<string>("", Domain.Enum.StatusCode.AccessDenied);
+
+            if(string.IsNullOrEmpty(jwt))
+                return new BaseServerResponse<string>("", Domain.Enum.StatusCode.InternalServerError);
 
             var user = await _userService.GetUserBySessionId(jwt);
             if (user == null)
@@ -78,9 +82,9 @@ namespace RustStore.Controllers
 
         [AllowAnonymous]
         [HttpGet("auth")]
-        public async Task<IActionResult> Login()
+        public IActionResult Login()
         {
-            DotNetEnv.Env.Load();
+            Env.Load();
             var link = Environment.GetEnvironmentVariable("backendUrl");
             var queryString = new System.Collections.Specialized.NameValueCollection
             {
@@ -91,16 +95,11 @@ namespace RustStore.Controllers
                 { "openid.realm", link },
                 { "openid.mode", "checkid_setup" }
             };
-
             var requestUrl = "https://steamcommunity.com/openid/login?" + ToQueryString(queryString);
 
             return Redirect(requestUrl);
         }
 
-        private string ToQueryString(System.Collections.Specialized.NameValueCollection nvc)
-        {
-            return string.Join("&", nvc.AllKeys.Select(key => $"{key}={System.Web.HttpUtility.UrlEncode(nvc[key])}"));
-        }
 
         [HttpGet("steam-callback")]
         public async Task<IActionResult> SteamCallback()
@@ -108,12 +107,15 @@ namespace RustStore.Controllers
             if (!HttpContext.Request.Query.ContainsKey("openid.identity"))
                 return BadRequest();
 
-            DotNetEnv.Env.Load();
+            Env.Load();
             var link = Environment.GetEnvironmentVariable("frontUrl");
+
+            if (string.IsNullOrEmpty(link))
+                return BadRequest();
 
             var verifyUrl = "https://steamcommunity.com/openid/login" + HttpContext.Request.QueryString.ToString().Replace("id_res", "check_authentication");
             
-            HttpClient httpClient = new HttpClient();
+            HttpClient httpClient = new();
             var verifyResponse = await httpClient.GetStringAsync(verifyUrl);
 
             if (verifyResponse.Contains("is_valid:false"))
@@ -127,44 +129,28 @@ namespace RustStore.Controllers
             var response = await _userService.LoginUser(steamId);
 
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
-                {
+            {
+                var claims = new List<Claim> { new Claim(ClaimTypes.Name, steamId) };
+                var activeUserResponse = response.Data;
 
-                    var claims = new List<Claim> { new Claim(ClaimTypes.Name, steamId) };
-                    var activeUserResponse = response.Data;
+                var jwt = new JwtSecurityToken(
+                issuer: AuthOptions.ISSUER,
+                audience: AuthOptions.AUDIENCE,
+                claims: claims,
+                signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
 
-                    var jwt = new JwtSecurityToken(
-                    issuer: AuthOptions.ISSUER,
-                    audience: AuthOptions.AUDIENCE,
-                    claims: claims,
-                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+                var jwtToken = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-                    var jwtToken = new JwtSecurityTokenHandler().WriteToken(jwt);
+                activeUserResponse.SessionId = jwtToken;
+                activeUserResponse.LastAuth = DateTime.Now;
+                await _userService.EditElement(activeUserResponse);
 
-                    activeUserResponse.SessionId = jwtToken;
-                    activeUserResponse.LastAuth = DateTime.Now;
-                    await _userService.EditElement(activeUserResponse);
-
-                Response.Cookies.Append("session", jwtToken, new CookieOptions
-                    {
-                        HttpOnly = true, // Защита от JavaScript-доступа
-                        SameSite = SameSiteMode.None, // Можете установить другое значение в зависимости от ваших требований
-                        Secure = true, // Устанавливаем, если используется HTTPS
-                        MaxAge = TimeSpan.FromHours(12) // Время жизни куки
-                    });
-
-                Response.Cookies.Append("role", response.Data.Role.ToString(), new CookieOptions
-                {
-                    HttpOnly = true,
-                    SameSite = SameSiteMode.None, 
-                    Secure = true, 
-                    MaxAge = TimeSpan.FromHours(12)
-                });
-
-
+                SetCookie("session", jwtToken);
+                SetCookie("role", response.Data.Role.ToString());
 
                 return Redirect(link);
+            }
 
-                }
             return BadRequest();
         }
 
@@ -177,6 +163,21 @@ namespace RustStore.Controllers
                 new SymmetricSecurityKey(Encoding.UTF8.GetBytes(KEY));
         }
 
-        
+        private static string ToQueryString(System.Collections.Specialized.NameValueCollection nvc) =>
+            string.Join("&", nvc.AllKeys.Select(key => $"{key}={System.Web.HttpUtility.UrlEncode(nvc[key])}"));
+
+        private void SetCookie(string name, string value)
+        {
+            Response.Cookies.Append(name, value, new CookieOptions
+            {
+                HttpOnly = true,
+                SameSite = SameSiteMode.None,
+                Secure = true,
+                MaxAge = TimeSpan.FromHours(12)
+            });
+        }
+
+
+
     }
 }

@@ -21,7 +21,5 @@ namespace Service.Interfaces
         Task<IBaseResponse<List<BalanceActionModel>>> CreateUserBalanceAction(string steamID, BalanceActionModel model);
         Task<IBaseResponse<List<UserActivatedPromo>>> CreateUserActivatedPromo(string steamID, BasePromo promocode);
         Task<IBaseResponse<List<BaseProduct>>> GetUserBasket(string steamID);
-
-
     }
 }

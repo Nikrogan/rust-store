@@ -8,10 +8,10 @@ namespace Domain.Entity
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
-        public string SteamId { get; set; }
-        public string DisplayName { get; set; }
-        public string AvatarUrl { get; set; }
+        public string? Id { get; set; }
+        public string? SteamId { get; set; }
+        public string? DisplayName { get; set; }
+        public string? AvatarUrl { get; set; }
         public decimal Balance { get; set; }
         public int PersonalDiscount { get; set; }
         public Role? Role { get; set; }
