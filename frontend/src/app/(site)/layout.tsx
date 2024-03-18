@@ -2,13 +2,12 @@ import '@mantine/core/styles.css';
 import type { Metadata } from 'next'
 
 import { Montserrat } from 'next/font/google';
-import styles from './page.module.css'
 import {  MantineProvider } from '@mantine/core';
 import { theme } from '@/components/theme/theme';
 import { EffectorNext } from "@effector/next";
 import { ReduxDevToolsAdapter } from '@/shared/devtools/devtools';
 import './globals.css'
-import { MainPageServer } from '@/pages/mainServer';
+import { MainPageServer } from '@/pag/mainServer';
 
 const montserrat = Montserrat({
   weight: ['300', '400', '500', '600', '700', '800'],

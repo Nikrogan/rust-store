@@ -1,4 +1,3 @@
-'use client'
 import { usePathname } from "next/navigation";
 import { Main } from "./MainS";
 import { Container } from "@mantine/core";
@@ -16,7 +15,7 @@ export const MainPageServer = ({children}) => {
         <div className={styles.background}>
             <Container size='xl' style={{position: 'relative'}}>
                 <div className={styles.navContainer}>
-                    <NavBar />
+                <NavBar />
                 </div>
                 <main>
                     {children}
