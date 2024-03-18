@@ -32,6 +32,7 @@ namespace Service.Implementations
                     Description = viewModel.Description,
                     ProductType = viewModel.ProductType,
                     Price = viewModel.Price,
+                    Discount = viewModel.Discount,
                     ImageUrl = viewModel.ImageUrl,
                     CategoryType = viewModel.CategoryType,
                     IsActive = viewModel.IsActive,
@@ -110,6 +111,7 @@ namespace Service.Implementations
                 product.ImageUrl = viewModel.ImageUrl;
                 product.CategoryType = viewModel.CategoryType;
                 product.SimpleProducts = viewModel.SimpleProducts;
+                product.Discount = viewModel.Discount;
 
                 // Изменение данных энтити продукта
 

@@ -22,7 +22,7 @@ namespace RustStore.Controllers
         }
 
         [HttpPost("{productid}")]
-        public async Task<IBaseServerResponse<string>> ActivatePromo(string productid)
+        public async Task<IBaseServerResponse<string>> BuyProduct(string productid)
         {
             if (Request.Cookies.TryGetValue("session", out var jwt))
             {
@@ -34,10 +34,12 @@ namespace RustStore.Controllers
                     || (!product.Data.IsActive))
                         return new BaseServerResponse<string>("ProductNotFound", Domain.Enum.StatusCode.ElementNotFound);
 
-                    if(user.Data.Balance < product.Data.Price)
+                    var finalPrice = CalculateFinalPrice(product.Data.Price, user.Data.PersonalDiscount, product.Data.Discount);
+
+                    if (user.Data.Balance < finalPrice)
                         return new BaseServerResponse<string>("NotEnoughMoney", Domain.Enum.StatusCode.NotEnoughMoney);
 
-                    user.Data.Balance -= product.Data.Price;
+                    user.Data.Balance -= finalPrice;
                     user.Data.Basket.Add(product.Data);
 
                     await _userService.EditElement(user.Data);
@@ -54,6 +56,21 @@ namespace RustStore.Controllers
                 }
             }
             return new BaseServerResponse<string>("Error", Domain.Enum.StatusCode.InternalServerError);
+        }
+
+        private static decimal CalculateFinalPrice(decimal productPrice, int userDiscountPercent, int productDiscountPercent)
+        {
+            // Переводим проценты в десятичные дроби
+            decimal userDiscount = userDiscountPercent / 100m;
+            decimal productDiscount = productDiscountPercent / 100m;
+
+            // Вычисляем общий процент скидки
+            decimal totalDiscount = userDiscount + productDiscount;
+
+            // Вычисляем конечную цену товара
+            decimal finalPrice = productPrice * (1 - totalDiscount);
+
+            return finalPrice;
         }
     }
 }

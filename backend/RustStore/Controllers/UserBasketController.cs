@@ -6,7 +6,7 @@ using Service.Interfaces;
 
 namespace RustStore.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/userbasket")]
     [ApiController]
     public class UserBasketController : ControllerBase
     {
