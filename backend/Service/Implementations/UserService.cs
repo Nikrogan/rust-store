@@ -32,8 +32,7 @@ namespace Service.Implementations
                     AvatarUrl = viewModel.AvatarUrl,
                     Balance = viewModel.Balance,
                     Role = Role.Default,
-                    PersonalDiscount = viewModel.PersonalDiscount,
-                    Basket = new List<BaseProduct>()
+                    PersonalDiscount = viewModel.PersonalDiscount
                 };
 
                 await _accountRepository.Add(User);
@@ -195,7 +194,6 @@ namespace Service.Implementations
             }
         }
 
-
         public async Task<IBaseResponse<IEnumerable<BaseUser>>> GetAllUsers()
         {
             var baseResponse = new BaseResponse<IEnumerable<BaseUser>>();
@@ -347,43 +345,42 @@ namespace Service.Implementations
             var baseResponse = new BaseResponse<BaseUser>();
             try
             {
-
                 BaseUser user;
                 var serviceResponse = await GetUserBySteamId(steamID);
-                if (serviceResponse.StatusCode == StatusCode.OK)
-                {
-                    user = serviceResponse.Data;
-                }
-                else if (serviceResponse.StatusCode == StatusCode.ElementNotFound)
-                {
 
-                    user = new BaseUser
-                    {
-                        SteamId = steamID,
-                        Balance = 0,
-                        Role = Role.Owner
-                    };
-
-                    await CreateUser(user);
-                }
-                else
+                if (serviceResponse.StatusCode != StatusCode.OK && serviceResponse.StatusCode != StatusCode.OK)
                 {
                     baseResponse.Description = "Auth error";
                     baseResponse.StatusCode = StatusCode.InternalServerError;
                     return baseResponse;
                 }
 
+                user = serviceResponse.Data;
+                if (serviceResponse.StatusCode == StatusCode.ElementNotFound)
+                {
+
+                    user = new BaseUser
+                    {
+                        SteamId = steamID,
+                        Balance = 0,
+                        Role = Role.Default
+                    };
+
+                    await CreateUser(user);
+                }
+
                 JObject playerInfo = await _steamApiService.GetPlayerInfoAsync(steamID);
                 var avatarUrl = _steamApiService.GetAvatarUrl(playerInfo);
                 var displayName = _steamApiService.GetDisplayName(playerInfo);
 
-                user.AvatarUrl = avatarUrl;
-                user.DisplayName = displayName;
+                user.AvatarUrl = avatarUrl ?? "default_image";
+                user.DisplayName = displayName ?? "default_user";
 
                 await EditElement(user);
 
                 baseResponse.Data = user;
                 baseResponse.StatusCode = StatusCode.OK;
+
                 return baseResponse;
             }
             catch (Exception ex)

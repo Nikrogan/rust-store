@@ -9,6 +9,7 @@ namespace Domain.Enum
         BadRequest = 502,
         ProbableName = 809,
         SessionTimeOut = 511,
-        NotEnoughMoney = 700
+        NotEnoughMoney = 700,
+        AccessDenied = 403
     }
 }
