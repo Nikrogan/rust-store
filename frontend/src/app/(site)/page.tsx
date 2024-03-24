@@ -58,7 +58,7 @@ export default function News() {
         <Container size='xl'>
           <Flex direction='column' align='center' pt={128}>
             <Title className={styles.title}>Welcome to</Title>
-            <Image src={'https://bwrust.ru/uploads/bwtextlogo-white.png'} h={108} w={700} mt={16}/>
+            <Image src={'https://bwrust.ru/uploads/uploads/newBw/welcome_image.jpg'} h={108} w={700} mt={16}/>
           </Flex>
         </Container>
         <Container size='lg'>

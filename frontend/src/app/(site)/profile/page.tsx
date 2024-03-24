@@ -50,7 +50,6 @@ export default function ProfilePage() {
             </Flex>
             </Flex>
           </Box>
-            <ButtonWrapper type="button" variant="outline" onClick={handleLogout}>Выйти</ButtonWrapper>
         </Flex>
         <Tabs mt={theme.spacing.md} variant="outline" defaultValue="inventory">
           <TabsList>

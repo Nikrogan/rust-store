@@ -1,58 +1,66 @@
 'use client';
-import { Flex, MantineProvider, Group, Space, Title, Container, Box, Text, Progress, useMantineColorScheme } from '@mantine/core';
-import { ServerCard } from '@/components/ServerCard';
-import { ProductCard } from '@/components/ProductCard';
-import "./page.css"
-import { useUnit } from 'effector-react';
-import { $currentServer, changeServerEvent } from '@/store/server';
-import { $products, buyProductEvent } from './store';
-import { Server } from '@/pageComponents/shop/server';
-import { theme } from '@/components/theme/theme';
-import { ShopFilters } from '@/components/ShopFilters';
-import { ServerList } from '@/mock/serverList';
-import { useColor } from '@/shared/hooks/useColor';
 
-export default function Home() {
-  const {handleBuyProduct, products: {data, isLoading}, currentServer, changeServer} = useUnit({
-    products: $products,
-    currentServer: $currentServer,
-    changeServer: changeServerEvent,
-    handleBuyProduct: buyProductEvent
-  })
+import Link from "next/link";
+import styled from "styled-components";
 
-  const bg = useColor()
 
-  const ServerListView = ServerList.map((server) => {
-    return <ServerCard key={server.serverId} onClick={() => changeServer(server)} buttonText="Выбрать" {...server}  />
-  });
+const Title = styled.h2`
+  font-size: 64px;
+`
 
-  const ProductListView = data.map((item) => {
-    return <ProductCard onClick={() => handleBuyProduct(item)} key={item?.title} title={item?.title} price={item.price ? item.price : undefined} />
-  });
+const StyledLink = styled(Link)`
+  font-size: 16px;
+  background: rgb(255 255 255 / 10%);
+  max-width: 502px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 12px;
+  transition: transform 0.6s;
+  &:hover {
+    transform: scale(1.05);
+  }
 
+  & + & {
+    margin-top: 20px;
+  }
+`
+
+const Flex = styled.div`
+  display: flex;
+  flex-direction: column;
+  & + & {
+    margin-left: 20px;
+  }
+`
+
+const FlexContainer = styled.div`
+  display: flex;
+  margin-top: 32px;
+`
+
+const SelectShopContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 178px);
+`
+
+export default function Shop() {
   return (
-        <Container size="xl" >
-        {!currentServer && (
-        <>
-          <Group justify="center" mt="xl" mb="md" >
-            <Title style={{ color: 'white' }} order={1}>Выберите свой сервер</Title>
-          </Group>
-          <Flex gap={theme?.spacing?.md} justify='center'>
-              {ServerListView}
-          </Flex>
-        </>
-        )}
-        <Space h='xl'/>
-        <Space mt='sm' mr="sm">
-        {!!currentServer?.serverId && <Flex w='100%'>
-            <Flex>
-              <ShopFilters />
-            </Flex>
-            <Flex className='shop__container' wrap='wrap' gap='md' justify="flex-start" ml={theme.spacing.lg}>
-              {ProductListView}
-            </Flex>
-        </Flex>}
-        </Space>
-        </Container>
+    <SelectShopContainer>
+      <Title>Выберите сервер</Title>
+      <FlexContainer>
+        <Flex>
+          <StyledLink href={`/shop/${1}`}>BLACKWOOD RUST #1 [ X3/MAX3] FRIDAY</StyledLink>
+          <StyledLink href={`/shop/${3}`}>BLACKWOOD RUST #3 [ X2/MAX5 | SEMI-CLASSIC ] MONDAY </StyledLink>
+        </Flex>
+        <Flex>
+        <StyledLink href={`/shop/${2}`}>BLACKWOOD RUST #2 [ CLASSIC | NO LIMIT ] FRIDAY</StyledLink>
+          <StyledLink href={`/shop/${4}`}>BLACKWOOD RUST #4 [ X5/MAX4] MONDAY</StyledLink>
+        </Flex>
+      </FlexContainer>
+    </SelectShopContainer>
   )
 }

@@ -12,8 +12,6 @@
     "@babel/plugin-proposal-do-expressions": "^7.23.3",
     "@effector/next": "^0.7.0",
     "@effector/redux-devtools-adapter": "^0.2.0",
-    "@emotion/react": "^11.11.3",
-    "@emotion/server": "^11.11.0",
     "@mantine/carousel": "^7.3.2",
     "@mantine/charts": "^7.4.0",
     "@mantine/code-highlight": "^7.3.2",
@@ -50,7 +48,8 @@
     "react": "^18",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18",
-    "recharts": "^2.10.3"
+    "recharts": "^2.10.3",
+    "styled-components": "^5.0.1"
   },
   "devDependencies": {
     "@effector/swc-plugin": "^0.0.10",
@@ -58,6 +57,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/styled-components": "^5.1.34",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
     "typescript": "^5"
