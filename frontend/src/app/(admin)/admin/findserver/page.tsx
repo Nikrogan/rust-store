@@ -97,15 +97,15 @@ const Table = ({columns, data}) => {
         <thead>
             <tr>
                 {columns.map((item => {
-                    return <div>{typeof item.title === 'function' ? item.title(item) : item.title}</div>
+                    return <div key={item.key}>{typeof item.title === 'function' ? item.title(item) : item.title}</div>
                 }))}
             </tr>
         </thead>
         <tbody>
-            {data.map((dataItem) => {
-                return <tr>
+            {data.map((dataItem, index) => {
+                return <tr key={index}>
                     {columns.map((columnItem) => {
-                        return <td>{dataItem[columnItem.key]}</td>
+                        return <td key={columnItem.key}>{dataItem[columnItem.key]}</td>
                     })}
                 </tr>
             })}
