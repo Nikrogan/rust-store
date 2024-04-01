@@ -141,13 +141,13 @@ export const NavBar = () => {
     }
   }, [isAuth, trigger]);
 
-  const viewLinks = MenuLinks.map((item) => {
+  const viewLinks = MenuLinks.map((item, index) => {
     if(item.href === null) {
-      return <Select key={item.href} options={item.itemList}>
+      return <Select key={item.title + index} options={item.itemList}>
         {item.title}
       </Select>
     }
-    return <StyledLink href={item.href}>{item.title}</StyledLink>
+    return <StyledLink key={item.title} href={item.href}>{item.title}</StyledLink>
   })
   return (
     <FlexContainer bg={'#1a1a1a'} p={"0 24px"} height={64} gap={16} align="center" justify="space-between">
