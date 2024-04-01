@@ -24,7 +24,7 @@ export default function Shop() {
   const productsView = products && products.payLoad?.map((item) => {
     const price = getSumFromPrecent(item.price, item.discount)
     return (
-      <ProductContainer>
+      <ProductContainer key={item.id}>
        <ProductPrice isFree={item.price === 0}>{item.discount > 0 && <OldPrice>{item.price}</OldPrice>}{price == 0 ? 'FREE': `${price} BW`}</ProductPrice>
        {item.discount > 0 && <ProductDiscount>{item.discount}%</ProductDiscount>}
        <StyledImg src={item.imageUrl} />
