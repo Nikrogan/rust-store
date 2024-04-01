@@ -32,7 +32,7 @@ export const serverGet = async (ip, names = {} ) => {
         } = tags(item.tags)
         const currentUnixDate = Math.floor(new Date().getTime() / 1000)
 
-        const left3days = currentUnixDate - 88000;
+        const left3days = currentUnixDate - 86400;
 
         if(dictionary.hasOwnProperty(`${item.ip}`) && Number(born) >= Number(left3days)) {
             dictionary[item.ip] = {

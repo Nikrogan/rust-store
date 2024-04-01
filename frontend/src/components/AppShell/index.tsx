@@ -6,6 +6,8 @@ import { theme } from "../theme/theme"
 import { ButtonWrapper } from "@/shared/ButtonWrapper/ButtonWrapper"
 import { redirect, usePathname, useRouter } from "next/navigation"
 import { useLayoutEffect } from "react"
+import Link from "next/link"
+import styled from "styled-components"
 
 
 export const AppShellWrapper = ({children}) => {
@@ -46,11 +48,16 @@ export const AppShellWrapper = ({children}) => {
       </AppShell.Header>
 
       <AppShell.Navbar p="md">
-          {user?.role === 2 && <NavLink label="Главная" href="/admin"/>}
-          {user?.role === 2 && <NavLink label="Профиль" href="/admin/profile"/>}
-          {user?.role === 2 && <NavLink label="Поиск серверов" href="/admin/findserver"/>}
-          {user?.role === 1 || user?.role === 2 &&<NavLink label="Проверки" href="/admin/bans"/>}
-
+          {user?.role === 2 && <StyledLink href="/admin">Главная</StyledLink>}
+          {user?.role === 2 && <StyledLink href="/admin/profile">Профиль</StyledLink>}
+          {user?.role === 2 && <StyledLink href="/admin/findserver">Поиск серверов</StyledLink>}
+          {user?.role === 1 || user?.role === 2 &&<StyledLink href="/admin/bans">Проверки</StyledLink>}
+          <Subtitle></Subtitle>
+          <Subtitle>Модераторская</Subtitle>
+          <StyledLink href="/admin/news">Новости</StyledLink>
+          <StyledLink href="/admin/reports">Репорты</StyledLink>
+          <StyledLink href="/admin/sharedsettings">Настройки</StyledLink>
+          <StyledLink href="/admin/moderatorstats"></StyledLink>
         </AppShell.Navbar>
       <AppShell.Main>
         {children}
@@ -58,3 +65,22 @@ export const AppShellWrapper = ({children}) => {
     </AppShell>
     )
 }
+
+const Subtitle = styled.div`
+  color: rgb(84, 84, 84);
+  margin-top: 12px;
+  margin-left: -4px;
+  font-size: 14px;
+`
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: white;
+  transition: all 0.4s;
+  & + & {
+    margin-top: 8px;
+  }
+  &:hover {
+    transform: scale(1.02)
+  }
+`

@@ -24,7 +24,6 @@ export default function RootLayout({
             <AuthCheck>
               {children}
             </AuthCheck>
-           
           </AppShellWrapper>
         </MantineProvider>
         </body>

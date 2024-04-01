@@ -2,21 +2,16 @@
 import '@mantine/dates/styles.css';
 import { StatsGrid } from "@/components/StatsGrid";
 import { AreaChart } from "@mantine/charts";
-import { Badge, Box, Button, Flex, Group, Image, Input, Table, Tabs, TabsList } from "@mantine/core";
+import { Box,  Group, Tabs, TabsList } from "@mantine/core";
 import { DatePickerInput } from '@mantine/dates';
 import { IconHomeStats,  IconSettings, IconWallet } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
-import styled from './styled.module.css';
-import { Product } from '@/components/product';
-import { ModalProduct } from '@/components/ModalProduct';
-import { useDisclosure } from '@mantine/hooks';
-import { NewsList } from '@/pageComponents/news/news';
-import { StatsPanel } from '@/AdminComponents/StatsPanel/StatsPanel';
 import { MainStat } from '@/AdminComponents/MainStat/MainStat';
 import { useUnit } from 'effector-react';
 import { $promocodes, $salary, getPromocodesEvent } from './store';
 import { theme } from '@/components/theme/theme';
 import { Products } from '@/AdminComponents/Products/ui/products';
+import { PromoCodes } from '@/admin/components/PromoCodes';
 
 export const data = [
     {
@@ -82,16 +77,7 @@ export default function StorePage() {
    
     d.setMonth(d.getMonth() - 1);
 
-    const rows = promocodesList && promocodesList.map((element) => (
-        <Table.Tr key={element.id}>
-            <Table.Td>{element.id}</Table.Td>
-            <Table.Td>{element.promoCode}</Table.Td>
-            <Table.Td>{element.moneyValue}</Table.Td>
-            <Table.Td>{element.alreadyUses}/ {element.maxUses}</Table.Td>
-            <Table.Td>{element.createTime}</Table.Td>
-            <Table.Td>{element.endTime}</Table.Td>
-        </Table.Tr>
-    ));
+
 
     return <>
         <div>
@@ -155,37 +141,11 @@ export default function StorePage() {
                                 <Tabs.Tab value="servers">Сервера</Tabs.Tab>
                                 <Tabs.Tab value="players">Игроки</Tabs.Tab>
                                 <Tabs.Tab value="cart">Корзина</Tabs.Tab>
-                                <Tabs.Tab value="history">История</Tabs.Tab>
                                 <Tabs.Tab value="news">Новости</Tabs.Tab>
                                 <Tabs.Tab value="promocodes">Промокоды</Tabs.Tab>
-                                <Tabs.Tab value="bonus">Бонусы</Tabs.Tab>
-                                <Tabs.Tab value="technical">Техподдержка</Tabs.Tab>
                             </TabsList>
-                            <Tabs.Panel value="sharedSettings" p={theme.spacing.md}>
-                                Messages tab content
-                            </Tabs.Panel>
                                 <Products />
-                            <Tabs.Panel value='promocodes' p={theme.spacing.md}>
-                                <Table>
-                                    <Table.Thead>
-                                    <Table.Tr>
-                                        <Table.Th>PROMO ID</Table.Th>
-                                        <Table.Th>Код</Table.Th>
-                                        <Table.Th>Тип</Table.Th>
-                                        <Table.Th>Кол.во использований</Table.Th>
-                                        <Table.Th>Дата создания</Table.Th>
-                                        <Table.Th>Дата окончания</Table.Th>
-                                        <Table.Th>Действия</Table.Th>
-                                    </Table.Tr>
-                                    </Table.Thead>
-                                    <Table.Tbody>
-                                        {rows}
-                                    </Table.Tbody>
-                                </Table>
-                            </Tabs.Panel>
-                            <Tabs.Panel value="news" p={theme.spacing.md}>
-                                    <NewsList />
-                            </Tabs.Panel>
+                                <PromoCodes promocodesList={promocodesList}/>
                         </Tabs>
                 </Tabs.Panel>
             </Tabs>

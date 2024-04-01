@@ -1,3 +1,4 @@
+'use client'
 import { NewsModal } from "@/components/NewsModal/NewsModal";
 import { Badge, Button, Card, Flex, Group, Image, Input, Text } from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks";

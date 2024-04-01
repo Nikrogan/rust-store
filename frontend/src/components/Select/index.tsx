@@ -47,7 +47,7 @@ export const Select = ({children, options}) => {
         {isShownHoverContent && (
             <SelectContent>
                 {options.map(item => {
-                    return <StyledLink href={item.href}>{item.title}</StyledLink>
+                    return <StyledLink key={item.href} href={item.href}>{item.title}</StyledLink>
                 })}
             </SelectContent>
         )

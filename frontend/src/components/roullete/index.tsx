@@ -49,21 +49,18 @@ const Animation = styled.div`
 const ActItemIndex = 25, ItemsInLine = 50;
 const test = ['1','2','3','4','5','6','7','8', 10,1685,1698,8,4,6,7]
 
-const generateItems = () => {
+const generateItems = (i = 7) => {
     let items = [];
     for (let index = 0; index < ItemsInLine; index++) {
       if (index === ActItemIndex) {
-        items.push(test[10]);
+        items.push(test[i]);
       } else {
-        console.log(index, ActItemIndex)
         items.push(test[getRandomInt(0, test.length)]);
       }
     }
 
     return items;
-  }
-
-
+}
 
 export const Roullete = () => {
     const [items, setItems] = useState(test)

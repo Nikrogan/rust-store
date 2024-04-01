@@ -30,9 +30,6 @@ export default function FindPage () {
     const [names, setNames] = useState(mockName)
     const [ipList, setIpList] = useState([]);
     const [name, setName] = useState('')
-    const ServersView = ipList.map(item => {
-        return <div key={item.port + item.ip}>IP: {item.ip} PORT: {item.port} QueryPort: {item.query_port} Players: {item.players} HostName: {item.hostname} Tags: {item.tags}</div>
-    })
 
     return (
       <>
@@ -51,14 +48,68 @@ export default function FindPage () {
             if(type === 1) {
                 names[`${name}`] = 1
                 setNames(names)
-                console.log(names)
                 serverGet(ip, names).then((data) => setIpList(data) )
             }
         }}>Submit</button>
-        {ServersView}
-        <div style={{display: 'flex', }}>
-            {ipList.map(item => <div style={{padding: "4px"}}>{item.ip}</div>)}
-        </div>
+        {!!ipList.length && <Table columns={columns} data={ipList} />}
     </>
+    )
+}
+
+const columns = [
+    {
+        key: 'ip',
+        title: 'ИП',
+        element: (item) => {
+            <div>{item}</div>
+        },
+    },
+    {
+        key: 'port',
+        title: 'Порт',
+        element: (item) => <div>{item}</div>
+    },
+    {
+        key: 'hostname',
+        title: 'Наименование сервера',
+        element: (item) => <div>{item}</div>
+    },
+    {
+        key: 'players',
+        title: 'онлайн',
+        element: (item) => <div>{item}</div>
+    },
+    {
+        key: 'tags',
+        title: 'Теги',
+        element: (item) => <div>{item}</div>
+    },
+    {
+        key: 'counter',
+        title: 'Серверов на 1 ип',
+        element: (item) => <div>{item}</div>
+    },
+]
+
+const Table = ({columns, data}) => {
+    return (
+    <table>
+        <thead>
+            <tr>
+                {columns.map((item => {
+                    return <div>{typeof item.title === 'function' ? item.title(item) : item.title}</div>
+                }))}
+            </tr>
+        </thead>
+        <tbody>
+            {data.map((dataItem) => {
+                return <tr>
+                    {columns.map((columnItem) => {
+                        return <td>{dataItem[columnItem.key]}</td>
+                    })}
+                </tr>
+            })}
+        </tbody>
+    </table>
     )
 }
