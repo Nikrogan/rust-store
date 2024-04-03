@@ -81,6 +81,7 @@ public class ApplicationDbContext
             _database.GetCollection<BaseShopFilter>("shopfilters").InsertMany(defaultShopFilters);
         }
 
+
         ServerCollection = _database.GetCollection<BaseServer>("servercollection");
         UserCollection = _database.GetCollection<BaseUser>("users");
         ProductCollection = _database.GetCollection<BaseProduct>("products");
