@@ -10,7 +10,7 @@ export const Main = () => {
             <div className="left">
                 <div className="main__image-wrapper">
                     <h1>Проект игровых серверов Rust - BLACKWOOD RUST </h1>
-                    <Image className="main__image" src="https://bwrust.ru/uploads/newBw/main_image.jpg" alt="Logo Blackwood" />
+                    <Image className="main__image" src="https://bwrust.ru/uploads/newBw/main_image.jpg" width={600} height={390} alt="Logo Blackwood" />
                 </div>
                 <div className="button__list">
                     <Link className="button" href="/shop" >Магазин</Link>
