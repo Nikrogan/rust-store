@@ -1,14 +1,9 @@
-﻿using System.Security.Claims;
-using Domain.Enum;
+﻿using Domain.Enum;
 using DAL.Interfaces;
 using Domain.Entity;
 using Domain.Response;
 using Service.Interfaces;
 using MongoDB.Driver;
-using RustStats.Service.Interfaces;
-using Newtonsoft.Json.Linq;
-using Domain.SimpleEntity;
-using System.Diagnostics;
 
 namespace Service.Implementations
 {
@@ -36,7 +31,9 @@ namespace Service.Implementations
                     ImageUrl = viewModel.ImageUrl,
                     CategoryType = viewModel.CategoryType,
                     IsActive = viewModel.IsActive,
-                    SimpleProducts = viewModel.SimpleProducts
+                    SimpleProducts = viewModel.SimpleProducts,
+                    GiveCommand = viewModel.GiveCommand,
+                    ServerKey = viewModel.ServerKey,
                 };
 
                 await _productRepository.Add(product);
@@ -112,6 +109,9 @@ namespace Service.Implementations
                 product.CategoryType = viewModel.CategoryType;
                 product.SimpleProducts = viewModel.SimpleProducts;
                 product.Discount = viewModel.Discount;
+                product.GiveCommand = viewModel.GiveCommand;
+                product.IsActive = viewModel.IsActive;
+                product.ServerKey = viewModel.ServerKey;
 
                 // Изменение данных энтити продукта
 
@@ -160,13 +160,13 @@ namespace Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<BaseProduct>> GetProductById(string id)
+        public async Task<IBaseResponse<BaseProduct>> GetProductById(string Id)
         {
             var baseResponse = new BaseResponse<BaseProduct>();
             try
             {
                 var allResources = await _productRepository.GetAll();
-                var resource = allResources.FirstOrDefault(x => x.Id == id);
+                var resource = allResources.FirstOrDefault(x => x.Id == Id);
                 if (resource == null)
                 {
                     baseResponse.Description = "Element not found";
@@ -183,6 +183,117 @@ namespace Service.Implementations
                 return new BaseResponse<BaseProduct>()
                 {
                     Description = $"[GetProductById] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<IEnumerable<BaseProduct>>> GetProductsByServerKey(ulong serverkey)
+        {
+            var baseResponse = new BaseResponse<IEnumerable<BaseProduct>>();
+            try
+            {
+                var allResources = await _productRepository.GetAll();
+                var resource = allResources.Where(x => x.ServerKey == serverkey);
+                if (!resource.Any())
+                {
+                    baseResponse.Description = "Element not found";
+                    baseResponse.StatusCode = StatusCode.ElementNotFound;
+                    return baseResponse;
+                }
+
+                baseResponse.Data = resource;
+                baseResponse.StatusCode = StatusCode.OK;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<IEnumerable<BaseProduct>>()
+                {
+                    Description = $"[GetProductsByServerKey] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<IEnumerable<ProductView>>> GetAllProductsView()
+        {
+            var baseResponse = new BaseResponse<IEnumerable<ProductView>>();
+            try
+            {
+                var resource = await _productRepository.GetAll();
+                if (resource == null)
+                {
+                    baseResponse.Description = "No one elements";
+                    baseResponse.StatusCode = StatusCode.ElementNotFound;
+                    return baseResponse;
+                }
+
+                baseResponse.Data = resource.ToList().ConvertAll(x=>new ProductView(x));
+                baseResponse.StatusCode = StatusCode.OK;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<IEnumerable<ProductView>>()
+                {
+                    Description = $"[GetAllProductsView] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<IEnumerable<ProductView>>> GetProductsViewByServerKey(ulong serverkey)
+        {
+            var baseResponse = new BaseResponse<IEnumerable<ProductView>>();
+            try
+            {
+                var allResources = await _productRepository.GetAll();
+                var resource = allResources.Where(x => x.ServerKey == serverkey);
+                if (!resource.Any())
+                {
+                    baseResponse.Description = "Element not found";
+                    baseResponse.StatusCode = StatusCode.ElementNotFound;
+                    return baseResponse;
+                }
+
+                baseResponse.Data = resource.ToList().ConvertAll(x => new ProductView(x));
+                baseResponse.StatusCode = StatusCode.OK;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<IEnumerable<ProductView>>()
+                {
+                    Description = $"[GetProductsViewByServerKey] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<ProductView>> GetProductViewById(string Id)
+        {
+            var baseResponse = new BaseResponse<ProductView>();
+            try
+            {
+                var allResources = await _productRepository.GetAll();
+                var resource = allResources.FirstOrDefault(x => x.Id == Id);
+                if (resource == null)
+                {
+                    baseResponse.Description = "Element not found";
+                    baseResponse.StatusCode = StatusCode.ElementNotFound;
+                    return baseResponse;
+                }
+
+                baseResponse.Data = new ProductView(resource);
+                baseResponse.StatusCode = StatusCode.OK;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<ProductView>()
+                {
+                    Description = $"[GetProductViewById] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }

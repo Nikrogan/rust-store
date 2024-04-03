@@ -9,6 +9,8 @@ public class BaseServer
     [BsonRepresentation(BsonType.ObjectId)]
     public string Id { get; set; }
 
+    public ulong ServerKey {  get; set; }
+
     public int GamePort { get; set; }
     public string Ip { get; set; }
     public string Name { get; set; }

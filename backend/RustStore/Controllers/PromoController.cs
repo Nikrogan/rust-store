@@ -34,7 +34,7 @@ namespace RustStore.Controllers
 
  
 
-        [HttpGet("{id}")]
+        [HttpGet("id{id}")]
         public async Task<IBaseServerResponse<BasePromo>> Get(string id)
         {
             var response = await _promoService.GetPromoById(id);

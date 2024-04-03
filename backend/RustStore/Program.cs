@@ -41,7 +41,7 @@ builder.Services.AddCors(options =>
 //            .PersistKeysToFileSystem(new DirectoryInfo("/app/keys"));
 
 
-builder.Services.AddControllers().AddXmlSerializerFormatters(); 
+builder.Services.AddControllers(); 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -65,6 +65,7 @@ builder.Services.AddScoped<ISteamApiService, SteamApiService>();
 builder.Services.AddScoped<IShopFiltersService, ShopFiltersService>();
 builder.Services.AddScoped<IServerService, ServerService>();
 builder.Services.AddScoped<IPlayerCheckSheetService, PlayerCheckSheetService>();
+builder.Services.AddScoped<IImageService, ImageService>();
 
 
 builder.Services.AddHttpClient<SteamApiService>();

@@ -5,7 +5,7 @@ using Service.Interfaces;
 
 namespace RustStore.Controllers
 {
-    [Route("api/v1/products")]
+    [Route("api/v1/admin/products")]
     [ApiController]
     public class ProductController : ControllerBase
     {
@@ -30,11 +30,18 @@ namespace RustStore.Controllers
             return new BaseServerResponse<BaseProduct>(response.Data, response.StatusCode);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("id{id}")]
         public async Task<IBaseServerResponse<BaseProduct>> Get(string id)
         {
             var response = await _productService.GetProductById(id);
             return new BaseServerResponse<BaseProduct>(response.Data, response.StatusCode);
+        }
+
+        [HttpGet("{serverkey}")]
+        public async Task<IBaseServerResponse<IEnumerable<BaseProduct>>> Get(ulong serverkey)
+        {
+            var response = await _productService.GetProductsByServerKey(serverkey);
+            return new BaseServerResponse<IEnumerable<BaseProduct>>(response.Data, response.StatusCode);
         }
 
         [HttpPut]
