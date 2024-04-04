@@ -7,7 +7,7 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /frontend
 
 # Install dependencies based on the preferred package manager
-COPY ./frontend/.package.json  ./frontend/package-lock.json* ./
+COPY package.json  package-lock.json* ./
 RUN \
   if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
   elif [ -f package-lock.json ]; then npm ci; \
