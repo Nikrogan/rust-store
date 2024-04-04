@@ -8,7 +8,6 @@ RUN apk add --no-cache libc6-compat
 # Install dependencies based on the preferred package manager
 WORKDIR /frontend
 ADD ./frontend/package.json package.json
-
 RUN npm install --force
 
 
