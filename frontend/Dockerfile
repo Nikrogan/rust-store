@@ -19,7 +19,7 @@ RUN \
 # Rebuild the source code only when needed
 FROM base AS builder
 WORKDIR /frontend
-COPY --from=deps ./frontend/node_modules ./frontend/node_modules
+COPY --from=deps /node_modules /node_modules
 COPY . .
 
 # Next.js collects completely anonymous telemetry data about general usage.
@@ -28,9 +28,9 @@ COPY . .
 # ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN \
-  if [ -f ./frontend/yarn.lock ]; then yarn run build; \
-  elif [ -f ./frontend/package-lock.json ]; then npm run build; \
-  elif [ -f ./frontend/pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \
+  if [ -f yarn.lock ]; then yarn run build; \
+  elif [ -f package-lock.json ]; then npm run build; \
+  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \
   else echo "Lockfile not found." && exit 1; \
   fi
 
