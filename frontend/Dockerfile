@@ -8,7 +8,7 @@ RUN apk add --no-cache libc6-compat
 # Install dependencies based on the preferred package manager
 COPY ./frontend/package.json  ./frontend/package-lock.json* ./frontend
 
-RUN npm ci
+RUN npm install --force
 
 
 # Rebuild the source code only when needed
