@@ -14,7 +14,6 @@ const nextConfig = {
         // !! WARN !!
         ignoreBuildErrors: true,
       },
-    output: "standalone",
     experimental: {
       serverActions: {
         allowedOrigins: ["https://localhost:5000", "http://localhost:5000", "localhost:3000", 'www.sandbox.paypal.com']
