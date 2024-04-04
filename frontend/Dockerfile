@@ -8,6 +8,7 @@ RUN apk add --no-cache libc6-compat
 # Install dependencies based on the preferred package manager
 COPY ./frontend/package.json  ./frontend/package-lock.json* ./frontend
 
+WORKDIR /frontend
 RUN npm install --force
 
 
@@ -21,6 +22,7 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
+WORKDIR /frontend
 RUN npm run build
 
 # Production image, copy all the files and run next
