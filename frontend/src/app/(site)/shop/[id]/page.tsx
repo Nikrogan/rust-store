@@ -1,4 +1,6 @@
-export default function Shop() {
+import Shop from "../page";
+
+export default function Test() {
   return (
     <Shop />
   )
