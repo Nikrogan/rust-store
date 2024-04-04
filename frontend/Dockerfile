@@ -9,9 +9,9 @@ WORKDIR /frontend
 # Install dependencies based on the preferred package manager
 COPY ./frontend/package.json  ./frontend/package-lock.json* ./
 RUN \
-  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
-  elif [ -f package-lock.json ]; then npm ci --force; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i --frozen-lockfile --force; \
+  if [ -f ./frontend/yarn.lock ]; then yarn --frozen-lockfile; \
+  elif [ -f ./frontend/package-lock.json ]; then npm ci --force; \
+  elif [ -f ./frontend/pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i --frozen-lockfile --force; \
   else echo "Lockfile not found." && exit 1; \
   fi
 
@@ -28,9 +28,9 @@ COPY . .
 # ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN \
-  if [ -f yarn.lock ]; then yarn run build; \
-  elif [ -f package-lock.json ]; then npm run build; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \
+  if [ -f ./frontend/yarn.lock ]; then yarn run build; \
+  elif [ -f ./frontend/package-lock.json ]; then npm run build; \
+  elif [ -f ./frontend/pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \
   else echo "Lockfile not found." && exit 1; \
   fi
 
