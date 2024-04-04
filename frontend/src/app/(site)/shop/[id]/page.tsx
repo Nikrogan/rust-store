@@ -1,3 +1,4 @@
+'use client'
 import { useUnit } from "effector-react";
 import { events, $products } from "./store";
 import { useEffect } from "react";
