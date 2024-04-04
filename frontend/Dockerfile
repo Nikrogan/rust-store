@@ -8,12 +8,14 @@ RUN apk add --no-cache libc6-compat
 # Install dependencies based on the preferred package manager
 WORKDIR /frontend
 ADD ./frontend/package.json package.json
+
 RUN npm install --force
 
 
 # Rebuild the source code only when needed
 FROM base AS builder
-ADD ./frontend .
+COPY --from=deps ./frontend/node_modules /node_modules
+COPY . .
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
