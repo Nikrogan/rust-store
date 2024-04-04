@@ -10,8 +10,8 @@ WORKDIR /frontend
 COPY ./frontend/package.json  ./frontend/package-lock.json* ./
 RUN \
   if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
-  elif [ -f package-lock.json ]; then npm ci; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i --frozen-lockfile; \
+  elif [ -f package-lock.json ]; then npm ci --force; \
+  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i --frozen-lockfile --force; \
   else echo "Lockfile not found." && exit 1; \
   fi
 
