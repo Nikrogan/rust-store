@@ -38,6 +38,9 @@ const nextConfig = {
         value: "https://localhost:5000",
       }]
     }]},
+    compiler: {
+      styledComponents: true,
+    },
     distDir: 'build',
     env: env
 }
