@@ -6,15 +6,15 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 
 # Install dependencies based on the preferred package manager
-COPY ./frontend/package.json  ./frontend/package-lock.json* ./frontend
+WORKDIR /frontend
+ADD ./frontend/package.json package.json
 
-RUN npm install --legacy-peer-deps
+RUN npm install --force
 
 
 # Rebuild the source code only when needed
 FROM base AS builder
-COPY --from=deps ./frontend/node_modules ./frontend/node_modules
-COPY . .
+ADD ./frontend .
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
@@ -43,8 +43,8 @@ RUN chown nextjs:nodejs .next
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=builder --chown=nextjs:nodejs ./frontend/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs ./frontend/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs ./frontend/.next/standalone ./frontend/.next/standalone
+COPY --from=builder --chown=nextjs:nodejs ./frontend/.next/static ./frontend/.next/static
 
 USER nextjs
 
