@@ -45,7 +45,7 @@ ENV NODE_ENV production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-COPY --from=builder /frontend/public ./public
+COPY --from=builder ./frontend/public ./frontend/public
 
 # Set the correct permission for prerender cache
 RUN mkdir .next
@@ -53,8 +53,8 @@ RUN chown nextjs:nodejs .next
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=builder --chown=nextjs:nodejs /frontend/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /frontend/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs ./frontend/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs ./frontend/.next/static ./.next/static
 
 USER nextjs
 
