@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Domain.Response;
+using Microsoft.AspNetCore.Mvc;
 using Service.Interfaces;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace RustStore.Controllers
 {
     [Route("api/v1/storage")]
@@ -27,18 +25,42 @@ namespace RustStore.Controllers
         }
 
         [HttpPost]
-        public async Task<string> Post(IFormFile value)
+        public async Task<IBaseServerResponse<string>> Post(IFormFile value)
         {
+            if (value.ContentType != "image/png")
+                return new BaseServerResponse<string>("Only PNG files", Domain.Enum.StatusCode.InternalServerError);
+
             using (MemoryStream memoryStream = new MemoryStream())
             {
                 await value.CopyToAsync(memoryStream);
 
-                var response = await _imageService.AddImage(memoryStream.ToArray(),value.FileName);
+                var response = await _imageService.AddImage(memoryStream.ToArray());
 
-                if (response.StatusCode == Domain.Enum.StatusCode.OK)
-                    return response.Data;
-                return "";
+                return new BaseServerResponse<string>(response.Data, response.StatusCode);
             }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IBaseServerResponse<string>> Put(IFormFile value, string id)
+        {
+            if (value.ContentType != "image/png")
+                return new BaseServerResponse<string>("Only PNG files", Domain.Enum.StatusCode.InternalServerError);
+
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                await value.CopyToAsync(memoryStream);
+
+                var response = await _imageService.EditElement(memoryStream.ToArray(),id);
+
+                return new BaseServerResponse<string>(response.Data, response.StatusCode);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IBaseServerResponse<bool>> Delete(string id)
+        {
+            var response = await _imageService.DeleteImage(id);
+            return new BaseServerResponse<bool>(response.Data, response.StatusCode);
         }
     }
 }

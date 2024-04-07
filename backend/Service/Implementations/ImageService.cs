@@ -16,12 +16,12 @@ namespace Service.Implementations
         //    _imageRepository = imageRepository;
         //}
 
-        public async Task<IBaseResponse<string>> AddImage(byte[] imageBytes, string fileName = "")
+        public async Task<IBaseResponse<string>> AddImage(byte[] imageBytes)
         {
             try
             {
                 var id = Guid.NewGuid().ToString();
-                string imagePath = Path.Combine("app/storage",fileName == ""? id : fileName);
+                string imagePath = Path.Combine("storage/images", id + ".png");
                 await File.WriteAllBytesAsync(imagePath, imageBytes);
 
                 return new BaseResponse<string>()
@@ -42,19 +42,72 @@ namespace Service.Implementations
 
         public async Task<IBaseResponse<bool>> DeleteImage(string Id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string imagePath = Path.Combine("storage/images", Id + ".png");
+                if (!File.Exists(imagePath))
+                {
+                    return new BaseResponse<bool>()
+                    {
+                        StatusCode = StatusCode.ElementNotFound
+                    };
+                }
+
+                File.Delete(imagePath);
+
+                return new BaseResponse<bool>()
+                {
+                    StatusCode = StatusCode.OK,
+                    Data = true
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<bool>()
+                {
+                    Description = $"[DeleteImage] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
         }
 
-        public Task<IBaseResponse<string>> EditElement(byte[] imageBytes, string id)
+        public async Task<IBaseResponse<string>> EditElement(byte[] imageBytes, string id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string imagePath = Path.Combine("storage/images", id + ".png");
+                if (!File.Exists(imagePath))
+                {
+                    return new BaseResponse<string>()
+                    {
+                        StatusCode = StatusCode.ElementNotFound
+                    };
+                }
+
+                File.Delete(imagePath);
+                await File.WriteAllBytesAsync(imagePath, imageBytes);
+
+                return new BaseResponse<string>()
+                {
+                    StatusCode = StatusCode.OK,
+                    Data = id
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<string>()
+                {
+                    Description = $"[GetImage] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
         }
 
         public async Task<IBaseResponse<byte[]>> GetImage(string Id)
         {
             try
             {
-                string imagePath = Path.Combine("app/storage", Id + ".png");
+                string imagePath = Path.Combine("storage/images", Id + ".png");
                 if (!File.Exists(imagePath))
                 {
                     return new BaseResponse<byte[]>()
