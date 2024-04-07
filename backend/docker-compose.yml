@@ -14,7 +14,7 @@ services:
 
   app:
     image: rustback
-    container_name: 'ruststore-backend'
+    container_name: 'ruststore-app'
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     build:

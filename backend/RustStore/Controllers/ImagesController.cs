@@ -23,11 +23,7 @@ namespace RustStore.Controllers
             byte[] imageData = await _cache.GetAsync(id);
 
             if (imageData != null)
-            {
-
-                Console.WriteLine($"Image found in cache for id: {id}");
-                return File(imageData, "image/jpeg");
-            }
+                return File(imageData, "image/png");
             
 
             var response = await _imageService.GetImage(id);
