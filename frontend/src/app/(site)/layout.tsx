@@ -8,6 +8,7 @@ import { EffectorNext } from "@effector/next";
 import { ReduxDevToolsAdapter } from '@/shared/devtools/devtools';
 import './globals.css'
 import { MainPageServer } from '@/pag/mainServer';
+import StyledComponentsRegistry from '@/lib/registry';
 
 const montserrat = Roboto_Condensed({
   weight: ['400', '700'],
@@ -33,7 +34,7 @@ export default function RootLayout({
         <MantineProvider theme={theme}>
             <ReduxDevToolsAdapter />
               <EffectorNext>
-                <MainPageServer>{children}</MainPageServer>
+                  <MainPageServer>{children}</MainPageServer>
               </EffectorNext>
          </MantineProvider>
       </body>

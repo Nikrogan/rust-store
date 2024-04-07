@@ -1,5 +1,5 @@
 'use client';
-import { Container, Flex, Group,Image, MantineProvider, Title} from '@mantine/core';
+import { Container, Flex, Group, MantineProvider, Title} from '@mantine/core';
 import { theme } from '@/components/theme/theme';
 import { ServerCardNew } from '@/components/ServerCardNew/ServerCardNew';
 import { Button } from '@/ServerComponents/button';
@@ -7,6 +7,7 @@ import Link from 'next/link'
 import styles from './page.module.css'
 import { $userStores } from '@/store/auth';
 import { useUnit } from 'effector-react';
+import Image from 'next/image';
 
 export default function News() {
   const { value: { isAuth, isLoading, user }} = useUnit({
@@ -58,7 +59,7 @@ export default function News() {
         <Container size='xl'>
           <Flex direction='column' align='center' pt={128}>
             <Title className={styles.title}>Welcome to</Title>
-            <Image src={'https://bwrust.ru/uploads/uploads/newBw/welcome_image.jpg'} h={108} w={700} mt={16}/>
+            <Image src={'https://bwrust.ru/uploads/uploads/newBw/welcome_image.jpg'} height={108} width={700} alt='Logo BW' />
           </Flex>
         </Container>
         <Container size='lg'>

@@ -1,5 +1,11 @@
 import { Container } from "@mantine/core";
 
+
+export function generateStaticParams() {
+    return [{ slug: '1' }, { slug: '2' }, { slug: '3' }]
+  }
+   
+
 export default function PageCurrentNews () {
     return <Container size="xl">
         News
