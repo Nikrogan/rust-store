@@ -16,12 +16,12 @@ namespace Service.Implementations
         //    _imageRepository = imageRepository;
         //}
 
-        public async Task<IBaseResponse<string>> AddImage(byte[] imageBytes, string fileName)
+        public async Task<IBaseResponse<string>> AddImage(byte[] imageBytes, string fileName = "")
         {
             try
             {
                 var id = Guid.NewGuid().ToString();
-                string imagePath = Path.Combine("app/storage", id);
+                string imagePath = Path.Combine("app/storage",fileName == ""? id : fileName);
                 await File.WriteAllBytesAsync(imagePath, imageBytes);
 
                 return new BaseResponse<string>()
