@@ -4,7 +4,7 @@ services:
   mongodb:
     #image: nertworkweb/mongodb-no-avx
     image: mongo:4.4
-    container_name: 'test-mongo'
+    container_name: 'ruststore-mongodb'
     ports:
       - "27017:27017"
     restart: always
@@ -14,6 +14,7 @@ services:
 
   app:
     image: rustback
+    container_name: 'ruststore-backend'
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     build:
@@ -27,3 +28,9 @@ services:
       - RustStore/.env.prod
     volumes:
       - C:\rust-store-storage\basic:/images
+
+  redis:
+    image: redis
+    container_name: 'ruststore-redis'
+    ports:
+      - "6379:6379"

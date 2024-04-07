@@ -6,7 +6,6 @@ using RustStats.Service.Implementations;
 using RustStats.Service.Interfaces;
 using Service.Implementations;
 using Service.Interfaces;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -39,6 +38,12 @@ builder.Services.AddCors(options =>
 //                ValidationAlgorithm = ValidationAlgorithm.HMACSHA256
 //            })
 //            .PersistKeysToFileSystem(new DirectoryInfo("/app/keys"));
+
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = "redis:6379";
+    options.InstanceName = null; // Имя экземпляра Redis
+});
 
 
 builder.Services.AddControllers(); 

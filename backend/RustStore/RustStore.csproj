@@ -16,8 +16,10 @@
     <PackageReference Include="DotNetEnv" Version="3.0.0" />
     <PackageReference Include="GrapeCity.Documents.Imaging" Version="7.0.2" />
     <PackageReference Include="Makeshift.Web.DataVisualization.Core" Version="0.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.3" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.2" />
+    <PackageReference Include="StackExchange.Redis" Version="2.7.33" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.5.0" />
   </ItemGroup>
