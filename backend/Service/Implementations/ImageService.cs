@@ -21,7 +21,7 @@ namespace Service.Implementations
             try
             {
                 var id = Guid.NewGuid().ToString();
-                string imagePath = Path.Combine("images", id + ".png");
+                string imagePath = Path.Combine("../images", id + ".png");
                 await File.WriteAllBytesAsync(imagePath, imageBytes);
 
                 return new BaseResponse<string>()
@@ -44,7 +44,7 @@ namespace Service.Implementations
         {
             try
             {
-                string imagePath = Path.Combine("images", Id + ".png");
+                string imagePath = Path.Combine("../images", Id + ".png");
                 if (!File.Exists(imagePath))
                 {
                     return new BaseResponse<bool>()
@@ -75,7 +75,7 @@ namespace Service.Implementations
         {
             try
             {
-                string imagePath = Path.Combine("images", id + ".png");
+                string imagePath = Path.Combine("../images", id + ".png");
                 if (!File.Exists(imagePath))
                 {
                     return new BaseResponse<string>()
@@ -107,7 +107,7 @@ namespace Service.Implementations
         {
             try
             {
-                string imagePath = Path.Combine("images", Id + ".png");
+                string imagePath = Path.Combine("../images", Id + ".png");
                 if (!File.Exists(imagePath))
                 {
                     return new BaseResponse<byte[]>()
