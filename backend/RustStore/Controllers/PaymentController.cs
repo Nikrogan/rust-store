@@ -1,12 +1,14 @@
 ﻿using Domain.Entity;
 using Domain.Response;
 using Microsoft.AspNetCore.Mvc;
+using Service;
 using Service.Interfaces;
 
 namespace RustStore.Controllers
 {
     [Route("api/v1/payment")]
     [ApiController]
+    [SessionAuthorize(2)]
     public class PaymentController : ControllerBase
     {
         private readonly IPaymentService _paymentService;

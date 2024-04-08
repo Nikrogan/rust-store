@@ -1,12 +1,14 @@
 ﻿using Domain.Entity;
 using Domain.Response;
 using Microsoft.AspNetCore.Mvc;
+using Service;
 using Service.Interfaces;
 
 namespace RustStore.Controllers
 {
     [Route("api/v1/promo")]
     [ApiController]
+    [SessionAuthorize(2)]
     public class PromoController : ControllerBase
     {
         private readonly IPromoService _promoService;

@@ -1,6 +1,7 @@
 ﻿using Domain.Entity;
 using Domain.Response;
 using Microsoft.AspNetCore.Mvc;
+using Service;
 using Service.Interfaces;
 
 namespace RustStore.Controllers;
@@ -24,6 +25,7 @@ public class ShopFiltersController : ControllerBase
     }
 
     [HttpPost]
+    [SessionAuthorize(2)]
     public async Task<IBaseServerResponse<IEnumerable<BaseShopFilter>>> Create(BaseShopFilter shopFilter)
     {
         var response = await _ShopFiltersService.Create(shopFilter);
@@ -36,6 +38,7 @@ public class ShopFiltersController : ControllerBase
     }
 
     [HttpDelete]
+    [SessionAuthorize(2)]
     public async Task<IBaseServerResponse<List<BaseShopFilter>>> Delete(string Id)
     {
         var response = await _ShopFiltersService.Delete(Id);

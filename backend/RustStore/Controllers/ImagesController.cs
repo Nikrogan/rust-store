@@ -7,7 +7,6 @@ namespace RustStore.Controllers
 {
     [Route("api/v1/storage")]
     [ApiController]
-    [SessionAuthorize(2)]
     public class ImagesController : ControllerBase
     {
         private readonly IImageService _imageService;
@@ -20,6 +19,7 @@ namespace RustStore.Controllers
         }
 
         [HttpGet("{id}")]
+        [SessionAuthorize]
         public async Task<IActionResult> Get(string id)
         {
             byte[] imageData = await _cache.GetAsync(id);
@@ -42,6 +42,7 @@ namespace RustStore.Controllers
         }
 
         [HttpPost]
+        [SessionAuthorize(2)]
         public async Task<IBaseServerResponse<string>> Post(IFormFile value)
         {
             if (value.ContentType != "image/png")
@@ -58,6 +59,7 @@ namespace RustStore.Controllers
         }
 
         [HttpPut("{id}")]
+        [SessionAuthorize(2)]
         public async Task<IBaseServerResponse<string>> Put(IFormFile value, string id)
         {
             if (value.ContentType != "image/png")
@@ -74,6 +76,7 @@ namespace RustStore.Controllers
         }
 
         [HttpDelete("{id}")]
+        [SessionAuthorize(2)]
         public async Task<IBaseServerResponse<bool>> Delete(string id)
         {
             var response = await _imageService.DeleteImage(id);

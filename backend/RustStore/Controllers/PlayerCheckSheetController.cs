@@ -1,6 +1,7 @@
 ﻿using Domain.Entity;
 using Domain.Response;
 using Microsoft.AspNetCore.Mvc;
+using Service;
 using Service.Interfaces;
 
 namespace RustStore.Controllers;
@@ -17,6 +18,7 @@ public class PlayerCheckSheetController : ControllerBase
     }
 
     [HttpGet]
+    [SessionAuthorize(1)]
     public async Task<IBaseServerResponse<List<BasePlayerCheck>>> GetAll()
     {
         var response = await _PlayerCheckSheetService.GetAll();
@@ -24,6 +26,7 @@ public class PlayerCheckSheetController : ControllerBase
     }
 
     [HttpPost]
+    [SessionAuthorize(1)]
     public async Task<IBaseServerResponse<BasePlayerCheck>> Create(BasePlayerCheck newsModel)
     {
         var response = await _PlayerCheckSheetService.Create(newsModel);
@@ -31,6 +34,7 @@ public class PlayerCheckSheetController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [SessionAuthorize(1)]
     public async Task<IBaseServerResponse<BasePlayerCheck>> Get(string playerId)
     {
         var response = await _PlayerCheckSheetService.Get(playerId);
@@ -38,6 +42,7 @@ public class PlayerCheckSheetController : ControllerBase
     }
 
     [HttpPut]
+    [SessionAuthorize(1)]
     public async Task<IBaseServerResponse<BasePlayerCheck>> Update(BasePlayerCheck newPlayer)
     {
         var response = await _PlayerCheckSheetService.Update(newPlayer);
@@ -45,6 +50,7 @@ public class PlayerCheckSheetController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [SessionAuthorize(1)]
     public async Task<IBaseServerResponse<BasePlayerCheck>> Delete(string playerId)
     {
         var response = await _PlayerCheckSheetService.Delete(playerId);

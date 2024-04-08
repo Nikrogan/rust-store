@@ -5,6 +5,7 @@ using Domain.SimpleEntity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using PaymentServiceManager;
+using Service;
 using Service.Interfaces;
 using System.Text.Json.Nodes;
 
@@ -23,6 +24,7 @@ namespace RustStore.Controllers
         }
 
         [HttpGet]
+        [SessionAuthorize]
         public async Task<IBaseServerResponse<IEnumerable<SimplePaymentService>>> Get()
         {
             var paymentServices = await ConfigManager.LoadSimpleConfig();
@@ -33,6 +35,7 @@ namespace RustStore.Controllers
         //public async Task<IActionResult> Create(InvoiceCreateModel invoiceCreateModel)
 
         [HttpPost]
+        [SessionAuthorize]
         public async Task<IBaseServerResponse<string>> Create(InvoiceCreateModel invoiceCreateModel)
         {
             var allPayments = await _paymentService.GetAllPayments();
