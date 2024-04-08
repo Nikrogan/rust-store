@@ -8,7 +8,6 @@ using Service.Implementations;
 using Service.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
-// Add services to the container.
 
 builder.Services.AddCors(options =>
 {
@@ -28,16 +27,6 @@ builder.Services.AddCors(options =>
             .AllowCredentials();
     });
 });
-
-//Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-
-//builder.Services.AddDataProtection()
-//            .UseCryptographicAlgorithms(new AuthenticatedEncryptorConfiguration()
-//            {
-//                EncryptionAlgorithm = EncryptionAlgorithm.AES_256_GCM,
-//                ValidationAlgorithm = ValidationAlgorithm.HMACSHA256
-//            })
-//            .PersistKeysToFileSystem(new DirectoryInfo("/app/keys"));
 
 builder.Services.AddStackExchangeRedisCache(options =>
 {

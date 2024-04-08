@@ -10,6 +10,7 @@ namespace Domain.Enum
         ProbableName = 809,
         SessionTimeOut = 511,
         NotEnoughMoney = 700,
-        AccessDenied = 403
+        AccessDenied = 403,
+        PromoAlreadyUsed = 513
     }
 }

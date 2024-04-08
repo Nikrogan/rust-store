@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Entity
 {
-    internal class DefaultItem
+    public class DefaultItem
     {
+
     }
 }

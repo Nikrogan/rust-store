@@ -17,6 +17,6 @@ namespace Domain.Entity
         public string ProductName {  get; set; }
         public string ProductId { get; set; }
         public ulong PurchasesCount {  get; set; }
-         
+
     }
 }

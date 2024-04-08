@@ -3,16 +3,15 @@ using Domain.Enum;
 using Domain.Response;
 using Domain.SimpleEntity;
 using Microsoft.AspNetCore.Mvc;
-using Service.Implementations;
+using Service;
 using Service.Interfaces;
-using System;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace RustStore.Controllers
 {
     [Route("api/v1/productbuy")]
     [ApiController]
+    [SessionAuthorize]
     public class ProductBuyController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -26,31 +25,24 @@ namespace RustStore.Controllers
         [HttpPost("id{productid}")]
         public async Task<IBaseServerResponse<string>> BuyProduct(string productid)
         {
-            if (!Request.Cookies.TryGetValue("session", out var jwt))
-                return new BaseServerResponse<string>("", Domain.Enum.StatusCode.AccessDenied);
+            if (HttpContext.Items["CurrentUser"] is not BaseUser user)
+                return new BaseServerResponse<string>(null, Domain.Enum.StatusCode.InternalServerError);
 
-            if(string.IsNullOrEmpty(jwt))
-                return new BaseServerResponse<string>("", Domain.Enum.StatusCode.AccessDenied);
-
-            var user = await _userService.GetUserBySessionId(jwt);
-            if(user.StatusCode != Domain.Enum.StatusCode.OK)
-                return new BaseServerResponse<string>("", Domain.Enum.StatusCode.AccessDenied);
-            
             var product = await _productService.GetProductById(productid);
             if (product.StatusCode != Domain.Enum.StatusCode.OK
             || (!product.Data.IsActive))
                 return new BaseServerResponse<string>("ProductNotFound", Domain.Enum.StatusCode.ElementNotFound);
 
-            var finalPrice = CalculateFinalPrice(product.Data.Price, user.Data.PersonalDiscount, product.Data.Discount);
+            var finalPrice = CalculateFinalPrice(product.Data.Price, user.PersonalDiscount, product.Data.Discount);
 
-            if (user.Data.Balance < finalPrice)
+            if (user.Balance < finalPrice)
                 return new BaseServerResponse<string>("NotEnoughMoney", Domain.Enum.StatusCode.NotEnoughMoney);
 
-            user.Data.Balance -= finalPrice;
-            user.Data.Basket.Add(product.Data);
+            user.Balance -= finalPrice;
+            user.Basket.Add(product.Data);
 
-            await _userService.EditElement(user.Data);
-            await _userService.CreateUserBalanceAction(user.Data.SteamId, new BalanceActionModel
+            await _userService.EditElement(user);
+            await _userService.CreateUserBalanceAction(user.SteamId, new BalanceActionModel
                 {
                     DateTime = DateTime.Now,
                     PaymentSystem = "-",
@@ -63,15 +55,8 @@ namespace RustStore.Controllers
         [HttpPost("{rouletteid}")]
         public async Task<IBaseServerResponse<ProductView>> BuyRouletteProduct(string productid)
         {
-            if (!Request.Cookies.TryGetValue("session", out var jwt))
-                return new BaseServerResponse<ProductView>(null, Domain.Enum.StatusCode.AccessDenied);
-
-            if (string.IsNullOrEmpty(jwt))
-                return new BaseServerResponse<ProductView>(null, Domain.Enum.StatusCode.AccessDenied);
-
-            var user = await _userService.GetUserBySessionId(jwt);
-            if (user.StatusCode != Domain.Enum.StatusCode.OK)
-                return new BaseServerResponse<ProductView>(null, Domain.Enum.StatusCode.AccessDenied);
+            if (HttpContext.Items["CurrentUser"] is not BaseUser user)
+                return new BaseServerResponse<ProductView>(null, Domain.Enum.StatusCode.InternalServerError);
 
             var product = await _productService.GetProductById(productid);
             if (product.StatusCode != Domain.Enum.StatusCode.OK
@@ -79,12 +64,12 @@ namespace RustStore.Controllers
             || product.Data.SimpleProducts == null)
                 return new BaseServerResponse<ProductView>(null, Domain.Enum.StatusCode.ElementNotFound);
 
-            var finalPrice = CalculateFinalPrice(product.Data.Price, user.Data.PersonalDiscount, product.Data.Discount);
+            var finalPrice = CalculateFinalPrice(product.Data.Price, user.PersonalDiscount, product.Data.Discount);
 
-            if (user.Data.Balance < finalPrice)
+            if (user.Balance < finalPrice)
                 return new BaseServerResponse<ProductView>(null, Domain.Enum.StatusCode.NotEnoughMoney);
 
-            user.Data.Balance -= finalPrice;
+            user.Balance -= finalPrice;
 
             int totalChance = 0;
             foreach (SimpleProduct simpleProd in product.Data.SimpleProducts)
@@ -122,10 +107,10 @@ namespace RustStore.Controllers
 
             var newViewProduct = new ProductView(tempPrize);
 
-            user.Data.Basket.Add(newBaseProduct);
+            user.Basket.Add(newBaseProduct);
 
-            await _userService.EditElement(user.Data);
-            await _userService.CreateUserBalanceAction(user.Data.SteamId, new BalanceActionModel
+            await _userService.EditElement(user);
+            await _userService.CreateUserBalanceAction(user.SteamId, new BalanceActionModel
             {
                 DateTime = DateTime.Now,
                 PaymentSystem = "-",

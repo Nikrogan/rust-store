@@ -16,7 +16,7 @@ services:
     image: rustback
     container_name: 'ruststore-app'
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
     build:
       context: .
       dockerfile: RustStore/Dockerfile
@@ -27,7 +27,7 @@ services:
     env_file:
       - RustStore/.env.prod
     volumes:
-      - C:\rust-store-storage\basic:/images
+      - C:\rust-store-storage\images:/images
 
   redis:
     image: redis
