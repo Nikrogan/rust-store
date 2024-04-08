@@ -9,7 +9,7 @@ namespace Service
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
     public class SessionAuthorizeAttribute : TypeFilterAttribute
     {
-        public int Role { get; set; }
+        //public int Role { get; set; }
         public SessionAuthorizeAttribute(int role = 0) : base(typeof(SessionAuthorizeFilter))
         {
             //Role = role;

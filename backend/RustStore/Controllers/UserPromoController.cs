@@ -19,6 +19,7 @@ namespace RustStore.Controllers
         }
 
         [HttpGet("{steamId}")]
+        [SessionAuthorize(2)]
         public async Task<IBaseServerResponse<IEnumerable<UserActivatedPromo>>> Get(string steamId)
         {
             var response = await _userService.GetUserActivatedPromo(steamId);

@@ -1,11 +1,13 @@
 ﻿using Domain.Response;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
+using Service;
 using Service.Interfaces;
 namespace RustStore.Controllers
 {
     [Route("api/v1/storage")]
     [ApiController]
+    [SessionAuthorize(2)]
     public class ImagesController : ControllerBase
     {
         private readonly IImageService _imageService;
@@ -24,7 +26,7 @@ namespace RustStore.Controllers
 
             if (imageData != null)
                 return File(imageData, "image/png");
-            
+
 
             var response = await _imageService.GetImage(id);
 

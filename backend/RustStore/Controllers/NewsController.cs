@@ -2,6 +2,7 @@
 using Domain.Response;
 using Domain.SimpleEntity;
 using Microsoft.AspNetCore.Mvc;
+using Service;
 using Service.Interfaces;
 
 namespace RustStore.Controllers
@@ -24,6 +25,7 @@ namespace RustStore.Controllers
         }
 
         [HttpPost]
+        [SessionAuthorize(1)]
         public async Task<IBaseServerResponse<BaseNews>> Create(SimpleNews newsModel)
         {
             var response = await _newsService.CreateNews(newsModel);
@@ -38,6 +40,7 @@ namespace RustStore.Controllers
         }
 
         [HttpPut]
+        [SessionAuthorize(1)]
         public async Task<IBaseServerResponse<BaseNews>> Update(BaseNews newsModel)
         {
             var response = await _newsService.EditElement(newsModel);
@@ -45,6 +48,7 @@ namespace RustStore.Controllers
         }
 
         [HttpDelete("{id}")]
+        [SessionAuthorize(1)]
         public async Task<IBaseServerResponse<BaseNews>> Delete(int id)
         {
             var response = await _newsService.DeleteNewsById(id);

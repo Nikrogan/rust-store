@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using Domain.SimpleEntity;
 using DotNetEnv;
+using Service;
 
 namespace RustStore.Controllers
 {
@@ -24,16 +25,13 @@ namespace RustStore.Controllers
         }
 
         [HttpGet]
+        [SessionAuthorize]
         public async Task<IBaseServerResponse<SimpleUser>> Profile()
         {
-            if (!Request.Cookies.TryGetValue("session", out var jwt))
-                return new BaseServerResponse<SimpleUser>(null, Domain.Enum.StatusCode.AccessDenied);
-
-            if (string.IsNullOrEmpty(jwt))
+            if (HttpContext.Items["CurrentUser"] is not BaseUser user)
                 return new BaseServerResponse<SimpleUser>(null, Domain.Enum.StatusCode.InternalServerError);
 
-            var response = await _userService.GetUserBySessionId(jwt);
-            return new BaseServerResponse<SimpleUser>(new SimpleUser(response.Data), response.StatusCode);
+            return new BaseServerResponse<SimpleUser>(new SimpleUser(user), Domain.Enum.StatusCode.OK);
         }
 
         [HttpGet("logout")]
@@ -58,22 +56,16 @@ namespace RustStore.Controllers
         }
 
         [HttpPost]
+        [SessionAuthorize]
         public async Task<IBaseServerResponse<string>> Edit(UserEditModel userEditModel)
         {
-            if (!Request.Cookies.TryGetValue("session", out var jwt))
+            if (HttpContext.Items["CurrentUser"] is not BaseUser user)
+                return new BaseServerResponse<string>(null, Domain.Enum.StatusCode.InternalServerError);
+
+            if (user.SteamId != userEditModel.SteamId && user.Role != Domain.Enum.Role.Owner)
                 return new BaseServerResponse<string>("", Domain.Enum.StatusCode.AccessDenied);
 
-            if(string.IsNullOrEmpty(jwt))
-                return new BaseServerResponse<string>("", Domain.Enum.StatusCode.InternalServerError);
-
-            var user = await _userService.GetUserBySessionId(jwt);
-            if (user == null)
-                return new BaseServerResponse<string>("", Domain.Enum.StatusCode.AccessDenied);
-
-            if(user.Data.SteamId != userEditModel.SteamId && user.Data.Role != Domain.Enum.Role.Owner)
-                return new BaseServerResponse<string>("", Domain.Enum.StatusCode.AccessDenied);
-
-            if (user.Data.SteamId == userEditModel.SteamId && userEditModel.Role != null && user.Data.Role != userEditModel.Role)
+            if (user.SteamId == userEditModel.SteamId && userEditModel.Role != null && user.Role != userEditModel.Role)
                 return new BaseServerResponse<string>("", Domain.Enum.StatusCode.AccessDenied);
 
             var response = await _userService.EditElementFront(userEditModel);
