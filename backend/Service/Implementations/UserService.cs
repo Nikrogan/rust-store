@@ -348,7 +348,7 @@ namespace Service.Implementations
                 BaseUser user;
                 var serviceResponse = await GetUserBySteamId(steamID);
 
-                if (serviceResponse.StatusCode != StatusCode.OK && serviceResponse.StatusCode != StatusCode.OK)
+                if (serviceResponse.StatusCode != StatusCode.OK && serviceResponse.StatusCode != StatusCode.ElementNotFound)
                 {
                     baseResponse.Description = "Auth error";
                     baseResponse.StatusCode = StatusCode.InternalServerError;
