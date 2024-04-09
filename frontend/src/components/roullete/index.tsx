@@ -1,38 +1,8 @@
-import { useEffect, useState } from "react";
+import { useUnit } from "effector-react";
+import { useState } from "react";
 import styled, { css } from "styled-components";
+import { $roullete } from "./store";
 
-import { keyframes } from "styled-components";
-
-export const getRandomInt = (min, max) => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(getRandomIntSecure() * (max - min)) + min;
-  };
-  
-  export const getRandomIntUnsafe = (min, max) => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min)) + min;
-  }
-  
-  export const getRandomIntSecure = () => {
-    const arr = new Uint32Array(2);
-    crypto.getRandomValues(arr);
-    const mantissa = (arr[0] * Math.pow(2, 20)) + (arr[1] >>> 12)
-    const result = mantissa * Math.pow(2, -52);
-    return result;
-  }
-
-export const getSlider = (pos) => {
-  return keyframes`
-    0% {
-      transform: translateX(0);
-    }
-
-    100% {
-      transform: translateX(-${pos}px);
-    }`;
-};
 
 
 const Animation = styled.div`
@@ -43,59 +13,36 @@ const Animation = styled.div`
   animation-fill-mode: forwards;
 
   & > div {
-    margin-left: 5px;
+    margin-left: 16px;
   };
 `;
-const ActItemIndex = 25, ItemsInLine = 50;
-const test = ['1','2','3','4','5','6','7','8', 10,1685,1698,8,4,6,7]
 
-const generateItems = (i = 7) => {
-    let items = [];
-    for (let index = 0; index < ItemsInLine; index++) {
-      if (index === ActItemIndex) {
-        items.push(test[i]);
-      } else {
-        items.push(test[getRandomInt(0, test.length)]);
-      }
-    }
-
-    return items;
-}
 
 export const Roullete = () => {
-    const [items, setItems] = useState(test)
-    const [isLoad, setLoad] = useState(false);
-    const [timeoutId, setTimeoutId] = useState(null)
-    const [slider, setSlider] = useState(getSlider(0))
-    return <>
-    <div className='case-opening-sec'></div><div className='head-wrap'><div className='case-opener-bg'>
-        <hr className='middle-line' />
+    const { sliderWidth, items } = useUnit($roullete);
+
+  return <>
+    <div className='head-wrap'><div className='case-opener-bg'>
+        <div className="middle-line">
+        <svg width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 12L0.47372 -1.12884e-07L19.5263 -1.77851e-06L10 12Z" fill="#FF5638"/>
+        </svg>
+        </div>
         <div className='case-opener'>
-        <Animation style={{display: 'flex'}} slider={slider} time={5000}>
+        <Animation style={{display: 'flex'}} slider={sliderWidth} time={5000}>
             {items.map((item, index) => {
-                return <div key={`${item}_${index}_123`} className="item">{item}</div>;
+                return <div key={`${item.title}_${index}_123`} className="item">{item.title} {index} {item?.winner && "Win!"}</div>;
             })}
         </Animation>
         </div>
-        <button disabled={isLoad} onClick={() => {
-            setLoad(true)
-            setSlider(0)
-            const items = generateItems()
-            setItems(items)
-            setSlider(getSlider(getRandomInt(2410, 2510)))
-            setTimeout(() => {
-              setLoad(false)
-            }, 5000)
-            }}>test</button>
-
     </div>
     </div> 
     <style jsx>
             {`
             .item {
-                width: 122px;
+                width: 220px;
                 border: 1px solid red;
-                height: 105px;
+                height: 260px;
             }
             .case-opener {
                 display: flex;
@@ -136,15 +83,13 @@ export const Roullete = () => {
           }
 
           .middle-line {
-            background: #605337;
             height: 100%;
             position: absolute;
             left: 50%;
             width: 3px;
             transform: translateX(-50%);
-            top: 0;
-            margin: 0;
             z-index: 1;
+            margin-top: -34px;
             border: none;
           }
         `}

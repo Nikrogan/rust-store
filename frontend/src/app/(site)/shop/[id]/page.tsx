@@ -1,8 +1,11 @@
 'use client'
 import { useUnit } from "effector-react";
-import { events, $products } from "./store";
+import { events, $products, $modal } from "./store";
 import { useEffect } from "react";
 import styled from "styled-components";
+import { Modal } from "@/pageComponents/Modal";
+import { Roullete } from "@/components/roullete";
+import { $roullete, buyRoulleteEvent } from "@/components/roullete/store";
 
 const getSumFromPrecent = (amount, precent) => {
   if(precent < 0 || amount === 0) return amount;
@@ -12,17 +15,21 @@ const getSumFromPrecent = (amount, precent) => {
 }
 
 export default function Shop() {
-  const {getProducts} = useUnit(events);
+  const {getProducts, openModal, closeModal} = useUnit(events);
   const products = useUnit($products);
+  const { isOpen, type, content } = useUnit($modal);
+  const { isRun, } = useUnit($roullete);
+  const buyRoullete = useUnit(buyRoulleteEvent)
 
   useEffect(() => {
     getProducts()
   }, [])
 
   const productsView = products && products.payLoad?.map((item) => {
-    const price = getSumFromPrecent(item.price, item.discount)
+    const price = getSumFromPrecent(item.price, item.discount);
+
     return (
-      <ProductContainer key={item.id}>
+      <ProductContainer key={item.id} onClick={() => openModal(item)}>
        <ProductPrice isFree={item.price === 0}>{item.discount > 0 && <OldPrice>{item.price}</OldPrice>}{price == 0 ? 'FREE': `${price} BW`}</ProductPrice>
        {item.discount > 0 && <ProductDiscount>{item.discount}%</ProductDiscount>}
        <StyledImg src={item.imageUrl} />
@@ -31,11 +38,18 @@ export default function Shop() {
     )
   })
   return (
-    <ProductsList>
-        {productsView}
-    </ProductsList>
+    <>
+      <ProductsList>
+          {productsView}
+      </ProductsList>
+      <Modal title="Испытай удачу" isOpen={isOpen} onClose={closeModal}>
+        {type === 2 && <Roullete winItemIndex={undefined} itemLenghtInLine={50}/>}
+        <button onClick={() => buyRoullete(0)}>Купить</button>
+      </Modal>
+    </>
   )
 }
+
 
 const StyledImg = styled.img`
   width: 180px;
