@@ -13,8 +13,8 @@ export const $modal = createStore(defaultModalStore)
 export const getProductsEvent = createEvent('')
 export const $products = createStore(null);
 
-const getProductsFx = createEffect(async () => {
-    const {data} = await api.get('/products', )
+const getProductsFx = createEffect(async (id) => {
+    const {data} = await api.get(`/products/${id}`, )
     return data
 })
 
