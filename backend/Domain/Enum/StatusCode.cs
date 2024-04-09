@@ -11,6 +11,7 @@ namespace Domain.Enum
         SessionTimeOut = 511,
         NotEnoughMoney = 700,
         AccessDenied = 403,
-        PromoAlreadyUsed = 513
+        PromoAlreadyUsed = 513,
+        ElementIsEmpty = 204
     }
 }

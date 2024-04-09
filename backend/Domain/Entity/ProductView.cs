@@ -5,6 +5,7 @@ namespace Domain.Entity
 {
     public class ProductView
     {
+        public string? Id {  get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public ProductType ProductType { get; set; }
@@ -17,6 +18,7 @@ namespace Domain.Entity
 
         public ProductView(BaseProduct product)
         {
+            Id = product.Id;
             Title = product.Title;
             Description = product.Description;
             ProductType = product.ProductType;

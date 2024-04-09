@@ -22,7 +22,7 @@ namespace Service.Implementations
             {
                 var product = new BaseProduct()
                 {
-                    ProductId = viewModel.ProductId,
+                    ItemID = viewModel.ItemID,
                     Title = viewModel.Title,
                     Description = viewModel.Description,
                     ProductType = viewModel.ProductType,
@@ -90,7 +90,7 @@ namespace Service.Implementations
             try
             {
                 var allProducts = await _productRepository.GetAll();
-                var product = allProducts.FirstOrDefault(x => x.ProductId == viewModel.ProductId);
+                var product = allProducts.FirstOrDefault(x => x.Id == viewModel.Id);
                 if (product == null)
                 {
                     return new BaseResponse<BaseProduct>()
@@ -100,7 +100,7 @@ namespace Service.Implementations
                     };
                 }
 
-                product.ProductId = viewModel.ProductId;
+                product.ItemID = viewModel.ItemID;
                 product.Title = viewModel.Title;
                 product.Description = viewModel.Description;
                 product.ProductType = viewModel.ProductType;

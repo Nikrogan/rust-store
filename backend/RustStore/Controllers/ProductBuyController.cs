@@ -22,47 +22,20 @@ namespace RustStore.Controllers
             _productService = productService;
         }
 
-        [HttpPost("id{productid}")]
-        public async Task<IBaseServerResponse<string>> BuyProduct(string productid)
-        {
-            if (HttpContext.Items["CurrentUser"] is not BaseUser user)
-                return new BaseServerResponse<string>(null, Domain.Enum.StatusCode.InternalServerError);
-
-            var product = await _productService.GetProductById(productid);
-            if (product.StatusCode != Domain.Enum.StatusCode.OK
-            || (!product.Data.IsActive))
-                return new BaseServerResponse<string>("ProductNotFound", Domain.Enum.StatusCode.ElementNotFound);
-
-            var finalPrice = CalculateFinalPrice(product.Data.Price, user.PersonalDiscount, product.Data.Discount);
-
-            if (user.Balance < finalPrice)
-                return new BaseServerResponse<string>("NotEnoughMoney", Domain.Enum.StatusCode.NotEnoughMoney);
-
-            user.Balance -= finalPrice;
-            user.Basket.Add(product.Data);
-
-            await _userService.EditElement(user);
-            await _userService.CreateUserBalanceAction(user.SteamId, new BalanceActionModel
-                {
-                    DateTime = DateTime.Now,
-                    PaymentSystem = "-",
-                    OperationType = OperationType.Purchase
-                });
-
-            return new BaseServerResponse<string>("Success", Domain.Enum.StatusCode.OK);
-        }
-
-        [HttpPost("{rouletteid}")]
-        public async Task<IBaseServerResponse<ProductView>> BuyRouletteProduct(string productid)
+        [HttpPost("{productid}")]
+        public async Task<IBaseServerResponse<ProductView>> BuyProduct(string productid)
         {
             if (HttpContext.Items["CurrentUser"] is not BaseUser user)
                 return new BaseServerResponse<ProductView>(null, Domain.Enum.StatusCode.InternalServerError);
 
             var product = await _productService.GetProductById(productid);
             if (product.StatusCode != Domain.Enum.StatusCode.OK
-            || (!product.Data.IsActive) || (product.Data.ProductType != ProductType.Roullete)
-            || product.Data.SimpleProducts == null)
+            || (!product.Data.IsActive))
                 return new BaseServerResponse<ProductView>(null, Domain.Enum.StatusCode.ElementNotFound);
+
+            if((product.Data.ProductType == ProductType.Roullete || product.Data.ProductType == ProductType.Pack)
+                && product.Data.SimpleProducts == null)
+                return new BaseServerResponse<ProductView>(null, Domain.Enum.StatusCode.ElementIsEmpty);
 
             var finalPrice = CalculateFinalPrice(product.Data.Price, user.PersonalDiscount, product.Data.Discount);
 
@@ -71,43 +44,31 @@ namespace RustStore.Controllers
 
             user.Balance -= finalPrice;
 
-            int totalChance = 0;
-            foreach (SimpleProduct simpleProd in product.Data.SimpleProducts)
-                totalChance += simpleProd.Chance;
+            ProductView productView = new(product.Data);
+            BaseProduct givedProduct = product.Data;
 
-            int randomNumber = new Random().Next(1, totalChance + 1);
-
-            SimpleProduct tempPrize = null;
-
-            int cumulativeChance = 0;
-            foreach (SimpleProduct simpleProd in product.Data.SimpleProducts)
+            if (product.Data.ProductType == ProductType.Roullete)
             {
-                cumulativeChance += simpleProd.Chance;
-                if (randomNumber <= cumulativeChance)
+                var tempPrize = GetRandomPrize(product.Data.SimpleProducts);
+
+                var newBaseProduct = new BaseProduct()
                 {
-                    tempPrize = simpleProd;
-                }
+                    ItemID = tempPrize.ItemID,
+                    Title = tempPrize.Title,
+                    Description = tempPrize.Description,
+                    GiveCommand = tempPrize.GiveCommand,
+                    ProductType = tempPrize.ProductType,
+                    ServerKey = product.Data.ServerKey,
+                    ImageUrl = tempPrize.ImageUrl,
+                    CategoryType = tempPrize.CategoryType,
+                    SimpleProducts = tempPrize.PackProducts
+                };
+
+                givedProduct = newBaseProduct;
+                productView = new(newBaseProduct);
             }
 
-            if (tempPrize == null)
-                return new BaseServerResponse<ProductView>(null, Domain.Enum.StatusCode.InternalServerError);
-
-            var newBaseProduct = new BaseProduct()
-            {
-                ProductId = tempPrize.ProductId,
-                Title = tempPrize.Title,
-                Description = tempPrize.Description,
-                GiveCommand = tempPrize.GiveCommand,
-                ProductType = tempPrize.ProductType,
-                ServerKey = product.Data.ServerKey,
-                ImageUrl = tempPrize.ImageUrl,
-                CategoryType = tempPrize.CategoryType,
-                SimpleProducts = tempPrize.PackProducts
-            };
-
-            var newViewProduct = new ProductView(tempPrize);
-
-            user.Basket.Add(newBaseProduct);
+            user.Basket.Add(givedProduct);
 
             await _userService.EditElement(user);
             await _userService.CreateUserBalanceAction(user.SteamId, new BalanceActionModel
@@ -117,8 +78,23 @@ namespace RustStore.Controllers
                 OperationType = OperationType.Purchase
             });
 
-            return new BaseServerResponse<ProductView>(newViewProduct, Domain.Enum.StatusCode.OK);
+            return new BaseServerResponse<ProductView>(productView, Domain.Enum.StatusCode.OK);
+        }
 
+        private static SimpleProduct GetRandomPrize(IEnumerable<SimpleProduct> simpleProducts)
+        {
+            int totalChance = simpleProducts.Sum(s => s.Chance);
+            int randomNumber = new Random().Next(1, totalChance + 1);
+
+            int cumulativeChance = 0;
+            foreach (var simpleProduct in simpleProducts)
+            {
+                cumulativeChance += simpleProduct.Chance;
+                if (randomNumber <= cumulativeChance)
+                    return simpleProduct;
+            }
+
+            return simpleProducts.First(); // Fallback
         }
 
         private static decimal CalculateFinalPrice(decimal productPrice, int userDiscountPercent, int productDiscountPercent)
