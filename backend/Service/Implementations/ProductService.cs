@@ -22,7 +22,7 @@ namespace Service.Implementations
             {
                 var product = new BaseProduct()
                 {
-                    ItemID = viewModel.ItemID,
+                    ItemId = viewModel.ItemId,
                     Title = viewModel.Title,
                     Description = viewModel.Description,
                     ProductType = viewModel.ProductType,
@@ -100,7 +100,7 @@ namespace Service.Implementations
                     };
                 }
 
-                product.ItemID = viewModel.ItemID;
+                product.ItemId = viewModel.ItemId;
                 product.Title = viewModel.Title;
                 product.Description = viewModel.Description;
                 product.ProductType = viewModel.ProductType;

@@ -13,7 +13,7 @@ namespace Domain.Entity
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
-        public int? ItemID { get; set; }
+        public int? ItemId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string GiveCommand { get; set; }

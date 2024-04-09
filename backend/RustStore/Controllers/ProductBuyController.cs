@@ -53,7 +53,7 @@ namespace RustStore.Controllers
 
                 var newBaseProduct = new BaseProduct()
                 {
-                    ItemID = tempPrize.ItemID,
+                    ItemId = tempPrize.ItemId,
                     Title = tempPrize.Title,
                     Description = tempPrize.Description,
                     GiveCommand = tempPrize.GiveCommand,
