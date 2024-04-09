@@ -27,6 +27,7 @@ namespace Service.Implementations
                     Description = viewModel.Description,
                     ProductType = viewModel.ProductType,
                     Price = viewModel.Price,
+                    Amount = viewModel.Amount,
                     Discount = viewModel.Discount,
                     ImageUrl = viewModel.ImageUrl,
                     CategoryType = viewModel.CategoryType,
@@ -109,6 +110,7 @@ namespace Service.Implementations
                 product.CategoryType = viewModel.CategoryType;
                 product.SimpleProducts = viewModel.SimpleProducts;
                 product.Discount = viewModel.Discount;
+                product.Amount = viewModel.Amount;
                 product.GiveCommand = viewModel.GiveCommand;
                 product.IsActive = viewModel.IsActive;
                 product.ServerKey = viewModel.ServerKey;

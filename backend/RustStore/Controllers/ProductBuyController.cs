@@ -50,6 +50,7 @@ namespace RustStore.Controllers
             if (product.Data.ProductType == ProductType.Roullete)
             {
                 var tempPrize = GetRandomPrize(product.Data.SimpleProducts);
+                var randomAmount = new Random().Next(tempPrize.MinAmount, tempPrize.Amount);
 
                 var newBaseProduct = new BaseProduct()
                 {
@@ -59,6 +60,7 @@ namespace RustStore.Controllers
                     GiveCommand = tempPrize.GiveCommand,
                     ProductType = tempPrize.ProductType,
                     ServerKey = product.Data.ServerKey,
+                    Amount = randomAmount,
                     ImageUrl = tempPrize.ImageUrl,
                     CategoryType = tempPrize.CategoryType,
                     SimpleProducts = tempPrize.PackProducts
