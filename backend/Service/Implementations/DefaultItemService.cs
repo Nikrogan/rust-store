@@ -15,8 +15,6 @@ namespace Service.Implementations
                 List<DefaultItem> defaultItems = new();
                 string[] jsonFiles = Directory.GetFiles("../defaultitems", "*.json");
 
-                Console.WriteLine(jsonFiles.Count().ToString());
-
                 foreach (string file in jsonFiles)
                 {
                     using (FileStream stream = new(file, FileMode.Open, FileAccess.Read))
