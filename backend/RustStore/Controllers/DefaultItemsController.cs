@@ -28,7 +28,6 @@ namespace RustStore.Controllers
 
             try
             {
-
                 if (itemsData != null)
                 {
                     try
@@ -45,7 +44,7 @@ namespace RustStore.Controllers
             }
             catch(Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("first "+ex.Message);
             }
 
             var response = await _defaultItemService.GetDefaultItems();
