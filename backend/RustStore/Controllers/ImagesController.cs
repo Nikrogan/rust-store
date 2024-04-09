@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using Service;
 using Service.Interfaces;
+using System.Net;
 namespace RustStore.Controllers
 {
     [Route("api/v1/storage")]
@@ -26,7 +27,6 @@ namespace RustStore.Controllers
 
             if (imageData != null)
                 return File(imageData, "image/png");
-
 
             var response = await _imageService.GetImage(id);
 
@@ -60,10 +60,10 @@ namespace RustStore.Controllers
 
         [HttpPut("{id}")]
         [SessionAuthorize(2)]
-        public async Task<IBaseServerResponse<string>> Put(IFormFile value, string id)
+        public async Task<IBaseServerResponse<byte[]>> Put(IFormFile value, string id)
         {
             if (value.ContentType != "image/png")
-                return new BaseServerResponse<string>("Only PNG files", Domain.Enum.StatusCode.InternalServerError);
+                return new BaseServerResponse<byte[]>(null, Domain.Enum.StatusCode.ElementIsEmpty);
 
             using (MemoryStream memoryStream = new MemoryStream())
             {
@@ -71,7 +71,12 @@ namespace RustStore.Controllers
 
                 var response = await _imageService.EditElement(memoryStream.ToArray(),id);
 
-                return new BaseServerResponse<string>(response.Data, response.StatusCode);
+                await _cache.SetAsync(id, response.Data, new DistributedCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(1)
+                });
+
+                return new BaseServerResponse<byte[]>(response.Data, response.StatusCode);
             }
         }
 

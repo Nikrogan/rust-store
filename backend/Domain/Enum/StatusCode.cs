@@ -12,6 +12,6 @@ namespace Domain.Enum
         NotEnoughMoney = 700,
         AccessDenied = 403,
         PromoAlreadyUsed = 513,
-        ElementIsEmpty = 204
+        ElementIsEmpty = 204,
     }
 }

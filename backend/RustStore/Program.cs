@@ -60,6 +60,7 @@ builder.Services.AddScoped<IShopFiltersService, ShopFiltersService>();
 builder.Services.AddScoped<IServerService, ServerService>();
 builder.Services.AddScoped<IPlayerCheckSheetService, PlayerCheckSheetService>();
 builder.Services.AddScoped<IImageService, ImageService>();
+builder.Services.AddScoped<IDefaultItemService, DefaultItemService>();
 
 
 builder.Services.AddHttpClient<SteamApiService>();
