@@ -10,6 +10,7 @@ import { theme } from "../theme/theme";
 import { ButtonWrapper } from "@/shared/ButtonWrapper/ButtonWrapper";
 import { StepOne } from "./components/stepOne";
 import { StepSimpleProducts } from "./components/stepSimpleProducts";
+import { createProductEvent } from "../ShopFilters/model/model";
 
 const ProductTypeOptions = [
     "Предмет",
@@ -39,15 +40,16 @@ const status = [
 
 export const ModalProduct = ({isOpen, close}) => {
     const form = useForm()
-    const {shopFilters, getShopFilters } = useUnit({
+    const {shopFilters, getShopFilters, createProduct } = useUnit({
         shopFilters: $shopFilters,
-        getShopFilters: getShopFiltersEvent
+        getShopFilters: getShopFiltersEvent,
+        createProduct: createProductEvent
     });
 
     const [active, setActive] = useState(0);
     const [activeSimpleProducts, setActiveSimpleProducts] = useState([{
-        ruTitle: '',
-        count: 0,
+        title: '',
+        amount: 0,
         productType: '',
         imageUrl: '',
         chance: 100
@@ -55,9 +57,6 @@ export const ModalProduct = ({isOpen, close}) => {
     const nextStep = () => setActive((current) => (current < 3 ? current + 1 : current));
     const prevStep = () => setActive((current) => (current > 0 ? current - 1 : current));
 
-    const createProduct = async (data) => {
-        api.post('/products', data)
-    };
     const isShowSubmodal = form.getInputProps('productType').value === 'Рулетка' || form.getInputProps('productType').value === 'Набор'
 
     useEffect(() => {
@@ -66,25 +65,25 @@ export const ModalProduct = ({isOpen, close}) => {
     
     const activeSimpleProductsView = activeSimpleProducts && activeSimpleProducts.map(item => {
         return (
-            <Box style={{minWidth: '125px'}} key={item.ruTitle}>
+            <Box style={{minWidth: '125px'}} key={item.title}>
                 <InputWrapper label="Наименование">
-                    <Input defaultValue={item.ruTitle} />
+                    <Input defaultValue={item.title}  {...form.getInputProps('title')}/>
                 </InputWrapper>
                 <InputWrapper label="Кол-во товаров" mt={theme.spacing.md}>
-                    <Input defaultValue={item.count} />
+                    <Input defaultValue={item.amount} {...form.getInputProps('amount')} />
                 </InputWrapper>
                 {form.getInputProps('productType').value !== 'Набор' && <InputWrapper label="Шанс выпадения" mt={theme.spacing.md}>
                     <Input defaultValue={item.chance} />
                 </InputWrapper>}
                 <InputWrapper label="Картинка" mt={theme.spacing.md}>
-                    <Input defaultValue={item.imageUrl} />
+                    <Input defaultValue={item.imageUrl} {...form.getInputProps('imageUrl')} />
                 </InputWrapper>
             </Box>
         )
     })
 
     return isOpen && (<Modal opened={isOpen} onClose={close} title="Настройка товаров" size="95%">
-            <form onSubmit={form.onSubmit(createProduct)}>
+            <form onSubmit={(e) => e.preventDefault()}>
                 <Stepper active={active} onStepClick={setActive}>
                     <Stepper.Step label="Добавление товара">
                         <StepOne form={form} shopFilters={shopFilters} productTypeOptions={ProductTypeOptions} />
@@ -119,7 +118,11 @@ export const ModalProduct = ({isOpen, close}) => {
 
                 <Group justify="center" mt="xl">
                     <Button variant="default" onClick={prevStep}>Назад</Button>
-                    <Button type={active === 4 && isShowSubmodal ? "submit" : "button"} onClick={active !== 3 && nextStep}>{active === 3 ? "Добавить" : "Дальше"}</Button>
+                    <Button type={active === 3 ? "submit" : "button"} onClick={() => { 
+                        active !== 3 && nextStep()
+                        console.log(active, isShowSubmodal)
+                        active === 3 && createProduct(form.values)
+                        }}>{active === 3 ? "Добавить" : "Дальше"}</Button>
                 </Group>
             </form>
         </Modal>)
