@@ -26,46 +26,30 @@ namespace RustStore.Controllers
         {
             byte[] itemsData = await _cache.GetAsync("DefaultItemsCache");
 
-            try
+            if (itemsData != null)
             {
-                if (itemsData != null)
+                try
                 {
-                    try
-                    {
-                        string json = Encoding.UTF8.GetString(itemsData);
-                        IEnumerable<DefaultItem> items = JsonConvert.DeserializeObject<IEnumerable<DefaultItem>>(json);
-                        return new BaseServerResponse<IEnumerable<DefaultItem>>(items, Domain.Enum.StatusCode.OK);
-                    }
-                    catch
-                    {
-                        return new BaseServerResponse<IEnumerable<DefaultItem>>(null, Domain.Enum.StatusCode.InternalServerError);
-                    }
+                    string json = Encoding.UTF8.GetString(itemsData);
+                    IEnumerable<DefaultItem> items = JsonConvert.DeserializeObject<IEnumerable<DefaultItem>>(json);
+                    return new BaseServerResponse<IEnumerable<DefaultItem>>(items, Domain.Enum.StatusCode.OK);
                 }
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine("first "+ex.Message);
+                catch
+                {
+                    return new BaseServerResponse<IEnumerable<DefaultItem>>(null, Domain.Enum.StatusCode.InternalServerError);
+                }
             }
 
             var response = await _defaultItemService.GetDefaultItems();
 
-            Console.WriteLine("responseCount  " + response.Data.Count());
-
-            try
+            if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
-                if (response.StatusCode == Domain.Enum.StatusCode.OK)
+                string json = JsonConvert.SerializeObject(response.Data);
+                var responseDataBytes = Encoding.UTF8.GetBytes(json);
+                await _cache.SetAsync("DefaultItemsCache", responseDataBytes, new DistributedCacheEntryOptions
                 {
-                    string json = JsonConvert.SerializeObject(response.Data);
-                    _ = Encoding.UTF8.GetBytes(json);
-                    await _cache.SetAsync("DefaultItemsCache", itemsData, new DistributedCacheEntryOptions
-                    {
-                        AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(4)
-                    });
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(4)
+                });
             }
 
             return new BaseServerResponse<IEnumerable<DefaultItem>>(response.Data, response.StatusCode);
