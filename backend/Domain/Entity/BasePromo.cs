@@ -7,7 +7,7 @@ namespace Domain.Entity
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
         public string PromoCode { get; set; }
         public int MaxUses { get; set; }
