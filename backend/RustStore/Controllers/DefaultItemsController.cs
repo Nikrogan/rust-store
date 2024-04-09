@@ -49,6 +49,8 @@ namespace RustStore.Controllers
 
             var response = await _defaultItemService.GetDefaultItems();
 
+            Console.WriteLine("responseCount  " + response.Data.Count());
+
             try
             {
                 if (response.StatusCode == Domain.Enum.StatusCode.OK)
