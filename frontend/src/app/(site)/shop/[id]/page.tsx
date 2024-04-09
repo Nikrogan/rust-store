@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { Modal } from "@/pageComponents/Modal";
 import { Roullete } from "@/components/roullete";
 import { $roullete, buyRoulleteEvent } from "@/components/roullete/store";
+import { useParams } from "next/navigation";
 
 const getSumFromPrecent = (amount, precent) => {
   if(precent < 0 || amount === 0) return amount;
@@ -15,14 +16,14 @@ const getSumFromPrecent = (amount, precent) => {
 }
 
 export default function Shop() {
+  const {id} = useParams();
   const {getProducts, openModal, closeModal} = useUnit(events);
   const products = useUnit($products);
   const { isOpen, type, content } = useUnit($modal);
-  const { isRun, } = useUnit($roullete);
   const buyRoullete = useUnit(buyRoulleteEvent)
 
   useEffect(() => {
-    getProducts()
+    getProducts(id)
   }, [])
 
   const productsView = products && products.payLoad?.map((item) => {
@@ -44,7 +45,7 @@ export default function Shop() {
       </ProductsList>
       <Modal title="Испытай удачу" isOpen={isOpen} onClose={closeModal}>
         {type === 2 && <Roullete winItemIndex={undefined} itemLenghtInLine={50}/>}
-        <button onClick={() => buyRoullete(0)}>Купить</button>
+        <button onClick={() => buyRoullete(content.id)}>Купить</button>
       </Modal>
     </>
   )

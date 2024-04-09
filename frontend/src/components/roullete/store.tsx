@@ -47,8 +47,8 @@ export const $roullete = createStore({
 
 export const buyRoulleteEvent = createEvent();
 
-export const buyRoulleteFx = createEffect((rouletteid) => {
-    return api.post(`/productbuy/${rouletteid}`)
+export const buyRoulleteFx = createEffect((productId) => {
+    return api.post(`/productbuy/${productId}`)
 })
 
 sample({
