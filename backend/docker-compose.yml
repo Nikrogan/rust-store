@@ -28,6 +28,7 @@ services:
       - RustStore/.env.prod
     volumes:
       - C:\rust-store-storage\images:/images
+      - C:\rust-store-storage\defaultitems:/defaultitems
 
   redis:
     image: redis

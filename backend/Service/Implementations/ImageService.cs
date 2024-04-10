@@ -71,14 +71,14 @@ namespace Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<string>> EditElement(byte[] imageBytes, string id)
+        public async Task<IBaseResponse<byte[]>> EditElement(byte[] imageBytes, string id)
         {
             try
             {
                 string imagePath = Path.Combine("../images", id + ".png");
                 if (!File.Exists(imagePath))
                 {
-                    return new BaseResponse<string>()
+                    return new BaseResponse<byte[]>()
                     {
                         StatusCode = StatusCode.ElementNotFound
                     };
@@ -87,17 +87,17 @@ namespace Service.Implementations
                 File.Delete(imagePath);
                 await File.WriteAllBytesAsync(imagePath, imageBytes);
 
-                return new BaseResponse<string>()
+                return new BaseResponse<byte[]>()
                 {
                     StatusCode = StatusCode.OK,
-                    Data = id
+                    Data = imageBytes
                 };
             }
             catch (Exception ex)
             {
-                return new BaseResponse<string>()
+                return new BaseResponse<byte[]>()
                 {
-                    Description = $"[GetImage] : {ex.Message}",
+                    Description = $"[EditElement] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
