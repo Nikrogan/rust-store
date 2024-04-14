@@ -267,8 +267,8 @@ export const ModalSimpleProducts = ({opened, activeTab, isNotMultiple = false,  
                         
                         activeTab === 'all' ? simpleProducts.map((product) => {
                             return (
-                                <label>
-                                <Box key={product.id} w={50} style={{cursor: "pointer"}}  onClick={() => {
+                                <label key={product.id}>
+                                <Box  w={50} style={{cursor: "pointer"}}  onClick={() => {
 
                                     if(isNotMultiple) {
                                         setCheckedItems({
@@ -300,8 +300,8 @@ export const ModalSimpleProducts = ({opened, activeTab, isNotMultiple = false,  
                         }) :
                         simpleProducts.filter(x => x.type === filter.value).map((product) => {
                             return (
-                                <label>
-                                    <Box key={product.id} w={50} style={{cursor: "pointer"}}  onClick={() => {
+                                <label key={product.id}>
+                                    <Box  w={50} style={{cursor: "pointer"}}  onClick={() => {
                                             setCheckedItems({
                                                 ...checkedItems,
                                                 [product.id]: checkedItems[product.id] ? {
