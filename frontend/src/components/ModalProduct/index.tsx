@@ -86,7 +86,13 @@ export const ModalProduct = ({isOpen, close}) => {
             <form onSubmit={(e) => e.preventDefault()}>
                 <Stepper active={active} onStepClick={setActive}>
                     <Stepper.Step label="Добавление товара">
-                        <StepOne form={form} shopFilters={shopFilters} productTypeOptions={ProductTypeOptions} />
+                        <StepOne setActiveSimpleProducts={(data) => {
+                            const [currentElement] = data;
+                            form.setFieldValue('title', currentElement.name);
+                            form.setFieldValue('description', currentElement.description);
+                            form.setFieldValue('description', currentElement.description);
+                            form.setFieldValue('imageUrl', `https://turringrust.ru/api/v1/storage/${currentElement.itemId}`);
+                        }} form={form} shopFilters={shopFilters} productTypeOptions={ProductTypeOptions} />
                     </Stepper.Step>
                     {isShowSubmodal && (
                         <Stepper.Step label="Состав набора\рулетки">
@@ -120,7 +126,6 @@ export const ModalProduct = ({isOpen, close}) => {
                     <Button variant="default" onClick={prevStep}>Назад</Button>
                     <Button type={active === 3 ? "submit" : "button"} onClick={() => { 
                         active !== 3 && nextStep()
-                        console.log(active, isShowSubmodal)
                         active === 3 && createProduct(form.values)
                         }}>{active === 3 ? "Добавить" : "Дальше"}</Button>
                 </Group>

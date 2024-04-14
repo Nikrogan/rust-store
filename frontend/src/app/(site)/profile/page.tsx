@@ -1,12 +1,8 @@
 'use client'
 import { theme } from '@/components/theme/theme'
-import { Box, Flex, Image, MantineProvider, Table, Tabs, TabsList, TabsPanel, Text, Title } from '@mantine/core'
+import { Box, Flex, Image, Table, Tabs, TabsList, TabsPanel, Text, Title } from '@mantine/core'
 import { useUnit } from 'effector-react'
-import { $userStores, logoutEvent } from '@/store/auth'
-import { redirect, useRouter } from "next/navigation";
-import { useColor } from '@/shared/hooks/useColor'
-import { ButtonWrapper } from '@/shared/ButtonWrapper/ButtonWrapper'
-import { useLayoutEffect } from 'react'
+import { $userStores } from '@/store/auth'
 
 
 export const promocodesTableData = {
@@ -20,26 +16,14 @@ export const historyBalanceTableData = {
 }
 
 export default function ProfilePage() {
-  const {isAuth, user} = useUnit($userStores);
-  const onLogout = useUnit(logoutEvent);
-
-  const handleLogout = () => {
-    onLogout()
-  };
-  const bgColor = useColor();
-  useLayoutEffect(() => {
-    if(!isAuth) {
-      redirect('/')
-    }
-  }, [isAuth])
+  const { user } = useUnit($userStores);
 
   return (
     <div>
-      <MantineProvider theme={theme}>
         <Flex justify="start" w="100%" mt={24}>
           <Title>Профиль</Title>
         </Flex>
-        <Box bg={bgColor} p={theme.spacing.md} mt={theme.spacing.lg}>
+        <Box bg={theme.colors?.dark?.[9]} p={theme.spacing.md} mt={theme.spacing.lg}>
         <Flex justify="space-between" align='center' >
           <Box>
             <Flex align='center'>
@@ -80,7 +64,6 @@ export default function ProfilePage() {
           </TabsPanel>
         </Tabs>
         </Box>
-      </MantineProvider>
     </div>
   )
 }

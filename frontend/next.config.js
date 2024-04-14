@@ -25,7 +25,7 @@ const nextConfig = {
           protocol: 'https',
           hostname: 'bwrust.ru',
           port: '',
-          pathname: '/uploads/newBw/**',
+          pathname: '/uploads/**',
         },
       ],
     },

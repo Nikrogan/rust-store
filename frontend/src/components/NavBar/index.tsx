@@ -157,6 +157,7 @@ export const NavBar = () => {
       <FlexContainer>
        {isAuth && (
        <>
+       <StyledLinkPromo>Активировать промокод</StyledLinkPromo>
         <StyledMoneyLink>
           <MoneyImage />
           <StyledMoneyCount>
@@ -174,6 +175,20 @@ export const NavBar = () => {
     </FlexContainer>
   )
 }
+
+const StyledLinkPromo = styled.div`
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  cursor: pointer;
+  margin-right: 8px;
+
+  transition: all 0.4s;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+`
 
 const StyledMoneyLink = styled.div`
   display: flex;
