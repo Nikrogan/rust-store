@@ -98,23 +98,23 @@ namespace PaymentServiceManager
             client.Dispose();
 
             if (response.IsSuccessStatusCode)
-                {
-                    string responseBody = await response.Content.ReadAsStringAsync();
-                    JObject jsonResponse = JObject.Parse(responseBody);
+            {
+                string responseBody = await response.Content.ReadAsStringAsync();
+                JObject jsonResponse = JObject.Parse(responseBody);
 
-                    string invoiceLink = jsonResponse["status"].ToString();
+                string invoiceLink = jsonResponse["status"].ToString();
 
-                    if (invoiceLink == "COMPLETED")
-                    {
-                        return PaymentStatus.Succeeded;
-                    }
-                    return PaymentStatus.Canceled;
-                }
-                else
+                if (invoiceLink == "COMPLETED")
                 {
-                    // Обработайте ошибку, если запрос не успешен
-                    Console.WriteLine($"Ошибка запроса к PayPal API: {response.StatusCode} - {response.ReasonPhrase}");
+                    return PaymentStatus.Succeeded;
                 }
+                return PaymentStatus.Canceled;
+            }
+            else
+            {
+                // Обработайте ошибку, если запрос не успешен
+                Console.WriteLine($"Ошибка запроса к PayPal API: {response.StatusCode} - {response.ReasonPhrase}");
+            }
             
             return PaymentStatus.Pending;
         }

@@ -13,5 +13,6 @@ namespace Domain.Entity
         public string SteamId { get; set; }
         public string SteamName { get; set;}
         public int OrderId { get; set; }
+        public int? CurrenciesID {  get; set; }
     }
 }

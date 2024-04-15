@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using Service;
 using Service.Interfaces;
-using System.Net;
 namespace RustStore.Controllers
 {
     [Route("api/v1/storage")]
@@ -20,7 +19,6 @@ namespace RustStore.Controllers
         }
 
         [HttpGet("{id}")]
-        [SessionAuthorize]
         public async Task<IActionResult> Get(string id)
         {
             byte[] imageData = await _cache.GetAsync(id);

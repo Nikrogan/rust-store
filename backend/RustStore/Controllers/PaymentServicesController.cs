@@ -31,8 +31,12 @@ namespace RustStore.Controllers
             return new BaseServerResponse<IEnumerable<SimplePaymentService>>(paymentServices, Domain.Enum.StatusCode.OK);
         }
 
-
-        //public async Task<IActionResult> Create(InvoiceCreateModel invoiceCreateModel)
+        [HttpGet("freekassa_currencies")]
+        public async Task<IBaseServerResponse<object>> GetCurrencies()
+        {
+            var currencies = FreeKassaApi.GetCurrencies();
+            return new BaseServerResponse<object>(currencies, Domain.Enum.StatusCode.OK);
+        }
 
         [HttpPost]
         [SessionAuthorize]
@@ -78,7 +82,7 @@ namespace RustStore.Controllers
             await _paymentService.CreatePayment(paymentModel);
 
             //return Redirect(invoiceResponse.InvoiceUrl);
-            return new BaseServerResponse<string>(invoiceResponse.InvoiceUrl, Domain.Enum.StatusCode.InternalServerError);
+            return new BaseServerResponse<string>(invoiceResponse.InvoiceUrl, Domain.Enum.StatusCode.OK);
 
         }
 
