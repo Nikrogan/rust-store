@@ -3,13 +3,15 @@ using Domain.Response;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
+using Service;
 using Service.Interfaces;
 using System.Text;
 
 namespace RustStore.Controllers
 {
-    [Route("api/v1/defaultitems")]
+    [Route("api/v1/admin/defaultitems")]
     [ApiController]
+    [SessionAuthorize(2)]
     public class DefaultItemsController : ControllerBase
     {
         private readonly IDefaultItemService _defaultItemService;

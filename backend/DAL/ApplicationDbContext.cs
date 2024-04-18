@@ -37,10 +37,10 @@ public class ApplicationDbContext
             _database.CreateCollection("promocodes");
         if (!CollectionExists("playerchecksheet"))
             _database.CreateCollection("playerchecksheet");
-        if (!CollectionExists("serverсollection"))
-            _database.CreateCollection("serverсollection");
-        if (!CollectionExists("purchasestatcollection"))
-            _database.CreateCollection("purchasestatcollection");
+        if (!CollectionExists("servers"))
+            _database.CreateCollection("servers");
+        if (!CollectionExists("purchasestats"))
+            _database.CreateCollection("purchasestats");
         if (!CollectionExists("shopfilters"))
         {
             _database.CreateCollection("shopfilters");
@@ -84,7 +84,7 @@ public class ApplicationDbContext
         }
 
 
-        ServerCollection = _database.GetCollection<BaseServer>("servercollection");
+        ServerCollection = _database.GetCollection<BaseServer>("servers");
         UserCollection = _database.GetCollection<BaseUser>("users");
         ProductCollection = _database.GetCollection<BaseProduct>("products");
         NewsCollection = _database.GetCollection<BaseNews>("news");
@@ -92,7 +92,7 @@ public class ApplicationDbContext
         ShopFiltersCollection = _database.GetCollection<BaseShopFilter>("shopfilters");
         PlayerCheckSheetCollection = _database.GetCollection<BasePlayerCheck>("playerchecksheet");
         PromocodeCollection = _database.GetCollection<BasePromo>("promocodes");
-        PurchasesStatCollection = _database.GetCollection<PurchaseStat>("purchasestatcollection");
+        PurchasesStatCollection = _database.GetCollection<PurchaseStat>("purchasestats");
     }
 
     public IMongoCollection<BaseUser> UserCollection { get; set; }
