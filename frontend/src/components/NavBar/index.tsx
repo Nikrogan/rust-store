@@ -23,6 +23,8 @@ import styled from "styled-components"
 import { Button } from "../Button"
 import { Select } from "../Select"
 import { SteamIcon } from "../SteamIcon"
+import { open as balancaModalOpen } from "../BalanceModal/store"
+import { open as promocodeModalOpen } from "../PromocodeModal/store"
 
 const checkIsInfoPage = (pathname: string) => {
   switch (pathname) {
@@ -114,13 +116,9 @@ export const NavBar = () => {
     notificationList: $notification,
     deleteNotification: deleteNotificationEvent
   });
-  const matches = useMediaQuery('(max-width: 1600px)');
-  const isInfoPage = checkIsInfoPage(pathname);
-  const { setColorScheme } = useMantineColorScheme();
-  const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true });
 
-  const [opened, { open, close }] = useDisclosure(false);
-  const [isOpenBalanceModal, { open: handeOpenBalanceModal, close: handeCloseBalanceModal }] = useDisclosure(false);
+  const onBalancaModalOpen  = useUnit(balancaModalOpen);
+  const onPromocodeModalOpen  = useUnit(promocodeModalOpen);
 
   const handleLogin = () => {
     const popupWindow = window.open(
@@ -157,8 +155,8 @@ export const NavBar = () => {
       <FlexContainer>
        {isAuth && (
        <>
-       <StyledLinkPromo>Активировать промокод</StyledLinkPromo>
-        <StyledMoneyLink>
+       <StyledLinkPromo onClick={onPromocodeModalOpen}>Активировать промокод</StyledLinkPromo>
+        <StyledMoneyLink onClick={onBalancaModalOpen}>
           <MoneyImage />
           <StyledMoneyCount>
             {user?.balance} BW

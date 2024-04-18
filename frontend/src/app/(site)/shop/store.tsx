@@ -1,5 +1,5 @@
 import {createEffect, createEvent, createStore, sample} from 'effector';
-import {api} from '../../../config/api';
+import {api, buildRequest} from '../../../config/api';
 
 const defaultStore = {
     isLoading: true,
@@ -41,4 +41,10 @@ sample({
         }
     },
     target: $products
+})
+
+
+
+export const { request: serverRequest, store: $serverStore } = buildRequest('servers', {
+    requestFn: () => api.get('/server')
 })

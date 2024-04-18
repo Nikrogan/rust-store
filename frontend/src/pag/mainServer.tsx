@@ -5,6 +5,8 @@ import { Container } from "@mantine/core";
 import { NavBar } from "@/components/NavBar";
 import styled from 'styled-components';
 import { useLayoutEffect } from "react";
+import { PromocodeModal } from "@/components/PromocodeModal/PromocodeModal";
+import { BalancaModal } from "@/components/BalanceModal";
 
 const Background = styled.div`
     background: ${() => "#0B0911" };
@@ -50,7 +52,9 @@ export const MainPageServer = ({children}) => {
                     и ни при каких условиях не является публичной офертой, определяемой положениями ч. 2 ст. 437 
                     Гражданского кодекса Российской Федерации.
                 </Offer>
-            </Container> 
+            </Container>
+            <PromocodeModal /> 
+            <BalancaModal />
         </Background>
     )
 }

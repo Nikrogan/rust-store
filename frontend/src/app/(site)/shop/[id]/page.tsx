@@ -38,15 +38,16 @@ export default function Shop() {
     </ProductContainer>
     )
   })
+
   return (
     <>
       <ProductsList>
           {productsView}
       </ProductsList>
-      <Modal title="Испытай удачу" isOpen={isOpen} onClose={closeModal}>
+      {isOpen && <Modal title={ type === 2  ? 'Испытай удачу' : content.title } isOpen={isOpen} onClose={closeModal}>
         {type === 2 && <Roullete winItemIndex={undefined} itemLenghtInLine={50}/>}
         <button onClick={() => buyRoullete(content.id)}>Купить</button>
-      </Modal>
+      </Modal>}
     </>
   )
 }

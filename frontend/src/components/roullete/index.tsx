@@ -1,5 +1,4 @@
 import { useUnit } from "effector-react";
-import { useState } from "react";
 import styled, { css } from "styled-components";
 import { $roullete } from "./store";
 
