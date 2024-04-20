@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const Tabs = ({defaultTabId, headerList, tabsContentList}) => {
     const [currentTab, setCurrentTab] = useState(defaultTabId);
-    const viewHeader = headerList.map(item => (<item.render isActive={item.id === currentTab}  onClick={() => setCurrentTab(item.id)} {...item}/>));
+    const viewHeader = headerList.map((item, i) => (<item.render key={item.id + i} isActive={item.id === currentTab}  onClick={() => setCurrentTab(item.id)} {...item}/>));
 
     const viewContent = tabsContentList.map(item => {
         if(item.id !== currentTab) return;
