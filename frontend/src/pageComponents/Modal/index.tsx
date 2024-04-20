@@ -19,13 +19,11 @@ export const Modal = ({ children, onClose, isOpen, title = "Заголовок �
     )
   }
   
-  const CloseModal = () => {
-    return (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M24 2.41714L21.5829 0L12 9.58286L2.41714 0L0 2.41714L9.58286 12L0 21.5829L2.41714 24L12 14.4171L21.5829 24L24 21.5829L14.4171 12L24 2.41714Z" fill="white"/>
+  const CloseModal = () => (
+    <svg width="15" height="15" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M12.7539 1.43377C13.082 1.10578 13.082 0.573991 12.7539 0.245996C12.426 -0.0819987 11.8942 -0.0819987 11.5663 0.245996L6.5 5.31224L1.43379 0.245996C1.10578 -0.0819987 0.57399 -0.0819987 0.245996 0.245996C-0.0819986 0.573991 -0.0819986 1.10578 0.245996 1.43377L5.31223 6.50001L0.245996 11.5662C-0.0819986 11.8943 -0.0819986 12.426 0.245996 12.7541C0.57399 13.082 1.10578 13.082 1.43379 12.7541L6.5 7.68779L11.5663 12.7541C11.8942 13.082 12.426 13.082 12.7539 12.7541C13.082 12.426 13.082 11.8943 12.7539 11.5662L7.68778 6.50001L12.7539 1.43377Z" fill="#A4A4A4"/>
     </svg>
-    )
-  }
+  )
   
   const CloseModalContainer = styled.div`
     cursor: pointer;
@@ -56,7 +54,6 @@ export const Modal = ({ children, onClose, isOpen, title = "Заголовок �
     padding: 16px;
     background: #1A1A1A;
     width: 750px;
-    height: 430px;
     border: 1px solid #000000;
   `
   

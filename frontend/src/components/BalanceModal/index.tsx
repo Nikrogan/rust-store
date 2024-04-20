@@ -7,13 +7,15 @@ import { useUnit } from "effector-react";
 import { $paymentList, createPaymentEvent, getPaymentListEvent } from "@/store/balance";
 import { $userStores } from "@/store/auth";
 import { theme } from "../theme/theme";
+import { store, close } from "./store";
 
-export const BalancaModal = ({isOpen, onClose}) => {
+export const BalancaModal = () => {
     const [ isLoadingBalance, setLoading ] = useState(false)
     const { colorScheme } = useMantineColorScheme();
     const isMobile = useMediaQuery('(max-width: 50em)');
     const [value, setValue] = useState<string | null>('');
-
+    const {isOpen } = useUnit(store)
+    const onClose = useUnit(close)
     const {paymentData: {paymentList, isLoading}, user: {user}, getPaymentList, createPayment} = useUnit({
       paymentData: $paymentList,
       user: $userStores,
@@ -29,7 +31,8 @@ export const BalancaModal = ({isOpen, onClose}) => {
     const handleClose = (data) => {
       if(isLoadingBalance) {
         return;
-      }
+      };
+
       onClose(data)
     }
 

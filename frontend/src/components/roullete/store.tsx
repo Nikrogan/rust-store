@@ -57,7 +57,6 @@ sample({
 })
 
 
-
 export const getSlider = (pos) => {
     return keyframes`
       0% {

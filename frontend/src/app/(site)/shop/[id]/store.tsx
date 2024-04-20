@@ -71,13 +71,14 @@ sample({
 })
 
 sample({
-    clock: buyRoulleteFx.failData,
+    clock: buyRoulleteFx.doneData,
     source: $modal,
-    fn: (modalStore, roulleteStore) => {
+    fn: (modalStore, { data }) => {
+        const winIndex = modalStore.content.insideProducts.findIndex(x => x.title === data.payLoad.title)
         return {
             isRun: true,
             sliderWidth: getSlider(getRandomInt(2750, 2890)),
-            items: generateItems(modalStore.content.insideProducts, 2, 50)
+            items: generateItems(modalStore.content.insideProducts, winIndex, 50)
         }
     },
     target: $roullete
@@ -156,7 +157,7 @@ export const countdown = createCountdown("simple", {
 
 
 sample({
-    clock: buyRoulleteFx.failData,
+    clock: buyRoulleteFx.doneData,
     fn: () => {
         return 5
     },
