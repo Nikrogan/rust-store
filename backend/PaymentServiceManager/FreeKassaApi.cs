@@ -1,11 +1,7 @@
 ﻿using Domain.Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace PaymentServiceManager
 {
@@ -45,9 +41,28 @@ namespace PaymentServiceManager
                 client.Headers[HttpRequestHeader.ContentType] = "application/json";
                 string result = client.UploadString(apiUrl, jsonRequest);
                 dynamic response = Newtonsoft.Json.JsonConvert.DeserializeObject(result);
-                Console.WriteLine(response);
-            }
 
+                try
+                {
+                    var status = response.type;
+                    if (status != "success")
+                        return null;
+
+                    var invoice = response.location;
+                    var orederId = response.orderId;
+
+                    return new InvoiceResponse
+                    {
+                        InvoiceUrl = invoice,
+                        ServiceOrderId = orederId
+                    };
+                }
+                catch
+                {
+
+                }
+                return null;
+            }
         }
 
         public static async Task<object> GetCurrencies()

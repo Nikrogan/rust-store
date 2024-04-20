@@ -4,9 +4,11 @@ using Domain.Response;
 using Domain.SimpleEntity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Linq;
 using PaymentServiceManager;
 using Service;
 using Service.Interfaces;
+using System.Runtime.CompilerServices;
 using System.Text.Json.Nodes;
 
 namespace RustStore.Controllers
@@ -34,7 +36,7 @@ namespace RustStore.Controllers
         [HttpGet("freekassa_currencies")]
         public async Task<IBaseServerResponse<object>> GetCurrencies()
         {
-            var currencies = FreeKassaApi.GetCurrencies();
+            var currencies = await FreeKassaApi.GetCurrencies();
             return new BaseServerResponse<object>(currencies, Domain.Enum.StatusCode.OK);
         }
 
@@ -137,6 +139,85 @@ namespace RustStore.Controllers
         {
             var status = await PayPalApi.CheckStatus(token);
             return new BaseServerResponse<string>(status.ToString(), Domain.Enum.StatusCode.OK);
+        }
+
+        [HttpGet("tome_redirect/{id}")]
+        public async Task<IActionResult> TomeSuccessWebHook(string id)
+        {
+            var payment = await _paymentService.GetPaymentByServiceId(id);
+
+            DotNetEnv.Env.Load();
+            var link = Environment.GetEnvironmentVariable("frontUrl");
+
+            var user = await _userService.GetUserBySteamId(payment.Data.SteamId);
+            if (user.StatusCode != Domain.Enum.StatusCode.OK || user.Data == null) return Redirect(link);
+
+            if (payment.StatusCode != Domain.Enum.StatusCode.OK || payment.Data.ServiceOrderId == null)
+                return Redirect(link);
+
+            var serviceOrderId = payment.Data.ServiceOrderId;
+            var status = await TomeApi.IsSucceeded(serviceOrderId);
+            if (!status) return Redirect(link);
+
+            user.Data.Balance += payment.Data.Amount;
+            await _userService.EditElement(user.Data);
+            payment.Data.PaymentStatus = PaymentStatus.Succeeded;
+            await _paymentService.EditElement(payment.Data);
+
+            await _userService.CreateUserBalanceAction(user.Data.SteamId, new BalanceActionModel
+            {
+                DateTime = DateTime.Now,
+                PaymentSystem = "Tome",
+                OperationType = OperationType.AddBalance
+            });
+
+            return Redirect(link);
+        }
+
+        [HttpGet("tome_alert")]
+        public async Task<IActionResult> TomeAlertWebHook([FromBody] JObject requestBody)
+        {
+            try
+            {
+                string id = requestBody["object"]["id"].ToString();
+                string status = requestBody["object"]["status"].ToString();
+
+                var payment = await _paymentService.GetPaymentByServiceId(id);
+
+                DotNetEnv.Env.Load();
+                var link = Environment.GetEnvironmentVariable("frontUrl");
+
+                if (payment.Data == null) return Redirect(link);
+                if (payment.Data.PaymentStatus != PaymentStatus.Pending) return Redirect(link);
+
+                var user = await _userService.GetUserBySteamId(payment.Data.SteamId);
+                if (user.StatusCode != Domain.Enum.StatusCode.OK || user.Data == null) return Redirect(link);
+
+                if(status != "succeeded")
+                {
+                    payment.Data.PaymentStatus = PaymentStatus.Canceled;
+                    await _paymentService.EditElement(payment.Data);
+                    return Ok();
+                }
+
+                user.Data.Balance += payment.Data.Amount;
+                await _userService.EditElement(user.Data);
+                payment.Data.PaymentStatus = PaymentStatus.Succeeded;
+                await _paymentService.EditElement(payment.Data);
+
+                await _userService.CreateUserBalanceAction(user.Data.SteamId, new BalanceActionModel
+                {
+                    DateTime = DateTime.Now,
+                    PaymentSystem = "Tome",
+                    OperationType = OperationType.AddBalance
+                });
+            }
+            catch
+            {
+                return Ok();
+            }
+
+            return Ok();
         }
 
         [HttpGet("paypal_success")]
