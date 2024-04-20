@@ -12,8 +12,6 @@ export const MainFilters = () => {
     for(let i = 0; i < 100; i++) {
         a.push(i)
     }
-
-    console.log(value !== null && new Date(value[0]))
    
     d.setMonth(d.getMonth() - 1);
     return <Flex align='center' justify="space-between">

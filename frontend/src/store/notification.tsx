@@ -7,7 +7,6 @@ export const deleteNotificationEvent = createEvent();
 const deleteNotificationFx = createEffect(async (store) => {
     return new Promise((res, rej) => {
         setTimeout(() => {
-            console.log(store)
             res(store.at(-1))
         }, 1000)
     })
@@ -50,7 +49,6 @@ sample({
 sample({
     clock: deleteNotificationFx.doneData,
     fn: (data) => {
-        console.log(data)
         return data
     },
     target: deleteNotificationEvent

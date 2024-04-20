@@ -11,17 +11,17 @@ import { BalancaModal } from "@/components/BalanceModal";
 const Background = styled.div`
     background: ${() => "#0B0911" };
     min-height: 100vh;
-`
+`;
 
 const Offer = styled.div`
-    text-align:center;
+    text-align: center;
     max-width: 1078px;
     margin: 36px auto 0;
-`
+`;
 
 const StyledMain = styled.main`
     min-height: calc(100vh - 178px);
-`
+`;
 
 export const MainPageServer = ({children}) => {
     const pathname = usePathname();

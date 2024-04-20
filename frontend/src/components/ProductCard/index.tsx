@@ -1,37 +1,84 @@
-'use client'
-import { Badge, Button, Card, Group, Image, Text } from "@mantine/core"
-import './productcard.css'
+import styled from "styled-components"
 
 
-type ProductCardProps = {
- imageSrc?: string;
- title?: string;
- price?: string | number;
- buttonText?: string;
-}
+const getSumFromPrecent = (amount, precent) => {
+    if(precent < 0 || amount === 0) return amount;
+    const onePrecent = amount / 100;
+    const discount = onePrecent * precent;
+    return amount - discount;
+  }
 
-export const ProductCard = ({onClick, title='Minicopter х1', imageSrc = 'https://bwrust.ru/uploads/items/minicopter.png', price = 'free', buttonText = 'Купить'}: ProductCardProps) => {
+export const ProductCard = ({onClick, ...item}) => {
+    const price = getSumFromPrecent(item.price, item.discount);
+
     return (
-        <Card shadow="xl" radius="md" padding="md"  className="product-card" h={"275"}>
-            <Card.Section>
-                <Image
-                    src={imageSrc}
-                    w={240}
-                    height={160}
-                    fit="contain"
-                    alt="Norway"
-                    pt="md"
-                />
-            </Card.Section>
-
-            <Group justify="space-between" mt="md" mb="xs">
-                <Text fw={500}>{title}</Text>
-                <Badge color="pink">{price} {price !== "free" && "BW"}</Badge>
-            </Group>
-
-            <Button color="blue" fullWidth mt="md" radius="md" onClick={onClick}>
-                {buttonText}
-            </Button>
-        </Card>
-    )
+    <ProductContainer key={item.id} onClick={() => onClick && onClick(item)}>
+    <ProductPrice isFree={item.price === 0}>{item.discount > 0 && <OldPrice>{item.price}</OldPrice>}{price == 0 ? 'FREE': `${price} BW`}</ProductPrice>
+        {item.discount > 0 && <ProductDiscount>{item.discount}%</ProductDiscount>}
+    <StyledImg src={item.imageUrl} />
+    <PruductDescription>{item.title}</PruductDescription>
+ </ProductContainer>
+ )
 }
+
+const StyledImg = styled.img`
+  width: 180px;
+  height: 180px;
+`
+
+const PruductDescription = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 35px;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const OldPrice = styled.div`
+  font-size: 12px;
+  color: #929292;
+  text-decoration: line-through;
+  margin-right: 4px;
+`
+
+const ProductPrice = styled.div`
+  position: absolute;
+  background: ${({isFree}) => isFree ? "#CD422A" : "#474747"};
+  top: 2px;
+  left: 2px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px 0 6px;
+  justify-content: center;
+`
+
+const ProductDiscount = styled.div`
+  position: absolute;
+  background: #CD422A;
+  top: 2px;
+  right: 2px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  justify-content: center;
+`
+
+const ProductContainer = styled.div`
+  background: #1a1a1a;
+  width: 200px;
+  height: 245px;
+  position: relative;
+  transition: transform 0.6s;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    transform: scale(1.04);
+  }
+`
