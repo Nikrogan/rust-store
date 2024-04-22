@@ -42,8 +42,8 @@ export const MainPageServer = ({children}) => {
         return <Main />
     }
 
-    const NotificationListView = NotificationData.map(item => {
-        return <Notification>{item}</Notification>
+    const NotificationListView = NotificationData.map((item, i) => {
+        return <Notification key={item + i}>{item}</Notification>
     })
 
     return (
