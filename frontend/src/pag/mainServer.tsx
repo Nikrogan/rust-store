@@ -7,6 +7,9 @@ import styled from 'styled-components';
 import { useLayoutEffect } from "react";
 import { PromocodeModal } from "@/components/PromocodeModal/PromocodeModal";
 import { BalancaModal } from "@/components/BalanceModal";
+import { useUnit } from "effector-react";
+import { $NotificationList } from "@/components/roullete/store";
+import { Notification } from "./Notification/notification";
 
 const Background = styled.div`
     background: ${() => "#0B0911" };
@@ -25,7 +28,8 @@ const StyledMain = styled.main`
 
 export const MainPageServer = ({children}) => {
     const pathname = usePathname();
-    
+    const NotificationData = useUnit($NotificationList);
+
     useLayoutEffect(() => {
         const lastPage = localStorage.getItem('lastPage');
         if(lastPage) {
@@ -37,6 +41,10 @@ export const MainPageServer = ({children}) => {
     if(pathname === '/') {
         return <Main />
     }
+
+    const NotificationListView = NotificationData.map(item => {
+        return <Notification>{item}</Notification>
+    })
 
     return (
         <Background>
@@ -55,6 +63,22 @@ export const MainPageServer = ({children}) => {
             </Container>
             <PromocodeModal /> 
             <BalancaModal />
+            <NotificationList>
+                <div>
+                    {NotificationListView}
+                </div>
+
+            </NotificationList>
         </Background>
     )
 }
+
+const NotificationList = styled.div`
+    position: absolute;
+    z-index: 999999;
+    top: 24px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    flex-wrap: wrap;
+`

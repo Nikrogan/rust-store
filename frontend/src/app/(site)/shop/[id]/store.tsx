@@ -1,4 +1,4 @@
-import { $roullete, buyRoulleteFx, generateItems, getRandomInt, getSlider } from "@/components/roullete/store";
+import { $NotificationList, $roullete, buyRoulleteFx, generateItems, getRandomInt, getSlider } from "@/components/roullete/store";
 import { api } from "@/config/api";
 import { createEffect, createEvent, createStore, sample } from "effector";
 
@@ -97,9 +97,6 @@ sample({
     target: $roullete
 })
 
-
-
-
 export const events = {
     getProducts: getProductsEvent,
     closeModal: closeModalEvent,
@@ -154,7 +151,6 @@ export const countdown = createCountdown("simple", {
   start: startCountdown,
   abort: abortCountdown,
 });
-
 
 sample({
     clock: buyRoulleteFx.doneData,

@@ -3,10 +3,10 @@ import styled from "styled-components"
 
 const StyledButton = styled.button`
     padding: 10px;
-    background: #0B0911;
+    background: #7950F2;
     display: flex;
     align-items: center;
-    font-size: 13px;
+    font-size: ${({fontSize}) => fontSize ? fontSize : '13px'};
     width: ${({ width }) => width ? width : 'auto' };
     justify-content: ${({position}) => position ? position : 'auto'};
     transition: transform 0.4s;

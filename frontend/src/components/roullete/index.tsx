@@ -35,7 +35,7 @@ export const Roullete = () => {
         </Animation>
         </div>
     </div>
-    </div> 
+    </div>
     <style jsx>
             {`
             .item {

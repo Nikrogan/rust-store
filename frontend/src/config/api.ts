@@ -55,7 +55,8 @@ export const buildRequest = (name, {
         fn: ({data}) => ({
             isLoading: false,
             isError: true,
-            data: data.payLoad
+            data: data.payLoad,
+            status: data.status
         }),
         target: store
     })
