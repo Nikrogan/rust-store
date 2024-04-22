@@ -69,6 +69,7 @@ export default function Shop() {
 
   return (
     <SelectShopContainer>
+      <div className="light"></div>
       {!isLoading && (
       <>
       <Title>Выберите сервер</Title><FlexContainer>

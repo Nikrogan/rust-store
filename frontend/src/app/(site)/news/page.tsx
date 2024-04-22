@@ -31,6 +31,7 @@ export default function PageNews () {
 export const ShortNews = ({title, imgUrl, content, id}) => {
     return <>
     <Link href={`/news/${id}`} style={{textDecoration: 'none'}}>
+        
     <Card withBorder radius="md" p="md" >
         <Card.Section >
             <Image src={imgUrl} height={180} />

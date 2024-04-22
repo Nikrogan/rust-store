@@ -1,19 +1,68 @@
 'use client'
 import { theme } from '@/components/theme/theme'
-import { Box, Flex, Image, Table, Tabs, TabsList, TabsPanel, Text, Title } from '@mantine/core'
+import { Box, Flex, Image, Table, Text, Title } from '@mantine/core'
 import { useUnit } from 'effector-react'
 import { $userStores } from '@/store/auth'
+import { PromoCodesTable } from './_promocodes'
+import { UserBalanceHistoryTable } from './_userbalancehistory'
+import { UserBasket } from './_userbasket'
+import styled from 'styled-components'
+import { color } from '@/config/theme'
+import { Tabs } from '@/components/Tabs'
 
 
-export const promocodesTableData = {
-  head: ['Дата', 'Промокод', 'Сумма'],
-  body: [],
-}
 
-export const historyBalanceTableData = {
-  head: ['Дата', 'Операция', 'Сумма', 'Платежная система'],
-  body: [],
-}
+const TabsHeader = styled.div`
+  cursor: pointer;
+  background: ${color.primary};
+  padding: 2px 8px;
+  max-width: 186px;
+  width: 100%;
+  text-align: center;
+  border: ${({isActive}) => isActive ? `1px solid ${color.accent}` : 'none'};
+
+  & + & {
+    margin-left: 16px;
+  }
+`
+
+const headerList = [
+  {
+      id: 'inventory',
+      render: ({...data}) => <TabsHeader {...data}>Инвентарь</TabsHeader>
+  },
+  {
+      id: 'historyBalance',
+      render: ({...data}) => <TabsHeader {...data}>История баланса</TabsHeader>
+  },
+  {
+      id: 'promocodes',
+      render: ({...data}) => <TabsHeader {...data}>Промокоды</TabsHeader>
+  },
+  {
+      id: 'individualOffers',
+      render: ({...data}) => <TabsHeader {...data}>Личные предложения</TabsHeader>
+  },
+]
+
+const tabsContentList = [
+  {
+      id: 'inventory',
+      render: ({...data}) => <UserBasket {...data} />
+  },
+  {
+      id: 'historyBalance',
+      render: ({...data}) => <UserBalanceHistoryTable {...data} />
+  },
+  {
+      id: 'promocodes',
+      render: ({...data}) => <PromoCodesTable {...data} />
+  },
+  {
+      id: 'individualOffers',
+      render: ({...data}) => <div {...data}>gavno</div>
+  },
+]
 
 export default function ProfilePage() {
   const { user } = useUnit($userStores);
@@ -30,40 +79,25 @@ export default function ProfilePage() {
             <Image src={user?.avatarUrl} w={100} h={100} radius={theme.radius?.sm} />
             <Flex direction="column" ml='md'>
               <Text>{user?.displayName}</Text>
-              <Text>Steam ID: {user?.steamId}</Text>
+              <StyledText>Steam ID: &nbsp;<a target='_blank' href={`https://steamcommunity.com/profiles/${user?.steamId}`}>{user?.steamId}</a></StyledText>
             </Flex>
             </Flex>
           </Box>
         </Flex>
-        <Tabs mt={theme.spacing.md} variant="outline" defaultValue="inventory">
-          <TabsList>
-            <Tabs.Tab value="inventory">
-              Инвентарь
-            </Tabs.Tab>
-            <Tabs.Tab value="historyBalance">
-              История баланса
-            </Tabs.Tab>
-            <Tabs.Tab value="promocodes">
-              Промокоды
-            </Tabs.Tab>
-            <Tabs.Tab value="individualOffers">
-              Личные предложения
-            </Tabs.Tab>
-          </TabsList>
-          <TabsPanel value="inventory" mt={theme.spacing.md}>
-            Инвентарь
-          </TabsPanel>
-          <TabsPanel value="historyBalance" mt={theme.spacing.md}>
-            <Table data={historyBalanceTableData}/>
-          </TabsPanel>
-          <TabsPanel value="promocodes" mt={theme.spacing.md}>
-            <Table data={promocodesTableData}/>
-          </TabsPanel>
-          <TabsPanel value="individualOffers" mt={theme.spacing.md}>
-            Личные предложения
-          </TabsPanel>
-        </Tabs>
+        <Tabs defaultTabId='inventory' headerList={headerList} tabsContentList={tabsContentList}/>
         </Box>
     </div>
   )
 }
+
+const StyledText = styled(Text)`
+  display: flex;
+
+  a {
+    color: ${color.accent};
+
+    &:hover {
+      transform: scale(1.01);
+    }
+  }
+`

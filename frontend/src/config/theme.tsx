@@ -3,6 +3,5 @@ export const color = {
     secondary: '#1A1A1A',
     thirdly: '#414141',
     white: '#FFFFFF',
-    accent: '',
-
+    accent: '#FFE138',
 }
