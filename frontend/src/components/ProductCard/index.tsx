@@ -6,24 +6,33 @@ const getSumFromPrecent = (amount, precent) => {
     const onePrecent = amount / 100;
     const discount = onePrecent * precent;
     return amount - discount;
-  }
+}
+
+export enum ProductTypes {
+  Roullete = '1',
+  Shop = '1',
+}
 
 export const ProductCard = ({onClick, ...item}) => {
     const price = getSumFromPrecent(item.price, item.discount);
+    const isRoullete = item.type === ProductTypes.Roullete;
 
     return (
-    <ProductContainer key={item.id} onClick={() => onClick && onClick(item)}>
-    <ProductPrice isFree={item.price === 0}>{item.discount > 0 && <OldPrice>{item.price}</OldPrice>}{price == 0 ? 'FREE': `${price} BW`}</ProductPrice>
-        {item.discount > 0 && <ProductDiscount>{item.discount}%</ProductDiscount>}
-    <StyledImg src={item.imageUrl} />
-    <PruductDescription>{item.title}</PruductDescription>
+    <ProductContainer type={item.type} key={item.id} onClick={() => onClick && onClick(item)}>
+    {!isRoullete && <ProductPrice isFree={item.price === 0}>
+      {item.discount > 0 && <OldPrice>{item.price}</OldPrice>}{price == 0 ? 'FREE': `${price} BW`}
+    </ProductPrice>}
+    {item.discount > 0 && !isRoullete && <ProductDiscount>{item.discount}%</ProductDiscount>}
+
+    <StyledImg type={item.type} src={item.imageUrl} />
+    <PruductDescription>{item.title} {item.type === ProductTypes.Roullete && item.chance}</PruductDescription>
  </ProductContainer>
  )
 }
 
 const StyledImg = styled.img`
-  width: 180px;
-  height: 180px;
+  ${({type}) => type === ProductTypes.Roullete ? 'width: 100px; !important' : 'width: 180px;'};
+  ${({type}) => type === ProductTypes.Roullete ? 'height: 100px; !important' : 'height: 180px;'};
 `
 
 const PruductDescription = styled.div`
@@ -77,8 +86,10 @@ const ProductContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  ${({type}) => type === ProductTypes.Roullete ? 'width: 100px;' : ''};
+  ${({type}) => type === ProductTypes.Roullete ? 'height: 100px;' : ''};
 
   &:hover {
-    transform: scale(1.04);
+    ${({type}) => type !== ProductTypes.Roullete ? 'transform: scale(1.04)' : ''};
   }
 `

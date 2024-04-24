@@ -1,6 +1,7 @@
 import { useUnit } from "effector-react";
 import styled, { css } from "styled-components";
 import { $roullete } from "./store";
+import { ProductCard, ProductTypes } from "../ProductCard";
 
 
 
@@ -18,8 +19,9 @@ const Animation = styled.div`
 
 
 export const Roullete = () => {
-    const { sliderWidth, items } = useUnit($roullete);
-
+    const { sliderWidth, items, defaultItems } = useUnit($roullete);
+  const view = defaultItems.map((item, i) => <ProductCard type={ProductTypes.Roullete} key={i} {...item}/>)
+  console.log(defaultItems)
   return <>
     <div className='head-wrap'><div className='case-opener-bg'>
         <div className="middle-line">
@@ -28,13 +30,16 @@ export const Roullete = () => {
         </svg>
         </div>
         <div className='case-opener'>
-        <Animation style={{display: 'flex'}} slider={sliderWidth} time={5000}>
-            {items.map((item, index) => {
-                return <div key={`${item.title}_${index}_123`} className="item">{item.title} {index} {item?.winner && "Win!"}</div>;
-            })}
-        </Animation>
+          <Animation style={{display: 'flex'}} slider={sliderWidth} time={5000}>
+              {items.map((item, index) => {
+                  return <ProductCard {...item} key={`${item.title}_${index}_123`} />;
+              })}
+          </Animation>
         </div>
     </div>
+    <ProductsContainer>
+      {view}
+    </ProductsContainer>
     </div>
     <style jsx>
             {`
@@ -95,3 +100,10 @@ export const Roullete = () => {
         </style>
         </>
 }
+
+const ProductsContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 16px;
+  gap: 16px;
+`

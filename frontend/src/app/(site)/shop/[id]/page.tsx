@@ -11,6 +11,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { ProductModal } from "./_components/ProductModal/ProductModal";
 import { Button } from "@/components/Button";
 import { $userStores } from "@/store/auth";
+import { ProductGroupModal } from "./_components/ProductGroupModal/ProductGroupModal";
 
 
 
@@ -62,8 +63,9 @@ export default function Shop() {
           {productsView}
       </ProductsList>
       {isOpen && <Modal title={ type === 2  ? 'Испытай удачу' : `${content.title} ${content.amount > 1 ? 'x' + content.amount : ''}` } isOpen={isOpen} onClose={closeModal}>
-        {!isRoullete && <ProductModal {...content} />}
+        {type === 1 && <ProductModal {...content} />}
         {isRoullete && <Roullete winItemIndex={undefined} itemLenghtInLine={50}/>}
+        {type === 3 && <ProductGroupModal {...content} />}
         <Notification>
             Что бы забрать товар, введите команду /store в чат
         </Notification>

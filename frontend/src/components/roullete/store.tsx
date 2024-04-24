@@ -41,7 +41,8 @@ export const generateItems = (productsList, winItemIndex, itemLenghtInLine) => {
 export const $roullete = createStore({
     isRun: false,
     sliderWidth: 0,
-    items: []
+    items: [],
+    defaultItems: []
 })
 
 export const buyRoulleteEvent = createEvent();

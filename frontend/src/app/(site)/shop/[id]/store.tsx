@@ -54,7 +54,8 @@ sample({
     fn: (store, data) => {
         return {
             ...store,
-            items: data.insideProducts
+            items: data.insideProducts,
+            defaultItems: data.insideProducts
         }
     },
     target: $roullete
@@ -78,7 +79,8 @@ sample({
         return {
             isRun: true,
             sliderWidth: getSlider(getRandomInt(2750, 2890)),
-            items: generateItems(modalStore.content.insideProducts, winIndex, 50)
+            items: generateItems(modalStore.content.insideProducts, winIndex, 50),
+            defaultItems: modalStore.content.insideProducts
         }
     },
     target: $roullete
