@@ -80,7 +80,7 @@ sample({
   fn: () => {
     if($NotificationList.getState().length === 3) {
       return $NotificationList.getState()
-    }
+    };
     return [...$NotificationList.getState(), 'Недостаточно средств' ]
   },
   filter: (store) => {
@@ -150,13 +150,6 @@ export const countdown = createCountdown("simple", {
 
 sample({
   clock: $NotificationList,
-  filter: (store) => {
-    if(store.length === 3) {
-      return true;
-    }
-
-    return false
-  },
   fn: () => {
     return 3;
   },

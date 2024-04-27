@@ -39,10 +39,6 @@ const headerList = [
       id: 'promocodes',
       render: ({...data}) => <TabsHeader {...data}>Промокоды</TabsHeader>
   },
-  {
-      id: 'individualOffers',
-      render: ({...data}) => <TabsHeader {...data}>Личные предложения</TabsHeader>
-  },
 ]
 
 const tabsContentList = [
@@ -58,10 +54,7 @@ const tabsContentList = [
       id: 'promocodes',
       render: ({...data}) => <PromoCodesTable {...data} />
   },
-  {
-      id: 'individualOffers',
-      render: ({...data}) => <div {...data}>gavno</div>
-  },
+
 ]
 
 export default function ProfilePage() {

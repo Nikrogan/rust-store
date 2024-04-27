@@ -37,7 +37,7 @@ export const MainPageServer = ({children}) => {
             redirect(lastPage)
         }
     }, [])
-
+    console.log(NotificationData)
     if(pathname === '/') {
         return <Main />
     }

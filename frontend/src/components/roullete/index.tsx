@@ -21,7 +21,7 @@ const Animation = styled.div`
 export const Roullete = () => {
     const { sliderWidth, items, defaultItems } = useUnit($roullete);
   const view = defaultItems.map((item, i) => <ProductCard type={ProductTypes.Roullete} key={i} {...item}/>)
-  console.log(defaultItems)
+
   return <>
     <div className='head-wrap'><div className='case-opener-bg'>
         <div className="middle-line">

@@ -65,17 +65,9 @@ const MenuLinks = [
     href: '/shop'
   },
   {
-    title: 'Новости',
-    href: '/news'
-  },
-  {
     title: 'Информация',
     href: null,
     itemList: [
-      {
-        title: "Команды",
-        href: '/comands'
-      },
       {
         title: "Политика конфиденциальности",
         href: '/policy'
@@ -85,7 +77,7 @@ const MenuLinks = [
         href: '/useraccess'
       },
       {
-        title: "Команды",
+        title: "Условия доставки",
         href: '/delivery'
       },
       {
@@ -94,10 +86,6 @@ const MenuLinks = [
       },
 
     ]
-  },
-  {
-    title: 'Баны',
-    href: '/bans'
   },
 ]
 

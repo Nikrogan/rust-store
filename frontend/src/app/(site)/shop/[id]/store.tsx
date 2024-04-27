@@ -78,7 +78,7 @@ sample({
         const winIndex = modalStore.content.insideProducts.findIndex(x => x.title === data.payLoad.title)
         return {
             isRun: true,
-            sliderWidth: getSlider(getRandomInt(2750, 2890)),
+            sliderWidth: getSlider(getRandomInt(2480, 2590)),
             items: generateItems(modalStore.content.insideProducts, winIndex, 50),
             defaultItems: modalStore.content.insideProducts
         }
