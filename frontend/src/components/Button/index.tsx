@@ -1,3 +1,4 @@
+import { PropsWithChildren } from "react";
 import styled from "styled-components"
 
 
@@ -10,7 +11,9 @@ const StyledButton = styled.button`
     width: ${({ width }) => width ? width : 'auto' };
     justify-content: ${({position}) => position ? position : 'auto'};
     transition: transform 0.4s;
-
+    border: none;
+    cursor: pointer;
+    
     &:hover {
         transform: scale(1.01);
     }
@@ -20,7 +23,12 @@ const StyledRightElement = styled.div`
     margin-left: 12px;
 `
 
-export const Button = ({children, onClick, RightElement, ...rest}) => {
+type ButtonProps = PropsWithChildren<{
+    onClick?: () => void;
+    RightElement?: React.ElementType;
+}>
+
+export const Button = ({children, onClick, RightElement, ...rest}: ButtonProps) => {
     return <StyledButton onClick={onClick} {...rest}>
         {children}
         {RightElement && (

@@ -89,9 +89,6 @@ export default function StorePage() {
                     <Tabs.Tab value="settings" leftSection={<IconSettings />}>
                         Управление
                     </Tabs.Tab>
-                    <Tabs.Tab value="payment" leftSection={<IconWallet />}>
-                        Платежи
-                    </Tabs.Tab>
                 </Tabs.List>
                 <Tabs.Panel value="gallery">
                     <StatsGrid />
@@ -128,11 +125,6 @@ export default function StorePage() {
                     </Box>
 
                 </Tabs.Panel>
-
-                <Tabs.Panel value="messages">
-                    Messages tab content
-                </Tabs.Panel>
-
                 <Tabs.Panel value="settings">
                         <Tabs keepMounted={false} orientation="vertical" defaultValue={'sharedSettings'}>
                             <TabsList mt={theme.spacing.md}>

@@ -17,12 +17,12 @@ export const $playerCheck = createStore(tableHead);
 
 export const getPlayersCheckEvent = createEvent();
 export const getPlayersCheckEffect = createEffect(() => {
-    return api.get('/playercheck')
+    return api.get('/admin/playercheck')
 })
 
 export const createPlayerCheckEvent = createEvent();
 export const createPlayerCheckFx = createEffect((data) => {
-    return api.post('/playercheck', data)
+    return api.post('/admin/playercheck', data)
 })
 
 sample({

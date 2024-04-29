@@ -13,8 +13,13 @@ const SelectTitle = styled.div`
 const StyledLink = styled(Link)`
     position: relative;
     z-index: 4;
+    transition: transform 0.4s;
     & + & {
         margin-top: 8px;
+    }
+
+    &:hover {
+        transform: scale(1.02);
     }
 `
 
@@ -25,11 +30,12 @@ const SelectContent = styled.div`
     flex-direction: column;
     z-index: 3;
     padding: 32px 12px 0px;
+
     &:before {
         content: '';
         background: #1a1a1a;
         width:100%;
-        height: 172px;
+        height: 150px;
         position: absolute;
         top: 20px;
         z-index: -1;

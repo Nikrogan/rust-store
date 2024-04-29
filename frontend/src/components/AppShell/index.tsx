@@ -38,6 +38,7 @@ export const AppShellWrapper = ({children}) => {
         <Box>
           <Flex justify="space-between">
             <Image src={user?.avatarUrl} w={42} h={42}/>
+            <Link href='/work'>В модераторскую</Link>
             <Flex align="center">
               <ButtonWrapper ml={theme.spacing.md} variant="outline" onClick={() => {
                 handleClickLougoutAdmin()
@@ -53,11 +54,16 @@ export const AppShellWrapper = ({children}) => {
           {user?.role === 2 && <StyledLink href="/admin/findserver">Поиск серверов</StyledLink>}
           {user?.role === 1 || user?.role === 2 &&<StyledLink href="/admin/bans">Проверки</StyledLink>}
           <Subtitle></Subtitle>
-          <Subtitle>Модераторская</Subtitle>
-          <StyledLink href="/admin/news">Новости</StyledLink>
-          <StyledLink href="/admin/reports">Репорты</StyledLink>
+          <Subtitle>Статистика</Subtitle>
+          <StyledLink href="/admin/purchases">Покупки</StyledLink>
+          <StyledLink href="/admin/profit">Пополнения</StyledLink>
+          <StyledLink href="/admin/expenses">Расходы</StyledLink>
+          <Subtitle>Общие</Subtitle>
           <StyledLink href="/admin/sharedsettings">Настройки</StyledLink>
-          <StyledLink href="/admin/moderatorstats"></StyledLink>
+          <StyledLink href="/admin/products">Товары</StyledLink>
+          <StyledLink href="/admin/promocodes">Промокоды</StyledLink>
+          <Subtitle>Сервер</Subtitle>
+          <StyledLink href="/admin/players">Игроки</StyledLink>
         </AppShell.Navbar>
       <AppShell.Main>
         {children}

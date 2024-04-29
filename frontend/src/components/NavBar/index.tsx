@@ -1,40 +1,22 @@
 'use client'
-import { Flex, Menu, Image, Loader, ActionIcon, useMantineColorScheme, useComputedColorScheme, Box, Notification, rem } from "@mantine/core"
-import { useDisclosure, useMediaQuery } from "@mantine/hooks"
-import Link from "next/link"
-import { UserAvatar } from "../UserAvatar"
-import { theme } from "../theme/theme"
-import NextImage from 'next/image';
-import bwtextlogo from '../../../public/bwtextlogo-white.png'
-import { usePathname } from "next/navigation"
-import { Pages } from "@/config/config"
-import { CalendarWipe } from "../CalendarWipe"
-import { BalancaModal } from "../BalanceModal"
-import { useEffect, useState } from "react"
-import { $userStores, authUserEvent, getAuthStatusEvent, logoutEvent } from "@/store/auth"
-import { useUnit } from 'effector-react'
+import { Loader } from "@mantine/core";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Pages } from "@/config/config";
+import { useEffect } from "react";
+import { $userStores, authUserEvent, getAuthStatusEvent, logoutEvent } from "@/store/auth";
+import { useUnit } from 'effector-react';
 
-import './navbar.css'
-import { IconMoon, IconSun, IconX } from "@tabler/icons-react"
-import { ButtonWrapper } from "@/shared/ButtonWrapper/ButtonWrapper"
-import { $notification, deleteNotificationEvent } from "@/store/notification"
-import { isNotEmptyArray } from "@/shared/array"
-import styled from "styled-components"
-import { Button } from "../Button"
-import { Select } from "../Select"
-import { SteamIcon } from "../SteamIcon"
+import './navbar.css';
+import { $notification, deleteNotificationEvent } from "@/store/notification";
+import styled from "styled-components";
+import { Button } from "../Button";
+import { Select } from "../Select";
+import { SteamIcon } from "../SteamIcon";
+
 import { open as balancaModalOpen } from "../BalanceModal/store"
 import { open as promocodeModalOpen } from "../PromocodeModal/store"
-
-const checkIsInfoPage = (pathname: string) => {
-  switch (pathname) {
-    case Pages.contacts: return true;
-    case Pages.delivery: return true;
-    case Pages.policy: return true;
-    case Pages.useraccess: return true;
-    default: return false;
-  }
-}
+import { color } from "@/config/theme";
 
 const StyledLink = styled(Link)`
   transition: all 0.4s;
@@ -120,7 +102,7 @@ export const NavBar = () => {
   const handleLogout = async () => {
     handleLogoutTrigger()
   }
-
+  console.log(user)
   useEffect(() => {
     if (!isAuth) {
       trigger()
@@ -132,7 +114,8 @@ export const NavBar = () => {
       return <Select key={item.title + index} options={item.itemList}>
         {item.title}
       </Select>
-    }
+    };
+    
     return <StyledLink key={item.title} href={item.href}>{item.title}</StyledLink>
   })
   return (
@@ -140,6 +123,10 @@ export const NavBar = () => {
       <FlexContainer gap={16}>
         {viewLinks}
       </FlexContainer>
+      <WorkLinksContainer>
+        <Link href='/admin'>Админская</Link>
+        <Link href='/work'>Рабочая</Link>
+      </WorkLinksContainer>
       <FlexContainer>
        {isAuth && (
        <>
@@ -173,6 +160,7 @@ const StyledLinkPromo = styled.div`
 
   &:hover {
     transform: scale(1.05);
+    color: ${color.accent}
   }
 `
 
@@ -186,6 +174,9 @@ const StyledMoneyLink = styled.div`
 
 const StyledMoneyCount = styled.div`
   margin-left:8px;
+  &:hover {
+    color: ${color.accent}
+  }
 `
 
 const StyledProfileLink = styled(Link)`
@@ -199,6 +190,21 @@ const StyledProfileLink = styled(Link)`
 
   & svg {
     height: 20px;
+  }
+
+  &:hover {
+    color: ${color.accent}
+  }
+`
+
+const WorkLinksContainer = styled.div`
+  display: flex;
+  a + a {
+    margin-left: 16px;
+  }
+
+  a:hover {
+    color: ${color.accent}
   }
 `
 
