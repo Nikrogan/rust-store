@@ -72,7 +72,7 @@ const SuspectListMock = [
 
 export const ReportsPage = () => {
     const viewSuspectList = SuspectListMock.map(item => {
-        return <SuspectCard {...item}/>
+        return <SuspectCard key={item.userName} {...item}/>
     })
     return <div>
         <Title>Страница репортов</Title>
