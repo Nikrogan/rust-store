@@ -86,6 +86,7 @@ export const NavBar = () => {
     notificationList: $notification,
     deleteNotification: deleteNotificationEvent
   });
+  console.log(user)
 
   const onBalancaModalOpen  = useUnit(balancaModalOpen);
   const onPromocodeModalOpen  = useUnit(promocodeModalOpen);
@@ -102,7 +103,6 @@ export const NavBar = () => {
   const handleLogout = async () => {
     handleLogoutTrigger()
   }
-  console.log(user)
   useEffect(() => {
     if (!isAuth) {
       trigger()
@@ -123,10 +123,11 @@ export const NavBar = () => {
       <FlexContainer gap={16}>
         {viewLinks}
       </FlexContainer>
-      <WorkLinksContainer>
-        <Link href='/admin'>Админская</Link>
-        <Link href='/work'>Рабочая</Link>
-      </WorkLinksContainer>
+      {user && ( <WorkLinksContainer>
+       {user.role === 2 &&  <Link href='/admin'>Админская</Link>}
+      { user.role === 1 || user.role === 2 &&  <Link href='/work'>Рабочая</Link>}
+      </WorkLinksContainer>)
+      }
       <FlexContainer>
        {isAuth && (
        <>
