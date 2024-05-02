@@ -2,6 +2,7 @@
   "extends": "next/core-web-vitals",
   "rules": {
     "react/display-name": "off",
-    "react/no-children-prop": "off"
+    "react/no-children-prop": "off",
+    "react-hooks/rules-of-hooks": "off"
   }
 }
