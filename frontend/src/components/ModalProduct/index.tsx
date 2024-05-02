@@ -1,13 +1,10 @@
-import { api } from "@/config/api";
-import { getCookie } from "@/cookie";
-import { Box, Button, ButtonGroup, Checkbox, Flex, Group, Input, InputWrapper, Modal, NumberInput, Select, Stepper, TextInput, Title } from "@mantine/core";
-import { DateInput } from "@mantine/dates";
+'use client'
+import { Box, Button, Checkbox,Group, Input, InputWrapper, Modal, NumberInput, Select, Stepper } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useUnit } from "effector-react";
 import { $shopFilters, getShopFiltersEvent } from "../ShopFilters/model";
 import { useEffect, useState } from "react";
 import { theme } from "../theme/theme";
-import { ButtonWrapper } from "@/shared/ButtonWrapper/ButtonWrapper";
 import { StepOne } from "./components/stepOne";
 import { StepSimpleProducts } from "./components/stepSimpleProducts";
 import { createProductEvent } from "../ShopFilters/model/model";

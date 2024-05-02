@@ -12,6 +12,10 @@ import { $promocodes, $salary, getPromocodesEvent } from './store';
 import { theme } from '@/components/theme/theme';
 import { Products } from '@/AdminComponents/Products/ui/products';
 import { PromoCodes } from '@/admin/components/PromoCodes';
+import { Column, Table } from '@/components/Table';
+import { $servers, getServersEvent } from '../_api/servers';
+import { Button } from '@/components/Button';
+import { Servers } from '../_components/Servers';
 
 export const data = [
     {
@@ -44,16 +48,7 @@ export const data = [
       Oranges: 1726,
       Tomatoes: 2290,
     },
-  ];
-
- const a = {
-    payload: [
-        {
-            date: 'Mar 22',
-            sum: 123123123 
-        }
-    ]
- }
+];
 
 export default function StorePage() {
     const {promocodesList, salary, getPromocodes} = useUnit({
@@ -61,6 +56,8 @@ export default function StorePage() {
         getPromocodes: getPromocodesEvent,
         promocodesList: $promocodes,
     });
+
+    const getServers = useUnit(getServersEvent);
     const [activeTab, setActiveTab] = useState<string | null>('gallery');
 
     useEffect(() => {
@@ -77,8 +74,6 @@ export default function StorePage() {
    
     d.setMonth(d.getMonth() - 1);
 
-
-
     return <>
         <div>
             <Tabs keepMounted={false} value={activeTab} onChange={setActiveTab}>
@@ -86,8 +81,8 @@ export default function StorePage() {
                     <Tabs.Tab value="gallery" leftSection={<IconHomeStats />}>
                         Статистика
                     </Tabs.Tab>
-                    <Tabs.Tab value="settings" leftSection={<IconSettings />}>
-                        Управление
+                    <Tabs.Tab value="servers" leftSection={<IconSettings />}>
+                        Сервера
                     </Tabs.Tab>
                 </Tabs.List>
                 <Tabs.Panel value="gallery">
@@ -125,22 +120,11 @@ export default function StorePage() {
                     </Box>
 
                 </Tabs.Panel>
-                <Tabs.Panel value="settings">
-                        <Tabs keepMounted={false} orientation="vertical" defaultValue={'sharedSettings'}>
-                            <TabsList mt={theme.spacing.md}>
-                                <Tabs.Tab value="sharedSettings" >Общие настройки</Tabs.Tab>
-                                <Tabs.Tab value="products">Товары</Tabs.Tab>
-                                <Tabs.Tab value="servers">Сервера</Tabs.Tab>
-                                <Tabs.Tab value="players">Игроки</Tabs.Tab>
-                                <Tabs.Tab value="cart">Корзина</Tabs.Tab>
-                                <Tabs.Tab value="news">Новости</Tabs.Tab>
-                                <Tabs.Tab value="promocodes">Промокоды</Tabs.Tab>
-                            </TabsList>
-                                <Products />
-                                <PromoCodes promocodesList={promocodesList}/>
-                        </Tabs>
+                <Tabs.Panel value="servers">
+                    <Servers />
                 </Tabs.Panel>
             </Tabs>
         </div>
     </>
 }
+

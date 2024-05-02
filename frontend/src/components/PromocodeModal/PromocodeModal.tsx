@@ -5,7 +5,6 @@ import { Input } from "../form/input/Input";
 import { Button } from "../Button";
 import styled from "styled-components";
 import { useForm } from "@mantine/form";
-import { $userStores } from "@/store/auth";
 
 export const PromocodeModal = () => {
     const {isOpen} = useUnit(store);

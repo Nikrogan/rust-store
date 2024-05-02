@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 
 const StyledButton = styled.button`
-    padding: 10px;
+    padding: ${({p}) => p ? p : '10px'};
     background: #7950F2;
     display: flex;
     align-items: center;

@@ -124,13 +124,14 @@ export const NavBar = () => {
         {viewLinks}
       </FlexContainer>
       {user && ( <WorkLinksContainer>
-       {user.role === 2 &&  <Link href='/admin'>Админская</Link>}
+      { user.role === 2 &&  <Link href='/admin'>Админская</Link>}
       { user.role === 1 || user.role === 2 &&  <Link href='/work'>Рабочая</Link>}
       </WorkLinksContainer>)
       }
       <FlexContainer>
        {isAuth && (
        <>
+       <StyledLinkPromo onClick={onBalancaModalOpen}>Пополнить баланс</StyledLinkPromo>
        <StyledLinkPromo onClick={onPromocodeModalOpen}>Активировать промокод</StyledLinkPromo>
         <StyledMoneyLink onClick={onBalancaModalOpen}>
           <MoneyImage />

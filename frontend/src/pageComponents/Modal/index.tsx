@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-export const Modal = ({ children, onClose, isOpen, title = "Заголовок модалки" }) => {
+export const Modal = ({ children, onClose, isOpen, title = "Заголовок модалки", buttonGroup }) => {
   
     return isOpen && (
     <ModalBlur>
@@ -14,6 +14,9 @@ export const Modal = ({ children, onClose, isOpen, title = "Заголовок �
             </CloseModalContainer>}
         </ModalHeader>
         {children}
+       {buttonGroup && <ModalFooter>
+        {buttonGroup()}
+      </ModalFooter>}
       </ModalContent>
     </ModalBlur>
     )
@@ -62,3 +65,9 @@ export const Modal = ({ children, onClose, isOpen, title = "Заголовок �
     justify-content: space-between;
     margin-bottom: 16px;
   `
+
+const ModalFooter = styled.div`
+  display: flex;
+  justify-content: end;
+  margin-top: 32px;
+`

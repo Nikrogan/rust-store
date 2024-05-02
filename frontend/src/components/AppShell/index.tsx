@@ -8,6 +8,7 @@ import { redirect, usePathname, useRouter } from "next/navigation"
 import { useLayoutEffect } from "react"
 import Link from "next/link"
 import styled from "styled-components"
+import { SimpleAction } from "@/shared/utils/simpleAction"
 
 
 export const AppShellWrapper = ({children}) => {
@@ -56,14 +57,14 @@ export const AppShellWrapper = ({children}) => {
           <Subtitle></Subtitle>
           <Subtitle>Статистика</Subtitle>
           <StyledLink href="/admin/purchases">Покупки</StyledLink>
-          <StyledLink href="/admin/profit">Пополнения</StyledLink>
-          <StyledLink href="/admin/expenses">Расходы</StyledLink>
+          <StyledLink href="/admin/profit" onClick={SimpleAction}>Пополнения</StyledLink>
+          <StyledLink href="/admin/expenses" onClick={SimpleAction}>Расходы</StyledLink>
           <Subtitle>Общие</Subtitle>
           <StyledLink href="/admin/sharedsettings">Настройки</StyledLink>
           <StyledLink href="/admin/products">Товары</StyledLink>
           <StyledLink href="/admin/promocodes">Промокоды</StyledLink>
           <Subtitle>Сервер</Subtitle>
-          <StyledLink href="/admin/players">Игроки</StyledLink>
+          <StyledLink href="/admin/players" onClick={SimpleAction}>Игроки</StyledLink>
         </AppShell.Navbar>
       <AppShell.Main>
         {children}
