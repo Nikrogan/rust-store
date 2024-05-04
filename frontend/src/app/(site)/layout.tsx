@@ -1,4 +1,3 @@
-import '@mantine/core/styles.css';
 import type { Metadata } from 'next'
 
 import { Roboto_Condensed } from 'next/font/google';

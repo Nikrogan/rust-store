@@ -3,6 +3,7 @@ import { DatePickerInput } from "@mantine/dates"
 import { IconCalendar, IconTimeline } from "@tabler/icons-react"
 import { useState } from "react";
 import '@mantine/dates/styles.css';
+
 export const MainFilters = () => {
     const [value, setValue] = useState<[Date | null, Date | null]>([null, null]);
 

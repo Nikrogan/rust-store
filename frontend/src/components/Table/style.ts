@@ -19,7 +19,6 @@ import { typography } from './Typography';
 import { ArrowUpOutline } from './icons/ArrowUpOutline';
 import { ChevronDownOutline } from './icons/ChevronDownOutline';
 import { DragOutline } from './icons/DragOutline';
-import { parseShadow } from './parseShadowFromTheme';
 import { color } from '@/config/theme';
 
 // устанавливаем  pointer-events: none для ResizerWrapper во время drag&drop столбцов, так как ResizerWrapper
@@ -102,7 +101,6 @@ export const HeaderWrapper = styled.div<{ $scrollbar: number; $greyHeader?: bool
     $greyHeader &&
     css`
       & > div.tr {
-        background: var(--admiral-color-Neutral_Neutral05, ${(p) => p.theme.color['Neutral/Neutral 05']});
       }
     `}
 `;
@@ -114,7 +112,7 @@ export const Header = styled.div<{ $dimension: TableProps['dimension'] }>`
   overflow-x: hidden;
 
   & > * {
-    border-bottom: 1px solid red;
+    border-bottom: 2px solid ${color.secondary};
   }
 `;
 

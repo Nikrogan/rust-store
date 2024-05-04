@@ -34,3 +34,5 @@ const ButtonWrapper = styled.div`
     margin-top: 16px;
     width: 100%;
 `
+
+export { store };

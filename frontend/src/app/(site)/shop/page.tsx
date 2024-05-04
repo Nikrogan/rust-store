@@ -47,7 +47,7 @@ const SelectShopContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 178px);
+  min-height: calc(100vh - 100px);
 `
 
 export default function Shop() {

@@ -21,7 +21,7 @@ export const TooltipWrapper = styled.div`
 
 export const TooltipContainer = styled.div<{ $dimension?: TooltipDimension }>`
   box-sizing: border-box;
-  background-color: ${color.primary};
+  background-color: ${color.accent};
   color: ${color.primary};
   border-radius: 8px;
   padding: ${(p) => (p.$dimension === 'm' ? TOOLTIP_PADDING_M : TOOLTIP_PADDING_S)};

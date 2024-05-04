@@ -7,15 +7,16 @@ const StyledButton = styled.button`
     background: #7950F2;
     display: flex;
     align-items: center;
-    font-size: ${({fontSize}) => fontSize ? fontSize : '13px'};
+    font-size: ${({fontSize}) => fontSize ? fontSize : '14px'};
     width: ${({ width }) => width ? width : 'auto' };
     justify-content: ${({position}) => position ? position : 'auto'};
     transition: transform 0.4s;
     border: none;
     cursor: pointer;
-    
+    color: white;
+
     &:hover {
-        transform: scale(1.01);
+        transform: scale(1.02);
     }
 `
 

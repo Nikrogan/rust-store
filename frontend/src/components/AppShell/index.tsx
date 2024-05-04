@@ -73,21 +73,3 @@ export const AppShellWrapper = ({children}) => {
     )
 }
 
-const Subtitle = styled.div`
-  color: rgb(84, 84, 84);
-  margin-top: 12px;
-  margin-left: -4px;
-  font-size: 14px;
-`
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: white;
-  transition: all 0.4s;
-  & + & {
-    margin-top: 8px;
-  }
-  &:hover {
-    transform: scale(1.02)
-  }
-`

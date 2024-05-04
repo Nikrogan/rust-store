@@ -1,11 +1,10 @@
 'use client'
 import { redirect, usePathname } from "next/navigation";
 import { Main } from "./MainS";
-import { Container } from "@mantine/core";
 import { NavBar } from "@/components/NavBar";
 import styled from 'styled-components';
 import { useLayoutEffect } from "react";
-import { PromocodeModal } from "@/components/PromocodeModal/PromocodeModal";
+import { PromocodeModal, store as promoStore } from "@/components/PromocodeModal/PromocodeModal";
 import { BalancaModal } from "@/components/BalanceModal";
 import { useUnit } from "effector-react";
 import { $NotificationList } from "@/components/roullete/store";
@@ -23,13 +22,15 @@ const Offer = styled.div`
 `;
 
 const StyledMain = styled.main`
-    min-height: calc(100vh - 178px);
+    min-height: calc(100vh - 100px);
+    padding-top: 64px;
 `;
 
 export const MainPageServer = ({children}) => {
     const pathname = usePathname();
     const NotificationData = useUnit($NotificationList);
-
+    const promoStoresModal = useUnit(promoStore)
+    
     useLayoutEffect(() => {
         const lastPage = localStorage.getItem('lastPage');
         if(lastPage) {
@@ -37,7 +38,7 @@ export const MainPageServer = ({children}) => {
             redirect(lastPage)
         }
     }, [])
-    console.log(NotificationData)
+
     if(pathname === '/') {
         return <Main />
     }
@@ -48,10 +49,11 @@ export const MainPageServer = ({children}) => {
 
     return (
         <Background>
-            <Container size='xl' style={{position: 'relative'}}>
+            <Container>
                 <div>
                     <NavBar />
                 </div>
+
                 <StyledMain>
                     {children}
                 </StyledMain>
@@ -61,7 +63,6 @@ export const MainPageServer = ({children}) => {
                     Гражданского кодекса Российской Федерации.
                 </Offer>
             </Container>
-            <PromocodeModal /> 
             <BalancaModal />
             <NotificationList>
                 <div>
@@ -69,6 +70,7 @@ export const MainPageServer = ({children}) => {
                 </div>
 
             </NotificationList>
+            {promoStoresModal.isOpen &&  <PromocodeModal /> }
         </Background>
     )
 }
@@ -81,4 +83,10 @@ const NotificationList = styled.div`
     justify-content: center;
     width: 100%;
     flex-wrap: wrap;
+`
+
+const Container = styled.div`
+    margin: 0 auto;
+    padding: 0 64px;
+    position: relative;
 `

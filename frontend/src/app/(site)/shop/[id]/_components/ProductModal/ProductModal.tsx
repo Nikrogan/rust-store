@@ -2,7 +2,6 @@ import Image from "next/image"
 import styled from "styled-components"
 
 export const ProductModal = ({...rest}) => {
-    console.log(rest)
     const { description, imageUrl} = rest
     return <Container>
         <ProductImage>

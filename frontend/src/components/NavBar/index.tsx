@@ -34,6 +34,22 @@ const FlexContainer = styled.div`
   align-items: ${({align}) => align ? align : 'auto'};
   padding: ${({p}) => p ? `${p}` : '0px'};
   justify-content: ${({justify}) => justify ? justify : 'auto'};
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  padding: 0 64px;
+  z-index: 4;
+`
+
+const FlexContainerButton = styled.div`
+  display: flex;
+  gap: ${({gap}) => `${gap}px`};
+  height: ${({height}) => height ? `${height}px` : 'auto' };
+  background: ${({bg}) => bg ? bg : ''};
+  align-items: ${({align}) => align ? align : 'auto'};
+  padding: ${({p}) => p ? `${p}` : '0px'};
+  justify-content: ${({justify}) => justify ? justify : 'auto'};
 `
 
 
@@ -86,7 +102,6 @@ export const NavBar = () => {
     notificationList: $notification,
     deleteNotification: deleteNotificationEvent
   });
-  console.log(user)
 
   const onBalancaModalOpen  = useUnit(balancaModalOpen);
   const onPromocodeModalOpen  = useUnit(promocodeModalOpen);
@@ -120,15 +135,15 @@ export const NavBar = () => {
   })
   return (
     <FlexContainer bg={'#1a1a1a'} p={"0 24px"} height={64} gap={16} align="center" justify="space-between">
-      <FlexContainer gap={16}>
+      <FlexContainerButton gap={16}>
         {viewLinks}
-      </FlexContainer>
+      </FlexContainerButton>
       {user && ( <WorkLinksContainer>
       { user.role === 2 &&  <Link href='/admin'>Админская</Link>}
       { user.role === 1 || user.role === 2 &&  <Link href='/work'>Рабочая</Link>}
       </WorkLinksContainer>)
       }
-      <FlexContainer>
+      <FlexContainerButton>
        {isAuth && (
        <>
        <StyledLinkPromo onClick={onBalancaModalOpen}>Пополнить баланс</StyledLinkPromo>
@@ -146,7 +161,7 @@ export const NavBar = () => {
       </>
       )}
         {isLoading ? <Loader /> : <Button onClick={isAuth ? handleLogout : handleLogin} RightElement={isAuth ? null : SteamIcon}>{isAuth ? "Выйти" : "Войти"}</Button>}
-      </FlexContainer>
+      </FlexContainerButton>
     </FlexContainer>
   )
 }

@@ -2,11 +2,10 @@
 import { $userStores, getAuthStatusEvent } from "@/store/auth";
 import { useUnit } from "effector-react";
 import { useEffect } from "react";
-import styled from "styled-components";
 
-export const AuthCheck = ({children}) => {
+export const AuthCheck = ({children, role = 0}) => {
     const getUser = useUnit(getAuthStatusEvent)
-    const {isLoading} = useUnit($userStores);
+    const {isLoading, user} = useUnit($userStores);
 
     useEffect(() => {
       getUser()
@@ -15,6 +14,10 @@ export const AuthCheck = ({children}) => {
 
     if(isLoading) {
         return null
+    }
+
+    if(!isLoading && user.role < role) {
+        return null;
     }
 
     return (

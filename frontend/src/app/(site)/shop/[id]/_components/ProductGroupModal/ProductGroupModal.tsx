@@ -3,7 +3,6 @@ import Image from "next/image"
 import styled from "styled-components"
 
 export const ProductGroupModal = ({...rest}) => {
-    console.log(rest)
     const { description, imageUrl, insideProducts} = rest
 
     const view = insideProducts?.map((item, i) => {

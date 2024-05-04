@@ -1,6 +1,5 @@
 'use client'
 import { theme } from '@/components/theme/theme'
-import { Box, Flex, Image, Table, Text, Title } from '@mantine/core'
 import { useUnit } from 'effector-react'
 import { $userStores } from '@/store/auth'
 import { PromoCodesTable } from './_promocodes'
@@ -9,6 +8,8 @@ import { UserBasket } from './_userbasket'
 import styled from 'styled-components'
 import { color } from '@/config/theme'
 import { Tabs } from '@/components/Tabs'
+import Image from 'next/image'
+import { useMemo } from 'react'
 
 
 
@@ -26,66 +27,66 @@ const TabsHeader = styled.div`
   }
 `
 
-const headerList = [
-  {
-      id: 'inventory',
-      render: ({...data}) => <TabsHeader {...data}>Инвентарь</TabsHeader>
-  },
-  {
-      id: 'historyBalance',
-      render: ({...data}) => <TabsHeader {...data}>История баланса</TabsHeader>
-  },
-  {
-      id: 'promocodes',
-      render: ({...data}) => <TabsHeader {...data}>Промокоды</TabsHeader>
-  },
-]
-
-const tabsContentList = [
-  {
-      id: 'inventory',
-      render: ({...data}) => <UserBasket {...data} />
-  },
-  {
-      id: 'historyBalance',
-      render: ({...data}) => <UserBalanceHistoryTable {...data} />
-  },
-  {
-      id: 'promocodes',
-      render: ({...data}) => <PromoCodesTable {...data} />
-  },
-
-]
-
 export default function ProfilePage() {
-  const { user } = useUnit($userStores);
+  const { user, isLoading } = useUnit($userStores);
+  const headerList = useMemo(() => [
+    {
+        id: 'inventory',
+        render: ({...data}) => <TabsHeader {...data}>Инвентарь</TabsHeader>
+    },
+    {
+        id: 'historyBalance',
+        render: ({...data}) => <TabsHeader {...data}>История баланса</TabsHeader>
+    },
+    {
+        id: 'promocodes',
+        render: ({...data}) => <TabsHeader {...data}>Промокоды</TabsHeader>
+    },
+  ], []);
+
+  const tabsContentList = useMemo(() => [
+    {
+        id: 'inventory',
+        render: ({...data}) => <UserBasket {...data} />
+    },
+    {
+        id: 'historyBalance',
+        render: ({...data}) => <UserBalanceHistoryTable {...data} />
+    },
+    {
+        id: 'promocodes',
+        render: ({...data}) => <PromoCodesTable {...data} />
+    },
+  
+  ], [])
 
   return (
-    <div>
-        <Flex justify="start" w="100%" mt={24}>
-          <Title>Профиль</Title>
-        </Flex>
-        <Box bg={theme.colors?.dark?.[9]} p={theme.spacing.md} mt={theme.spacing.lg}>
-        <Flex justify="space-between" align='center' >
-          <Box>
-            <Flex align='center'>
-            <Image src={user?.avatarUrl} w={100} h={100} radius={theme.radius?.sm} />
-            <Flex direction="column" ml='md'>
-              <Text>{user?.displayName}</Text>
+    <>
+        <PageTitle>Профиль</PageTitle>
+        <ProfileContainer>
+          {!isLoading && (
+          <>
+          <UserContainer>
+            <UserImageContainer>
+              <Image src={user.avatarUrl} alt='userImage' width={100} height={100} />
+            </UserImageContainer>
+            <UserDataContainer>
+              <div>{user?.displayName}</div>
               <StyledText>Steam ID: &nbsp;<a target='_blank' href={`https://steamcommunity.com/profiles/${user?.steamId}`}>{user?.steamId}</a></StyledText>
-            </Flex>
-            </Flex>
-          </Box>
-        </Flex>
-        <Tabs defaultTabId='inventory' headerList={headerList} tabsContentList={tabsContentList}/>
-        </Box>
-    </div>
+            </UserDataContainer>
+          </UserContainer>
+          <Tabs defaultTabId='inventory' headerList={headerList} tabsContentList={tabsContentList} />
+          </>
+        )
+        }
+        </ProfileContainer>
+    </>
   )
 }
 
-const StyledText = styled(Text)`
+const StyledText = styled.div`
   display: flex;
-
+  
   a {
     color: ${color.accent};
 
@@ -93,4 +94,32 @@ const StyledText = styled(Text)`
       transform: scale(1.01);
     }
   }
+`
+
+const UserContainer = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+const UserDataContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 12px;
+`
+
+const UserImageContainer = styled.div`
+  width: 100px;
+  height: 100px;
+  img {
+    border-radius: 16px;
+  }
+`
+
+const ProfileContainer = styled.div`
+  background: #141414;
+  padding: 16px;
+`
+
+const PageTitle = styled.h1`
+  margin: 24px 0;
 `

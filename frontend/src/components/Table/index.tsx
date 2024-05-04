@@ -518,7 +518,7 @@ export const Table = React.forwardRef<HTMLDivElement, TableProps>(
           grey={zebraRows[row.id]?.includes('even')}
           showRowsActions={showRowsActions}
           rowStatusMap={rowStatusMap}
-          key={`row_${row.id}`}
+          key={`row_${row?.id}_${index}`}
         >
           {isGroupRow ? renderGroupRow(row) : renderRegularRow(row, index)}
         </RowWrapper>

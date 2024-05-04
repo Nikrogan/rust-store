@@ -1,7 +1,7 @@
-import { useState } from "react"
+import { memo, useState } from "react"
 import styled from "styled-components";
 
-export const Tabs = ({defaultTabId, headerList, tabsContentList}) => {
+export const Tabs = memo(({defaultTabId, headerList, tabsContentList}) => {
     const [currentTab, setCurrentTab] = useState(defaultTabId);
     const viewHeader = headerList.map((item, i) => (<item.render key={item.id + i} isActive={item.id === currentTab}  onClick={() => setCurrentTab(item.id)} {...item}/>));
 
@@ -15,7 +15,7 @@ export const Tabs = ({defaultTabId, headerList, tabsContentList}) => {
         <TabsHeader>{viewHeader}</TabsHeader>
         {viewContent}
     </div>
-}
+})
 
 
 const TabsHeader = styled.div`

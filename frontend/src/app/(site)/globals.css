@@ -39,17 +39,6 @@ a:active {
   text-decoration: none !important;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-}
-
-
-h4 {
-  margin: 0;
-}
-
 * {
     margin: 0;
     padding: 0;

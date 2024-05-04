@@ -2,6 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { TableProps } from './types';
 import { throttle } from './throttle';
+import { color } from '@/config/theme';
 
 const RESIZER_WIDTH = '17px';
 
@@ -37,7 +38,7 @@ export const Resizer = styled.div`
   box-sizing: border-box;
   width: 1px;
   height: 100%;
-  background: blue;
+  background: ${color.accent};
 `;
 
 type ResizerProps = {

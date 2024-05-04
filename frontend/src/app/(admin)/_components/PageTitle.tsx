@@ -19,7 +19,6 @@ const Title = styled.div`
     justify-content: space-between;
     align-items: center;
     height: 44px;
-    margin-top: 24px;
 `
 
 const TitleText = styled.h1`

@@ -57,7 +57,6 @@ export const multiLineTitle = css<{ $lineClamp: number }>`
 `;
 
 export const disabledRow = css`
-  color: var(--admiral-color-Neutral_Neutral30, ${(p) => p.theme.color['Neutral/Neutral 30']});
   cursor: not-allowed;
   & > * {
     pointer-events: none;
@@ -65,7 +64,7 @@ export const disabledRow = css`
 `;
 
 export const underlineRow = css`
-  border-bottom: 1px solid green;
+  border-bottom: 1px solid ${color.secondary};
 `;
 
 // TODO: Удалить error, success в 8.x.x версии
@@ -99,7 +98,7 @@ export const rowBackground = css<{
     if ($grey) {
       return `var(--admiral-color-Neutral_Neutral05, ${theme.color['Neutral/Neutral 05']})`;
     }
-    return color.primary;
+    return color.secondary;
   }}
 `;
 

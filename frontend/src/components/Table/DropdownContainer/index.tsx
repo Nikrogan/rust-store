@@ -9,6 +9,7 @@ import { refSetter } from '../refSetter';
 import { mediumGroupBorderRadius } from '../themes';
 import { useClickOutside } from '../useClickOutside';
 import { useInterval } from '../useInterval';
+import { color } from '@/config/theme';
 
 const Container = styled.div<{
   $alignSelf?: string;
@@ -24,7 +25,7 @@ const Container = styled.div<{
   transition-property: opacity;
 
   &:focus-visible {
-    border: 2px solid blue;
+    border: 2px solid ${color.secondary};
   }
 
   ${(p) => p.$dropContainerCssMixin}

@@ -27,6 +27,10 @@ const nextConfig = {
           port: '',
           pathname: '/uploads/**',
         },
+        {
+          protocol: 'https',
+          hostname: 'avatars.steamstatic.com',
+        },
       ],
     },
     async headers () {

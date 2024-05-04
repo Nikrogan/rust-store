@@ -7,7 +7,6 @@ import styled from "styled-components"
 export const UserBasket = () => {
     const getUserBasket = useUnit(getUserBasketEvent)
     const {data, isLoading} = useUnit($userBasket);
-
     useEffect(() => {
         getUserBasket()
     }, []);
