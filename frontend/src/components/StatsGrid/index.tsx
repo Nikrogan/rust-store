@@ -1,4 +1,3 @@
-import { Group, Paper, SimpleGrid, Text } from '@mantine/core';
 import {
   IconUserPlus,
   IconDiscount2,
@@ -8,6 +7,8 @@ import {
   IconArrowDownRight,
 } from '@tabler/icons-react';
 import classes from './StatsGrid.module.css';
+import styled from 'styled-components';
+import { color } from '@/config/theme';
 
 const icons = {
   user: IconUserPlus,
@@ -29,31 +30,57 @@ export function StatsGrid() {
     const DiffIcon = stat.diff > 0 ? IconArrowUpRight : IconArrowDownRight;
 
     return (
-      <Paper withBorder p="md" radius="md" key={stat.title}>
-        <Group justify="space-between">
-          <Text size="xs" c="dimmed" className={classes.title}>
+      <StatContainer key={stat.title}>
+        <StatTitleContainer>
+          <div size="xs" c="dimmed" className={classes.title}>
             {stat.title}
-          </Text>
+          </div>
           <Icon className={classes.icon} size="1.4rem" stroke={1.5} />
-        </Group>
+        </StatTitleContainer>
 
-        <Group align="flex-end" gap="xs" mt={25}>
-          <Text className={classes.value}>{stat.value}</Text>
-          <Text c={stat.diff > 0 ? 'teal' : 'red'} fz="sm" fw={500} className={classes.diff}>
-            <span>{stat.diff}%</span>
+        <StatValueContainer mt={25}>
+          <div className={classes.value}>{stat.value}</div>
+          <div c={stat.diff > 0 ? 'teal' : 'red'} fz="sm" fw={500} className={classes.diff}>
+            <span>&nbsp;{stat.diff}%</span>
             <DiffIcon size="1rem" stroke={1.5} />
-          </Text>
-        </Group>
+          </div>
+        </StatValueContainer>
 
-        <Text fz="xs" c="dimmed" mt={7}>
+        <div fz="xs" c="dimmed" mt={7}>
           По сравнению с предыдущем месяцем
-        </Text>
-      </Paper>
+        </div>
+      </StatContainer>
     );
   });
+
   return (
-    <div className={classes.root}>
-      <SimpleGrid cols={{ base: 1, xs: 2, md: 4 }}>{stats}</SimpleGrid>
-    </div>
+    <StatsContainer className={classes.root}>
+      {stats}
+    </StatsContainer>
   );
 }
+
+const StatContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  padding: 16px;
+  background: ${color.secondary}
+`
+
+const StatTitleContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+
+const StatValueContainer = styled.div`
+  display: flex;
+  margin-top: 24px;
+  color: white;
+`
+
+const StatsContainer = styled.div`
+  display: flex;
+  justify-content: space-between; 
+  width: 100%;
+`

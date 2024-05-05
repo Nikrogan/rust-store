@@ -1,20 +1,8 @@
 import type { Metadata } from 'next'
 
-import { Roboto_Condensed } from 'next/font/google';
-import {  MantineProvider } from '@mantine/core';
-import { theme } from '@/components/theme/theme';
 import { EffectorNext } from "@effector/next";
-import { ReduxDevToolsAdapter } from '@/shared/devtools/devtools';
-import './globals.css'
 import { MainPageServer } from '@/pag/mainServer';
-import StyledComponentsRegistry from '@/lib/registry';
 
-const montserrat = Roboto_Condensed({
-  weight: ['400', '700'],
-  subsets: ['latin'],
-  display:'swap',
-  fallback: ['Arial', 'sans-serif'],
-});
 
 export const metadata: Metadata = {
   title: 'BlackwoodRust',
@@ -29,13 +17,10 @@ export default function RootLayout({
 
   return (
     <html lang="ru">
-      <body className={montserrat.className}>
-        <MantineProvider theme={theme}>
-            <ReduxDevToolsAdapter />
-              <EffectorNext>
-                  <MainPageServer>{children}</MainPageServer>
-              </EffectorNext>
-         </MantineProvider>
+      <body>
+            <EffectorNext>
+                <MainPageServer>{children}</MainPageServer>
+            </EffectorNext>
       </body>
     </html>
   )

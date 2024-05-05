@@ -1,11 +1,10 @@
 'use client'
 import { color } from "@/config/theme"
-import { Title } from "@mantine/core"
 import styled from "styled-components"
 
 export const PageContent = () => (
     <>
-    <Title c="white">Условия доставки</Title><Container>
+    <h1>Условия доставки</h1><Container>
         <Text>
             Цифровой товар приобретенный с внутреннего баланса доставляется в корзину покупателя, <br/>
             покупатель по своему желанию забирает товар из корзины путем написания команды в чат /store находясь на сервере.<br/>

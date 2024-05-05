@@ -1,22 +1,22 @@
 'use client'
-import { Loader } from "@mantine/core";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Pages } from "@/config/config";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { $userStores, authUserEvent, getAuthStatusEvent, logoutEvent } from "@/store/auth";
 import { useUnit } from 'effector-react';
-
-import './navbar.css';
 import { $notification, deleteNotificationEvent } from "@/store/notification";
 import styled from "styled-components";
 import { Button } from "../Button";
 import { Select } from "../Select";
 import { SteamIcon } from "../SteamIcon";
-
 import { open as balancaModalOpen } from "../BalanceModal/store"
 import { open as promocodeModalOpen } from "../PromocodeModal/store"
 import { color } from "@/config/theme";
+
+import './navbar.css';
+import { $lang, changeLangEvent } from "@/store/lang";
+
+
 
 const StyledLink = styled(Link)`
   transition: all 0.4s;
@@ -88,10 +88,12 @@ const MenuLinks = [
 ]
 
 
-//TODO - Заменить Loader на свой
 export const NavBar = () => {
   let pathname = usePathname();
-  const regexp = new RegExp(/\/news\/\w+/gm)
+  const { currentLang, langList } = useUnit($lang);
+  const [isOpen, setOpen] = useState(false);
+  const changeCurrentLang = useUnit(changeLangEvent);
+  const regexp = new RegExp(/\/news\/\w+/gm);
   pathname = pathname.replace(regexp, '/news')
 
   const { value: { isAuth, isLoading, user }, notificationList, deleteNotification, trigger, authUser, handleLogoutTrigger } = useUnit({
@@ -148,6 +150,15 @@ export const NavBar = () => {
        <>
        <StyledLinkPromo onClick={onBalancaModalOpen}>Пополнить баланс</StyledLinkPromo>
        <StyledLinkPromo onClick={onPromocodeModalOpen}>Активировать промокод</StyledLinkPromo>
+       <ChangeLangContainer onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+        <CurrentLang>{currentLang}</CurrentLang>
+        {isOpen && <ChangeLangOptions>
+          {langList.map((lang) => (<ChangeLangOption onClick={() => {
+            changeCurrentLang(lang);
+            setOpen(false)
+          }}>{lang}</ChangeLangOption>))}
+        </ChangeLangOptions>}
+       </ChangeLangContainer>
         <StyledMoneyLink onClick={onBalancaModalOpen}>
           <MoneyImage />
           <StyledMoneyCount>
@@ -160,7 +171,7 @@ export const NavBar = () => {
         </StyledProfileLink>
       </>
       )}
-        {isLoading ? <Loader /> : <Button onClick={isAuth ? handleLogout : handleLogin} RightElement={isAuth ? null : SteamIcon}>{isAuth ? "Выйти" : "Войти"}</Button>}
+        {isLoading ? null : <Button onClick={isAuth ? handleLogout : handleLogin} RightElement={isAuth ? null : SteamIcon}>{isAuth ? "Выйти" : "Войти"}</Button>}
       </FlexContainerButton>
     </FlexContainer>
   )
@@ -209,6 +220,55 @@ const StyledProfileLink = styled(Link)`
     height: 20px;
   }
 
+  &:hover {
+    color: ${color.accent}
+  }
+`
+
+
+const ChangeLangContainer = styled.div`
+  background: #0B0911;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  cursor: pointer;
+  position: relative;
+  border-right: 1px solid ${color.secondary};
+  border-left: 1px solid ${color.secondary};
+`
+
+const ChangeLangOptions = styled.div`
+  position: absolute;
+  box-sizing: content-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: 40px;
+  width: 100%;
+  height: 80px;
+  padding-top: 12px;
+  background: #0B0911;
+  border-right: 1px solid ${color.secondary};
+  border-left: 1px solid ${color.secondary};
+  border-bottom: 1px solid ${color.secondary};
+`
+
+const ChangeLangOption = styled.div`
+  width: 100%;
+  height: 40px;
+  color: white;
+  text-align: center;
+
+  &:hover {
+    color: ${color.accent}
+  }
+
+`
+
+const CurrentLang = styled.div`
   &:hover {
     color: ${color.accent}
   }

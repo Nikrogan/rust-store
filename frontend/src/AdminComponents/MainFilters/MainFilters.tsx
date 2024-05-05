@@ -1,8 +1,8 @@
-import { Box, Button, Flex, Title } from "@mantine/core"
-import { DatePickerInput } from "@mantine/dates"
+// import { Box, Button, Flex, Title } from "@mantine/core"
+// import { DatePickerInput } from "@mantine/dates"
 import { IconCalendar, IconTimeline } from "@tabler/icons-react"
 import { useState } from "react";
-import '@mantine/dates/styles.css';
+// import '@mantine/dates/styles.css';
 
 export const MainFilters = () => {
     const [value, setValue] = useState<[Date | null, Date | null]>([null, null]);
@@ -15,7 +15,13 @@ export const MainFilters = () => {
     }
    
     d.setMonth(d.getMonth() - 1);
-    return <Flex align='center' justify="space-between">
+    return <div>filters</div>
+}
+
+
+/*
+
+<Flex align='center' justify="space-between">
         <Box>
             <Flex align="center">
                 <IconTimeline height={32} width={32}/>
@@ -36,4 +42,5 @@ export const MainFilters = () => {
             <Button>Обновить</Button>
         </Box>
     </Flex>
-}
+
+*/

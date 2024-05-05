@@ -1,21 +1,17 @@
 'use client'
-import { theme } from "@/components/theme/theme";
-import {  Flex, Input} from "@mantine/core";
-import { useForm } from '@mantine/form';
 import { PageTitle } from "../../_components/PageTitle";
 import { Button } from "@/components/Button";
 import { SimpleAction } from "@/shared/utils/simpleAction";
 
 export default function CreateStore ( ) {
 
-    const form = useForm();
 
     return (
-    <form onSubmit={form.onSubmit((values) => console.log(values))}>
+    <form onSubmit={SimpleAction}>
         <PageTitle title="Профиль сотрудника">
             <Button onClick={SimpleAction}>Изменить</Button>
         </PageTitle>
-        <Flex gap={theme.spacing.md} mt={theme.spacing.lg}>
+        {/* <Flex gap={theme.spacing.md} mt={theme.spacing.lg}>
                 <Input.Wrapper label="Логин">
                     <Input disabled  />
                 </Input.Wrapper>
@@ -39,6 +35,6 @@ export default function CreateStore ( ) {
                 <Input.Wrapper label="Telegram">
                     <Input  />
                 </Input.Wrapper>
-        </Flex>
+        </Flex> */}
         </form>)
 };

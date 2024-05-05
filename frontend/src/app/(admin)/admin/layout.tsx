@@ -1,8 +1,3 @@
-import '@mantine/core/styles.css';
-import '@mantine/charts/styles.css';
-import '@mantine/dates/styles.css';
-import { theme } from "@/components/theme/theme"
-import { MantineProvider } from "@mantine/core"
 import { AuthCheck } from '@/AdminComponents/AuthCheck/AuthCheck';
 import { WorkLayout } from '@/components/WorkLayout/WorkLayout';
 
@@ -65,13 +60,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <MantineProvider theme={theme}>
         <AuthCheck>
           <WorkLayout links={links}>
             {children}
           </WorkLayout>
         </AuthCheck>
-        </MantineProvider>
         </body>
     </html>
   )

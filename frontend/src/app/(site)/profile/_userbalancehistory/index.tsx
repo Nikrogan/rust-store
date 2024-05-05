@@ -3,6 +3,7 @@ import { useEffect } from "react"
 import { $userBalanceHistory, getUserBalanceHistoryEvent } from "./store";
 import { Column} from "@/components/Table";
 import { TableWrapper } from "@/components/TableWrapper";
+import { DateFormatter } from "@/shared/utils/dateFormatter";
 
 export const UserBalanceHistoryTable = () => {
     const getUserBalanceHistory = useUnit(getUserBalanceHistoryEvent);
@@ -15,19 +16,14 @@ export const UserBalanceHistoryTable = () => {
 }
 
 
-const options = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    timezone: 'UTC',
-};
-
 const cols: Column[] = [
     {
         name: "dateTime",
         title: "Дата",
-        renderCell: (data) =>  new Date(data).toLocaleString("ru", options),
-        width: 130
+        renderCell: (date) => {
+            return DateFormatter(date)
+        },
+        width: 140
     },
     {
         name: "operationType",
@@ -39,7 +35,8 @@ const cols: Column[] = [
     },
     {
         name: "paymentSystem",
-        title: "Платежная система"
+        title: "Платежная система",
+        width: 220
     },
 
 ]

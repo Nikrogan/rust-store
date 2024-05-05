@@ -1,10 +1,13 @@
-import { AreaChart } from "@mantine/charts"
-import { Box } from "@mantine/core"
 import { MainFilters } from "../MainFilters/MainFilters"
 import { theme } from "@/components/theme/theme"
 
 export const MainStat = ({data}) => {
-    return <Box>
+    return <div>stats</div>
+}
+
+/*
+
+<Box>
         <MainFilters />
         <AreaChart
             h={300}
@@ -17,4 +20,6 @@ export const MainStat = ({data}) => {
             curveType="linear"
         />
     </Box>
-}
+
+
+*/

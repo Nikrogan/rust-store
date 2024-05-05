@@ -1,12 +1,10 @@
 'use client'
-
 import { color } from "@/config/theme"
-import { Title } from "@mantine/core"
 import styled from "styled-components"
 
 export const PageContent = () => {
     return (
-        <><Title c="white">Контакты (в том числе техническая поддержка)</Title><Container>
+        <><h1>Контакты (в том числе техническая поддержка)</h1><Container>
             <Text>
                 Уважаемые игроки по вопросам покупки или для сообщения об нарушении правил сервиса просьба сообщать:<br />
                 <DiscordLinkContainer>Discord:

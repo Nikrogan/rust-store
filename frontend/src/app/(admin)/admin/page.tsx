@@ -1,21 +1,16 @@
 'use client'
-import '@mantine/dates/styles.css';
 import { StatsGrid } from "@/components/StatsGrid";
-import { AreaChart } from "@mantine/charts";
-import { Box,  Group, Tabs, TabsList } from "@mantine/core";
-import { DatePickerInput } from '@mantine/dates';
 import { IconHomeStats,  IconSettings, IconWallet } from "@tabler/icons-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { MainStat } from '@/AdminComponents/MainStat/MainStat';
 import { useUnit } from 'effector-react';
 import { $promocodes, $salary, getPromocodesEvent } from './store';
-import { theme } from '@/components/theme/theme';
-import { Products } from '@/AdminComponents/Products/ui/products';
-import { PromoCodes } from '@/admin/components/PromoCodes';
 import { Column, Table } from '@/components/Table';
 import { $servers, getServersEvent } from '../_api/servers';
 import { Button } from '@/components/Button';
 import { Servers } from '../_components/Servers';
+import { TabButton, TabButtonText, Tabs } from "@/components/Tabs";
+import { AdminMainPage } from "./_adminMainPage";
 
 export const data = [
     {
@@ -58,14 +53,36 @@ export default function StorePage() {
     });
 
     const getServers = useUnit(getServersEvent);
-    const [activeTab, setActiveTab] = useState<string | null>('gallery');
 
     useEffect(() => {
         getPromocodes()
     }, [])
 
-    const [value, setValue] = useState<[Date | null, Date | null]>([null, null]);
-    const getCurrentDay = new Date()
+
+    const headerList = useMemo(() => [
+        {
+            id: 'mainPage',
+            render: ({...data}) => <TabButton {...data}><TabButtonText>Статистика</TabButtonText> <IconHomeStats /></TabButton>
+        },
+        {
+            id: 'servers',
+            render: ({...data}) => <TabButton {...data}><TabButtonText>Сервера</TabButtonText> <IconSettings /></TabButton>
+        },
+      ], []);
+    
+      const tabsContentList = useMemo(() => [
+        {
+            id: 'mainPage',
+            render: ({...data}) => <AdminMainPage {...data}/>
+        },
+        {
+            id: 'servers',
+            render: ({...data}) => <div {...data}>Контент 2</div>
+        },
+      
+      ], [])
+
+
     var d = new Date();
     const a = []
     for(let i = 0; i < 100; i++) {
@@ -76,6 +93,16 @@ export default function StorePage() {
 
     return <>
         <div>
+            <Tabs defaultTabId="mainPage" headerList={headerList} tabsContentList={tabsContentList} />
+        </div>
+    </>
+}
+
+
+
+
+/*
+
             <Tabs keepMounted={false} value={activeTab} onChange={setActiveTab}>
                 <Tabs.List>
                     <Tabs.Tab value="gallery" leftSection={<IconHomeStats />}>
@@ -124,7 +151,4 @@ export default function StorePage() {
                     <Servers />
                 </Tabs.Panel>
             </Tabs>
-        </div>
-    </>
-}
-
+*/

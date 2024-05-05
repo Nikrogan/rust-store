@@ -1,17 +1,13 @@
 'use client'
-import { theme } from '@/components/theme/theme'
 import { useUnit } from 'effector-react'
 import { $userStores } from '@/store/auth'
-import { PromoCodesTable } from './_promocodes'
 import { UserBalanceHistoryTable } from './_userbalancehistory'
 import { UserBasket } from './_userbasket'
 import styled from 'styled-components'
 import { color } from '@/config/theme'
-import { Tabs } from '@/components/Tabs'
+import { TabButton, Tabs } from '@/components/Tabs'
 import Image from 'next/image'
 import { useMemo } from 'react'
-
-
 
 const TabsHeader = styled.div`
   cursor: pointer;
@@ -32,15 +28,11 @@ export default function ProfilePage() {
   const headerList = useMemo(() => [
     {
         id: 'inventory',
-        render: ({...data}) => <TabsHeader {...data}>Инвентарь</TabsHeader>
+        render: ({...data}) => <TabButton {...data}>Корзина</TabButton>
     },
     {
         id: 'historyBalance',
-        render: ({...data}) => <TabsHeader {...data}>История баланса</TabsHeader>
-    },
-    {
-        id: 'promocodes',
-        render: ({...data}) => <TabsHeader {...data}>Промокоды</TabsHeader>
+        render: ({...data}) => <TabButton {...data}>История баланса</TabButton>
     },
   ], []);
 
@@ -52,10 +44,6 @@ export default function ProfilePage() {
     {
         id: 'historyBalance',
         render: ({...data}) => <UserBalanceHistoryTable {...data} />
-    },
-    {
-        id: 'promocodes',
-        render: ({...data}) => <PromoCodesTable {...data} />
     },
   
   ], [])
