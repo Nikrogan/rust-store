@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useEffect } from "react";
 import styled from "styled-components";
 import { $serverStore, serverRequest } from "./store";
+import { $lang } from "@/store/lang";
+import { ShopLang } from "./lang";
 
 
 const Title = styled.h2`
@@ -51,7 +53,8 @@ const SelectShopContainer = styled.div`
 `
 
 export default function Shop() {
-  const getServers = useUnit(serverRequest)
+  const getServers = useUnit(serverRequest);
+  const {currentLang} = useUnit($lang);
   const { 
     isLoading,
     isError,
@@ -72,7 +75,7 @@ export default function Shop() {
       <div className="light"></div>
       {!isLoading && (
       <>
-      <Title>Выберите сервер</Title><FlexContainer>
+      <Title>{ShopLang[currentLang].selectServer}</Title><FlexContainer>
           {viewServerList}
           <Flex>
             <StyledLink href={`/shop/${1}`}>BLACKWOOD RUST #1 [ X3/MAX3] FRIDAY</StyledLink>

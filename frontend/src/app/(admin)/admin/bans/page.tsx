@@ -1,11 +1,6 @@
 'use client'
-import { theme } from "@/components/theme/theme";
 import { ButtonWrapper } from "@/shared/ButtonWrapper/ButtonWrapper";
 import { $userStores } from "@/store/auth";
-import { Flex, Table, Title, Box, Modal, Input, Select } from "@mantine/core";
-import { DateInput } from "@mantine/dates";
-import { useForm } from "@mantine/form";
-import { useDisclosure } from "@mantine/hooks";
 import { useUnit } from "effector-react";
 import { $playerCheck, createPlayerCheckEvent, getPlayersCheckEvent } from "./store";
 import { useEffect } from "react";
@@ -23,7 +18,6 @@ const data = {
 }
 
 function Bans() {
-    const [opened, { open, close }] = useDisclosure(false);
     const {user} = useUnit($userStores);
     const { playerChecks, getPlayersCheck, createPlayerCheck } = useUnit({
         playerChecks: $playerCheck,
@@ -31,28 +25,13 @@ function Bans() {
         createPlayerCheck: createPlayerCheckEvent
     })
 
-
-    const form = useForm({
-        initialValues: {
-          moderatorId: user?.steamId,
-          steamId: '',
-          discordId: '',
-          result: '',
-          date: null,
-          comment: ''
-        },
-    
-        validate: {
-        },
-      });
-
     useEffect(() => {
         getPlayersCheck()
     }, [])
 
     return (
         <>
-        <Flex align="center" justify="space-between">
+        {/* <Flex align="center" justify="space-between">
             <Title>Таблица для модераторов</Title>
             <Box>
                 <ButtonWrapper variant="outline" onClick={open}>Добавить игрока</ButtonWrapper>
@@ -94,7 +73,7 @@ function Bans() {
 
             </form>
         </Modal>
-        }
+        } */}
         </>
     )
 }

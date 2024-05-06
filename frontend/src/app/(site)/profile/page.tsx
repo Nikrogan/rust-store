@@ -8,6 +8,8 @@ import { color } from '@/config/theme'
 import { TabButton, Tabs } from '@/components/Tabs'
 import Image from 'next/image'
 import { useMemo } from 'react'
+import { $lang } from '@/store/lang'
+import { profileLang } from './lang'
 
 const TabsHeader = styled.div`
   cursor: pointer;
@@ -25,16 +27,18 @@ const TabsHeader = styled.div`
 
 export default function ProfilePage() {
   const { user, isLoading } = useUnit($userStores);
+  const {currentLang} = useUnit($lang);
+
   const headerList = useMemo(() => [
     {
         id: 'inventory',
-        render: ({...data}) => <TabButton {...data}>Корзина</TabButton>
+        render: ({...data}) => <TabButton {...data}>{profileLang[currentLang].basket}</TabButton>
     },
     {
         id: 'historyBalance',
-        render: ({...data}) => <TabButton {...data}>История баланса</TabButton>
+        render: ({...data}) => <TabButton {...data}>{profileLang[currentLang].balanceHistory}</TabButton>
     },
-  ], []);
+  ], [currentLang]);
 
   const tabsContentList = useMemo(() => [
     {
@@ -46,11 +50,11 @@ export default function ProfilePage() {
         render: ({...data}) => <UserBalanceHistoryTable {...data} />
     },
   
-  ], [])
+  ], [currentLang])
 
   return (
     <>
-        <PageTitle>Профиль</PageTitle>
+        <PageTitle>{profileLang[currentLang].title}</PageTitle>
         <ProfileContainer>
           {!isLoading && (
           <>

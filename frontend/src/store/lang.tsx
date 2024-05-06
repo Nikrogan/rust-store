@@ -1,14 +1,17 @@
 import { createEvent, createStore, sample } from "effector";
 
 
-const defaultStore = {
+const defaultStore: {
+    currentLang: "RU" | "EN",
+    langList: string[]
+} = {
     currentLang: 'RU',
     langList: ['RU', 'EN']
 }
 
 export const $lang = createStore(defaultStore)
 
-export const changeLangEvent = createEvent('change-user-lang');
+export const changeLangEvent = createEvent<"RU" | "EN">('change-user-lang');
 
 
 sample({

@@ -9,6 +9,7 @@ import { BalancaModal } from "@/components/BalanceModal";
 import { useUnit } from "effector-react";
 import { $NotificationList } from "@/components/roullete/store";
 import { Notification } from "./Notification/notification";
+import { changeLangEvent } from "@/store/lang";
 
 const Background = styled.div`
     background: ${() => "#0B0911" };
@@ -30,9 +31,11 @@ export const MainPageServer = ({children}) => {
     const pathname = usePathname();
     const NotificationData = useUnit($NotificationList);
     const promoStoresModal = useUnit(promoStore)
+    const changeLang = useUnit(changeLangEvent);
     
     useLayoutEffect(() => {
         const lastPage = localStorage.getItem('lastPage');
+        changeLang(navigator.language === 'ru' ? 'RU' : 'EN')
         if(lastPage) {
             localStorage.removeItem('lastPage')
             redirect(lastPage)

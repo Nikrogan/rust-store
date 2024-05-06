@@ -1,7 +1,11 @@
+import { $lang } from "@/store/lang"
+import { useUnit } from "effector-react"
 import Image from "next/image"
 import Link from "next/link"
+import { mainLang } from "./lang"
 
 export const Main = () => {
+    const {currentLang} = useUnit($lang);
     return (
     <main style={{padding: "16px", height: "100%"}}>
         <div className="light"></div>
@@ -9,7 +13,7 @@ export const Main = () => {
           <div className="wrapper">
             <div className="left">
                 <div className="main__image-wrapper">
-                    <h1>Проект игровых серверов Rust - BLACKWOOD RUST </h1>
+                    <h1>{mainLang[currentLang].title}</h1>
                     <Image className="main__image" src="https://bwrust.ru/uploads/newBw/main_image.jpg" width={600} height={390} alt="Logo Blackwood" />
                 </div>
                 <div className="button__list">
@@ -17,8 +21,7 @@ export const Main = () => {
                     <a className="button" target="_blank" href="https://discord.gg/blackwoodrust">Discord</a>
                 </div>
                 <p className="subtitle">
-                    Старт! Что тебе доступно?!<br/>
-                    Топор, кирка, еда и простой шмот с защитой от холода и радиации.
+                {mainLang[currentLang].subtitle}
                 </p>
             </div>
             <div className="right">
@@ -33,9 +36,9 @@ export const Main = () => {
                         </div>
 
                         <div className="server__right">
-                          <div>Онлайн - 56</div>
-                          <div>Присоединяются - 12</div>
-                          <div>В очереди - 0</div>
+                          <div>Online - 56</div>
+                          <div>Joining - 12</div>
+                          <div>Queue - 0</div>
                         </div>
 
                       </a>
@@ -48,9 +51,9 @@ export const Main = () => {
                               <div>s2.bwrust.ru:11111</div>
                           </div>
                           <div className="server__right">
-                                  <div>Онлайн - 56</div>
-                                  <div>Присоединяются - 12</div>
-                                  <div>В очереди - 0</div>
+                            <div>Online - 56</div>
+                            <div>Joining - 12</div>
+                            <div>Queue - 0</div>
                           </div>
                       </a>
                       <a href="steam://run/252490//+connect 109.248.4.125:11111" title="Подключиться к серверу" className="server">
@@ -62,9 +65,9 @@ export const Main = () => {
                               <div>s3.bwrust.ru:11111</div>
                           </div>
                           <div className="server__right">
-                              <div>Онлайн - 56</div>
-                              <div>Присоединяются - 12</div>
-                              <div>В очереди - 0</div>
+                            <div>Online - 56</div>
+                            <div>Joining - 12</div>
+                            <div>Queue - 0</div>
                         </div>
                       </a>
                       <a href="steam://run/252490//+connect 109.248.4.126:11111" title="Подключиться к серверу" className="server">
@@ -77,9 +80,9 @@ export const Main = () => {
                           </div>
 
                           <div className="server__right">
-                              <div>Онлайн - 56</div>
-                              <div>Присоединяются - 12</div>
-                              <div>В очереди - 0</div>
+                            <div>Online - 56</div>
+                            <div>Joining - 12</div>
+                            <div>Queue - 0</div>
                         </div>
                       </a>
                 </div>

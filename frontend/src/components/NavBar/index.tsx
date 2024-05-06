@@ -1,7 +1,7 @@
 'use client'
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { $userStores, authUserEvent, getAuthStatusEvent, logoutEvent } from "@/store/auth";
 import { useUnit } from 'effector-react';
 import { $notification, deleteNotificationEvent } from "@/store/notification";
@@ -15,6 +15,7 @@ import { color } from "@/config/theme";
 
 import './navbar.css';
 import { $lang, changeLangEvent } from "@/store/lang";
+import { NavBarLang } from "./lang";
 
 
 
@@ -53,39 +54,7 @@ const FlexContainerButton = styled.div`
 `
 
 
-const MenuLinks = [
-  {
-    title: 'Главная',
-    href: '/'
-  },
-  {
-    title: 'Магазин',
-    href: '/shop'
-  },
-  {
-    title: 'Информация',
-    href: null,
-    itemList: [
-      {
-        title: "Политика конфиденциальности",
-        href: '/policy'
-      },
-      {
-        title: "Пользовательское соглашение",
-        href: '/useraccess'
-      },
-      {
-        title: "Условия доставки",
-        href: '/delivery'
-      },
-      {
-        title: "Контакты",
-        href: '/contacts'
-      },
 
-    ]
-  },
-]
 
 
 export const NavBar = () => {
@@ -95,6 +64,40 @@ export const NavBar = () => {
   const changeCurrentLang = useUnit(changeLangEvent);
   const regexp = new RegExp(/\/news\/\w+/gm);
   pathname = pathname.replace(regexp, '/news')
+
+  const MenuLinks = useMemo(() => [
+    {
+      title: NavBarLang[currentLang].home,
+      href: '/'
+    },
+    {
+      title: NavBarLang[currentLang].store,
+      href: '/shop'
+    },
+    {
+      title: NavBarLang[currentLang].information,
+      href: null,
+      itemList: [
+        {
+          title: NavBarLang[currentLang].privacyPolicy,
+          href: '/policy'
+        },
+        {
+          title: NavBarLang[currentLang].userAgreement,
+          href: '/useraccess'
+        },
+        {
+          title: NavBarLang[currentLang].deliveryTerms,
+          href: '/delivery'
+        },
+        {
+          title: NavBarLang[currentLang].contacts,
+          href: '/contacts'
+        },
+  
+      ]
+    },
+  ], [currentLang])
 
   const { value: { isAuth, isLoading, user }, notificationList, deleteNotification, trigger, authUser, handleLogoutTrigger } = useUnit({
     value: $userStores,
@@ -148,8 +151,8 @@ export const NavBar = () => {
       <FlexContainerButton>
        {isAuth && (
        <>
-       <StyledLinkPromo onClick={onBalancaModalOpen}>Пополнить баланс</StyledLinkPromo>
-       <StyledLinkPromo onClick={onPromocodeModalOpen}>Активировать промокод</StyledLinkPromo>
+       <StyledLinkPromo onClick={onBalancaModalOpen}>{NavBarLang[currentLang].topUpBalance}</StyledLinkPromo>
+       <StyledLinkPromo onClick={onPromocodeModalOpen}>{NavBarLang[currentLang].activatePromoCode}</StyledLinkPromo>
        <ChangeLangContainer onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
         <CurrentLang>{currentLang}</CurrentLang>
         {isOpen && <ChangeLangOptions>
@@ -171,7 +174,7 @@ export const NavBar = () => {
         </StyledProfileLink>
       </>
       )}
-        {isLoading ? null : <Button onClick={isAuth ? handleLogout : handleLogin} RightElement={isAuth ? null : SteamIcon}>{isAuth ? "Выйти" : "Войти"}</Button>}
+        {isLoading ? null : <Button onClick={isAuth ? handleLogout : handleLogin} RightElement={isAuth ? null : SteamIcon}>{isAuth ? NavBarLang[currentLang].logout : NavBarLang[currentLang].login}</Button>}
       </FlexContainerButton>
     </FlexContainer>
   )
