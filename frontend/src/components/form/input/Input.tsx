@@ -10,6 +10,8 @@ const StyledInput = styled.input`
     padding: 8px 16px;
     font-weight: bold;
     font-size: 16px;
+    color: white;
+    
     &::placeholder {
         color: ${color.thirdly}
     }
@@ -18,6 +20,7 @@ const StyledInput = styled.input`
 export const InputLabelText = styled.div`
     padding-top: 4px;
     padding-bottom: 4px;
+
 `
 
 export const InputLabel = styled.label`

@@ -10,8 +10,16 @@ const {request: removeProductRequest, store: removeProductStatus} = buildRequest
     requestFn: (id: string) => api.delete(`/admin/products/${id}`)
 })
 
+const {request: createProductRequest, store: productStatus} = buildRequest('admin-create-products', {
+    requestFn: (body) => api.post('/admin/products', {
+        body
+    })
+})
+
+
 export const getProductsListEvent = getProductsListRequest;
 export const removeProductEvent = removeProductRequest;
+export const createProductEvent = createProductRequest;
 export const $products = store
 
 

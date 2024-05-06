@@ -2,7 +2,7 @@
 import { SimpleAction } from "@/shared/utils/simpleAction";
 import { PageTitle } from "../../PageTitle";
 import { useUnit } from "effector-react";
-import { $products, getProductsListEvent, removeProductEvent } from "@/app/(admin)/_api/products";
+import { $products, createProductEvent, getProductsListEvent, removeProductEvent } from "@/app/(admin)/_api/products";
 import { useLayoutEffect, useMemo, useState } from "react";
 import { Button } from "@/components/Button";
 import styled from "styled-components";
@@ -10,12 +10,20 @@ import { TableWrapper } from "@/components/TableWrapper";
 import { Modal } from "@/pageComponents/Modal";
 import { Input, InputLabelText } from "@/components/form/input/Input";
 import { Select } from "@/components/form/select";
+import { Controller, useForm } from "react-hook-form";
 
 export const Products = () => {
     const getProducts = useUnit(getProductsListEvent);
+    const createProduct = useUnit(createProductEvent);
     const removeProduct = useUnit(removeProductEvent);
     const [isOpen, setOpen] = useState(false);
     const {data, isLoading} = useUnit($products);
+    const {
+        register,
+        control,
+        getValues,
+        formState: { errors },
+      } = useForm()
     const columnList = useMemo(() => {
         return [
             {
@@ -72,6 +80,7 @@ export const Products = () => {
         getProducts()
     }, [])
 
+    const onSubmit = () => createProduct(getValues())
 
     return (
         <>
@@ -81,33 +90,73 @@ export const Products = () => {
         </PageTitle>
        {data && !isLoading && <TableWrapper columnList={columnList} rowList={data}/>}
        <Modal title='Создания товара' onClose={() => setOpen(false)} isOpen={isOpen} buttonGroup={() => {
-            return <Button width='120px' position='center' fontSize='16px' p='6px' onClick={SimpleAction}>Создать</Button>
+            return <Button width='120px' position='center' fontSize='16px' p='6px' onClick={() => onSubmit()}>Создать</Button>
         }}>
-        <form>
-            <InputLabelText>
-                Наименование товара
-                <Input />
+        <form >
+            <Controller
+                name='title'
+                control={control}
+                render={({ field }) => (
+                <InputLabelText>
+                    Наименование товара
+                    <Input {...field}/>
+                </InputLabelText>
+                )}
+            />
+
+            <Controller
+                name='description'
+                control={control}
+                render={({ field }) => (
+                <InputLabelText>
+                    Описание товара
+                <Input {...field}/>
             </InputLabelText>
-            <InputLabelText>
-                Описание товара
-                <Input />
-            </InputLabelText>
-            <InputLabelText>
-                Тип товара
-                <Input />
-            </InputLabelText>
-            <InputLabelText>
-                Цена товара
-                <Input />
-            </InputLabelText>
-            <InputLabelText>
-                Категория товара
-                <Select options={[{type: 0, title: 'Предмет'}, {type: 1, title: 'Команда'}, {type: 2, title: 'Рулетка'}, {type: 3, title: 'Набор'}, {type: 4, title: 'Чертеж'},  ]} />
-            </InputLabelText>
-            <InputLabelText>
-                Ссылка на картинку товара
-                <Input />
-            </InputLabelText>
+            )
+            }
+            />
+
+            <Controller
+                name='productType'
+                control={control}
+                render={({field}) => (
+                    <InputLabelText>
+                    Тип товара
+                    <Input {...field}/>
+                </InputLabelText>
+                )}
+            />
+            <Controller 
+                name='price'
+                control={control}
+                render={({field}) => (
+                    <InputLabelText>
+                    Цена товара
+                    <Input type="number" {...field}/>
+                </InputLabelText>
+            )}
+            />
+            <Controller
+                name='categoryType'
+                control={control}
+                render={({field}) => (
+                    <InputLabelText>
+                        Категория товара
+                    <Select {...field} options={[{type: 0, title: 'Предмет'}, {type: 1, title: 'Команда'}, {type: 2, title: 'Рулетка'}, {type: 3, title: 'Набор'}, {type: 4, title: 'Чертеж'},  ]} />
+                </InputLabelText>
+                )}
+            />
+            <Controller
+                name='imageUrl'
+                control={control}
+                render={({field}) => (
+                    <InputLabelText>
+                    Ссылка на картинку товара
+                    <Input type="url" {...field}/>
+                </InputLabelText>
+                )}
+            />
+
         </form>
        </Modal>
         </>
