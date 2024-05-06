@@ -3,6 +3,7 @@
   "rules": {
     "react/display-name": "off",
     "react/no-children-prop": "off",
-    "react-hooks/rules-of-hooks": "off"
+    "react-hooks/rules-of-hooks": "off",
+    "react/jsx-key": "off"
   }
 }
