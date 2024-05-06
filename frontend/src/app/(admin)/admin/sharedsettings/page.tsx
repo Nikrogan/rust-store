@@ -1,17 +1,19 @@
 'use client'
-import { Input, InputWrapper, Tabs } from "@mantine/core"
+import { Input, InputLabel } from "@/components/form/input/Input"
 import { PageTitle } from "../../_components/PageTitle"
 
 export default  function SharedSettings() {
     return (
         <>
         <PageTitle title="Общие настройки магазина" />
-        <InputWrapper label="Секретный ключ">
+        <InputLabel>
+            Секретный ключ
             <Input />
-        </InputWrapper>
-        <InputWrapper label="Стартовый баланс">
+        </InputLabel>
+        <InputLabel>
+        Стартовый баланс
             <Input />
-        </InputWrapper>
+        </InputLabel>
         </>
     )
 }
