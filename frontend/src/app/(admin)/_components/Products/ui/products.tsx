@@ -2,7 +2,7 @@
 import { SimpleAction } from "@/shared/utils/simpleAction";
 import { PageTitle } from "../../PageTitle";
 import { useUnit } from "effector-react";
-import { $products, createProductEvent, getProductsListEvent, removeProductEvent } from "@/app/(admin)/_api/products";
+import { $categoryStore, $products, createProductEvent, getCategoryTypeEvent, getProductsListEvent, removeProductEvent } from "@/app/(admin)/_api/products";
 import { useLayoutEffect, useMemo, useState } from "react";
 import { Button } from "@/components/Button";
 import styled from "styled-components";
@@ -11,12 +11,16 @@ import { Modal } from "@/pageComponents/Modal";
 import { Input, InputLabelText } from "@/components/form/input/Input";
 import { Select } from "@/components/form/select";
 import { Controller, useForm } from "react-hook-form";
+import { DefaultProductsModal } from "../_components/DefaultProductsModal";
 
 export const Products = () => {
     const getProducts = useUnit(getProductsListEvent);
+    const getCategoryType = useUnit(getCategoryTypeEvent);
     const createProduct = useUnit(createProductEvent);
     const removeProduct = useUnit(removeProductEvent);
+    const categoryStores = useUnit($categoryStore);
     const [isOpen, setOpen] = useState(false);
+    const [customOpenModal, setCustomOpenModal] = useState(false);
     const {data, isLoading} = useUnit($products);
     const {
         register,
@@ -78,10 +82,11 @@ export const Products = () => {
 
     useLayoutEffect(() => {
         getProducts()
+        getCategoryType()
     }, [])
 
     const onSubmit = () => createProduct(getValues())
-
+    console.log(categoryStores)
     return (
         <>
         <PageTitle title='Страница товаров магазина'>
@@ -93,6 +98,7 @@ export const Products = () => {
             return <Button width='120px' position='center' fontSize='16px' p='6px' onClick={() => onSubmit()}>Создать</Button>
         }}>
         <form >
+            <Button type="button" onClick={() => setCustomOpenModal(true)}>Выбрать стандарный товар</Button>
             <Controller
                 name='title'
                 control={control}
@@ -122,7 +128,7 @@ export const Products = () => {
                 render={({field}) => (
                     <InputLabelText>
                     Тип товара
-                    <Input {...field}/>
+                    <Select {...field} options={[{type: 0, title: 'Предмет'}, {type: 1, title: 'Команда'}, {type: 2, title: 'Рулетка'}, {type: 3, title: 'Набор'}, {type: 4, title: 'Чертеж'},  ]} />
                 </InputLabelText>
                 )}
             />
@@ -136,16 +142,16 @@ export const Products = () => {
                 </InputLabelText>
             )}
             />
-            <Controller
+            {categoryStores.status === 200 && <Controller
                 name='categoryType'
                 control={control}
                 render={({field}) => (
                     <InputLabelText>
                         Категория товара
-                    <Select {...field} options={[{type: 0, title: 'Предмет'}, {type: 1, title: 'Команда'}, {type: 2, title: 'Рулетка'}, {type: 3, title: 'Набор'}, {type: 4, title: 'Чертеж'},  ]} />
+                    <Select {...field} options={categoryStores.data.map((item) => ({type: item.id, title: item.title}) )} />
                 </InputLabelText>
                 )}
-            />
+            />}
             <Controller
                 name='imageUrl'
                 control={control}
@@ -156,8 +162,8 @@ export const Products = () => {
                 </InputLabelText>
                 )}
             />
-
         </form>
+            {customOpenModal && <DefaultProductsModal customOpenModal={customOpenModal} setCustomOpenModal={setCustomOpenModal}/>}
        </Modal>
         </>
     )

@@ -149,10 +149,10 @@ export const NavBar = () => {
       </WorkLinksContainer>)
       }
       <FlexContainerButton>
-       {isAuth && (
        <>
-       <StyledLinkPromo onClick={onBalancaModalOpen}>{NavBarLang[currentLang].topUpBalance}</StyledLinkPromo>
-       <StyledLinkPromo onClick={onPromocodeModalOpen}>{NavBarLang[currentLang].activatePromoCode}</StyledLinkPromo>
+       {isAuth && (
+       <><StyledLinkPromo onClick={onBalancaModalOpen}>{NavBarLang[currentLang].topUpBalance}</StyledLinkPromo><StyledLinkPromo onClick={onPromocodeModalOpen}>{NavBarLang[currentLang].activatePromoCode}</StyledLinkPromo></>
+       )}
        <ChangeLangContainer onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
         <CurrentLang>{currentLang}</CurrentLang>
         {isOpen && <ChangeLangOptions>
@@ -162,18 +162,21 @@ export const NavBar = () => {
           }}>{lang}</ChangeLangOption>))}
         </ChangeLangOptions>}
        </ChangeLangContainer>
-        <StyledMoneyLink onClick={onBalancaModalOpen}>
-          <MoneyImage />
-          <StyledMoneyCount>
-            {user?.balance} BW
-          </StyledMoneyCount>
-        </StyledMoneyLink>
-        <StyledProfileLink href={'/profile'}>
-          <UserImage />
-          {user?.displayName}
-        </StyledProfileLink>
+       {isAuth && (
+        <>
+          <StyledMoneyLink onClick={onBalancaModalOpen}>
+            <MoneyImage />
+            <StyledMoneyCount>
+              {user?.balance} BW
+            </StyledMoneyCount>
+          </StyledMoneyLink>
+          <StyledProfileLink href={'/profile'}>
+              <UserImage />
+              {user?.displayName}
+          </StyledProfileLink>
+        </>
+       )}
       </>
-      )}
         {isLoading ? null : <Button onClick={isAuth ? handleLogout : handleLogin} RightElement={isAuth ? null : SteamIcon}>{isAuth ? NavBarLang[currentLang].logout : NavBarLang[currentLang].login}</Button>}
       </FlexContainerButton>
     </FlexContainer>
