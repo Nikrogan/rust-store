@@ -51,7 +51,7 @@ export const BalanceModal = () => {
     return <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title="Пополнения баланса"
+      title={BalanceLang[currentLang].title}
       buttonGroup={() => (<><Button onClick={onClose}>{BalanceLang[currentLang].Cancel}</Button>&nbsp;<Button onClick={handleCreatePayment}>{BalanceLang[currentLang].TopUp}</Button></>)}    
       >
         {isLoadingCreateRequst && <Loader />}
