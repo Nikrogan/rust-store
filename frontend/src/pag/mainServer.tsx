@@ -5,7 +5,7 @@ import { NavBar } from "@/components/NavBar";
 import styled from 'styled-components';
 import { useLayoutEffect } from "react";
 import { PromocodeModal, store as promoStore } from "@/components/PromocodeModal/PromocodeModal";
-import { BalancaModal } from "@/components/BalanceModal";
+import { BalanceModal } from "@/components/BalanceModal";
 import { useUnit } from "effector-react";
 import { $NotificationList } from "@/components/roullete/store";
 import { Notification } from "./Notification/notification";
@@ -66,7 +66,7 @@ export const MainPageServer = ({children}) => {
                     Гражданского кодекса Российской Федерации.
                 </Offer>
             </Container>
-            <BalancaModal />
+            <BalanceModal />
             <NotificationList>
                 <div>
                     {NotificationListView}
