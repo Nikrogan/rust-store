@@ -102,7 +102,7 @@ const ServerCurrentOnline = styled.div`
 const Status =  styled.div`
     background: ${color.thirdly};
     width: 100%;
-    height: 30px;
+    height: 18px;
     margin-top: 8px;
 `
 

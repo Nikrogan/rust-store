@@ -3,7 +3,7 @@ import { SimpleAction } from "@/shared/utils/simpleAction";
 import { PageTitle } from "../../PageTitle";
 import { useUnit } from "effector-react";
 import { $categoryStore, $products, createProductEvent, getCategoryTypeEvent, getProductsListEvent, removeProductEvent } from "@/app/(admin)/_api/products";
-import { useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/Button";
 import styled from "styled-components";
 import { TableWrapper } from "@/components/TableWrapper";
@@ -38,6 +38,7 @@ export const Products = () => {
         control,
         getValues,
         formState: { errors },
+        watch
       } = useForm({
         defaultValues: {
             amount: 1,
@@ -46,6 +47,9 @@ export const Products = () => {
             productType: 0
         }
       })
+
+    const productTypeData = watch('productType');
+
     const columnList = useMemo(() => {
         return [
             {
@@ -97,7 +101,6 @@ export const Products = () => {
             },
         ]
     }, []);
-
     useLayoutEffect(() => {
         getProducts()
         getCategoryType()
@@ -108,6 +111,7 @@ export const Products = () => {
         createProduct({
         ...values,
         isActive: values.isActive === 1 ? true: false,
+        productType: Number(values.productType),
         description: content
     })
 }
@@ -178,6 +182,17 @@ export const Products = () => {
                 </InputLabelText>
                 )}
             />
+            {productTypeData == 1 && <Controller 
+                name="giveCommand"
+                control={control}
+                render={({field}) => (
+                    <InputLabelText>
+                    Команда выдачи
+                        <Input {...field}/>
+                    </InputLabelText>
+                )}
+            
+            />}
             <Controller 
                 name='price'
                 control={control}
