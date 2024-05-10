@@ -174,8 +174,9 @@ namespace RustStore.Controllers.Default
             await _userService.CreateUserBalanceAction(user.Data.SteamId, new BalanceActionModel
             {
                 DateTime = DateTime.Now,
-                PaymentSystem = "Tome",
-                OperationType = OperationType.AddBalance
+                PaymentName = "Tome",
+                OperationType = OperationType.AddBalance,
+                Value = payment.Data.Amount
             });
 
             return Redirect(link);
@@ -215,8 +216,9 @@ namespace RustStore.Controllers.Default
                 await _userService.CreateUserBalanceAction(user.Data.SteamId, new BalanceActionModel
                 {
                     DateTime = DateTime.Now,
-                    PaymentSystem = "Tome",
-                    OperationType = OperationType.AddBalance
+                    PaymentName = "Tome",
+                    OperationType = OperationType.AddBalance,
+                    Value = payment.Data.Amount
                 });
             }
             catch
@@ -258,8 +260,9 @@ namespace RustStore.Controllers.Default
             await _userService.CreateUserBalanceAction(user.Data.SteamId, new BalanceActionModel
             {
                 DateTime = DateTime.Now,
-                PaymentSystem = "PayPal",
-                OperationType = OperationType.AddBalance
+                PaymentName = "PayPal",
+                OperationType = OperationType.AddBalance,
+                Value = payment.Data.Amount
             });
 
             return Redirect(link);

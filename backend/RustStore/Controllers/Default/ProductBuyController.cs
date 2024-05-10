@@ -16,10 +16,12 @@ namespace RustStore.Controllers.Default
     {
         private readonly IUserService _userService;
         private readonly IProductService _productService;
-        public ProductBuyController(IUserService userService, IProductService productService)
+        private readonly IPurchaseStatService _purchaseStatService;
+        public ProductBuyController(IUserService userService, IProductService productService, IPurchaseStatService purchaseStatService)
         {
             _userService = userService;
             _productService = productService;
+            _purchaseStatService = purchaseStatService;
         }
 
         [HttpPost("{productid}")]
@@ -72,12 +74,15 @@ namespace RustStore.Controllers.Default
 
             user.Basket.Add(givedProduct);
 
+            await _purchaseStatService.AddStat(givedProduct);
+
             await _userService.EditElement(user);
             await _userService.CreateUserBalanceAction(user.SteamId, new BalanceActionModel
             {
                 DateTime = DateTime.Now,
-                PaymentSystem = "-",
-                OperationType = OperationType.Purchase
+                PaymentName = product.Data.Title,
+                OperationType = OperationType.Purchase,
+                Value = product.Data.Price
             });
 
             return new BaseServerResponse<ProductView>(productView, Domain.Enum.StatusCode.OK);

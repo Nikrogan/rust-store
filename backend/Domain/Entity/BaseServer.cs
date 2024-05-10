@@ -11,11 +11,12 @@ public class BaseServer
 
     public ulong ServerKey {  get; set; }
 
-    public int GamePort { get; set; }
     public string Ip { get; set; }
-    public string Name { get; set; }
+
+    public int GamePort { get; set; }
+    public int RconPort { get; set; }
     public int QueryPort { get; set; }
-    public int CurrentOnline { get; set; } = 0;
-    public int MaxOnline { get; set; } = 0;
-    public int Queue { get; set; } = 0;
+    public int RconPassword { get; set; }
+    
+    public string Name { get; set; }
 }

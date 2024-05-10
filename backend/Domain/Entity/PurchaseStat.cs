@@ -15,8 +15,8 @@ namespace Domain.Entity
         public string? Id { get; set; }
         public ulong ServerID {  get; set; }
         public string ProductName {  get; set; }
-        public string ProductId { get; set; }
         public ulong PurchasesCount {  get; set; }
+        public DateTime? StatDate { get; set; }
 
     }
 }
