@@ -38,7 +38,7 @@ export const ProductsFilters = () => {
             <FilterContent>
                 <FiltersList>
                     {shopFilters && shopFilters.map((filter) => {
-                        return <Filter key={filter.id} onClick={() => changeCurrentFilters(filter.id)} key={filter.id} isActive={currentFilter === filter.id}>{filter.title}</Filter>
+                        return <Filter key={filter.id} onClick={() => changeCurrentFilters(filter.id)} isActive={currentFilter === filter.id}>{filter.title}</Filter>
                     })}
                 </FiltersList>
             </FilterContent>
