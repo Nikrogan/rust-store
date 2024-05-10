@@ -32,7 +32,7 @@ namespace RustStore.Controllers.Admin
             return new BaseServerResponse<BaseProduct>(response.Data, response.StatusCode);
         }
 
-        [HttpGet("id{id}")]
+        [HttpGet("{id}")]
         public async Task<IBaseServerResponse<BaseProduct>> Get(string id)
         {
             var response = await _productService.GetProductById(id);
