@@ -16,6 +16,7 @@ export const ProductsFilters = () => {
     const {getProducts} = useUnit(events)
     const shopFilters = useUnit($shopFilters);
 
+
     useEffect(() => {
         if(currentServer === 0) {
             getProducts();
@@ -28,6 +29,8 @@ export const ProductsFilters = () => {
     useEffect(() => {
         getShopFilters()
     }, [])
+
+    
     return <FiltersContainer>
             <FiltersHeader>
                 Selected Server 

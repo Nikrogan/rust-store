@@ -1,5 +1,5 @@
 import { createEvent, createStore, sample } from "effector";
-import {getProductsEvent} from '../app/(site)/shop/store'
+import {getProductsEvent} from '../app/(site)/_shop/store'
 
 export const $currentServer = createStore(null);
 

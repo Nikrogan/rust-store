@@ -1,4 +1,4 @@
-import Shop from "./shop/[id]/page";
+import Shop from "./_shop/[id]/page";
 
 export default function News() {
   

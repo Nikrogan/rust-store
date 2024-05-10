@@ -1,7 +1,7 @@
 import { api } from '@/config/api';
 import { createDomain, createEffect, createEvent, sample } from 'effector'
 import { createCookie, deleteCookie, getCookie } from '@/cookie';
-import { buyProductEvent } from '@/app/(site)/shop/store';
+import { buyProductEvent } from '@/app/(site)/_shop/store';
 import { createNotificationEvent } from './notification';
 
 const authDomain = createDomain();

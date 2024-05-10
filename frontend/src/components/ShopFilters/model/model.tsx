@@ -1,3 +1,4 @@
+import { $currentFilters } from "@/app/(site)/_shop/[id]/_components/ProductsFilters/store";
 import { api } from "@/config/api";
 import { createEffect, createEvent, createStore, sample } from "effector";
 
@@ -40,6 +41,14 @@ sample({
     },
     target: $shopFilters
 });
+
+sample({
+    clock: getShopFiltersFx.doneData,
+    fn: (data) => {
+        return data.data.payLoad[0].id
+    },
+    target: $currentFilters
+})
 
 sample({
     clock: createProductEvent,

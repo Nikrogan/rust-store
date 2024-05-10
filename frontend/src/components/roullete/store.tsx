@@ -1,4 +1,4 @@
-import { $modal, $roullete, closeModalEvent } from "@/app/(site)/shop/[id]/store";
+import { $modal, $roullete, closeModalEvent } from "@/app/(site)/_shop/[id]/store";
 import { api, buildRequest } from "@/config/api";
 import { getUserFx } from "@/store/auth";
 import { createEffect, createEvent, createStore, sample } from "effector";

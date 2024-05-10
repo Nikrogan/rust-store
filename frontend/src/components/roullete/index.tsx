@@ -1,7 +1,7 @@
 import { useUnit } from "effector-react";
 import styled, { css } from "styled-components";
 import { ProductCard, ProductTypes } from "../ProductCard";
-import { $roullete } from "@/app/(site)/shop/[id]/store";
+import { $roullete } from "@/app/(site)/_shop/[id]/store";
 
 
 

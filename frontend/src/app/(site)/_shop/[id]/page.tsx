@@ -15,25 +15,24 @@ import { ProductGroupModal } from "./_components/ProductGroupModal/ProductGroupM
 import { Monitoring } from "./_components/Monitoring";
 import { ProductsFilters } from "./_components/ProductsFilters";
 import { Loader } from "@/components/loader";
-import { $currentFilters } from "./_components/ProductsFilters/store";
 
 
 
 export default function Shop() {
   const {isAuth} = useUnit($userStores)
-  const currentFilter = useUnit($currentFilters)
 
   const {getProducts, openModal, closeModal} = useUnit(events);
-  const {data: products, isLoading} = useUnit($products);
+  const  {data: products, isLoading} = useUnit($products);
   const { isOpen, type, content } = useUnit($modal);
   const buyRoullete = useUnit(buyRoulleteEvent);
   const isRoullete = type === 2 ? true : false;
   const productBuy = useUnit(productBuyEvent);
   let pathname = usePathname();
-  console.log(1)
+
   useEffect(() => {
     getProducts()
   }, [])
+
   const productsView = products && products.map((item, i) => {
     return (
         <ProductCard onClick={openModal} key={i} {...item}/>

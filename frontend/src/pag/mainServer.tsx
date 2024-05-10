@@ -10,7 +10,7 @@ import { useUnit } from "effector-react";
 import { $NotificationList } from "@/components/roullete/store";
 import { Notification } from "./Notification/notification";
 import { changeLangEvent } from "@/store/lang";
-import { Shop } from "@/app/(site)/shop/page";
+import { Shop } from "@/app/(site)/_shop/page";
 
 const Background = styled.div`
     background: ${() => "#0B0911" };
