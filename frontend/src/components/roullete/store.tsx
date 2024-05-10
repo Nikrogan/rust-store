@@ -1,4 +1,6 @@
+import { $modal, $roullete, closeModalEvent } from "@/app/(site)/shop/[id]/store";
 import { api, buildRequest } from "@/config/api";
+import { getUserFx } from "@/store/auth";
 import { createEffect, createEvent, createStore, sample } from "effector";
 import { keyframes } from "styled-components";
 
@@ -38,12 +40,6 @@ export const generateItems = (productsList, winItemIndex, itemLenghtInLine) => {
     return items;
 }
 
-export const $roullete = createStore({
-    isRun: false,
-    sliderWidth: 0,
-    items: [],
-    defaultItems: []
-})
 
 export const buyRoulleteEvent = createEvent();
 
@@ -81,7 +77,7 @@ sample({
     if($NotificationList.getState().length === 3) {
       return $NotificationList.getState()
     };
-    return [...$NotificationList.getState(), 'Недостаточно средств' ]
+    return [...$NotificationList.getState(), 'Недостаточно средств или что-то сломалось...' ]
   },
   filter: (store) => {
     if(store.isLoading) {
@@ -90,13 +86,47 @@ sample({
     if(!store?.status) {
       return false;
     }
-    if(store?.status === 700) {
+    if(store?.status === 700 || store.status === 120) {
       return true;
     }
 
     return false
   },
   target: $NotificationList
+})
+
+sample({
+  clock: store,
+  filter: (store) => {
+    if(store.isLoading) {
+      return false;
+    }
+    if(!store?.status) {
+      return false;
+    }
+    if(store?.status === 200) {
+      return true;
+    }
+    return false
+  },
+  target: closeModalEvent
+})
+
+sample({
+  clock: store,
+  filter: (store) => {
+    if(store.isLoading) {
+      return false;
+    }
+    if(!store?.status) {
+      return false;
+    }
+    if(store?.status === 200) {
+      return true;
+    }
+    return false
+  },
+  target: getUserFx
 })
 
 
@@ -165,4 +195,28 @@ sample({
       return []
   },
   target: $NotificationList
+})
+
+sample({
+  clock: buyRoulleteFx.doneData,
+  source: $modal,
+  fn: (modalStore, { data }) => {
+      const winIndex = modalStore.content.insideProducts.findIndex(x => x.title === data.payLoad.title)
+      return {
+          isRun: true,
+          sliderWidth: getSlider(getRandomInt(2480, 2590)),
+          items: generateItems(modalStore.content.insideProducts, winIndex, 50),
+          defaultItems: modalStore.content.insideProducts
+      }
+  },
+  target: $roullete
+})
+
+
+sample({
+  clock: buyRoulleteFx.doneData,
+  fn: () => {
+      return 5
+  },
+  target: startCountdown
 })

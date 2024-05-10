@@ -1,6 +1,6 @@
 'use client'
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { $userStores, authUserEvent, getAuthStatusEvent, logoutEvent } from "@/store/auth";
 import { useUnit } from 'effector-react';
@@ -16,6 +16,7 @@ import { color } from "@/config/theme";
 import './navbar.css';
 import { $lang, changeLangEvent } from "@/store/lang";
 import { NavBarLang } from "./lang";
+import { Loader } from "../loader";
 
 
 
@@ -59,6 +60,7 @@ const FlexContainerButton = styled.div`
 
 export const NavBar = () => {
   let pathname = usePathname();
+  const router = useRouter()
   const { currentLang, langList } = useUnit($lang);
   const [isOpen, setOpen] = useState(false);
   const changeCurrentLang = useUnit(changeLangEvent);
@@ -67,12 +69,8 @@ export const NavBar = () => {
 
   const MenuLinks = useMemo(() => [
     {
-      title: NavBarLang[currentLang].home,
-      href: '/'
-    },
-    {
       title: NavBarLang[currentLang].store,
-      href: '/shop'
+      href: '/'
     },
     {
       title: NavBarLang[currentLang].information,
@@ -139,9 +137,15 @@ export const NavBar = () => {
     return <StyledLink key={item.title} href={item.href}>{item.title}</StyledLink>
   })
   return (
-    <FlexContainer bg={'#1a1a1a'} p={"0 24px"} height={64} gap={16} align="center" justify="space-between">
+    <FlexContainer bg='#1a1a1a' p={"0 24px"} height={64} gap={16} align="center" justify="space-between">
+      <FlexContainerButton align='center'>
+        <Logo onClick={() => router.push('/')}>
+        <Black>Black</Black>
+        <Wood>Wood</Wood>
+      </Logo>
       <FlexContainerButton gap={16}>
         {viewLinks}
+      </FlexContainerButton>
       </FlexContainerButton>
       {user && ( <WorkLinksContainer>
       { user.role === 2 &&  <Link href='/admin'>Админская</Link>}
@@ -177,11 +181,29 @@ export const NavBar = () => {
         </>
        )}
       </>
-        {isLoading ? null : <Button onClick={isAuth ? handleLogout : handleLogin} RightElement={isAuth ? null : SteamIcon}>{isAuth ? NavBarLang[currentLang].logout : NavBarLang[currentLang].login}</Button>}
+        {isLoading ? <Loader height="30" width="30" /> : <Button onClick={isAuth ? handleLogout : handleLogin} RightElement={isAuth ? null : SteamIcon}>{isAuth ? NavBarLang[currentLang].logout : NavBarLang[currentLang].login}</Button>}
       </FlexContainerButton>
     </FlexContainer>
   )
 }
+
+
+const Logo = styled.div`
+  font-size: 42px;
+  font-weight: 800;
+  display: flex;
+  text-transform: uppercase;
+  margin-right: 24px;
+  cursor: pointer;
+`
+
+const Black = styled.div`
+  color: ${color.accent};
+`
+
+const Wood = styled.div`
+  color: ${color.white};
+`
 
 const StyledLinkPromo = styled.div`
   display: flex;

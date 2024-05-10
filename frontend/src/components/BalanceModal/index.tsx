@@ -54,7 +54,7 @@ export const BalanceModal = () => {
       title={BalanceLang[currentLang].title}
       buttonGroup={() => (<><Button onClick={onClose}>{BalanceLang[currentLang].Cancel}</Button>&nbsp;<Button onClick={handleCreatePayment}>{BalanceLang[currentLang].TopUp}</Button></>)}    
       >
-        {isLoadingCreateRequst && <Loader />}
+        {(isLoadingCreateRequst || isLoading) && <Loader />}
         {!isLoadingCreateRequst && <form>
           <Controller
             name='paymentKey'

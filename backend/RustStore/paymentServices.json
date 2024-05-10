@@ -6,5 +6,13 @@
     "SecretKey": "EEA8AXvbUiV1SKy4CRizbqkczV2nBWvBauLmYykQexUUB0fSdAFh01bww32q7Ok3mvLmdFNmL1oNjWZo",
     "AdditionalKey": "AeJuTVNsJT0slsziV6jnzdL9jz0h8sSj4Q606sSnmpXx2FxIPzsHzx-vv4Yeg0DW8wjajCojF9O33obm",
     "ImageUrl": "123"
+  },
+  {
+    "DisplayName": "Bank card MIR",
+    "PaymentServiceKey": "custom_tome",
+    "ShopId": "123",
+    "SecretKey": "EEA8AXvbUiV1SKy4CRizbqkczV2nBWvBauLmYykQexUUB0fSdAFh01bww32q7Ok3mvLmdFNmL1oNjWZo",
+    "AdditionalKey": "AeJuTVNsJT0slsziV6jnzdL9jz0h8sSj4Q606sSnmpXx2FxIPzsHzx-vv4Yeg0DW8wjajCojF9O33obm",
+    "ImageUrl": "123"
   }
 ]

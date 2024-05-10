@@ -3,7 +3,7 @@ import { SimpleAction } from "@/shared/utils/simpleAction";
 import { PageTitle } from "../../PageTitle";
 import { useUnit } from "effector-react";
 import { $categoryStore, $products, createProductEvent, getCategoryTypeEvent, getProductsListEvent, removeProductEvent } from "@/app/(admin)/_api/products";
-import { useLayoutEffect, useMemo, useState } from "react";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/Button";
 import styled from "styled-components";
 import { TableWrapper } from "@/components/TableWrapper";
@@ -12,6 +12,7 @@ import { Input, InputLabelText } from "@/components/form/input/Input";
 import { Select } from "@/components/form/select";
 import { Controller, useForm } from "react-hook-form";
 import { DefaultProductsModal } from "../_components/DefaultProductsModal";
+import JoditEditor from "jodit-react";
 
 export const Products = () => {
     const getProducts = useUnit(getProductsListEvent);
@@ -22,12 +23,29 @@ export const Products = () => {
     const [isOpen, setOpen] = useState(false);
     const [customOpenModal, setCustomOpenModal] = useState(false);
     const {data, isLoading} = useUnit($products);
+    const editor = useRef(null);
+	const [content, setContent] = useState('');
+	const config = useMemo(
+		() => ({
+            height: 360,
+			readonly: false,
+			placeholder:  'Описание товара...',
+		}),
+		[]
+	);
     const {
         register,
         control,
         getValues,
         formState: { errors },
-      } = useForm()
+      } = useForm({
+        defaultValues: {
+            amount: 1,
+            price: 10,
+            isActive: true,
+            productType: 0
+        }
+      })
     const columnList = useMemo(() => {
         return [
             {
@@ -85,8 +103,15 @@ export const Products = () => {
         getCategoryType()
     }, [])
 
-    const onSubmit = () => createProduct(getValues())
-    console.log(categoryStores)
+    const onSubmit = () => {
+        const values = getValues();
+        createProduct({
+        ...values,
+        isActive: values.isActive === 1 ? true: false,
+        description: content
+    })
+}
+
     return (
         <>
         <PageTitle title='Страница товаров магазина'>
@@ -98,7 +123,7 @@ export const Products = () => {
             return <Button width='120px' position='center' fontSize='16px' p='6px' onClick={() => onSubmit()}>Создать</Button>
         }}>
         <form >
-            <Button type="button" onClick={() => setCustomOpenModal(true)}>Выбрать стандарный товар</Button>
+            {/* <Button type="button" onClick={() => setCustomOpenModal(true)}>Выбрать стандарный товар</Button> */}
             <Controller
                 name='title'
                 control={control}
@@ -111,12 +136,33 @@ export const Products = () => {
             />
 
             <Controller
-                name='description'
+                name='itemId'
                 control={control}
                 render={({ field }) => (
                 <InputLabelText>
-                    Описание товара
-                <Input {...field}/>
+                    ID предмета
+                    <Input {...field}/>
+                </InputLabelText>
+                )}
+            />
+
+            <Controller
+                name='isActive'
+                control={control}
+                render={({ field }) => (
+                <InputLabelText>
+                    Cтатус
+                    <Select {...field} options={[{type: 1, title: 'Включен'}, {type: 2, title: 'Выключен'}]}/>
+                </InputLabelText>
+                )}
+            />
+            <Controller
+                name='amount'
+                control={control}
+                render={({ field }) => (
+                <InputLabelText>
+                    Количество
+                <Input type="number" {...field}/>
             </InputLabelText>
             )
             }
@@ -162,6 +208,37 @@ export const Products = () => {
                 </InputLabelText>
                 )}
             />
+            <Controller
+                name='timeout'
+                control={control}
+                render={({field}) => (
+                    <InputLabelText>
+                    Время перезарядки
+                    <Input type="url" {...field}/>
+                </InputLabelText>
+                )}
+            />
+            <Controller
+                name='index'
+                control={control}
+                render={({field}) => (
+                    <InputLabelText>
+                    Индекс
+                    <Input type='number' placeholder="Чем меньше индекс тем выше предмет в списке предметов магазина" {...field}/>
+                </InputLabelText>
+                )}
+            />
+            <InputLabelText>
+            Описание товара
+            <Jodit>
+                <JoditEditor
+                    ref={editor}
+                    value={content}
+                    config={config}
+                    onChange={(newContent) => setContent(newContent)}
+                />
+            </Jodit>
+            </InputLabelText>
         </form>
             {customOpenModal && <DefaultProductsModal customOpenModal={customOpenModal} setCustomOpenModal={setCustomOpenModal}/>}
        </Modal>
@@ -174,4 +251,9 @@ const ButtonGroup = styled.div`
     button + button {
         margin-left: 8px;
     }
+`
+
+const Jodit = styled.div`
+    margin-top: 24px;
+    color: #333;
 `

@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 
 const protectedRoute = ['/profile'];
-const adminRoute = ['/admin']
+const adminRoute = ['/admin', '/admin/products']
 
 export default function MiddleWare (req: any) {
     const session = req.cookies.get('session');

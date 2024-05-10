@@ -58,6 +58,7 @@ export const Modal = ({ children, onClose, isOpen, title = "Заголовок �
     background: #1A1A1A;
     width: 750px;
     border: 1px solid #000000;
+    overflow: auto;
   `
   
   const ModalHeader = styled.div`

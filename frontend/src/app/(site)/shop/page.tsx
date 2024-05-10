@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import { $serverStore, serverRequest } from "./store";
 import { $lang } from "@/store/lang";
-import { ShopLang } from "./lang";
+import { ShopLang } from "../lang";
 
 
 const Title = styled.h2`
@@ -52,7 +52,7 @@ const SelectShopContainer = styled.div`
   min-height: calc(100vh - 100px);
 `
 
-export default function Shop() {
+export const Shop = () => {
   const getServers = useUnit(serverRequest);
   const {currentLang} = useUnit($lang);
   const { 

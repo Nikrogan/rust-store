@@ -71,6 +71,18 @@ sample({
 })
 
 sample({
+    clock: getUserFx.failData,
+    fn: () => {
+        return {
+            isLoading: false,
+            user: null,
+            isAuth: false
+        }
+    },
+    target: $userStores
+})
+
+sample({
     clock: getUserFx.doneData,
     fn:(data) => {
         if(data) {

@@ -1,5 +1,4 @@
-import { $NotificationList, $roullete, buyRoulleteFx, generateItems, getRandomInt, getSlider } from "@/components/roullete/store";
-import { api } from "@/config/api";
+import { api, buildRequest } from "@/config/api";
 import { createEffect, createEvent, createStore, sample } from "effector";
 
 const defaultModalStore = {
@@ -8,26 +7,22 @@ const defaultModalStore = {
     type: null
 }
 
+export const $roullete = createStore({
+    isRun: false,
+    sliderWidth: 0,
+    items: [],
+    defaultItems: []
+})
+
+
 export const $modal = createStore(defaultModalStore)
 
-export const getProductsEvent = createEvent('')
-export const $products = createStore(null);
-
-const getProductsFx = createEffect(async (id) => {
-    const {data} = await api.get(`/products/${id}`, )
-    return data
+const {request, store: productsStore} = buildRequest('get-products', {
+    requestFn: (id = ' ') => api.get(`/products/${id}`)
 })
 
-sample({
-    clock: getProductsEvent,
-    target: getProductsFx
-})
-
-sample({
-    clock: getProductsFx.doneData,
-    target: $products
-})
-
+export const getProductsEvent = request
+export const $products = productsStore;
 
 export const openModalEvent = createEvent();
 export const closeModalEvent = createEvent();
@@ -71,20 +66,6 @@ sample({
     target: $modal
 })
 
-sample({
-    clock: buyRoulleteFx.doneData,
-    source: $modal,
-    fn: (modalStore, { data }) => {
-        const winIndex = modalStore.content.insideProducts.findIndex(x => x.title === data.payLoad.title)
-        return {
-            isRun: true,
-            sliderWidth: getSlider(getRandomInt(2480, 2590)),
-            items: generateItems(modalStore.content.insideProducts, winIndex, 50),
-            defaultItems: modalStore.content.insideProducts
-        }
-    },
-    target: $roullete
-})
 
 
 sample({
@@ -154,13 +135,6 @@ export const countdown = createCountdown("simple", {
   abort: abortCountdown,
 });
 
-sample({
-    clock: buyRoulleteFx.doneData,
-    fn: () => {
-        return 5
-    },
-    target: startCountdown
-})
 
 
 sample({

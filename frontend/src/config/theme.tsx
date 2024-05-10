@@ -4,4 +4,5 @@ export const color = {
     thirdly: '#414141',
     white: '#FFFFFF',
     accent: '#FFE138',
+    doubleprimary: '#7950F2'
 }

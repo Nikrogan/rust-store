@@ -19,6 +19,8 @@
     "dotenv": "^16.4.1",
     "effector": "^23.1.0",
     "effector-react": "^23.1.0",
+    "html-react-parser": "^5.1.10",
+    "jodit-react": "^4.1.2",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",

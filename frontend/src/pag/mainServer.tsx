@@ -10,6 +10,7 @@ import { useUnit } from "effector-react";
 import { $NotificationList } from "@/components/roullete/store";
 import { Notification } from "./Notification/notification";
 import { changeLangEvent } from "@/store/lang";
+import { Shop } from "@/app/(site)/shop/page";
 
 const Background = styled.div`
     background: ${() => "#0B0911" };
@@ -42,10 +43,6 @@ export const MainPageServer = ({children}) => {
         }
     }, [])
 
-    if(pathname === '/') {
-        return <Main />
-    }
-
     const NotificationListView = NotificationData.map((item, i) => {
         return <Notification key={item + i}>{item}</Notification>
     })
@@ -56,7 +53,6 @@ export const MainPageServer = ({children}) => {
                 <div>
                     <NavBar />
                 </div>
-
                 <StyledMain>
                     {children}
                 </StyledMain>

@@ -16,7 +16,7 @@ export const AuthCheck = ({children, role = 0}) => {
         return null
     }
 
-    if(!isLoading && user.role < role) {
+    if(!isLoading && user?.role < role) {
         return null;
     }
 
