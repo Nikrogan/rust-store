@@ -504,7 +504,8 @@ namespace Service.Implementations
                 {
                     DateTime = DateTime.Now,
                     OperationType = model.OperationType,
-                    PaymentSystem = model.PaymentSystem
+                    PaymentName = model.PaymentName,
+                    Value = model.Value
 
                 };
 

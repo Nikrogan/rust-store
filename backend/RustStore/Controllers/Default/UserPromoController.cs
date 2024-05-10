@@ -60,8 +60,9 @@ namespace RustStore.Controllers.Default
             await _userService.CreateUserBalanceAction(user.SteamId, new BalanceActionModel
             {
                 DateTime = DateTime.Now,
-                PaymentSystem = "-",
-                OperationType = OperationType.UsePromocode
+                PaymentName = "" + (promo.Data.MoneyValue != 0 ? "Money " : "") + (promo.Data.DiscountValue != 0 ? "Discount" : ""),
+                OperationType = OperationType.UsePromocode,
+                Value = promo.Data.MoneyValue != 0 ? promo.Data.MoneyValue : promo.Data.DiscountValue
             });
 
             return new BaseServerResponse<string>("Success", Domain.Enum.StatusCode.OK);

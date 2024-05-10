@@ -5,12 +5,14 @@ namespace Domain.Entity;
 
 public class SimpleServer
 {
-    [BsonId]
-    [BsonRepresentation(BsonType.ObjectId)]
-    public string Id { get; set; }
 
-    public string gamePort { get; set; }
-    public int ip { get; set; }
-    public int name { get; set; }
-    public int queryPort { get; set; }
+    public ulong ServerKey { get; set; }
+
+    public string Ip { get; set; }
+    public int GamePort { get; set; }
+    public string Name { get; set; }
+
+    public int MaxPlayers { get; set; }
+    public int ActivePlayers { get; set; }
+    public int QueuePlayers { get; set; }
 }

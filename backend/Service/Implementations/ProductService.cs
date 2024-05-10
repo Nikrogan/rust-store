@@ -251,7 +251,7 @@ namespace Service.Implementations
             try
             {
                 var allResources = await _productRepository.GetAll();
-                var resource = allResources.Where(x => x.ServerKey == serverkey);
+                var resource = allResources.Where(x => x.ServerKey == serverkey && x.IsActive);
                 if (!resource.Any())
                 {
                     baseResponse.Description = "Element not found";

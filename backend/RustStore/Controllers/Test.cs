@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using Domain.Response;
 using Domain.Entity;
 using Service.Interfaces;
+using Service;
 
 namespace RustStore.Controllers
 {
@@ -42,12 +43,13 @@ namespace RustStore.Controllers
         //        }
         //    }
         //}
-        [HttpGet]
-        public async Task<IBaseServerResponse<IEnumerable<DefaultItem>>> GetDefaultItems()
-        {
-            var response = await _defaultItemService.GetDefaultItems();
-            return new BaseServerResponse<IEnumerable<DefaultItem>>(response.Data, response.StatusCode);
-        }
+
+        //[HttpGet]
+        //public async Task<IBaseServerResponse<IEnumerable<DefaultItem>>> GetDefaultItems()
+        //{
+        //    var response = await _defaultItemService.GetDefaultItems();
+        //    return new BaseServerResponse<IEnumerable<DefaultItem>>(response.Data, response.StatusCode);
+        //}
 
         //[HttpPost]
         //public IActionResult GenerateRadarChart([FromBody] Dictionary<string, int> data)

@@ -3,6 +3,7 @@ using Domain.Entity;
 using Domain.Enum;
 using Domain.Response;
 using Service.Interfaces;
+using System.Xml.Linq;
 
 namespace Service.Implementations;
 
@@ -22,8 +23,11 @@ public class ServerService : IServerService
         {
             var newServer = new BaseServer
             {
+                ServerKey = server.ServerKey,
                 QueryPort = server.QueryPort,
                 GamePort = server.GamePort,
+                RconPort = server.RconPort,
+                RconPassword = server.RconPassword,
                 Ip = server.Ip,
                 Name = server.Name
             };
@@ -142,8 +146,11 @@ public class ServerService : IServerService
         var currentServer = allServers.FirstOrDefault(x => server.Id == x.Id);
         try
         {
+            currentServer.ServerKey = server.ServerKey;
             currentServer.QueryPort = server.QueryPort;
             currentServer.GamePort = server.GamePort;
+            currentServer.RconPort = server.RconPort;
+            currentServer.RconPassword = server.RconPassword;
             currentServer.Ip = server.Ip;
             currentServer.Name = server.Name;
 

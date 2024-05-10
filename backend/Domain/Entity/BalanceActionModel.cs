@@ -7,6 +7,7 @@ namespace Domain.Entity
     {
         public DateTime DateTime { get; set; }
         public OperationType OperationType { get; set; }
-        public string PaymentSystem {  get; set; }
+        public string PaymentName {  get; set; }
+        public decimal Value { get; set; }
     }
 }
