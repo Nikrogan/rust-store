@@ -4,16 +4,19 @@ using Domain.Entity;
 using Domain.Response;
 using Service.Interfaces;
 using MongoDB.Driver;
+using DAL.Repositories;
 
 namespace Service.Implementations
 {
     public class ProductService : IProductService
     {
         private readonly IBaseRepository<BaseProduct> _productRepository;
+        private readonly IShopFiltersService _shopFiltersService;
 
-        public ProductService(IBaseRepository<BaseProduct> productRepository)
+        public ProductService(IBaseRepository<BaseProduct> productRepository, IShopFiltersService shopFiltersService)
         {
             _productRepository = productRepository;
+            _shopFiltersService = shopFiltersService;
         }
 
         public async Task<IBaseResponse<BaseProduct>> CreateProduct(BaseProduct viewModel)
