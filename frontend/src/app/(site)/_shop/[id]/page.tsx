@@ -70,7 +70,7 @@ export default function Shop() {
      {isLoading ? <Loader/> : (<ProductsList>
           {productsView}
       </ProductsList>)}
-      {isOpen && <Modal title={ type === 2  ? 'Испытай удачу' : `${content.title} ${content.amount > 1 ? 'x' + content.amount : ''}` } isOpen={isOpen} onClose={closeModal}>
+      {isOpen && <Modal w={(!content.description && (type === 1 || type === 0)) ? 'auto': null} title={ type === 2  ? 'Испытай удачу' : `${content.title} ${content.amount > 1 ? 'x' + content.amount : ''}` } isOpen={isOpen} onClose={closeModal}>
         {(type === 1 || type === 0) && <ProductModal {...content} />}
         {isRoullete && <Roullete winItemIndex={undefined} itemLenghtInLine={50}/>}
         {type === 3 && <ProductGroupModal {...content} />}

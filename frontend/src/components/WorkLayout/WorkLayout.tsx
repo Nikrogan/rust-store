@@ -23,7 +23,7 @@ export const WorkLayout = ({children, links}) => {
                 {(currentPage === '/work' || currentPage === "/work/") && <HeaderLink href={'/admin'}>Админка</HeaderLink>}
                 <Balance>{user.balance} BW</Balance>
                 <Image src={user.avatarUrl} alt="UserImage" width={40} height={40}/>
-                <Button onClick={() => router.replace('/shop')}>Выйти</Button>
+                <Button onClick={() => router.replace('/')}>Выйти</Button>
             </HeaderMenu>
         </Header>
         <Main>

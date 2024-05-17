@@ -34,7 +34,6 @@ export const Products = () => {
 		[]
 	);
     const {
-        register,
         control,
         getValues,
         formState: { errors },
@@ -46,7 +45,7 @@ export const Products = () => {
             isActive: true,
             productType: 0
         }
-      })
+    })
 
     const productTypeData = watch('productType');
 

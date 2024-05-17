@@ -1,10 +1,9 @@
 import styled from "styled-components"
 
-export const Modal = ({ children, onClose, isOpen, title = "Заголовок модалки", buttonGroup }) => {
-  
+export const Modal = ({ children, onClose, isOpen, title = "Заголовок модалки", buttonGroup, w }) => {
     return isOpen && (
     <ModalBlur>
-      <ModalContent>
+      <ModalContent w={w}>
         <ModalHeader>
           <ModalTitle>
             {title}
@@ -56,7 +55,7 @@ export const Modal = ({ children, onClose, isOpen, title = "Заголовок �
   const ModalContent = styled.div`
     padding: 16px;
     background: #1A1A1A;
-    width: 750px;
+    width: ${({w}) => w ? w : '750px'};
     border: 1px solid #000000;
     overflow: auto;
   `
