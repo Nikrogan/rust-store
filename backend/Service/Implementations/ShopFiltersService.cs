@@ -22,7 +22,8 @@ public class ShopFiltersService : IShopFiltersService
         {
             var newShopFilter = new BaseShopFilter
             {
-                Title = newFilter.Title
+                Title = newFilter.Title,
+                CategoryTypes = newFilter.CategoryTypes
             };
 
             await _shopFiltersRepository.Add(newShopFilter);
