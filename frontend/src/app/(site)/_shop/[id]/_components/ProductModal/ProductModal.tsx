@@ -5,10 +5,12 @@ import parse from 'html-react-parser';
 export const ProductModal = ({...rest}) => {
     const { description, imageUrl} = rest
     return <Container>
+        <div>
         <ProductImage>
             <Image src={imageUrl || 'https://bwrust.ru/uploads/newBw/main_image.jpg'} alt={""} width={300} height={300}/>
         </ProductImage>
-        <Description>{parse(description)}</Description>
+        </div>
+        {description && <Description>{parse(description)}</Description> }
     </Container>
 }
 
@@ -22,8 +24,7 @@ const ProductImage = styled.div`
     width: 300px;
     height: 300px;
     img {
-        width: 300px;
-
+        width: 300px
     }
 `
 
