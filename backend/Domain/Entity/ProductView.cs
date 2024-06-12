@@ -14,6 +14,7 @@ namespace Domain.Entity
         public int? MinAmount {  get; set; }
         public int Discount { get; set; }
         public ulong ServerKey { get; set; }
+        public int? Chance {  get; set; }
         public string ImageUrl { get; set; }
         public CategoryType CategoryType { get; set; }
         public List<ProductView>? InsideProducts { get; set; }
@@ -27,6 +28,7 @@ namespace Domain.Entity
             Amount = product.Amount;
             Price = product.Price;
             Discount = product.Discount;
+            Chance = null;
             ServerKey = product.ServerKey;
             ImageUrl = product.ImageUrl;
             CategoryType = product.CategoryType;
@@ -41,6 +43,7 @@ namespace Domain.Entity
             Price = product.Price;
             Amount = product.Amount;
             MinAmount = product.MinAmount;
+            Chance = product.Chance;
             ImageUrl = product.ImageUrl;
             CategoryType = product.CategoryType;
             InsideProducts = product?.PackProducts?.ConvertAll(x => new ProductView(x));

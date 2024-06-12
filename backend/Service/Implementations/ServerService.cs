@@ -2,6 +2,7 @@
 using Domain.Entity;
 using Domain.Enum;
 using Domain.Response;
+using Service.A2S;
 using Service.Interfaces;
 using System.Xml.Linq;
 
@@ -174,5 +175,157 @@ public class ServerService : IServerService
                 StatusCode = StatusCode.InternalServerError
             };
         }
+    }
+
+    public async Task<IBaseResponse<SimpleServer>> GetInfo(ulong serverKey)
+    {
+        try
+        {
+            var baseResponse = new BaseResponse<SimpleServer>();
+            var allServers = await _ServerRepository.GetAll();
+            var currentServer = allServers.FirstOrDefault(x => serverKey == x.ServerKey);
+
+            if (currentServer == null)
+            {
+                baseResponse.Description = "Server not found";
+                baseResponse.StatusCode = StatusCode.ElementNotFound;
+                return baseResponse;
+            }
+
+            var serverInfo = new SimpleServer
+            {
+                ServerKey = currentServer.ServerKey,
+                Ip = currentServer.Ip,
+                GamePort = currentServer.GamePort,
+                Name = currentServer.Name,
+                MaxPlayers = 0,
+                ActivePlayers = 0,
+                QueuePlayers = 0,
+                IsOnline = false
+            };
+
+            var queryInfo = Server.Query(currentServer.Ip, currentServer.QueryPort,15);
+
+            if (queryInfo is Exception)
+            {
+                baseResponse.Data = serverInfo;
+                baseResponse.StatusCode = StatusCode.OK;
+                return baseResponse;
+            }
+
+            var infoKeyWords = FormatKeyWords((string)queryInfo.Keywords);
+
+            serverInfo.MaxPlayers = infoKeyWords.MaximumPlayers;
+            serverInfo.ActivePlayers = infoKeyWords.CurrentPlayers;
+            serverInfo.QueuePlayers = infoKeyWords.QueuedPlayers;
+            serverInfo.IsOnline = true;
+
+            baseResponse.Data = serverInfo;
+            baseResponse.StatusCode = StatusCode.OK;
+            return baseResponse;
+        }
+        catch (Exception ex)
+        {
+            return new BaseResponse<SimpleServer>
+            {
+                Description = $"[GetInfo] : {ex.Message}",
+                StatusCode = StatusCode.InternalServerError
+            };
+        }
+    }
+
+    public async Task<IBaseResponse<List<SimpleServer>>> GetAllInfo()
+    {
+        try
+        {
+            var baseResponse = new BaseResponse<List<SimpleServer>>();
+            var allServers = await _ServerRepository.GetAll();
+
+            if (!allServers.Any())
+            {
+                baseResponse.Description = "Servers not found";
+                baseResponse.StatusCode = StatusCode.ElementNotFound;
+                return baseResponse;
+            }
+
+            var infoServersList = new List<SimpleServer>();
+
+            foreach (var currentServer in allServers)
+            {
+                var serverInfo = new SimpleServer
+                {
+                    ServerKey = currentServer.ServerKey,
+                    Ip = currentServer.Ip,
+                    GamePort = currentServer.GamePort,
+                    Name = currentServer.Name,
+                    MaxPlayers = 0,
+                    ActivePlayers = 0,
+                    QueuePlayers = 0,
+                    IsOnline = false
+                };
+
+                var queryInfo = Server.Query(currentServer.Ip, currentServer.QueryPort, 15);
+
+                if (queryInfo is Exception)
+                {
+                    infoServersList.Add(serverInfo);
+                    continue;
+                }
+
+                var infoKeyWords = FormatKeyWords((string)queryInfo.Keywords);
+
+                serverInfo.MaxPlayers = infoKeyWords.MaximumPlayers;
+                serverInfo.ActivePlayers = infoKeyWords.CurrentPlayers;
+                serverInfo.QueuePlayers = infoKeyWords.QueuedPlayers;
+                serverInfo.IsOnline = true;
+                infoServersList.Add(serverInfo);
+            }
+
+            baseResponse.Data = infoServersList;
+            baseResponse.StatusCode = StatusCode.OK;
+            return baseResponse;
+        }
+        catch (Exception ex)
+        {
+            return new BaseResponse<List<SimpleServer>>
+            {
+                Description = $"[GetAllInfo] : {ex.Message}",
+                StatusCode = StatusCode.InternalServerError
+            };
+        }
+    }
+
+    private class InfoKeyWords
+    {
+        public int CurrentPlayers { get; set; }
+        public int MaximumPlayers { get; set; }
+        public int QueuedPlayers { get; set; }
+    }
+
+    private InfoKeyWords FormatKeyWords(string keywords)
+    {
+        var info = new InfoKeyWords();
+
+        var splittedWords = keywords.Split(',');
+
+        foreach (var word in splittedWords) {
+            if (word.StartsWith("cp"))
+            {
+                info.CurrentPlayers = int.Parse(word.Replace("cp", ""));
+                continue;
+            }
+            if (word.StartsWith("mp"))  
+            { 
+                info.MaximumPlayers = int.Parse(word.Replace("mp", ""));
+                continue;
+            }
+            if (word.StartsWith("qp"))
+            { 
+                info.QueuedPlayers = int.Parse(word.Replace("qp", ""));
+                continue;
+            }
+        }
+
+        return info;
     }
 }

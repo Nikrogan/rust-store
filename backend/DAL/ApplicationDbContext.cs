@@ -41,6 +41,8 @@ public class ApplicationDbContext
             _database.CreateCollection("servers");
         if (!CollectionExists("purchasestats"))
             _database.CreateCollection("purchasestats");
+        if (!CollectionExists("bans"))
+            _database.CreateCollection("bans");
         if (!CollectionExists("shopfilters"))
         {
             _database.CreateCollection("shopfilters");
@@ -93,6 +95,7 @@ public class ApplicationDbContext
         PlayerCheckSheetCollection = _database.GetCollection<BasePlayerCheck>("playerchecksheet");
         PromocodeCollection = _database.GetCollection<BasePromo>("promocodes");
         PurchasesStatCollection = _database.GetCollection<PurchaseStat>("purchasestats");
+        BansCollection = _database.GetCollection<BaseBan>("bans");
     }
 
     public IMongoCollection<BaseUser> UserCollection { get; set; }
@@ -105,6 +108,7 @@ public class ApplicationDbContext
     public IMongoCollection<BaseServer> ServerCollection { get; set; }
 
     public IMongoCollection<BasePlayerCheck> PlayerCheckSheetCollection { get; set; }
+    public IMongoCollection<BaseBan> BansCollection { get; set; }
 
     public bool CollectionExists(string collectionName)
     {
