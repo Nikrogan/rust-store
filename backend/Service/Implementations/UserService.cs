@@ -556,5 +556,45 @@ namespace Service.Implementations
                 };
             }
         }
+
+        public async Task<IBaseResponse<BaseProduct>> TakeBasketItem(string steamID, int index)
+        {
+            var baseResponse = new BaseResponse<BaseProduct>();
+            try
+            {
+                var allElements = await _accountRepository.GetAll();
+                var resource = allElements.FirstOrDefault(x => x.SteamId == steamID);
+                if (resource == null)
+                {
+                    baseResponse.Description = "Account not found";
+                    baseResponse.StatusCode = StatusCode.ElementNotFound;
+                    return baseResponse;
+                }
+
+                if(resource.Basket == null || !resource.Basket.Any())
+                {
+                    baseResponse.Description = "Basket is empty";
+                    baseResponse.StatusCode = StatusCode.ElementNotFound;
+                    return baseResponse;
+                }
+
+                var needItem = resource.Basket[index];
+
+                resource.Basket.Remove(needItem);
+                await EditElement(resource);
+
+                baseResponse.Data = needItem;
+                baseResponse.StatusCode = StatusCode.OK;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<BaseProduct>()
+                {
+                    Description = $"[TakeBasketItem] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
     }
 }
